@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EncontrosUniversitarios</string>
+    <string name="title_programacao">Programação</string>
+    <string name="title_programacao_do_dia">Hoje</string>
+    <string name="title_frequencia">Frequência</string>
+    <string name="search_hint">Digite a atividade</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
