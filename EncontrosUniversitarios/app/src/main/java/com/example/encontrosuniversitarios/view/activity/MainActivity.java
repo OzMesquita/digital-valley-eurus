@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.view.fragment.FrequenciaFragment;
+import com.example.encontrosuniversitarios.view.fragment.AtividadesFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class ProgramacaoDoDiaAdapter extends RecyclerView.Adapter<AtividadeViewH
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String textFilter = constraint.toString();
+                Log.i("Filter",textFilter);
                 if(textFilter.isEmpty()){
                     atividadesFiltradas = atividades;
                 }else{
