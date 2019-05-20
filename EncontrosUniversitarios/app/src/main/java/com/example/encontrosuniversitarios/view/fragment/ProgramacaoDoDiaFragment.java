@@ -28,7 +28,7 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_programacao_do_dia,container,false);
         programacaoAbasAdapter = new ProgramacaoAbasAdapter(getFragmentManager());
-
+        
         programacaoAbasAdapter.addFragment(new AtividadesFragment(),"Iniciadas");
         programacaoAbasAdapter.addFragment(new AtividadesFragment(),"Próximas");
         programacaoAbasAdapter.addFragment(new AtividadesFragment(),"Finalizadas");
