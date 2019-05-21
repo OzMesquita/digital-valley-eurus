@@ -1,4 +1,4 @@
-package com.example.encontrosuniversitarios;
+package com.example.encontrosuniversitarios.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.example.encontrosuniversitarios.view.viewholder.AtividadeViewHolder;
+import com.example.encontrosuniversitarios.view.viewholder.DiaDoEventoViewHolder;
+import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DiaEvento;
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
@@ -14,7 +17,7 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEventoViewHolder,AtividadeViewHolder> implements Filterable {
+public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEventoViewHolder, AtividadeViewHolder> implements Filterable {
     private List<ExpandableGroup> filteredGroups;
     private List<ExpandableGroup> originalList;
     public ProgramacaoAdapter(List<? extends ExpandableGroup> groups) {

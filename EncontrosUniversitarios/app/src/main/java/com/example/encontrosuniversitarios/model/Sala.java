@@ -1,9 +1,12 @@
 package com.example.encontrosuniversitarios.model;
 
+import java.util.List;
+
 public class Sala {
     private int numero;
     private String nome;
     private String andar;
+    private List<Atividade> atividades;
 
     public int getNumero() {
         return numero;
@@ -29,4 +32,11 @@ public class Sala {
         this.andar = andar;
     }
 
+    public List<Atividade> getAtividades() {
+        return atividades;
+    }
+
+    public void setAtividades(List<Atividade> atividades) {
+        this.atividades = atividades;
+    }
 }

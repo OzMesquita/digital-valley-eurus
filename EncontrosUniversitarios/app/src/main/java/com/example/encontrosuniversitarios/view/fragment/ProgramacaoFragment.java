@@ -14,7 +14,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.encontrosuniversitarios.ProgramacaoAdapter;
+import com.example.encontrosuniversitarios.view.adapter.ProgramacaoAdapter;
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
@@ -63,33 +63,33 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
         ArrayList<DiaEvento> diasEvento = new ArrayList<>();
 
         ArrayList<Atividade> atividadesPrimeiroDia = new ArrayList<>();
-        atividadesPrimeiroDia.add(new Atividade("Projetos Ageis",null,null));
-        atividadesPrimeiroDia.add(new Atividade("Projetos Gerenciais",null,null));
-        atividadesPrimeiroDia.add(new Atividade("Projetos Errados",null,null));
+        atividadesPrimeiroDia.add(new Atividade("Projetos Ageis"));
+        atividadesPrimeiroDia.add(new Atividade("Projetos Gerenciais"));
+        atividadesPrimeiroDia.add(new Atividade("Projetos Errados"));
 
         DiaEvento dia1 = new DiaEvento("05/04/2019",atividadesPrimeiroDia);
         diasEvento.add(dia1);
 
         ArrayList<Atividade> atividadesSegundoDia = new ArrayList<>();
-        atividadesSegundoDia.add(new Atividade("Fisica",null,null));
-        atividadesSegundoDia.add(new Atividade("Fisica mecanica",null,null));
-        atividadesSegundoDia.add(new Atividade("Entropia",null,null));
+        atividadesSegundoDia.add(new Atividade("Fisica"));
+        atividadesSegundoDia.add(new Atividade("Fisica mecanica"));
+        atividadesSegundoDia.add(new Atividade("Entropia"));
 
         DiaEvento dia2 = new DiaEvento("06/04/2019",atividadesSegundoDia);
         diasEvento.add(dia2);
 
         ArrayList<Atividade> atividadesTerceiroDia = new ArrayList<>();
-        atividadesTerceiroDia.add(new Atividade("Docker",null,null));
-        atividadesTerceiroDia.add(new Atividade("IA com docker",null,null));
-        atividadesTerceiroDia.add(new Atividade("Deep Docker",null,null));
+        atividadesTerceiroDia.add(new Atividade("Docker"));
+        atividadesTerceiroDia.add(new Atividade("IA com docker"));
+        atividadesTerceiroDia.add(new Atividade("Deep Docker"));
 
         DiaEvento dia3 = new DiaEvento("07/04/2019",atividadesTerceiroDia);
         diasEvento.add(dia3);
 
         ArrayList<Atividade> atividadesQuartoDia = new ArrayList<>();
-        atividadesQuartoDia.add(new Atividade("Ingles",null,null));
-        atividadesQuartoDia.add(new Atividade("Chines",null,null));
-        atividadesQuartoDia.add(new Atividade("Bahasa",null,null));
+        atividadesQuartoDia.add(new Atividade("Ingles"));
+        atividadesQuartoDia.add(new Atividade("Chines"));
+        atividadesQuartoDia.add(new Atividade("Bahasa"));
 
         DiaEvento dia4 = new DiaEvento("08/04/2019",atividadesQuartoDia);
         diasEvento.add(dia4);

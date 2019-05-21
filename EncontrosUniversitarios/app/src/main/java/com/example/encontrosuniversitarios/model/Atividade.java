@@ -22,6 +22,38 @@ public class Atividade implements Parcelable {
         this.nome = nome;
     }
 
+    public Atividade(String nome, DateTime horarioInicialPrevisto, DateTime horarioInicio, DateTime horarioFinal){
+        this(nome);
+        this.horarioInicialPrevisto = horarioInicialPrevisto;
+        this.horarioInicio = horarioInicio;
+        this.horarioFinal = horarioFinal;
+    }
+
+    public Boolean verificarAtividadeAconteceuDentre(DateTime checkIn,DateTime checkOut){
+        if(this.horarioInicio==null || this.horarioFinal==null) return null;
+        return (this.horarioInicio.getMillis() >= checkIn.getMillis()) && (this.horarioFinal.getMillis() <= checkOut.getMillis());
+    }
+
+    public Boolean iniciar(){
+        if(this.horarioInicio==null){
+            this.horarioInicio = DateTime.now();
+            return true;
+        }else if(this.horarioInicio!=null){
+            return false;
+        }
+        return false;
+    }
+
+    public Boolean finalizar(){
+        if(this.horarioFinal==null && this.horarioInicio!=null){
+            this.horarioFinal = DateTime.now();
+            return true;
+        }else if(this.horarioFinal!=null){
+            return false;
+        }
+        return false;
+    }
+
     protected Atividade(Parcel in){
         this.nome = in.readString();
     }

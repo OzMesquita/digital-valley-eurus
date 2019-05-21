@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filterable;
 
-import com.example.encontrosuniversitarios.ProgramacaoDoDiaAdapter;
+import com.example.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
@@ -29,16 +29,16 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
     public AtividadesFragment() {
         // Required empty public constructor
         atividades = new ArrayList<>();
-        atividades.add(new Atividade("Testes com docker",null,null));
-        atividades.add(new Atividade("Engenharia de software",null,null));
-        atividades.add(new Atividade("Projeto da dengue",null,null));
-        atividades.add(new Atividade("Engenharia civil aplicada",null,null));
-        atividades.add(new Atividade("Flutter",null,null));
-        atividades.add(new Atividade("Gerencia de projetos",null,null));
-        atividades.add(new Atividade("Ciencia",null,null));
-        atividades.add(new Atividade("Profissões",null,null));
-        atividades.add(new Atividade("Karaoke",null,null));
-        atividades.add(new Atividade("Engenharia de telecomunicações",null,null));
+        atividades.add(new Atividade("Testes com docker"));
+        atividades.add(new Atividade("Engenharia de software"));
+        atividades.add(new Atividade("Projeto da dengue"));
+        atividades.add(new Atividade("Engenharia civil aplicada"));
+        atividades.add(new Atividade("Flutter"));
+        atividades.add(new Atividade("Gerencia de projetos"));
+        atividades.add(new Atividade("Ciencia"));
+        atividades.add(new Atividade("Profissões"));
+        atividades.add(new Atividade("Karaoke"));
+        atividades.add(new Atividade("Engenharia de telecomunicações"));
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.encontrosuniversitarios;
+package com.example.encontrosuniversitarios.view.adapter;
 
 import java.util.ArrayList;
 import java.util.List;

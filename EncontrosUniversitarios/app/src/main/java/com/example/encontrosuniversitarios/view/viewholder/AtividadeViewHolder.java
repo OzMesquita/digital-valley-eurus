@@ -1,8 +1,9 @@
-package com.example.encontrosuniversitarios;
+package com.example.encontrosuniversitarios.view.viewholder;
 
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 

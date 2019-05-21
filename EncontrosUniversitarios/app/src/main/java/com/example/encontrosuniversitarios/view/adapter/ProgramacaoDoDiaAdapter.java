@@ -1,4 +1,4 @@
-package com.example.encontrosuniversitarios;
+package com.example.encontrosuniversitarios.view.adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.example.encontrosuniversitarios.view.viewholder.AtividadeViewHolder;
+import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 
 import java.util.ArrayList;

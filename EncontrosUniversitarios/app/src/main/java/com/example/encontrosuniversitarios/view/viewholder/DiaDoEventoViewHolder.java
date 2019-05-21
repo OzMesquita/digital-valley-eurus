@@ -1,4 +1,4 @@
-package com.example.encontrosuniversitarios;
+package com.example.encontrosuniversitarios.view.viewholder;
 
 import android.view.View;
 import android.view.animation.Animation;
@@ -6,6 +6,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.encontrosuniversitarios.R;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 

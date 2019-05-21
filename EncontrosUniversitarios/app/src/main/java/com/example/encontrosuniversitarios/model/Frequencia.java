@@ -11,6 +11,19 @@ public class Frequencia {
     private DateTime checkOut;
     private List<Atividade> atividadesFrequentadas;
 
+    public void realizarFrequenciaParticipante(){
+        if(this.checkIn!=null){
+            this.checkIn = DateTime.now();
+        }else if(this.checkOut!=null){
+            this.checkOut = DateTime.now();
+            atualizarAtividadesFrequentadas();
+        }
+    }
+
+    private void atualizarAtividadesFrequentadas(){
+
+    }
+
     public Usuario getParticipante() {
         return participante;
     }

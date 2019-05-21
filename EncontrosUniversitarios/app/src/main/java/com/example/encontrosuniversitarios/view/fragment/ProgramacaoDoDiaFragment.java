@@ -1,7 +1,5 @@
 package com.example.encontrosuniversitarios.view.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filterable;
 
-import com.example.encontrosuniversitarios.ProgramacaoAbasAdapter;
+import com.example.encontrosuniversitarios.view.adapter.ProgramacaoAbasAdapter;
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.google.android.material.tabs.TabLayout;
