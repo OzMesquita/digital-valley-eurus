@@ -7,10 +7,22 @@ public class Sala {
     private int numero;
     private String nome;
     private String andar;
+    private String bloco;
     private List<Atividade> atividades;
+    public String getBloco() {return bloco; }
+
+    public void setBloco(String bloco) {  this.bloco = bloco; }
 
     public Sala(){
         this.atividades = new ArrayList<>();
+    }
+
+    public List<Atividade> getAtividades() {
+        return atividades;
+    }
+
+    public void setAtividades(List<Atividade> atividades) {
+        this.atividades = atividades;
     }
 
     public int getNumero() {
@@ -37,11 +49,4 @@ public class Sala {
         this.andar = andar;
     }
 
-    public List<Atividade> getAtividades() {
-        return atividades;
-    }
-
-    public void setAtividades(List<Atividade> atividades) {
-        this.atividades = atividades;
-    }
 }
