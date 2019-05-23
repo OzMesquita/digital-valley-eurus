@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sala {
@@ -7,6 +8,10 @@ public class Sala {
     private String nome;
     private String andar;
     private List<Atividade> atividades;
+
+    public Sala(){
+        this.atividades = new ArrayList<>();
+    }
 
     public int getNumero() {
         return numero;

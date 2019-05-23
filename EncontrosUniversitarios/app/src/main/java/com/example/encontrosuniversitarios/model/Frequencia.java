@@ -21,6 +21,11 @@ public class Frequencia {
     }
 
     private void atualizarAtividadesFrequentadas(){
+        for(Atividade atividade: sala.getAtividades()){
+            if(atividade.verificarAtividadeOcorridaDentre(checkIn, checkOut)){
+                atividadesFrequentadas.add(atividade);
+            }
+        }
 
     }
 

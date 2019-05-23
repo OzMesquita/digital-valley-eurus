@@ -2,10 +2,8 @@ package com.example.encontrosuniversitarios.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import org.joda.time.DateTime;
-
-import java.util.Date;
+import androidx.databinding.BaseObservable;
 
 public class Atividade implements Parcelable {
     private String nome;
@@ -29,7 +27,7 @@ public class Atividade implements Parcelable {
         this.horarioFinal = horarioFinal;
     }
 
-    public Boolean verificarAtividadeAconteceuDentre(DateTime checkIn,DateTime checkOut){
+    public Boolean verificarAtividadeOcorridaDentre(DateTime checkIn,DateTime checkOut){
         if(this.horarioInicio==null || this.horarioFinal==null) return null;
         return (this.horarioInicio.getMillis() >= checkIn.getMillis()) && (this.horarioFinal.getMillis() <= checkOut.getMillis());
     }

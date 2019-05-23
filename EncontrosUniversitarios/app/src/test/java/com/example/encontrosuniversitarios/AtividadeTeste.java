@@ -17,11 +17,7 @@ public class AtividadeTeste{
         Atividade atividade = new Atividade("Atividade", agora,agora,new DateTime(agora.getMillis()+100));
         DateTime checkIn = new DateTime(agora.getMillis()-100);
         DateTime checkOut = new DateTime(agora.getMillis()+200);
-        System.out.println(checkIn.getMillis());
-        System.out.println(checkOut.getMillis());
-        System.out.println(atividade.getHorarioInicio().getMillis());
-        System.out.println(atividade.getHorarioFinal().getMillis());
-        Boolean resultado = atividade.verificarAtividadeAconteceuDentre(checkIn,checkOut);
+        Boolean resultado = atividade.verificarAtividadeOcorridaDentre(checkIn,checkOut);
         Assert.assertEquals(true,resultado);
     }
 
@@ -31,7 +27,7 @@ public class AtividadeTeste{
         DateTime checkIn = new DateTime(agora.getMillis()+150);
         DateTime checkOut = new DateTime(agora.getMillis()+200);
 
-        Boolean resultado = atividade.verificarAtividadeAconteceuDentre(checkIn,checkOut);
+        Boolean resultado = atividade.verificarAtividadeOcorridaDentre(checkIn,checkOut);
         Assert.assertEquals(false,resultado);
     }
 
@@ -41,7 +37,7 @@ public class AtividadeTeste{
         DateTime checkIn = new DateTime(agora.getMillis()-300);
         DateTime checkOut = new DateTime(agora.getMillis()-200);
 
-        Boolean resultado = atividade.verificarAtividadeAconteceuDentre(checkIn,checkOut);
+        Boolean resultado = atividade.verificarAtividadeOcorridaDentre(checkIn,checkOut);
         Assert.assertNull(resultado);
     }
 
@@ -51,7 +47,7 @@ public class AtividadeTeste{
         DateTime checkIn = new DateTime(agora.getMillis()+100);
         DateTime checkOut = new DateTime(agora.getMillis()+300);
 
-        Boolean resultado = atividade.verificarAtividadeAconteceuDentre(checkIn,checkOut);
+        Boolean resultado = atividade.verificarAtividadeOcorridaDentre(checkIn,checkOut);
         Assert.assertEquals(false,resultado);
     }
 
@@ -61,7 +57,7 @@ public class AtividadeTeste{
         DateTime checkIn = new DateTime(agora.getMillis()-100);
         DateTime checkOut = new DateTime(agora.getMillis()+100);
 
-        Boolean resultado = atividade.verificarAtividadeAconteceuDentre(checkIn,checkOut);
+        Boolean resultado = atividade.verificarAtividadeOcorridaDentre(checkIn,checkOut);
         Assert.assertNull(resultado);
     }
 
