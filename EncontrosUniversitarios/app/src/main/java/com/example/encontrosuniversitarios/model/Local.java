@@ -5,6 +5,15 @@ public class Local {
     private String pontoReferencia;
     private String andar;
     private Sala sala;
+    private String bloco;
+
+    public String getBloco() {
+        return bloco;
+    }
+
+    public void setBloco(String bloco) {
+        this.bloco = bloco;
+    }
 
     public String getNome() {
         return nome;

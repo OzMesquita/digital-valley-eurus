@@ -6,12 +6,8 @@ import java.util.List;
 public class Sala {
     private int numero;
     private String nome;
-    private String andar;
-    private String bloco;
     private List<Atividade> atividades;
-    public String getBloco() {return bloco; }
 
-    public void setBloco(String bloco) {  this.bloco = bloco; }
 
     public Sala(){
         this.atividades = new ArrayList<>();
@@ -41,12 +37,5 @@ public class Sala {
         this.nome = nome;
     }
 
-    public String getAndar() {
-        return andar;
-    }
-
-    public void setAndar(String andar) {
-        this.andar = andar;
-    }
 
 }
