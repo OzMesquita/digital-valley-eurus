@@ -8,7 +8,6 @@ public class Sala {
     private String nome;
     private List<Atividade> atividades;
 
-
     public Sala(){
         this.atividades = new ArrayList<>();
     }

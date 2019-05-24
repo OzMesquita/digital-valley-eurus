@@ -3,7 +3,6 @@ package com.example.encontrosuniversitarios.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import org.joda.time.DateTime;
-import androidx.databinding.BaseObservable;
 
 public class Atividade implements Parcelable {
     private String nome;
