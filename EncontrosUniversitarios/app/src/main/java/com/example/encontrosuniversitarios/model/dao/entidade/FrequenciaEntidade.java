@@ -12,22 +12,25 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 @Entity(tableName = "frequencia", foreignKeys = {
-        @ForeignKey(entity = Usuario.class,
-                    parentColumns = "id",
-                    childColumns = "participante"),
+        @ForeignKey(entity = UsuarioEntidade.class,
+                    parentColumns = "id_usuario",
+                    childColumns = "usuario_fk"),
         @ForeignKey(entity = SalaEntidade.class,
-                    parentColumns = "id",
-                    childColumns = "sala")
+                    parentColumns = "id_sala",
+                    childColumns = "sala_fk")
 })
 public class FrequenciaEntidade {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_frequencia")
     private int id;
+    @ColumnInfo(name = "usuario_fk")
     private Integer participante;
+    @ColumnInfo(name = "sala_fk")
     private Integer sala;
-    @ColumnInfo(name = "checkin")
+    @ColumnInfo(name = "check_in")
     @TypeConverters({DateTimeConverter.class})
     private DateTime checkIn;
-    @ColumnInfo(name = "checkout")
+    @ColumnInfo(name = "check_out")
     @TypeConverters({DateTimeConverter.class})
     private DateTime checkOut;
 }

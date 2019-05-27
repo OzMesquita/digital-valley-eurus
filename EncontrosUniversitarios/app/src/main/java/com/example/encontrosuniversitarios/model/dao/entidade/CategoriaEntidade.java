@@ -1,12 +1,15 @@
 package com.example.encontrosuniversitarios.model.dao.entidade;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "categoria")
 public class CategoriaEntidade {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_categoria")
     private int id;
+    @ColumnInfo(name = "nome_categoria")
     private String nome;
     private String descricao;
 

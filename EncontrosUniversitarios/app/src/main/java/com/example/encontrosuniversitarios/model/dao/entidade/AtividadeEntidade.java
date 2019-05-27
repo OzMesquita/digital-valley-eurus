@@ -16,35 +16,40 @@ import androidx.room.TypeConverters;
 
 @Entity(tableName = "atividade",foreignKeys = {
         @ForeignKey(entity = CategoriaEntidade.class,
-                    parentColumns = "id",
-                    childColumns = "categoria"),
+                    parentColumns = "id_categoria",
+                    childColumns = "categoria_fk"),
         @ForeignKey(entity = TrabalhoEntidade.class,
-                    parentColumns = "id",
-                    childColumns = "trabalho"),
+                    parentColumns = "id_trabalho",
+                    childColumns = "trabalho_fk"),
         @ForeignKey(entity = UsuarioEntidade.class,
-                    parentColumns = "id",
+                    parentColumns = "id_usuario",
                     childColumns = "apresentador"),
         @ForeignKey(entity = LocalEntidade.class,
-                    parentColumns = "id",
-                    childColumns = "local"),
+                    parentColumns = "id_local",
+                    childColumns = "local_fk"),
 })
 public class AtividadeEntidade {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_atividade")
     private int id;
+    @ColumnInfo(name = "nome_atividade")
     private String nome;
     private String descricao;
-    @ColumnInfo(name = "horario_inicial_previsto")
+    @ColumnInfo(name = "horario_previsto")
     @TypeConverters({DateTimeConverter.class})
     private DateTime horarioInicialPrevisto;
-    @ColumnInfo(name = "horario_inicio")
+    @ColumnInfo(name = "horario_inicial")
     @TypeConverters({DateTimeConverter.class})
     private DateTime horarioInicio;
     @ColumnInfo(name = "horario_final")
     @TypeConverters({DateTimeConverter.class})
     private DateTime horarioFinal;
+    @ColumnInfo(name = "categoria_fk")
     private Integer categoria;
+    @ColumnInfo(name = "trabalho_fk")
     private Integer trabalho;
     private Integer apresentador;
+    @ColumnInfo(name = "local_fk")
     private Integer local;
 
     public int getId() {

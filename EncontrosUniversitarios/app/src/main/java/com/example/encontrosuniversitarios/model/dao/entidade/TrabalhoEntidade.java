@@ -9,22 +9,24 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "trabalho",foreignKeys = {
         @ForeignKey(entity = UsuarioEntidade.class,
-                    parentColumns = "id",
-                    childColumns = "autor_principal"),
-        @ForeignKey(entity = UsuarioEntidade.class,
-                    parentColumns = "id",
-                    childColumns = "orientador")
+                    parentColumns = "id_usuario",
+                    childColumns = "autor"),
+        @ForeignKey(entity = CategoriaEntidade.class,
+                parentColumns = "id_categoria",
+                childColumns = "modalidade_fk")
 })
 public class TrabalhoEntidade {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_trabalho")
     private int id;
     private String titulo;
-    private String modalidade;
-    @ColumnInfo(name = "autor_principal")
+    @ColumnInfo(name = "modalidade_fk")
+    private Integer modalidade;
+    @ColumnInfo(name = "autor_fk")
     private Integer autorPrincipal;
-    private Integer orientador;
+    private String orientador;
 
-    public TrabalhoEntidade(String titulo, String modalidade, Integer autorPrincipal, Integer orientador) {
+    public TrabalhoEntidade(String titulo, Integer modalidade, Integer autorPrincipal, String orientador) {
         this.titulo = titulo;
         this.modalidade = modalidade;
         this.autorPrincipal = autorPrincipal;
@@ -43,7 +45,7 @@ public class TrabalhoEntidade {
         return titulo;
     }
 
-    public String getModalidade() {
+    public Integer getModalidade() {
         return modalidade;
     }
 
@@ -51,7 +53,7 @@ public class TrabalhoEntidade {
         return autorPrincipal;
     }
 
-    public Integer getOrientador() {
+    public String getOrientador() {
         return orientador;
     }
 }

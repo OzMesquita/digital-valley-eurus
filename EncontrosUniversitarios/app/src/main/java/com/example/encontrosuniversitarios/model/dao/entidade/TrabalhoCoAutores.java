@@ -5,18 +5,19 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
 @Entity(tableName = "coautores",
-        primaryKeys = {"trabalho","coautor"},
+        primaryKeys = {"trabalho_fk","coautor_fk"},
         foreignKeys = {
                 @ForeignKey(entity = TrabalhoEntidade.class,
-                        parentColumns = "id",
-                        childColumns = "trabalho"),
+                        parentColumns = "id_trabalho",
+                        childColumns = "trabalho_fk"),
                 @ForeignKey(entity = UsuarioEntidade.class,
-                        parentColumns = "id",
-                        childColumns = "coautor")
+                        parentColumns = "id_usuario",
+                        childColumns = "coautor_fk")
         })
 public class TrabalhoCoAutores {
+    @ColumnInfo(name = "trabalho_fk")
     private int trabalho;
-    @ColumnInfo(name = "coautor")
+    @ColumnInfo(name = "usuario_fk")
     private int coAutor;
 
     public TrabalhoCoAutores(int trabalho, int coAutor) {
