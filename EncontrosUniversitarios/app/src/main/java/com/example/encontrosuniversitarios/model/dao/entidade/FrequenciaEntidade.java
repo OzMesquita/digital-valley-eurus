@@ -12,7 +12,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 @Entity(tableName = "frequencia", foreignKeys = {
-        @ForeignKey(entity = Usuario.class,
+        @ForeignKey(entity = UsuarioEntidade.class,
                     parentColumns = "id",
                     childColumns = "participante"),
         @ForeignKey(entity = SalaEntidade.class,
