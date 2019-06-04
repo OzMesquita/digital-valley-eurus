@@ -23,7 +23,6 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {}, version = 1, exportSchema = false)
 public abstract class EURoomDatabase extends RoomDatabase implements IDaoFactory {
 
     private static EURoomDatabase instance;
