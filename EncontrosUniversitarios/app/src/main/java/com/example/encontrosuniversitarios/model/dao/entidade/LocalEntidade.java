@@ -3,6 +3,7 @@ package com.example.encontrosuniversitarios.model.dao.entidade;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "local", foreignKeys = {
@@ -10,7 +11,7 @@ import androidx.room.PrimaryKey;
 })
 public class LocalEntidade {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_local")
+    @ColumnInfo(name = "id_local",index = true)
     private int id;
     @ColumnInfo(name = "ponto_referencia_local")
     private String pontoReferencia;

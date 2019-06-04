@@ -2,12 +2,13 @@ package com.example.encontrosuniversitarios.model.dao.entidade;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "usuario")
 public class UsuarioEntidade {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_usuario")
+    @ColumnInfo(name = "id_usuario",index = true)
     private int id;
     private String nome;
     private String email;
@@ -28,6 +29,10 @@ public class UsuarioEntidade {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNome() {

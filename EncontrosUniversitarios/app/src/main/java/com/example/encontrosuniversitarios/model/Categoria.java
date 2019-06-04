@@ -1,6 +1,7 @@
 package com.example.encontrosuniversitarios.model;
 
 public class Categoria {
+    private Integer id;
     private String nome;
     private String descricao;
 
@@ -18,5 +19,13 @@ public class Categoria {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

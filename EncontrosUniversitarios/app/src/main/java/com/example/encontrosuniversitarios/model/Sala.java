@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sala {
+    private Integer id;
     private int numero;
     private String nome;
     private List<Atividade> atividades;
@@ -36,5 +37,11 @@ public class Sala {
         this.nome = nome;
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

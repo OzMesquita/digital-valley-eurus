@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -21,7 +22,7 @@ import androidx.room.TypeConverters;
 })
 public class FrequenciaEntidade {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_frequencia")
+    @ColumnInfo(name = "id_frequencia",index = true)
     private int id;
     @ColumnInfo(name = "usuario_fk")
     private Integer participante;
@@ -33,4 +34,35 @@ public class FrequenciaEntidade {
     @ColumnInfo(name = "check_out")
     @TypeConverters({DateTimeConverter.class})
     private DateTime checkOut;
+
+    public FrequenciaEntidade(Integer participante, Integer sala, DateTime checkIn, DateTime checkOut) {
+        this.participante = participante;
+        this.sala = sala;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Integer getParticipante() {
+        return participante;
+    }
+
+    public Integer getSala() {
+        return sala;
+    }
+
+    public DateTime getCheckIn() {
+        return checkIn;
+    }
+
+    public DateTime getCheckOut() {
+        return checkOut;
+    }
 }
