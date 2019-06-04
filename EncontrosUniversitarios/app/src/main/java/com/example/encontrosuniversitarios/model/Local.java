@@ -1,6 +1,7 @@
 package com.example.encontrosuniversitarios.model;
 
 public class Local {
+    private Integer id;
     private String nome;
     private String pontoReferencia;
     private String andar;
@@ -45,5 +46,13 @@ public class Local {
 
     public void setSala(Sala sala) {
         this.sala = sala;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

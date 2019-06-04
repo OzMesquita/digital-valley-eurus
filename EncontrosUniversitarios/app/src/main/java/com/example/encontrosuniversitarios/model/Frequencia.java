@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 public class Frequencia {
+    private Integer id;
     private Usuario participante;
     private Sala sala;
     private DateTime checkIn;
@@ -67,5 +68,13 @@ public class Frequencia {
 
     public void setAtividadesFrequentadas(List<Atividade> atividadesFrequentadas) {
         this.atividadesFrequentadas = atividadesFrequentadas;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

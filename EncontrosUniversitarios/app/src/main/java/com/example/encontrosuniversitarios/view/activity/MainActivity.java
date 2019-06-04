@@ -8,16 +8,26 @@ import androidx.annotation.NonNull;
 
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
-import com.example.encontrosuniversitarios.view.fragment.FrequenciaFragment;
-import com.example.encontrosuniversitarios.view.fragment.AtividadesFragment;
+import com.example.encontrosuniversitarios.model.Usuario;
+import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_frequencia:
                     getSupportActionBar().setTitle(R.string.title_frequencia);
-                    fragment = new FrequenciaFragment();
+                    fragment = new RealizarFrequenciaFragment();
                     itemId = 2;
                     break;
             }
@@ -81,6 +91,34 @@ public class MainActivity extends AppCompatActivity {
         fragment = new ProgramacaoFragment();
         openFragment(fragment,0);
 
+        Retrofit retrofitService = new Retrofit.Builder().baseUrl("http//192.169.1.104:3000/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+
+        UsuarioService us = retrofitService.create(UsuarioService.class);
+        us.getPerson(5).subscribe(new SingleObserver<Usuario>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(Usuario usuario) {
+                Log.i("Usuario",usuario.getNome());
+                Log.i("Usuario", usuario.getEmail());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+    }
+
+    private interface UsuarioService{
+        @GET("usuario/{id}")
+        Single<Usuario> getPerson(@Path("id") int idUsuario);
     }
 
     @Override

@@ -5,19 +5,20 @@ import com.example.encontrosuniversitarios.model.Usuario;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "trabalho",foreignKeys = {
         @ForeignKey(entity = UsuarioEntidade.class,
                     parentColumns = "id_usuario",
-                    childColumns = "autor"),
+                    childColumns = "autor_fk"),
         @ForeignKey(entity = CategoriaEntidade.class,
                 parentColumns = "id_categoria",
                 childColumns = "modalidade_fk")
 })
 public class TrabalhoEntidade {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id_trabalho")
+    @ColumnInfo(name = "id_trabalho",index = true)
     private int id;
     private String titulo;
     @ColumnInfo(name = "modalidade_fk")

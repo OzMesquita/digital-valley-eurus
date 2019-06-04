@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import org.joda.time.DateTime;
 
 public class Atividade implements Parcelable {
+    private Integer id;
     private String nome;
     private String descricao;
     private Categoria categoria;
@@ -125,6 +126,14 @@ public class Atividade implements Parcelable {
 
     public void setLocal(Local local) {
         this.local = local;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     @Override

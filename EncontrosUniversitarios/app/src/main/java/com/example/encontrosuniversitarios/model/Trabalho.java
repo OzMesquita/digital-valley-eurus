@@ -3,6 +3,7 @@ package com.example.encontrosuniversitarios.model;
 import java.util.List;
 
 public class Trabalho {
+    private Integer id;
     private String titulo;
     private String modalidade;
     private Usuario autorPrincipal;
@@ -47,5 +48,13 @@ public class Trabalho {
 
     public void setCoAutores(List<Usuario> coAutores) {
         this.coAutores = coAutores;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
