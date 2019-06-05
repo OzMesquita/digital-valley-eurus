@@ -5,7 +5,12 @@ const getAtividades = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).json(results.rows)
+      response.status(200).json({
+       "id_atividade":1,
+       "nome_atividade":"nomeati",
+       "descricao":"gjfdhdh",
+       "categoria":{"id_categoria":5, "nome_categoria":"nomecat", "descricao":"descri"},
+       "trabalho":{"id_trabalho":8, "titulo":"titulotrab"}  })
     })
   }
 
@@ -19,6 +24,8 @@ const getAtividades = (request, response) => {
       response.status(200).json(results.rows)
     })
   }
+
+  // "{"atividade"."nome_sala":"sala de estuds","apresentador":{"nome":"tathiane"}}"
 
   const createAtividade = (request, response) => {
     const {horario_previsto, horario_inicial, horario_final, trabalho_fk, descricao, nome_atividade, categoria_fk, local_fk, apresentador_fk} = request.body
