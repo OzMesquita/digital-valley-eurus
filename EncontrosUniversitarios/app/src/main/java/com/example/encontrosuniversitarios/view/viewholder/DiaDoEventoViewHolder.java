@@ -12,15 +12,21 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 public class DiaDoEventoViewHolder extends GroupViewHolder {
     private TextView diaDoEvento;
+    private TextView numeroItems;
     private ImageView arrow;
+    private View divider;
+    private boolean isItemClicked;
     public DiaDoEventoViewHolder(View itemView) {
         super(itemView);
         diaDoEvento = itemView.findViewById(R.id.text_view_dia_evento);
         arrow = itemView.findViewById(R.id.arrow);
+        numeroItems = itemView.findViewById(R.id.item_count_dia_evento);
+        divider = itemView.findViewById(R.id.divider);
     }
 
-    public void bind(String diaEvento){
+    public void bind(String diaEvento, int itemCount){
         this.diaDoEvento.setText(diaEvento);
+        this.numeroItems.setText(String.valueOf(itemCount));
     }
 
     @Override

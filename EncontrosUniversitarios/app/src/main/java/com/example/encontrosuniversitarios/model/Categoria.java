@@ -1,7 +1,11 @@
 package com.example.encontrosuniversitarios.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Categoria {
+    @SerializedName("id_categoria")
     private Integer id;
+    @SerializedName("nome_categoria")
     private String nome;
     private String descricao;
 

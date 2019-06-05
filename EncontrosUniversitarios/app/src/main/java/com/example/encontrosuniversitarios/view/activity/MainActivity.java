@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Usuario;
+import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
+import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeService;
 import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
@@ -90,36 +92,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragment = new ProgramacaoFragment();
         openFragment(fragment,0);
-
-        Retrofit retrofitService = new Retrofit.Builder().baseUrl("http//192.169.1.104:3000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        UsuarioService us = retrofitService.create(UsuarioService.class);
-        us.getPerson(5).subscribe(new SingleObserver<Usuario>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onSuccess(Usuario usuario) {
-                Log.i("Usuario",usuario.getNome());
-                Log.i("Usuario", usuario.getEmail());
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-        });
+        AtividadeService atividadeService = new AtividadeService();
+        atividadeService.inserir(null);
     }
 
-    private interface UsuarioService{
-        @GET("usuario/{id}")
-        Single<Usuario> getPerson(@Path("id") int idUsuario);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

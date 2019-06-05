@@ -10,4 +10,9 @@ public class DiaEvento extends ExpandableGroup<Atividade> {
     public DiaEvento(String title, List<Atividade> items) {
         super(title, items);
     }
+
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
 }

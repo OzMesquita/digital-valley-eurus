@@ -2,15 +2,23 @@ package com.example.encontrosuniversitarios.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.gson.annotations.SerializedName;
+
 import org.joda.time.DateTime;
 
 public class Atividade implements Parcelable {
+    @SerializedName("id_atividade")
     private Integer id;
+    @SerializedName("nome_atividade")
     private String nome;
     private String descricao;
     private Categoria categoria;
+    @SerializedName("horario_previsto")
     private DateTime horarioInicialPrevisto;
+    @SerializedName("horario_inicial")
     private DateTime horarioInicio;
+    @SerializedName("horario_final")
     private DateTime horarioFinal;
     private Trabalho trabalho;
     private Usuario apresentador;

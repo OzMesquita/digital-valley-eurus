@@ -1,13 +1,17 @@
 package com.example.encontrosuniversitarios.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Trabalho {
+    @SerializedName("id_trabalho")
     private Integer id;
     private String titulo;
-    private String modalidade;
+
+    private Categoria modalidade;
     private Usuario autorPrincipal;
-    private Usuario orientador;
+    private String orientador;
     private List<Usuario> coAutores;
 
     public String getTitulo() {
@@ -18,11 +22,11 @@ public class Trabalho {
         this.titulo = titulo;
     }
 
-    public String getModalidade() {
+    public Categoria getModalidade() {
         return modalidade;
     }
 
-    public void setModalidade(String modalidade) {
+    public void setModalidade(Categoria modalidade) {
         this.modalidade = modalidade;
     }
 
@@ -34,11 +38,11 @@ public class Trabalho {
         this.autorPrincipal = autorPrincipal;
     }
 
-    public Usuario getOrientador() {
+    public String getOrientador() {
         return orientador;
     }
 
-    public void setOrientador(Usuario orientador) {
+    public void setOrientador(String orientador) {
         this.orientador = orientador;
     }
 

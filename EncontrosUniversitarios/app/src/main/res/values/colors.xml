@@ -8,4 +8,6 @@
     <color name="colorSecondaryDark">#338a3e</color>
     <color name="colorSecondaryAccent">#98ee99</color>
 
+    <color name="divider">#cccccc</color>
+
 </resources>
