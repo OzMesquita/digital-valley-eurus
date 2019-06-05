@@ -9,7 +9,7 @@ const getAtividades = (request, response) => {
     })
   }
 
-  const getAtividadesById = (request, response) => {
+  const getAtividadeById = (request, response) => {
     const id_atividade = parseInt(request.params.id)
 
     db.pool.query('SELECT * FROM atividade WHERE id_atividade = $1', [id_atividade], (error, results) => {
@@ -27,7 +27,7 @@ const getAtividades = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`Atividade added with ID: ${result.oid}`)
+      response.status(201).send(`Atividade adicionada: ${nome}`)
     })
   }
 
@@ -42,7 +42,7 @@ const getAtividades = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Atividade modified with ID: ${id_atividade}`)
+        response.status(200).send(`Atividade modificada ID: ${id_atividade}`)
       }
     )
   }
@@ -54,13 +54,13 @@ const getAtividades = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`Atividade deleted with ID: ${id_atividade}`)
+        response.status(200).send(`Atividade excluida ID: ${id_atividade}`)
       })
     }
 
 module.exports = {
   getAtividades,
-  getAtividadesById,
+  getAtividadeById,
   createAtividade,
   updateAtividade,
   deleteAtividade,
