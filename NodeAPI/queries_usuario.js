@@ -1,6 +1,6 @@
 const db = require('./conexao')
 
-const getUsers = (request, response) => {
+const getUsuarios = (request, response) => {
     db.pool.query('SELECT * FROM usuario ORDER BY id_usuario ASC', (error, results) => {
       if (error) {
         throw error
@@ -9,7 +9,7 @@ const getUsers = (request, response) => {
     })
   }
 
-  const getUserById = (request, response) => {
+  const getUsuarioById = (request, response) => {
     const id_usuario = parseInt(request.params.id)
 
     db.pool.query('SELECT * FROM usuario WHERE id_usuario = $1', [id_usuario], (error, results) => {
@@ -24,18 +24,18 @@ const getUsers = (request, response) => {
     })
   }
 
-  const createUser = (request, response) => {
+  const createUsuario = (request, response) => {
     // const id = parseInt(request.body)
-    const {cpf, matricula, email, senha, nivel_acesso, nome } = request.body
+    const {cpf, matricula, email, senha, nivel_acesso, nome} = request.body
 
     db.pool.query('INSERT INTO usuario (cpf, matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5, $6)', [cpf, matricula, email, senha, nivel_acesso, nome], (error, result) => {
       if (error) {
         throw error
       }
-      response.status(201).send(`User added with ID: ${result.oid}`)
+      response.status(201).send(`Usuario adicionado: ${nome}`)
     })
   }
-  // const createUser = (request, response) => {
+  // const createUsuario = (request, response) => {
   //   const id = parseInt(request.body)
   //   const cpf = request.params.cpf
   //
@@ -43,10 +43,10 @@ const getUsers = (request, response) => {
   //     if (error) {
   //       throw error
   //     }
-  //     response.status(201).send(`User added with ID: ${result.id}`)
+  //     response.status(201).send(`Usuario added with ID: ${result.id}`)
   //   })
   // }
-  const updateUser = (request, response) => {
+  const updateUsuario = (request, response) => {
     const id_usuario = parseInt(request.params.id)
     const { cpf, matricula, email, senha, nivel_acesso, nome} = request.body
 
@@ -57,27 +57,27 @@ const getUsers = (request, response) => {
         if (error) {
           throw error
         }
-        response.status(200).send(`User modified with ID: ${id_usuario}`)
-       // response.status(200).send(`User modified with`)
+        response.status(200).send(`Usuario modificado ID: ${id_usuario}`)
+       // response.status(200).send(`Usuario modified with`)
       }
     )
   }
 
-const deleteUser = (request, response) => {
+const deleteUsuario = (request, response) => {
     const id_usuario = parseInt(request.params.id)
 
     db.pool.query('DELETE FROM usuario WHERE id_usuario = $1', [id_usuario], (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`User deleted with ID: ${id_usuario}`)
+      response.status(200).send(`Usuario excluido ID: ${id_usuario}`)
     })
   }
 
   module.exports = {
-    getUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser,
+    getUsuarios,
+    getUsuarioById,
+    createUsuario,
+    updateUsuario,
+    deleteUsuario,
   }
