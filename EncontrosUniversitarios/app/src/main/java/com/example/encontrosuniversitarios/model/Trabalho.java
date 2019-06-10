@@ -1,14 +1,17 @@
 package com.example.encontrosuniversitarios.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Trabalho {
+    @SerializedName("id_trabalho")
     private Integer id;
     private String titulo;
-    private String modalidade;
-    private Usuario autorPrincipal;
-    private Usuario orientador;
-    private List<Usuario> coAutores;
+    private Categoria modalidade;
+    private Usuario autor;
+    private String orientador;
+    //private List<Usuario> coAutores;
 
     public String getTitulo() {
         return titulo;
@@ -18,30 +21,31 @@ public class Trabalho {
         this.titulo = titulo;
     }
 
-    public String getModalidade() {
+    public Categoria getModalidade() {
         return modalidade;
     }
 
-    public void setModalidade(String modalidade) {
+    public void setModalidade(Categoria modalidade) {
         this.modalidade = modalidade;
     }
 
     public Usuario getAutorPrincipal() {
-        return autorPrincipal;
+        return autor;
     }
 
     public void setAutorPrincipal(Usuario autorPrincipal) {
-        this.autorPrincipal = autorPrincipal;
+        this.autor = autorPrincipal;
     }
 
-    public Usuario getOrientador() {
+    public String getOrientador() {
         return orientador;
     }
 
-    public void setOrientador(Usuario orientador) {
+    public void setOrientador(String orientador) {
         this.orientador = orientador;
     }
 
+    /*
     public List<Usuario> getCoAutores() {
         return coAutores;
     }
@@ -49,6 +53,7 @@ public class Trabalho {
     public void setCoAutores(List<Usuario> coAutores) {
         this.coAutores = coAutores;
     }
+    */
 
     public Integer getId() {
         return id;

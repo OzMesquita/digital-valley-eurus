@@ -1,20 +1,17 @@
 package com.example.encontrosuniversitarios.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Local {
+    @SerializedName("id_local")
     private Integer id;
+    @SerializedName("nome_local")
     private String nome;
+    @SerializedName("ponto_referencia_local")
     private String pontoReferencia;
+    @SerializedName("andar_local")
     private String andar;
     private Sala sala;
-    private String bloco;
-
-    public String getBloco() {
-        return bloco;
-    }
-
-    public void setBloco(String bloco) {
-        this.bloco = bloco;
-    }
 
     public String getNome() {
         return nome;

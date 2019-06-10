@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
@@ -20,9 +21,15 @@ import android.util.Log;
 import android.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -34,6 +41,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import net.danlew.android.joda.JodaTimeAndroid;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
@@ -91,34 +100,33 @@ public class MainActivity extends AppCompatActivity {
         fragment = new ProgramacaoFragment();
         openFragment(fragment,0);
 
-        Retrofit retrofitService = new Retrofit.Builder().baseUrl("http//192.169.1.104:3000/")
+        Retrofit retrofitService = new Retrofit.Builder().baseUrl("http://192.169.1.104:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-
+        Atividade a = null;
         UsuarioService us = retrofitService.create(UsuarioService.class);
-        us.getPerson(5).subscribe(new SingleObserver<Usuario>() {
+        us.getPerson(11).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<Atividade>() {
             @Override
             public void onSubscribe(Disposable d) {
-
+                Log.i("Ativ:subs","onSubscribe");
             }
 
             @Override
-            public void onSuccess(Usuario usuario) {
-                Log.i("Usuario",usuario.getNome());
-                Log.i("Usuario", usuario.getEmail());
+            public void onSuccess(Atividade atividade) {
+                Log.i("Ativ:nome",atividade.getNome());
             }
 
             @Override
             public void onError(Throwable e) {
-
+                Log.i("Ativ:error","Error: "+e.getMessage());
             }
         });
     }
 
     private interface UsuarioService{
-        @GET("usuario/{id}")
-        Single<Usuario> getPerson(@Path("id") int idUsuario);
+        @GET("atividades/{id}")
+        Single<Atividade> getPerson(@Path("id") int id);
     }
 
     @Override
