@@ -5,9 +5,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,13 +22,17 @@ import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DiaEvento;
+import com.example.encontrosuniversitarios.viewmodel.ProgramacaoViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProgramacaoFragment extends Fragment implements ProgramacaoListInterface {
     private RecyclerView atividadesRecyclerView;
     private ProgramacaoAdapter programacaoAdapter;
 
+    private ProgramacaoViewModel programacaoViewModel;
+    private List<DiaEvento> diasEventos;
     public ProgramacaoFragment() {
         // Required empty public constructor
     }
@@ -35,11 +42,23 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_programacao, container, false);
+        programacaoViewModel = ViewModelProviders.of(this).get(ProgramacaoViewModel.class);
         atividadesRecyclerView = view.findViewById(R.id.programacao_recycler_view);
         atividadesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        programacaoAdapter = getExpandableAtividadesAdapter();
-        atividadesRecyclerView.setAdapter(programacaoAdapter);
+        diasEventos = new ArrayList<>();
+        programacaoAdapter = new ProgramacaoAdapter(diasEventos);
 
+
+        programacaoViewModel.getAtividades().observe(this, new Observer<List<Atividade>>() {
+            @Override
+            public void onChanged(List<Atividade> atividades) {
+                Log.i("Lista",String.valueOf(atividades.size()));
+                diasEventos.add(new DiaEvento("04/04/1998",atividades));
+                programacaoAdapter.notifyDataSetChanged();
+            }
+        });
+        atividadesRecyclerView.setAdapter(programacaoAdapter);
+       // programacaoViewModel.carregarAtividades();
         return view;
     }
 
