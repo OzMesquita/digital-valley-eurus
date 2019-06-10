@@ -27,7 +27,7 @@ public class WebServiceDatabase{
     }
 
     private static void inicializarRetrofitService() {
-        retrofitService = new Retrofit.Builder().baseUrl("http://192.169.1.104:3000/")
+        retrofitService = new Retrofit.Builder().baseUrl("http://192.169.1.123:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
