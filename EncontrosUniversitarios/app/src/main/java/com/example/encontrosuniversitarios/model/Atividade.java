@@ -3,6 +3,9 @@ package com.example.encontrosuniversitarios.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
@@ -143,6 +146,17 @@ public class Atividade implements Parcelable {
 
     public Integer getId() {
         return id;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return nome;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return this.toString().equals(obj.toString());
     }
 
     @Override
