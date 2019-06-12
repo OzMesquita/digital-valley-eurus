@@ -3,23 +3,42 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.database;
 import com.example.encontrosuniversitarios.model.dao.interfaces.base.IAtividadeBaseDao;
 import com.example.encontrosuniversitarios.model.dao.interfaces.database.IDaoFactory;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeService;
+import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.DateTimeJsonConverter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import io.reactivex.plugins.RxJavaPlugins;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class WebServiceDatabase{
+public class WebServiceDatabase {
 
     private static WebServiceDatabase instance;
 
     private static Retrofit retrofitService;
     private static AtividadeService atividadeService;
 
-    private WebServiceDatabase(){}
+    private WebServiceDatabase() {
+    }
 
-    public static WebServiceDatabase getInstance(){
-        if(instance==null){
+    public static WebServiceDatabase getInstance() {
+        if (instance == null) {
             instance = new WebServiceDatabase();
             inicializarRetrofitService();
         }
@@ -27,16 +46,23 @@ public class WebServiceDatabase{
     }
 
     private static void inicializarRetrofitService() {
-        retrofitService = new Retrofit.Builder().baseUrl("http://192.169.1.123:3000/")
-                .addConverterFactory(GsonConverterFactory.create())
+        Gson gson = new GsonBuilder().setPrettyPrinting()
+                .serializeNulls()
+                .registerTypeAdapter(DateTime.class, new DateTimeJsonConverter())
+                .create();
+        retrofitService = new Retrofit.Builder()
+                .baseUrl("http://192.169.1.104:3000/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
-    public AtividadeService getAtividadeService(){
-        if(atividadeService==null){
+    public AtividadeService getAtividadeService() {
+        if (atividadeService == null) {
             atividadeService = retrofitService.create(AtividadeService.class);
         }
         return atividadeService;
     }
+
+
 }

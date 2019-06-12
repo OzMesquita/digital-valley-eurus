@@ -100,33 +100,6 @@ public class MainActivity extends AppCompatActivity {
         fragment = new ProgramacaoFragment();
         openFragment(fragment,0);
 
-        Retrofit retrofitService = new Retrofit.Builder().baseUrl("http://192.169.1.104:3000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        Atividade a = null;
-        UsuarioService us = retrofitService.create(UsuarioService.class);
-        us.getPerson(11).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<Atividade>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                Log.i("Ativ:subs","onSubscribe");
-            }
-
-            @Override
-            public void onSuccess(Atividade atividade) {
-                Log.i("Ativ:nome",atividade.getNome());
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.i("Ativ:error","Error: "+e.getMessage());
-            }
-        });
-    }
-
-    private interface UsuarioService{
-        @GET("atividades/{id}")
-        Single<Atividade> getPerson(@Path("id") int id);
     }
 
     @Override

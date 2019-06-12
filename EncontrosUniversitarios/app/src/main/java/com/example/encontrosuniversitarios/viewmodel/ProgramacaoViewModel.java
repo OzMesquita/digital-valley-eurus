@@ -1,6 +1,7 @@
 package com.example.encontrosuniversitarios.viewmodel;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DiaEvento;
@@ -43,7 +44,7 @@ public class ProgramacaoViewModel extends ViewModel {
 
             @Override
             public void onFailure(String message) {
-
+                Log.i("AtvFailura:",message);
             }
         });
     }
