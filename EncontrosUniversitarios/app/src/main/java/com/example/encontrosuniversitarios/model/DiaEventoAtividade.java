@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiaEventoAtividade {
+
     public List<DiaEvento> agruparAtividadesEmDias(List<Atividade> atividades){
         List<DiaEvento> diasEvento = new ArrayList<>();
         List<DateTime> dias = new ArrayList<>();
