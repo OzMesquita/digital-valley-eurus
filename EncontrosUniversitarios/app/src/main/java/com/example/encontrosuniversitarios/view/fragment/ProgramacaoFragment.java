@@ -54,7 +54,6 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
             @Override
             public void onChanged(List<Atividade> atividades) {
                 diasEventos.add(new DiaEvento("04/04/1998",atividades));
-                Log.i("DataFormatada:",atividades.get(0).getHorarioInicialPrevisto().toString());
                 programacaoAdapter = new ProgramacaoAdapter(diasEventos);
                 atividadesRecyclerView.setAdapter(programacaoAdapter);
             }
