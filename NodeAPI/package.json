@@ -4,13 +4,16 @@
   "description": "RESTful API with Node.js, Express, and PostgreSQL",
   "main": "index.js",
   "license": "MIT",
-  "scripts":{
-    "start":"node index.js"
+  "scripts": {
+    "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.16.4",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
     "pg": "^7.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }
