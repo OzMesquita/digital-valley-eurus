@@ -17,8 +17,8 @@ app.use(
 )
 
 app.get('/', (request, response) => {
-    response.json({ info: 'Node.js, Express, and Postgres API' })
-  })
+  response.json({ info: 'Node.js, Express, and Postgres API' })
+})
 
 app.get('/usuarios', db_usu.getUsuarios)
 app.get('/usuarios/:id', db_usu.getUsuarioById)
