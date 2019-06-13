@@ -5,6 +5,9 @@
     <string name="title_frequencia">Frequência</string>
     <string name="search_hint">Digite a atividade</string>
 
+    <string name="started_activities">Iniciadas</string>
+    <string name="finished_activities">Finalizadas</string>
+    <string name="next_activities">Próximas</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -105,4 +105,46 @@ public class AtividadeTeste{
         Assert.assertEquals(false,resultado);
     }
 
+    @Test
+    public void verificarAtividadeIniciada(){
+        Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),null);
+
+        Assert.assertEquals(true,atividade.atividadeIniciada());
+    }
+
+    @Test
+    public void verificarAtividadeIniciadaEmAtividadeFinalizada(){
+        Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),DateTime.now());
+
+        Assert.assertEquals(false,atividade.atividadeIniciada());
+    }
+
+    @Test
+    public void verificarAtividadeNaoIniciada(){
+        Atividade atividade = new Atividade("Atividade", agora,null,null);
+
+        Assert.assertEquals(false,atividade.atividadeIniciada());
+    }
+
+    @Test
+    public void verificarAtividadeFinalizada(){
+        Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),DateTime.now());
+
+        Assert.assertEquals(true,atividade.atividadeFinalizada());
+    }
+
+    @Test
+    public void verificarAtividadeFinalizadaEmAtividadeNaoIniciada(){
+        Atividade atividade = new Atividade("Atividade", agora,null,null);
+
+        Assert.assertEquals(false,atividade.atividadeFinalizada());
+    }
+
+    @Test
+    public void verificarAtividadeNaoFinalizada(){
+        Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),null);
+
+        Assert.assertEquals(false,atividade.atividadeFinalizada());
+    }
+
 }

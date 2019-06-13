@@ -46,14 +46,12 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
         programacaoViewModel = ViewModelProviders.of(this).get(ProgramacaoViewModel.class);
         atividadesRecyclerView = view.findViewById(R.id.programacao_recycler_view);
         atividadesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        diasEventos = new ArrayList<>();
 
 
-
-        programacaoViewModel.getAtividades().observe(this, new Observer<List<Atividade>>() {
+        programacaoViewModel.getDiasEvento().observe(this, new Observer<List<DiaEvento>>() {
             @Override
-            public void onChanged(List<Atividade> atividades) {
-                diasEventos.add(new DiaEvento("04/04/1998",atividades));
+            public void onChanged(List<DiaEvento> diaEventos) {
+                diasEventos = diaEventos;
                 programacaoAdapter = new ProgramacaoAdapter(diasEventos);
                 atividadesRecyclerView.setAdapter(programacaoAdapter);
             }

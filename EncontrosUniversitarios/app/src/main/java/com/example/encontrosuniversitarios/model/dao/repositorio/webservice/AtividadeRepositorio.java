@@ -38,4 +38,18 @@ public class AtividadeRepositorio{
         });
     }
 
+    public void buscarAtividadesDoDia(final AtividadeListResponseListener listener){
+        atividadeService.getAtividadesDoDia().enqueue(new Callback<List<Atividade>>() {
+            @Override
+            public void onResponse(Call<List<Atividade>> call, Response<List<Atividade>> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Atividade>> call, Throwable t) {
+                listener.onFailure(t.getMessage());
+            }
+        });
+    }
+
 }

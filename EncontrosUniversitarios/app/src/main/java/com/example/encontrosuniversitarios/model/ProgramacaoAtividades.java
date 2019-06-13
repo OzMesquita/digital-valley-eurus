@@ -5,7 +5,7 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiaEventoAtividade {
+public class ProgramacaoAtividades {
 
     public List<DiaEvento> agruparAtividadesEmDias(List<Atividade> atividades){
         List<DiaEvento> diasEvento = new ArrayList<>();
@@ -36,5 +36,9 @@ public class DiaEventoAtividade {
         stringBuilder.append("/");
         stringBuilder.append(dia.getYear());
         return stringBuilder.toString();
+    }
+
+    public List<List<Atividade>> dividirAtividadesEmEstados(List<Atividade> atividades){
+        return null;
     }
 }

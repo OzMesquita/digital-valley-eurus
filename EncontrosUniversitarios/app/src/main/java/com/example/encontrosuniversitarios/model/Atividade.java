@@ -64,6 +64,14 @@ public class Atividade implements Parcelable {
         return false;
     }
 
+    public boolean atividadeIniciada(){
+        return this.horarioInicio!=null && this.horarioFinal==null;
+    }
+
+    public boolean atividadeFinalizada(){
+        return this.horarioInicio!=null && this.horarioFinal!=null;
+    }
+
     protected Atividade(Parcel in){
         this.nome = in.readString();
     }

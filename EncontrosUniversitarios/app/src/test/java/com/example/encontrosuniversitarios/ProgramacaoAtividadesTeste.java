@@ -2,9 +2,7 @@ package com.example.encontrosuniversitarios;
 
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DiaEvento;
-import com.example.encontrosuniversitarios.model.DiaEventoAtividade;
-
-import net.danlew.android.joda.JodaTimeAndroid;
+import com.example.encontrosuniversitarios.model.ProgramacaoAtividades;
 
 import org.joda.time.DateTime;
 import org.junit.Assert;
@@ -13,7 +11,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProgramacaoViewModelTeste {
+public class ProgramacaoAtividadesTeste {
 
     private List<Atividade> gerarAtividades(){
 
@@ -37,9 +35,9 @@ public class ProgramacaoViewModelTeste {
 
     @Test
     public void agruparAtividadesEmDias(){
-        DiaEventoAtividade diaEventoAtividade = new DiaEventoAtividade();
+        ProgramacaoAtividades programacaoAtividades = new ProgramacaoAtividades();
         List<Atividade> atividades = gerarAtividades();
-        List<DiaEvento> diasEvento = diaEventoAtividade.agruparAtividadesEmDias(atividades);
+        List<DiaEvento> diasEvento = programacaoAtividades.agruparAtividadesEmDias(atividades);
 
         Assert.assertEquals(3,diasEvento.size());
         Assert.assertEquals(2,diasEvento.get(0).getItemCount());
@@ -49,9 +47,9 @@ public class ProgramacaoViewModelTeste {
 
     @Test
     public void testarAtividadesDistribuidasEmCadaDia(){
-        DiaEventoAtividade diaEventoAtividade = new DiaEventoAtividade();
+        ProgramacaoAtividades programacaoAtividades = new ProgramacaoAtividades();
         List<Atividade> atividades = gerarAtividades();
-        List<DiaEvento> diasEvento = diaEventoAtividade.agruparAtividadesEmDias(atividades);
+        List<DiaEvento> diasEvento = programacaoAtividades.agruparAtividadesEmDias(atividades);
 
         Assert.assertEquals(true,diasEvento.get(1).getItems().contains(new Atividade("JUnit")));
         Assert.assertEquals(true,diasEvento.get(1).getItems().contains(new Atividade("PHPUnit")));

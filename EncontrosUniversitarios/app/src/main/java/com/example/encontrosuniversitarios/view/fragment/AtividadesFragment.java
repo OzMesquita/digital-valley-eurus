@@ -60,6 +60,9 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
         programacaoDoDiaAdapter.notifyDataSetChanged();
     }
 
+    public void setAtividades(List<Atividade> atividades) {
+        this.atividades = atividades;
+    }
 
     @Override
     public Filterable getProgramacaoAdapter() {
