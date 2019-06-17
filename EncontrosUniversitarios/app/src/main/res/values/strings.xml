@@ -8,7 +8,9 @@
     <string name="started_activities">Iniciadas</string>
     <string name="finished_activities">Finalizadas</string>
     <string name="next_activities">Próximas</string>
-
+    <string name="fragment_realizar_frequencia_upper_text">Realizar frequência - Sala 12</string>
+    <string name="matricula_cpf">Matricula ou CPF</string>
+    <string name="qrcode">QRCode</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

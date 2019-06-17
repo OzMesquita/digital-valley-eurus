@@ -14,20 +14,26 @@
         <TextView
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:text="Realizar frequência - Sala 12"
+            android:text="@string/fragment_realizar_frequencia_upper_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
-            android:text="Matricula ou CPF"
+            android:text="@string/matricula_cpf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorSecondary"
+            android:textColor="@android:color/white"
+
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"/>
         <Button
-            android:text="QRCode"
+            android:text="@string/qrcode"
             android:layout_width="match_parent"
+            android:textColor="@android:color/white"
+            android:background="@color/colorSecondary"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
 

@@ -7,10 +7,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filterable;
 
+import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.DiaEvento;
+import com.example.encontrosuniversitarios.view.adapter.ProgramacaoAdapter;
 
-public class RealizarFrequenciaFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoListInterface {
 
     public RealizarFrequenciaFragment() {
         // Required empty public constructor
@@ -24,4 +32,9 @@ public class RealizarFrequenciaFragment extends Fragment {
     }
 
 
+    @Override
+    public Filterable getProgramacaoAdapter() {
+        List<DiaEvento> diaEventos = new ArrayList<>();
+        return new ProgramacaoAdapter(diaEventos);
+    }
 }

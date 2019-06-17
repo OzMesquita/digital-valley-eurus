@@ -26,19 +26,9 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
     private ProgramacaoDoDiaAdapter programacaoDoDiaAdapter;
     private List<Atividade> atividades;
 
-    public AtividadesFragment() {
+    public AtividadesFragment(List<Atividade> atividades) {
         // Required empty public constructor
-        atividades = new ArrayList<>();
-        atividades.add(new Atividade("Testes com docker"));
-        atividades.add(new Atividade("Engenharia de software"));
-        atividades.add(new Atividade("Projeto da dengue"));
-        atividades.add(new Atividade("Engenharia civil aplicada"));
-        atividades.add(new Atividade("Flutter"));
-        atividades.add(new Atividade("Gerencia de projetos"));
-        atividades.add(new Atividade("Ciencia"));
-        atividades.add(new Atividade("Profissões"));
-        atividades.add(new Atividade("Karaoke"));
-        atividades.add(new Atividade("Engenharia de telecomunicações"));
+        this.atividades = atividades;
     }
 
 
@@ -62,6 +52,7 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
 
     public void setAtividades(List<Atividade> atividades) {
         this.atividades = atividades;
+        programacaoDoDiaAdapter.notifyDataSetChanged();
     }
 
     @Override
