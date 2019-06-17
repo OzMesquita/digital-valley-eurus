@@ -20,4 +20,17 @@
         android:padding="?android:listPreferredItemPaddingLeft"
         android:text="Dia"
         android:id="@+id/text_view_dia_evento"/>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_margin="20dp">
+        <TextView
+            android:id="@+id/numero_atividades_dia"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:text="0"
+            />
+    </FrameLayout>
 </FrameLayout>

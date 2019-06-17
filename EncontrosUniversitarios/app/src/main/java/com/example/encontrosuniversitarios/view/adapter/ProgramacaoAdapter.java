@@ -57,7 +57,7 @@ public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEvent
     @Override
     public void onBindGroupViewHolder(DiaDoEventoViewHolder holder, int flatPosition, ExpandableGroup group) {
         final DiaEvento diaEvento = (DiaEvento) group;
-        holder.bind(diaEvento.getTitle());
+        holder.bind(diaEvento.getTitle(),diaEvento.getItemCount());
     }
 
     @Override
