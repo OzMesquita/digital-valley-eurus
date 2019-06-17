@@ -14,6 +14,8 @@
         <TextView
             android:layout_gravity="center"
             android:textSize="20dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_margin="10dp"
             android:text="@string/fragment_realizar_frequencia_upper_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -21,7 +23,7 @@
             android:text="@string/matricula_cpf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorSecondary"
+            android:background="@drawable/round_green_buttom"
             android:textColor="@android:color/white"
 
             android:layout_marginRight="10dp"
@@ -30,7 +32,7 @@
             android:text="@string/qrcode"
             android:layout_width="match_parent"
             android:textColor="@android:color/white"
-            android:background="@color/colorSecondary"
+            android:background="@drawable/round_green_buttom"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"

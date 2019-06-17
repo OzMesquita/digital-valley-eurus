@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +30,12 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
     private ProgramacaoAbasAdapter programacaoAbasAdapter;
     private TabLayout tabLayout;
     private ProgramacaoViewModel programacaoViewModel;
-    private List<Atividade> atividadesDoDia;
     private List<Integer> nomesEstadoAtividade;
 
     public ProgramacaoDoDiaFragment(){
         nomesEstadoAtividade = new ArrayList<>();
-        nomesEstadoAtividade.add(R.string.next_activities);
         nomesEstadoAtividade.add(R.string.started_activities);
+        nomesEstadoAtividade.add(R.string.next_activities);
         nomesEstadoAtividade.add(R.string.finished_activities);
     }
 
@@ -54,6 +54,7 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
                     AtividadesFragment atividadesFragment = new AtividadesFragment(lists.get(i));
                     programacaoAbasAdapter.addFragment(atividadesFragment,getString(nomesEstadoAtividade.get(i)));
                 }
+                programacaoAbasAdapter.notifyDataSetChanged();
             }
         });
 

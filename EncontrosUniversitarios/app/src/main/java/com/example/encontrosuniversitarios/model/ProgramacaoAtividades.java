@@ -39,6 +39,23 @@ public class ProgramacaoAtividades {
     }
 
     public List<List<Atividade>> dividirAtividadesEmEstados(List<Atividade> atividades){
-        return null;
+        List<List<Atividade>> listas = new ArrayList<>();
+        List<Atividade> atividadesIniciadas = new ArrayList<>();
+        List<Atividade> atividadesSeguintes = new ArrayList<>();
+        List<Atividade> atividadesFinalizadas = new ArrayList<>();
+
+        for(Atividade atividade:atividades){
+            if(atividade.atividadeIniciada()){
+                atividadesIniciadas.add(atividade);
+            }else if(atividade.atividadeFinalizada()){
+                atividadesFinalizadas.add(atividade);
+            }else{
+                atividadesSeguintes.add(atividade);
+            }
+        }
+        listas.add(atividadesIniciadas);
+        listas.add(atividadesSeguintes);
+        listas.add(atividadesFinalizadas);
+        return listas;
     }
 }

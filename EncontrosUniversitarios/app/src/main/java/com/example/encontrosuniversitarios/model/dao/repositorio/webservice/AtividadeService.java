@@ -11,6 +11,6 @@ public interface AtividadeService {
     @GET("atividades")
     Call<List<Atividade>> getAtividades();
 
-    @GET("atividades/hoje")
+    @GET("hoje/atividades")
     Call<List<Atividade>> getAtividadesDoDia();
 }

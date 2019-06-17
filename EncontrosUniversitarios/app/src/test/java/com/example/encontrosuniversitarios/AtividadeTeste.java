@@ -1,6 +1,7 @@
 package com.example.encontrosuniversitarios;
 
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.exceptions.AtividadeFinalizadaAntesDoHorarioIniciadoException;
 
 import junit.framework.TestCase;
 
@@ -70,7 +71,7 @@ public class AtividadeTeste{
     }
 
     @Test
-    public void finalizarAtividade(){
+    public void finalizarAtividade() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
         Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),null);
         Boolean resultado = atividade.finalizar();
         Assert.assertEquals(true,resultado);
@@ -85,14 +86,14 @@ public class AtividadeTeste{
     }
 
     @Test
-    public void finalizarAtividadeJaFinalizada(){
+    public void finalizarAtividadeJaFinalizada() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
         Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),DateTime.now());
         Boolean resultado = atividade.finalizar();
         Assert.assertEquals(false,resultado);
     }
 
     @Test
-    public void finalizarAtividadeNaoIniciada(){
+    public void finalizarAtividadeNaoIniciada() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
         Atividade atividade = new Atividade("Atividade", agora,null,null);
         Boolean resultado = atividade.finalizar();
         Assert.assertEquals(false,resultado);
@@ -103,6 +104,15 @@ public class AtividadeTeste{
         Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),DateTime.now());
         Boolean resultado = atividade.iniciar();
         Assert.assertEquals(false,resultado);
+    }
+
+    @Test(expected =  AtividadeFinalizadaAntesDoHorarioIniciadoException.class)
+    public void finalizarAtividadeAntesDoTempoDoHorarioIniciado() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
+        long minuto = 6000;
+        DateTime horarioInicio = new DateTime(DateTime.now().getMillis()+minuto);
+        Atividade atividade = new Atividade("Atividade", agora,horarioInicio,null);
+        atividade.finalizar();
+        Assert.assertNull(atividade.getHorarioFinal());
     }
 
     @Test

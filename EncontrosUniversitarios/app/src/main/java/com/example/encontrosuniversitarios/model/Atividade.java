@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.encontrosuniversitarios.model.exceptions.AtividadeFinalizadaAntesDoHorarioIniciadoException;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
@@ -54,9 +55,14 @@ public class Atividade implements Parcelable {
         return false;
     }
 
-    public Boolean finalizar(){
+    public Boolean finalizar() throws AtividadeFinalizadaAntesDoHorarioIniciadoException {
         if(this.horarioFinal==null && this.horarioInicio!=null){
-            this.horarioFinal = DateTime.now();
+            DateTime agora = DateTime.now();
+            if(horarioInicio.getMillis() <= agora.getMillis()){
+                this.horarioFinal = DateTime.now();
+            }else{
+                throw new AtividadeFinalizadaAntesDoHorarioIniciadoException("");
+            }
             return true;
         }else if(this.horarioFinal!=null){
             return false;
