@@ -28,6 +28,7 @@ app.delete('/usuarios/:id', db_usu.deleteUsuario)
 
 app.get('/atividades', db_ati.getAtividades)
 app.get('/atividades/:id', db_ati.getAtividadeById)
+app.get('/hoje/atividades/', db_ati.getAtividadesHoje)
 app.post('/atividades', db_ati.createAtividade)
 app.put('/atividades/:id', db_ati.updateAtividade)
 app.delete('/atividades/:id', db_ati.deleteAtividade)
