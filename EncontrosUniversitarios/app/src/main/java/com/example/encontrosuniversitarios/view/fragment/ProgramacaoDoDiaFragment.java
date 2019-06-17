@@ -34,8 +34,9 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
 
     public ProgramacaoDoDiaFragment(){
         nomesEstadoAtividade = new ArrayList<>();
-        nomesEstadoAtividade.add(R.string.next_activities);
         nomesEstadoAtividade.add(R.string.started_activities);
+        nomesEstadoAtividade.add(R.string.next_activities);
+
         nomesEstadoAtividade.add(R.string.finished_activities);
     }
 
