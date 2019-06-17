@@ -33,6 +33,48 @@ public class ProgramacaoAtividadesTeste {
         return atividades;
     }
 
+    private List<Atividade> gerarAtividadesDoDia(){
+        List<Atividade> atividades = new ArrayList<>();
+        atividades.add(new Atividade("Java", DateTime.now(), DateTime.now(), null));
+
+        atividades.add(new Atividade("JUnit", DateTime.now(), DateTime.now(), null));
+        atividades.add(new Atividade("Mockito", DateTime.now(), DateTime.now(), null));
+        atividades.add(new Atividade("PHPUnit", DateTime.now(), DateTime.now(), null));
+        atividades.add(new Atividade("Vue", DateTime.now(), null, null));
+
+        atividades.add(new Atividade("PHP", DateTime.now(), null, null));
+
+        atividades.add(new Atividade("Jenkins", DateTime.now(), null, null));
+        atividades.add(new Atividade("TDD", DateTime.now(), null, null));
+
+        atividades.add(new Atividade("React", DateTime.now(), DateTime.now(), DateTime.now()));
+        atividades.add(new Atividade("Angular", DateTime.now(), DateTime.now(), DateTime.now()));
+        return atividades;
+    }
+
+    @Test
+    public void agruparAtividadesPeloEstado(){
+        ProgramacaoAtividades programacaoAtividades = new ProgramacaoAtividades();
+        List<List<Atividade>> listaEstadosAtividades = programacaoAtividades.dividirAtividadesEmEstados(gerarAtividadesDoDia());
+
+        Assert.assertEquals(4,listaEstadosAtividades.get(0).size());
+        Assert.assertEquals(4,listaEstadosAtividades.get(1).size());
+        Assert.assertEquals(2,listaEstadosAtividades.get(2).size());
+
+        Assert.assertEquals(true,listaEstadosAtividades.get(0).contains(new Atividade("Java")));
+        Assert.assertEquals(true,listaEstadosAtividades.get(0).contains(new Atividade("JUnit")));
+        Assert.assertEquals(true,listaEstadosAtividades.get(0).contains(new Atividade("Mockito")));
+        Assert.assertEquals(true,listaEstadosAtividades.get(0).contains(new Atividade("PHPUnit")));
+
+        Assert.assertEquals(true,listaEstadosAtividades.get(1).contains(new Atividade("Vue")));
+        Assert.assertEquals(true,listaEstadosAtividades.get(1).contains(new Atividade("PHP")));
+        Assert.assertEquals(true,listaEstadosAtividades.get(1).contains(new Atividade("Jenkins")));
+        Assert.assertEquals(true,listaEstadosAtividades.get(1).contains(new Atividade("TDD")));
+
+        Assert.assertEquals(true,listaEstadosAtividades.get(2).contains(new Atividade("React")));
+        Assert.assertEquals(true,listaEstadosAtividades.get(2).contains(new Atividade("Angular")));
+    }
+
     @Test
     public void agruparAtividadesEmDias(){
         ProgramacaoAtividades programacaoAtividades = new ProgramacaoAtividades();

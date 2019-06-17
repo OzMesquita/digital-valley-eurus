@@ -49,8 +49,6 @@ public class Atividade implements Parcelable {
         if(this.horarioInicio==null){
             this.horarioInicio = DateTime.now();
             return true;
-        }else if(this.horarioInicio!=null){
-            return false;
         }
         return false;
     }
@@ -60,12 +58,10 @@ public class Atividade implements Parcelable {
             DateTime agora = DateTime.now();
             if(horarioInicio.getMillis() <= agora.getMillis()){
                 this.horarioFinal = DateTime.now();
+                return true;
             }else{
                 throw new AtividadeFinalizadaAntesDoHorarioIniciadoException("");
             }
-            return true;
-        }else if(this.horarioFinal!=null){
-            return false;
         }
         return false;
     }
