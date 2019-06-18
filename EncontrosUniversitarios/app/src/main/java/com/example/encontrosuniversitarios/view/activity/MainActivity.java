@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openFragment(Fragment fragment,int itemId){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
         transaction.replace(R.id.fragment_container,fragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -97,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        fragment = new ProgramacaoFragment();
-        openFragment(fragment,0);
+        fragment = new ProgramacaoDoDiaFragment();
+        openFragment(fragment,1);
 
     }
 

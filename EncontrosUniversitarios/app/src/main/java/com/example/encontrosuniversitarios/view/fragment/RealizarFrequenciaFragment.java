@@ -3,6 +3,8 @@ package com.example.encontrosuniversitarios.view.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,27 +16,41 @@ import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DiaEvento;
 import com.example.encontrosuniversitarios.view.adapter.ProgramacaoAdapter;
+import com.example.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoListInterface {
-
+    private List<Atividade> atividades;
+    private ProgramacaoDoDiaAdapter programacaoDoDiaAdapter;
     public RealizarFrequenciaFragment() {
         // Required empty public constructor
+        atividades = new ArrayList<>();
+        atividades.add(new Atividade("Tdd"));
+        atividades.add(new Atividade("Testes"));
+        atividades.add(new Atividade("Java"));
+        atividades.add(new Atividade("Politica"));
+        atividades.add(new Atividade("Pacce"));
+        atividades.add(new Atividade("Culinaria"));
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_realizar_frequencia, container, false);
+        View view = inflater.inflate(R.layout.fragment_realizar_frequencia, container, false);
+        RecyclerView recyclerView = view.findViewById(R.id.atividades_frequencia);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades);
+        recyclerView.setAdapter(programacaoDoDiaAdapter);
+        return view;
     }
 
 
     @Override
     public Filterable getProgramacaoAdapter() {
-        List<DiaEvento> diaEventos = new ArrayList<>();
-        return new ProgramacaoAdapter(diaEventos);
+        return programacaoDoDiaAdapter;
     }
 }
