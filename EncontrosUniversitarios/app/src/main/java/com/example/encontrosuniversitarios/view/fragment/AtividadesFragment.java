@@ -32,6 +32,7 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

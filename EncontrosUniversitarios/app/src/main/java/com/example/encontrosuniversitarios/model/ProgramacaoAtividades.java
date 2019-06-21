@@ -1,5 +1,7 @@
 package com.example.encontrosuniversitarios.model;
 
+import com.example.encontrosuniversitarios.view.helper.FormatadorData;
+
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -23,19 +25,9 @@ public class ProgramacaoAtividades {
                     atividadesDia.add(atividade);
                 }
             }
-            diasEvento.add(new DiaEvento(formatarData(dia),atividadesDia));
+            diasEvento.add(new DiaEvento(FormatadorData.formatarData(dia),atividadesDia));
         }
         return diasEvento;
-    }
-
-    private String formatarData(DateTime dia){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(dia.getDayOfMonth());
-        stringBuilder.append("/");
-        stringBuilder.append(dia.getMonthOfYear());
-        stringBuilder.append("/");
-        stringBuilder.append(dia.getYear());
-        return stringBuilder.toString();
     }
 
     public List<List<Atividade>> dividirAtividadesEmEstados(List<Atividade> atividades){

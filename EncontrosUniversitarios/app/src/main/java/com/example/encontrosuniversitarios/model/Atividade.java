@@ -33,6 +33,12 @@ public class Atividade implements Parcelable {
         this.nome = nome;
     }
 
+    public Atividade(String nome,DateTime horarioInicialPrevisto,Local local){
+        this.nome = nome;
+        this.horarioInicialPrevisto = horarioInicialPrevisto;
+        this.local = local;
+    }
+
     public Atividade(String nome, DateTime horarioInicialPrevisto, DateTime horarioInicio, DateTime horarioFinal){
         this(nome);
         this.horarioInicialPrevisto = horarioInicialPrevisto;

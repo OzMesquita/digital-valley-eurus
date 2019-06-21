@@ -15,8 +15,11 @@ import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DiaEvento;
+import com.example.encontrosuniversitarios.model.Local;
 import com.example.encontrosuniversitarios.view.adapter.ProgramacaoAdapter;
 import com.example.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
+
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +30,12 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
     public RealizarFrequenciaFragment() {
         // Required empty public constructor
         atividades = new ArrayList<>();
-        atividades.add(new Atividade("Tdd"));
-        atividades.add(new Atividade("Testes"));
-        atividades.add(new Atividade("Java"));
-        atividades.add(new Atividade("Politica"));
-        atividades.add(new Atividade("Pacce"));
-        atividades.add(new Atividade("Culinaria"));
+        atividades.add(new Atividade("Tdd", DateTime.now(),new Local("Sala de Video")));
+        atividades.add(new Atividade("Testes",DateTime.now(),new Local("Sala de Video")));
+        atividades.add(new Atividade("Java",DateTime.now(),new Local("Hall de Entrada")));
+        atividades.add(new Atividade("Politica",DateTime.now(),new Local("Auditorio")));
+        atividades.add(new Atividade("Pacce",DateTime.now(),new Local("Sala do Pacce")));
+        atividades.add(new Atividade("Culinaria",DateTime.now(),new Local("Cantina")));
 
     }
 

@@ -51,7 +51,7 @@ public class WebServiceDatabase {
                 .registerTypeAdapter(DateTime.class, new DateTimeJsonConverter())
                 .create();
         retrofitService = new Retrofit.Builder()
-                .baseUrl("http://192.169.1.120:3000/")
+                .baseUrl("http://192.169.1.124:3000/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

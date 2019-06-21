@@ -13,6 +13,10 @@ public class Local {
     private String andar;
     private Sala sala;
 
+    public Local(String nome){
+        this.nome = nome;
+    }
+
     public String getNome() {
         return nome;
     }
