@@ -11,6 +11,14 @@
     <string name="fragment_realizar_frequencia_upper_text">Realizar frequência - Sala 12</string>
     <string name="matricula_cpf">Matricula ou CPF</string>
     <string name="qrcode">QRCode</string>
+    <string name="senha">Senha</string>
+    <string name="entrar_perfil">Entrar</string>
+    <string name="cadastrar_usuario">Cadastrar-se</string>
+    <string name="esqueci_senha">Esqueci minha senha</string>
+    <string name="nome">Nome</string>
+    <string name="email">Email</string>
+    <string name="matricula">Matricula</string>
+    <string name="entre_perfil">Já se cadastrou? Entre.</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
