@@ -10,6 +10,7 @@ import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.Usuario;
+import com.example.encontrosuniversitarios.view.fragment.CadastroUsuario;
 import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
 import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
@@ -72,11 +73,14 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle(R.string.title_frequencia);
 //                    fragment = new RealizarFrequenciaFragment();
                     fragment = new LoginFragment();
+//                    fragment = new CadastroUsuario();
                     itemId = 2;
                     break;
             }
             openFragment(fragment,itemId);
-            updateSearchViewFragment();
+            if(itemId == 0 || itemId == 1) {
+                updateSearchViewFragment();
+            }
             return false;
         }
     };
