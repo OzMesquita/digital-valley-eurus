@@ -8,5 +8,9 @@
     <color name="colorSecondaryDark">#338a3e</color>
     <color name="colorSecondaryAccent">#98ee99</color>
 
+    <color name="future_activity">#bdbdbd</color>
+    <color name="finished_activity">#ef5350</color>
+    <color name="started_activity">#66bb6a</color>
+
     <color name="colorBlue">#042A64</color>
 </resources>

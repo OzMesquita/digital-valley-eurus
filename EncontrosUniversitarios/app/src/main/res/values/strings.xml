@@ -8,6 +8,9 @@
     <string name="started_activities">Iniciadas</string>
     <string name="finished_activities">Finalizadas</string>
     <string name="next_activities">Próximas</string>
+    <string name="started_activity">Em andamento</string>
+    <string name="finished_activity">Finalizada</string>
+    <string name="next_activity">Não iniciada</string>
     <string name="fragment_realizar_frequencia_upper_text">Realizar frequência - Sala 12</string>
     <string name="matricula_cpf">Matricula ou CPF</string>
     <string name="qrcode">QRCode</string>
@@ -20,7 +23,9 @@
     <string name="matricula">Matricula</string>
     <string name="entre_perfil">Já se cadastrou? Entre.</string>
 
-
+    <string name="where">Local</string>
+    <string name="description">Descrição</string>
+    <string name="default_description">Esta atividade busca mostrar as técnicas utilizadas em Engenharia de Software para elicitação de requisitos em projetos ágeis de software. Você aprenderá técnicas atualizadas e muito utilizadas no ramo.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
