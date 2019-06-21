@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/round_green_buttom"
             android:textColor="@android:color/white"
-
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"/>
         <Button
