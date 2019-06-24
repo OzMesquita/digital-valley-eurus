@@ -11,12 +11,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.view.helper.FormatadorData;
 
+import org.joda.time.DateTime;
 import org.w3c.dom.Text;
 
 public class AtividadeDadosFragment extends Fragment {
@@ -42,6 +44,7 @@ public class AtividadeDadosFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             atividade = getArguments().getParcelable(ATIVIDADE);
+
         }
     }
 
@@ -54,17 +57,42 @@ public class AtividadeDadosFragment extends Fragment {
         nomeAtv.setText(atividade.getNome());
         TextView horarioDataAtividade = view.findViewById(R.id.horario_data_atividade);
         horarioDataAtividade.setText(FormatadorData.formatarDataHorario(atividade.getHorarioInicialPrevisto()));
-        TextView estadoAtividade = view.findViewById(R.id.estado_atividade);
+        final TextView estadoAtividade = view.findViewById(R.id.estado_atividade);
         estadoAtividade.setText(atividade.getEstado());
-        View corEstado = view.findViewById(R.id.atividade_estado_cor);
+        final View corEstado = view.findViewById(R.id.atividade_estado_cor);
         corEstado.setBackgroundColor(selecionarCorEstadoAtividade(atividade.getEstado()));
         TextView localAtividade = view.findViewById(R.id.local_atividade);
         localAtividade.setText(atividade.getLocal().getNome());
         TextView descricaoAtividade = view.findViewById(R.id.descricao_atividade);
         descricaoAtividade.setText(atividade.getDescricao());
+        TextView apresentadorAtividade = view.findViewById(R.id.apresentador_atividade);
+        apresentadorAtividade.setText(atividade.getApresentador().getNome());
+        final TextView horarioIniciado = view.findViewById(R.id.horario_iniciado);
+        final TextView horarioFinalizado = view.findViewById(R.id.horario_finalizado);
+        final Button iniciarFinalizarAtividade = view.findViewById(R.id.iniciar_finalizar_atividade);
+        iniciarFinalizarAtividade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(atividade.atividadeIniciada()){
+                    horarioFinalizado.setText(FormatadorData.formatarDataHorario(DateTime.now()));
+                    corEstado.setBackgroundColor(getResources().getColor(R.color.finished_activity));
+                    estadoAtividade.setText(R.string.finished_activity);
+                }else if(!atividade.atividadeIniciada() && !atividade.atividadeFinalizada()){
+                    atividade.iniciar();
+                    estadoAtividade.setText(R.string.started_activity);
+                    corEstado.setBackgroundColor(getResources().getColor(R.color.started_activity));
+                    iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_red_button);
+                    iniciarFinalizarAtividade.setText(R.string.finalizar_atividade);
+                    horarioIniciado.setText(FormatadorData.formatarDataHorario(DateTime.now()));
+                }else if(atividade.atividadeFinalizada()){
+                    iniciarFinalizarAtividade.setAlpha(.5f);
+                    iniciarFinalizarAtividade.setClickable(false);
+                    iniciarFinalizarAtividade.setText(R.string.finalizar_atividade);
+                }
+            }
+        });
         return view;
     }
-
 
     private int selecionarCorEstadoAtividade(String estado){
         int cor = getResources().getColor(R.color.future_activity);
