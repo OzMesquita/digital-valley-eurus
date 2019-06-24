@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.viewmodel;
 
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.Atividade;
@@ -8,6 +9,7 @@ import com.example.encontrosuniversitarios.model.ProgramacaoAtividades;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeListResponseListener;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;

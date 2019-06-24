@@ -56,12 +56,13 @@
             app:layout_constraintGuide_begin="130dp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/horario_data_atividade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
+            android:textSize="18dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="19/06/2019 às 15:00"
@@ -83,7 +84,9 @@
             android:layout_margin="10dp"
             />
         <TextView
+            android:id="@+id/estado_atividade"
             android:layout_width="wrap_content"
+            android:textSize="16dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/finished_activity"/>
@@ -104,6 +107,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20dp"
             android:text="@string/where"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,7 +119,9 @@
                 android:layout_margin="5dp"
                 android:src="@drawable/ic_location_on_black_24dp"/>
             <TextView
+                android:id="@+id/local_atividade"
                 android:layout_width="wrap_content"
+                android:textSize="16dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Auditório" />
@@ -130,9 +136,11 @@
                 android:layout_margin="5dp"
                 android:src="@drawable/ic_more_horiz_black_24dp"/>
             <TextView
+                android:id="@+id/local_adicional"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:textSize="16dp"
                 android:text="Bloco 2, do lado da sala do PACCE, 2º andar" />
         </LinearLayout>
     </LinearLayout>
@@ -150,14 +158,16 @@
         android:padding="5dp"
         >
         <TextView
+            android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/description"/>
         <TextView
+            android:id="@+id/descricao_atividade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-
+            android:textSize="16dp"
             android:text="@string/default_description"/>
 
 

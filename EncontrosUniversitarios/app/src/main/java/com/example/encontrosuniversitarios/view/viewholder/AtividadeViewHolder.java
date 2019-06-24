@@ -23,20 +23,6 @@ public class AtividadeViewHolder extends ChildViewHolder {
         nomeApresentador = itemView.findViewById(R.id.nome_apresentador);
         horarioAtividadeTextView = itemView.findViewById(R.id.horario_atividade);
         localAtividadeTextView = itemView.findViewById(R.id.local_atividade);
-
-
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AtividadeDadosFragment fragment = AtividadeDadosFragment.newInstance("Atividade");
-                AppCompatActivity activity = (AppCompatActivity)v.getContext();
-                FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
-                transaction.replace(R.id.fragment_container,fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
     }
 
     public void bind(final Atividade atividade){
@@ -47,7 +33,7 @@ public class AtividadeViewHolder extends ChildViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AtividadeDadosFragment fragment = AtividadeDadosFragment.newInstance(atividade.getNome());
+                AtividadeDadosFragment fragment = AtividadeDadosFragment.newInstance(atividade);
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);

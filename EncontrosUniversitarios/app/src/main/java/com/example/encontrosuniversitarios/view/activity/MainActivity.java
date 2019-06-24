@@ -20,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.Window;
 import android.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -93,13 +94,13 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
         bottomNavigationView.getMenu().getItem(itemId).setChecked(true);
         getSupportActionBar().setTitle(bottomNavigationView.getMenu().getItem(itemId).getTitle());
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         JodaTimeAndroid.init(this);
+
         setContentView(R.layout.activity_main);
         mTextMessage = findViewById(R.id.message);
         bottomNavigationView = findViewById(R.id.navigation);
