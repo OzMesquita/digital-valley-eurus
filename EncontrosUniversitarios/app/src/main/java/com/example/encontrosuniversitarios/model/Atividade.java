@@ -29,6 +29,10 @@ public class Atividade implements Parcelable {
     private Usuario apresentador;
     private Local local;
 
+    public static final String INICIADA = "Iniciada";
+    public static final String FINALIZADA = "Finalizada";
+    public static final String NAO_INICIADA = "Não iniciada";
+
     public Atividade(String nome){
         this.nome = nome;
     }
@@ -70,6 +74,12 @@ public class Atividade implements Parcelable {
             }
         }
         return false;
+    }
+
+    public String getEstado(){
+        if(atividadeIniciada()) return INICIADA;
+        if(atividadeFinalizada()) return FINALIZADA;
+        return NAO_INICIADA;
     }
 
     public boolean atividadeIniciada(){

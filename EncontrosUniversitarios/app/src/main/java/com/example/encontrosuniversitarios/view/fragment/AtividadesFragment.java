@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +28,33 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
     private ProgramacaoDoDiaAdapter programacaoDoDiaAdapter;
     private List<Atividade> atividades;
 
-    public AtividadesFragment(List<Atividade> atividades) {
-        // Required empty public constructor
-        this.atividades = atividades;
+    private static final String ATIVIDADES_ARGS = "ATIVIDADES";
+
+
+    public static AtividadesFragment newInstance(List<Atividade> atividades) {
+        AtividadesFragment fragment = new AtividadesFragment();
+        Bundle args = new Bundle();
+        Parcelable []atividadesParcelable = new Parcelable[atividades.size()];
+        for(int i=0;i<atividades.size();i++){
+            atividadesParcelable[i] = atividades.get(i);
+        }
+        args.putParcelableArray(ATIVIDADES_ARGS,atividadesParcelable);
+
+        fragment.setArguments(args);
+        return fragment;
     }
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            atividades = new ArrayList<>();
+            Parcelable []atividadesParcelable = getArguments().getParcelableArray(ATIVIDADES_ARGS);
+            for(Parcelable p:atividadesParcelable){
+                atividades.add((Atividade) p);
+            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
