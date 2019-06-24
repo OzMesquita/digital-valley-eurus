@@ -13,8 +13,9 @@ public class Local {
     private String andar;
     private Sala sala;
 
-    public Local(String nome){
+    public Local(String nome,Sala sala){
         this.nome = nome;
+        this.sala=sala;
     }
 
     public String getNome() {
@@ -31,6 +32,12 @@ public class Local {
 
     public void setPontoReferencia(String pontoReferencia) {
         this.pontoReferencia = pontoReferencia;
+    }
+
+    public String getLocalSala(){
+        String local;
+       // local = sala.getNome().concat(nome).concat(" " + andar + " Andar");
+       return local =  nome + " " + sala.getNumero() + ", "+ andar + " andar";
     }
 
     public String getAndar() {

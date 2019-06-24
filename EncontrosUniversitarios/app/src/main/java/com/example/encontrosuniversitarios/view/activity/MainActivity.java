@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_frequencia:
                     getSupportActionBar().setTitle(R.string.title_frequencia);
-//                    fragment = new RealizarFrequenciaFragment();
+                    fragment = new RealizarFrequenciaFragment();
 //                    fragment = new LoginFragment();
-                    fragment = new CadastroUsuario();
+//                    fragment = new CadastroUsuario();
                     itemId = 2;
                     break;
             }
             openFragment(fragment,itemId);
-            if(itemId == 0 || itemId == 1) {
+            if(itemId == 0 || itemId == 1 || itemId == 2) {
                 updateSearchViewFragment();
             }
             return false;

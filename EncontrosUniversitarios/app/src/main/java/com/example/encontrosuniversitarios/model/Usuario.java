@@ -26,6 +26,10 @@ public class Usuario {
     @SerializedName("nivel_acesso")
     private int nivelAcesso;
 
+    public Usuario(String nome) {
+        this.nome = nome;
+    }
+
     public String getNome() {
         return nome;
     }

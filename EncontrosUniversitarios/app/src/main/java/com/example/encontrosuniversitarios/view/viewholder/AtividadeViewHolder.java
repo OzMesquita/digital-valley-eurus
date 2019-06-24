@@ -14,13 +14,16 @@ import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 public class AtividadeViewHolder extends ChildViewHolder {
     private TextView nomeAtividadeTextView;
+    private TextView nomeApresentador;
     private TextView horarioAtividadeTextView;
     private TextView localAtividadeTextView;
     public AtividadeViewHolder(View itemView) {
         super(itemView);
         nomeAtividadeTextView = itemView.findViewById(R.id.nome_atividade_item_list);
+        nomeApresentador = itemView.findViewById(R.id.nome_apresentador);
         horarioAtividadeTextView = itemView.findViewById(R.id.horario_atividade);
         localAtividadeTextView = itemView.findViewById(R.id.local_atividade);
+
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,8 +41,9 @@ public class AtividadeViewHolder extends ChildViewHolder {
 
     public void bind(final Atividade atividade){
         this.nomeAtividadeTextView.setText(atividade.getNome());
+        this.nomeApresentador.setText(atividade.getApresentador().getNome());
         this.horarioAtividadeTextView.setText(FormatadorData.formatarDataHorario(atividade.getHorarioInicialPrevisto()));
-        this.localAtividadeTextView.setText(atividade.getLocal().getNome());
+        this.localAtividadeTextView.setText(atividade.getLocal().getLocalSala());
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

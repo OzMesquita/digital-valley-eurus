@@ -14,6 +14,10 @@ public class Sala {
     private String nome;
     private List<Atividade> atividades;
 
+    public Sala(int numero) {
+        this.numero = numero;
+    }
+
     public Sala(){
         this.atividades = new ArrayList<>();
     }

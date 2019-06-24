@@ -5,4 +5,5 @@
     <dimen name="lista_titulo_item_programacao_text_size">20dp</dimen>
     <dimen name="lista_horario_item_programacao_text_size">15dp</dimen>
     <dimen name="lista_local_item_programacao_text_size">15dp</dimen>
+    <dimen name="nome_apresentador">15dp</dimen>
 </resources>

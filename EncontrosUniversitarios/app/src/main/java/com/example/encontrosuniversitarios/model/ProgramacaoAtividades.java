@@ -15,15 +15,18 @@ public class ProgramacaoAtividades {
         for(Atividade atividade:atividades){
             DateTime diaPrevisto = new DateTime(atividade.getHorarioInicialPrevisto().getYear(),
                     atividade.getHorarioInicialPrevisto().getMonthOfYear(), atividade.getHorarioInicialPrevisto().getDayOfMonth(),0, 0);
-            if(!dias.contains(atividade.getHorarioInicialPrevisto())){
+            if(!dias.contains(diaPrevisto)){
                 dias.add(diaPrevisto);
             }
         }
 
         for(DateTime dia:dias){
             List<Atividade> atividadesDia = new ArrayList<>();
+
             for(Atividade atividade:atividades){
-                if(dia.equals(atividade.getHorarioInicialPrevisto())){
+                DateTime diaPrevisto = new DateTime(atividade.getHorarioInicialPrevisto().getYear(),
+                        atividade.getHorarioInicialPrevisto().getMonthOfYear(), atividade.getHorarioInicialPrevisto().getDayOfMonth(),0, 0);
+                if(dia.equals(diaPrevisto)){
                     atividadesDia.add(atividade);
                 }
             }

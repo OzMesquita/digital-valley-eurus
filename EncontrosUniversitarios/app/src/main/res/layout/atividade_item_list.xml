@@ -37,6 +37,12 @@
                     android:text="Nome da atividade"
                     android:textSize="@dimen/lista_titulo_item_programacao_text_size"/>
                 <TextView
+                    android:id="@+id/nome_apresentador"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nome do apresentador"
+                    android:textSize="@dimen/nome_apresentador"/>
+                <TextView
                     android:id="@+id/horario_atividade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
