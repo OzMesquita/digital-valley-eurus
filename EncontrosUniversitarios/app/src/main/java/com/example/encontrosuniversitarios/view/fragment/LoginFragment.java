@@ -5,12 +5,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filterable;
-
-import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 
-public class LoginFragment extends Fragment  implements ProgramacaoListInterface {
+public class LoginFragment extends Fragment  {
 //
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
@@ -25,9 +22,5 @@ public class LoginFragment extends Fragment  implements ProgramacaoListInterface
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-    @Override  // remover isso depois
-    public Filterable getProgramacaoAdapter() {
-        return null;
-    }
 }
 

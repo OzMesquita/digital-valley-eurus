@@ -13,8 +13,10 @@ public class ProgramacaoAtividades {
         List<DiaEvento> diasEvento = new ArrayList<>();
         List<DateTime> dias = new ArrayList<>();
         for(Atividade atividade:atividades){
+            DateTime diaPrevisto = new DateTime(atividade.getHorarioInicialPrevisto().getYear(),
+                    atividade.getHorarioInicialPrevisto().getMonthOfYear(), atividade.getHorarioInicialPrevisto().getDayOfMonth(),0, 0);
             if(!dias.contains(atividade.getHorarioInicialPrevisto())){
-                dias.add(atividade.getHorarioInicialPrevisto());
+                dias.add(diaPrevisto);
             }
         }
 
