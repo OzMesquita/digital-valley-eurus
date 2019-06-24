@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_frequencia:
                     getSupportActionBar().setTitle(R.string.title_frequencia);
 //                    fragment = new RealizarFrequenciaFragment();
-                    fragment = new LoginFragment();
-//                    fragment = new CadastroUsuario();
+//                    fragment = new LoginFragment();
+                    fragment = new CadastroUsuario();
                     itemId = 2;
                     break;
             }

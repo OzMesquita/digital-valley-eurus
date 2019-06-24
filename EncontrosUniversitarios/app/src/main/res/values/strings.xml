@@ -22,6 +22,7 @@
     <string name="email">Email</string>
     <string name="matricula">Matricula</string>
     <string name="entre_perfil">Já se cadastrou? Entre.</string>
+    <string name="cpf">CPF</string>
 
     <string name="where">Local</string>
     <string name="description">Descrição</string>
