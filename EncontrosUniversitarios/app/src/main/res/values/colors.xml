@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#0069c0</color>
     <color name="colorPrimaryDark">#003f8f</color>
-    <color name="colorAccent">#5996f3</color>
+    <color name="colorAccent">#66bb6a</color>
 
     <color name="colorSecondary">#66bb6a</color>
     <color name="colorSecondaryDark">#338a3e</color>
@@ -11,8 +11,6 @@
     <color name="future_activity">#bdbdbd</color>
     <color name="finished_activity">#ef5350</color>
     <color name="started_activity">#66bb6a</color>
-
-    <color name="darker_grey">#aaa</color>
 
     <color name="colorBlue">#042A64</color>
 </resources>
