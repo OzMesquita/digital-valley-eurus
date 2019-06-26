@@ -7,7 +7,7 @@ import com.example.encontrosuniversitarios.model.Atividade;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface AtividadeListResponseListener {
-    void onSuccess(List<Atividade> atividades);
+public interface ResponseListener<T> {
+    void onSuccess(T response);
     void onFailure(String message);
 }

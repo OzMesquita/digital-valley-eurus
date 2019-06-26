@@ -4,8 +4,12 @@ import com.example.encontrosuniversitarios.model.Atividade;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface AtividadeService {
     @GET("atividades")
@@ -13,4 +17,7 @@ public interface AtividadeService {
 
     @GET("hoje/atividades/")
     Call<List<Atividade>> getAtividadesDoDia();
+
+    @PUT("atividades/{id}")
+    Call<Atividade> atualizarAtividade(@Path("id") int idAtividade, @Body Atividade atividade);
 }
