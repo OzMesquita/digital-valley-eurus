@@ -32,7 +32,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
     public RealizarFrequenciaFragment() {
         // Required empty public constructor
         atividades = new ArrayList<>();
-        atividades.add(new Atividade("Tdd", DateTime.now(),new Local("Sala de Video",new Sala(1)), new Usuario("Mariana Carvalho")));
+        atividades.add(new Atividade("Tdd", DateTime.now(),new Local("Sala de Video", new Sala(1)), new Usuario("Mariana Carvalho")));
 //        atividades.add(new Atividade("Testes",DateTime.now(),new Local("Sala de Video")));
 //        atividades.add(new Atividade("Java",DateTime.now(),new Local("Hall de Entrada")));
 //        atividades.add(new Atividade("Politica",DateTime.now(),new Local("Auditorio")));
