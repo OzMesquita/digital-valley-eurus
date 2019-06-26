@@ -23,7 +23,7 @@
             android:text="@string/matricula_cpf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_green_buttom"
+            android:background="@drawable/round_green_button"
             android:textColor="@android:color/white"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"/>
@@ -31,7 +31,7 @@
             android:text="@string/qrcode"
             android:layout_width="match_parent"
             android:textColor="@android:color/white"
-            android:background="@drawable/round_green_buttom"
+            android:background="@drawable/round_green_button"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"

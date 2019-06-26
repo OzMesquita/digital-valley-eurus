@@ -42,5 +42,6 @@ public class AtividadeViewHolder extends ChildViewHolder {
                 transaction.commit();
             }
         });
+
     }
 }
