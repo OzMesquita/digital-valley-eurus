@@ -8,44 +8,22 @@ import androidx.annotation.NonNull;
 
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
-import com.example.encontrosuniversitarios.model.Atividade;
-import com.example.encontrosuniversitarios.model.Usuario;
-import com.example.encontrosuniversitarios.view.fragment.CadastroUsuario;
-import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
-import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
+import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
-import android.view.Window;
 import android.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import net.danlew.android.joda.JodaTimeAndroid;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private SearchView searchView;
@@ -73,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_frequencia:
                     getSupportActionBar().setTitle(R.string.title_frequencia);
 //                    fragment = new RealizarFrequenciaFragment();
-                    fragment = new LoginFragment();
-//                    fragment = new CadastroUsuario();
+//                    fragment = new LoginFragment();
+                    fragment = new CadastroUsuarioFragment();
                     itemId = 2;
                     break;
             }

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.example.encontrosuniversitarios.R;
 
-public class CadastroUsuario extends Fragment {
+public class CadastroUsuarioFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
