@@ -55,14 +55,14 @@ public class AtividadeRepositorio{
     }
 
     public void atualizarAtividade(Atividade atividade, final ResponseListener listener){
-        atividadeService.atualizarAtividade(atividade.getId(),atividade).enqueue(new Callback<Atividade>() {
+        atividadeService.atualizarAtividade(atividade.getId(),atividade).enqueue(new Callback<Boolean>() {
             @Override
-            public void onResponse(Call<Atividade> call, Response<Atividade> response) {
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 listener.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<Atividade> call, Throwable t) {
+            public void onFailure(Call<Boolean> call, Throwable t) {
                 listener.onFailure(t.getMessage());
             }
         });

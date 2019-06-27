@@ -71,21 +71,4 @@ public class ProgramacaoViewModel extends ViewModel {
         });
     }
 
-    public void atualizarAtividade(Atividade atividade){
-        atividadeRepositorio.atualizarAtividade(atividade, new ResponseListener<Atividade>() {
-            @Override
-            public void onSuccess(Atividade response) {
-
-            }
-
-            @Override
-            public void onFailure(String message) {
-
-            }
-        });
-    }
-
-
-
-
 }
