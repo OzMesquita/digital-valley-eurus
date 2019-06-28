@@ -95,15 +95,15 @@ public class AtividadeDadosFragment extends Fragment {
                 horarioFinalizado.setText(FormatadorData.formatarDataHorario(horarioFinal));
                 corEstado.setBackgroundColor(getResources().getColor(R.color.finished_activity));
                 estadoAtividade.setText(R.string.finished_activity);
-                iniciarFinalizarAtividade.setBackgroundResource(R.color.colorBlue);
-                iniciarFinalizarAtividade.setText(R.string.finalizar_atividade);
+                iniciarFinalizarAtividade.setBackgroundResource(R.color.disabled_button);
+                iniciarFinalizarAtividade.setText(R.string.atividade_finalizada);
             }
         });
 
         iniciarFinalizarAtividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                atividadeDadosViewModel.alterarEstadoAtividade();
+                atividadeDadosViewModel.alterarHorarioAtividade();
             }
         });
         return view;

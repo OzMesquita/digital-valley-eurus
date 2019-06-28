@@ -32,7 +32,7 @@ public class AtividadeDadosViewModel extends ViewModel {
         this.atividadeMutableLiveData.setValue(atividade);
     }
 
-    public void alterarEstadoAtividade(){
+    public void alterarHorarioAtividade(){
         if(!atividade.atividadeIniciada() && !atividade.atividadeFinalizada()){
             iniciarAtividade();
         }else if(atividade.atividadeIniciada()){
@@ -43,32 +43,30 @@ public class AtividadeDadosViewModel extends ViewModel {
         }
     }
 
-    private boolean iniciarAtividade(){
+    private void iniciarAtividade(){
         boolean resultado = this.atividade.iniciar();
         if(resultado){
-            atualizarAtividade();
-            return true;
+            atualizarHorariosAtividade(true);
         }
-        return false;
     }
 
-    private boolean finalizarAtividade() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
+    private void finalizarAtividade() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
         boolean resultado = this.atividade.finalizar();
         if(resultado){
-            atualizarAtividade();
-            return true;
+            atualizarHorariosAtividade(false);
         }
-        return false;
     }
 
-    public void atualizarAtividade(){
+    private void atualizarHorariosAtividade(final boolean isHorarioInicio){
         atividadeRepositorio.atualizarAtividade(this.atividade, new ResponseListener<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
-
                 atividadeMutableLiveData.setValue(atividade);
-                horarioInicioAtividade.setValue(atividade.getHorarioInicio());
-                horarioFinalAtividade.setValue(atividade.getHorarioFinal());
+                if(isHorarioInicio) {
+                    horarioInicioAtividade.setValue(atividade.getHorarioInicio());
+                }else {
+                    horarioFinalAtividade.setValue(atividade.getHorarioFinal());
+                }
             }
 
             @Override
