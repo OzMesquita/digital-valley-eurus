@@ -25,7 +25,7 @@
     <string name="cpf">CPF</string>
     <string name="iniciar_atividade">Iniciar atividade</string>
     <string name="finalizar_atividade">Finalizar atividade</string>
-    <string name="atividade_finalizada"></string>
+    <string name="atividade_finalizada">Atividade Encerrada</string>
 
     <string name="where">Local</string>
     <string name="description">Descrição</string>

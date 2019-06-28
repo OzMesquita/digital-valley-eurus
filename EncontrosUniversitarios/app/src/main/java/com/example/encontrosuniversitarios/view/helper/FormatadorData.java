@@ -15,6 +15,7 @@ public class FormatadorData {
     }
 
     public static String formatarDataHorario(DateTime dia){
+        if(dia==null) return "";
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(dia.getDayOfMonth());
         stringBuilder.append("/");

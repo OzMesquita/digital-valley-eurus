@@ -77,7 +77,8 @@ const updateAtividade = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`Atividade modificada ID: ${id_atividade}`)
+
+      response.status(200).send(true)
     }
   )
 }

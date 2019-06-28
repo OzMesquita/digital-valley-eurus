@@ -19,5 +19,5 @@ public interface AtividadeService {
     Call<List<Atividade>> getAtividadesDoDia();
 
     @PUT("atividades/{id}")
-    Call<Atividade> atualizarAtividade(@Path("id") int idAtividade, @Body Atividade atividade);
+    Call<Boolean> atualizarAtividade(@Path("id") int idAtividade, @Body Atividade atividade);
 }
