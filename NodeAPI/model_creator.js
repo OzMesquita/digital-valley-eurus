@@ -1,8 +1,7 @@
 function createCategoriaModel(row)  {
  return {
     id_categoria:row.id_categoria,
-    nome_categoria:row.nome_categoria,
-    descricao:row.descricao
+    nome_categoria:row.nome_categoria
   }
 }
 
@@ -53,6 +52,7 @@ function createAtividadeModel(row) {
     horario_previsto: row.horario_previsto,
     horario_inicial: row.horario_inicial,
     horario_final: row.horario_final,
+    descricao: row.descricao,
     categoria:createCategoriaModel(row),
     trabalho:createTrabalhoModel(row),
     local:createLocalModel(row),
