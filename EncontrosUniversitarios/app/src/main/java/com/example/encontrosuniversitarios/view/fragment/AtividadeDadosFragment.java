@@ -1,11 +1,8 @@
 package com.example.encontrosuniversitarios.view.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,15 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.databinding.FragmentAtividadeDadosBinding;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.view.helper.FormatadorData;
 import com.example.encontrosuniversitarios.viewmodel.AtividadeDadosViewModel;
 
 import org.joda.time.DateTime;
-import org.w3c.dom.Text;
 
 public class AtividadeDadosFragment extends Fragment {
     private static final String ATIVIDADE = "atividade";
@@ -56,6 +52,7 @@ public class AtividadeDadosFragment extends Fragment {
             atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
             Atividade atividade = getArguments().getParcelable(ATIVIDADE);
             atividadeDadosViewModel.init(atividade);
+            Log.i("Estado",atividade.getEstado());
         }
     }
 
@@ -63,23 +60,19 @@ public class AtividadeDadosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_atividade_dados, container, false);
-        TextView nomeAtv = view.findViewById(R.id.nome_atividade);
-        nomeAtv.setText(atividadeDadosViewModel.getAtividade().getValue().getNome());
-        TextView horarioDataAtividade = view.findViewById(R.id.horario_data_atividade);
+
+        FragmentAtividadeDadosBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_atividade_dados,container,false);
+        binding.setAtividade(atividadeDadosViewModel.getAtividade().getValue());
+        binding.setFormatador(new FormatadorData());
+        TextView horarioDataAtividade = binding.getRoot().findViewById(R.id.horario_data_atividade);
         horarioDataAtividade.setText(FormatadorData.formatarDataHorario(atividadeDadosViewModel.getAtividade().getValue().getHorarioInicialPrevisto()));
-        estadoAtividade = view.findViewById(R.id.estado_atividade);
-        estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
-        corEstado = view.findViewById(R.id.atividade_estado_cor);
-        TextView localAtividade = view.findViewById(R.id.local_atividade);
-        localAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getLocal().getNome());
-        TextView descricaoAtividade = view.findViewById(R.id.descricao_atividade);
-        descricaoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getDescricao());
-        TextView apresentadorAtividade = view.findViewById(R.id.apresentador_atividade);
-        apresentadorAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getApresentador().getNome());
-        horarioIniciado = view.findViewById(R.id.horario_iniciado);
-        horarioFinalizado = view.findViewById(R.id.horario_finalizado);
-        iniciarFinalizarAtividade = view.findViewById(R.id.iniciar_finalizar_atividade);
+        estadoAtividade = binding.getRoot().findViewById(R.id.estado_atividade);
+
+        corEstado = binding.getRoot().findViewById(R.id.atividade_estado_cor);
+
+        horarioIniciado = binding.getRoot().findViewById(R.id.horario_iniciado);
+        horarioFinalizado = binding.getRoot().findViewById(R.id.horario_finalizado);
+        iniciarFinalizarAtividade = binding.getRoot().findViewById(R.id.iniciar_finalizar_atividade);
         configurarIniciarFinalizarAtividade();
         iniciarHorarios();
         atividadeDadosViewModel.getHorarioInicio().observe(this, new Observer<DateTime>() {
@@ -104,7 +97,7 @@ public class AtividadeDadosFragment extends Fragment {
                 atividadeDadosViewModel.alterarHorarioAtividade();
             }
         });
-        return view;
+        return binding.getRoot();
     }
 
     private void iniciarHorarios(){

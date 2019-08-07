@@ -1,237 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.fragment.AtividadeDadosFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-    <LinearLayout
-        android:orientation="vertical"
+    tools:context=".view.fragment.AtividadeDadosFragment">
+    <data>
+        <variable
+            name="atividade"
+            type="com.example.encontrosuniversitarios.model.Atividade" />
+        <variable
+            name="formatador"
+            type="com.example.encontrosuniversitarios.view.helper.FormatadorData" />
+    </data>
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:fillViewport="true">
         <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:elevation="6dp"
-            android:gravity="center"
             android:orientation="vertical"
-            android:padding="5dp">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginBottom="4dp"
-                android:src="@mipmap/ic_launcher_round" />
-
-            <TextView
-                android:id="@+id/nome_atividade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="Introdução a Engenharia de Requisitos"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/apresentador_atividade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginVertical="8dp"
-                android:textSize="18dp"
-                android:text="Nome do apresentador(a) ou projeto organizador"/>
-
-            <TextView
-                android:id="@+id/horario_data_atividade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:textSize="18dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="19/06/2019 às 15:00" />
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:orientation="horizontal">
-            <View
-                android:id="@+id/atividade_estado_cor"
-                android:layout_width="20dp"
-                android:background="@color/finished_activity"
-                android:layout_height="20dp"
-                android:layout_margin="10dp"
-                />
-            <TextView
-                android:id="@+id/estado_atividade"
-                android:layout_width="wrap_content"
-                android:textSize="16dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@string/finished_activity"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/future_activity"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:padding="5dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="@string/where"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/ic_location_on_black_24dp"/>
-                <TextView
-                    android:id="@+id/local_atividade"
-                    android:layout_width="wrap_content"
-                    android:textSize="16dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="Auditório" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/ic_more_horiz_black_24dp"/>
-                <TextView
-                    android:id="@+id/local_adicional"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textSize="16dp"
-                    android:text="Bloco 2, do lado da sala do PACCE, 2º andar" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/future_activity"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="5dp"
+            android:layout_height="match_parent"
             >
-            <TextView
-                android:textSize="20dp"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/description"/>
-            <TextView
-                android:id="@+id/descricao_atividade"
+                android:background="@color/colorAccent"
+                android:elevation="6dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@mipmap/ic_launcher_round" />
+
+                <TextView
+                    android:id="@+id/nome_atividade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="@{atividade.nome}"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/apresentador_atividade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginVertical="8dp"
+                    android:textSize="18dp"
+                    android:text="@{atividade.apresentador.nome}"/>
+
+                <TextView
+                    android:id="@+id/horario_data_atividade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+                <View
+                    android:id="@+id/atividade_estado_cor"
+                    android:layout_width="20dp"
+                    android:background="@color/finished_activity"
+                    android:layout_height="20dp"
+                    android:layout_margin="10dp"
+                    />
+                <TextView
+                    android:id="@+id/estado_atividade"
+                    android:layout_width="wrap_content"
+                    android:textSize="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@string/finished_activity"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/future_activity"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:padding="5dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="@string/where"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_location_on_black_24dp"/>
+                    <TextView
+                        android:id="@+id/local_atividade"
+                        android:layout_width="wrap_content"
+                        android:textSize="16dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="@{atividade.local.nome}" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:src="@drawable/ic_more_horiz_black_24dp"/>
+                    <TextView
+                        android:id="@+id/local_adicional"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:textSize="16dp"
+                        android:text="@{atividade.local.pontoReferencia}" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/future_activity"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp"
+                >
+                <TextView
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/description"/>
+                <TextView
+                    android:id="@+id/descricao_atividade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textSize="16dp"
+                    android:text="@{atividade.descricao}"/>
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+
+                android:layout_height="1dp"
+                android:background="@color/future_activity"
+                />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textSize="16dp"
-                android:text="@string/default_description"/>
-
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-
-            android:layout_height="1dp"
-            android:background="@color/future_activity"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:gravity="center"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/iniciar_finalizar_atividade"
-                android:text="@string/iniciar_atividade"
-                android:textColor="@android:color/white"
-                android:padding="20dp"
-                android:background="@drawable/round_green_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp"
-                android:padding="20dp"
-                android:gravity="center_horizontal">
-                <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/iniciar_finalizar_atividade"
+                    android:text="@string/iniciar_atividade"
+                    android:textColor="@android:color/white"
+                    android:padding="20dp"
+                    android:background="@drawable/round_green_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="8dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="Horário iniciado"/>
-                    <TextView
-                        android:id="@+id/horario_iniciado"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-                </LinearLayout>
-
+                    android:layout_height="wrap_content" />
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_marginRight="8dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:textSize="18dp"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_height="match_parent"
-                        android:text="Horário finalizado"/>
-                    <TextView
-                        android:id="@+id/horario_finalizado"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:padding="20dp"
+                    android:gravity="center_horizontal">
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginRight="8dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:text="Horário iniciado"/>
+                        <TextView
+                            android:id="@+id/horario_iniciado"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{formatador.formatarDataHorario(atividade.horarioInicio)}"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:textSize="18dp"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_height="match_parent"
+                            android:text="Horário finalizado"/>
+                        <TextView
+                            android:id="@+id/horario_finalizado"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{formatador.formatarDataHorario(atividade.horarioFinal)}"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+
         </LinearLayout>
-
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</layout>
