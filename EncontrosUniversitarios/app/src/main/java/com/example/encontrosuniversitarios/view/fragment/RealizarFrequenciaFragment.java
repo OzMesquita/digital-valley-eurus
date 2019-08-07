@@ -2,6 +2,7 @@ package com.example.encontrosuniversitarios.view.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +52,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades);
         recyclerView.setAdapter(programacaoDoDiaAdapter);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         return view;
     }
 

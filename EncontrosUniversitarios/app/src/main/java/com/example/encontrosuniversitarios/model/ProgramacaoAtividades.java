@@ -5,6 +5,7 @@ import com.example.encontrosuniversitarios.view.helper.FormatadorData;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProgramacaoAtividades {
@@ -34,6 +35,8 @@ public class ProgramacaoAtividades {
         }
         return diasEvento;
     }
+
+
 
     public List<List<Atividade>> dividirAtividadesEmEstados(List<Atividade> atividades){
         List<List<Atividade>> listas = new ArrayList<>();

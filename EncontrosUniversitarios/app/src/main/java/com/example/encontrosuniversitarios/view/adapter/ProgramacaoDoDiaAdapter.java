@@ -30,7 +30,6 @@ public class ProgramacaoDoDiaAdapter extends RecyclerView.Adapter<AtividadeViewH
     @Override
     public AtividadeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.atividade_item_list,parent,false);
-
         return new AtividadeViewHolder(view);
     }
 
@@ -62,7 +61,6 @@ public class ProgramacaoDoDiaAdapter extends RecyclerView.Adapter<AtividadeViewH
                     }
                     atividadesFiltradas = listaFiltrada;
                 }
-
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = atividadesFiltradas;
 
