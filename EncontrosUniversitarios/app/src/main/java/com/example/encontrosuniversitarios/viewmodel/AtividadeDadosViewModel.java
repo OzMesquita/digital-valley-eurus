@@ -71,7 +71,6 @@ public class AtividadeDadosViewModel extends ViewModel {
 
             @Override
             public void onFailure(String message) {
-
             }
         });
     }

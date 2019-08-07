@@ -67,23 +67,22 @@ const createAtividade = (request, response) => {
 
 const updateAtividade = (request, response) => {
   const id_atividade = parseInt(request.params.id)
-  const atividade1 = modelCreator.createAtividadeModel(request.body)
+  const atividade = request.body
 
   //const atividade2 = request.body
-  //const { horario_previsto, horario_inicial, horario_final, trabalho_fk, categoria_fk, local_fk, apresentador_fk, descricao} = request.body
-   console.log(atividade1)
+  const { nome_atividade, horario_previsto, horario_inicial, horario_final, descricao} = request.body
+  console.log(atividade)
 
-  // db.pool.query(
-  //   'UPDATE atividade SET horario_previsto = $1, horario_inicial = $2, horario_final = $3, trabalho_fk = $4, categoria_fk = $5, local_fk = $6, apresentador_fk = $7, descricao = $8  WHERE id_atividade = $9',
-  //    [atividade.horario_previsto, atividade.horario_inicial, atividade.horario_final, atividade.trabalho.id_trabalho, atividade.categoria.id_categoria, atividade.local.id_local, atividade.apresentador.id_usuario, atividade.descricao, atividade.id_atividade],
-  //   //[horario_previsto, horario_inicial, horario_final, trabalho_fk, categoria_fk, local_fk, apresentador_fk, descricao, id_atividade],
-  //   (error, results) => {
-  //     if (error) {
-  //       throw error
-  //     }
-  //     response.status(200).send(true)
-  //   }
-  // )
+   db.pool.query(
+     'UPDATE atividade SET nome_atividade = $1, horario_previsto = $2, horario_inicial = $3, horario_final = $4, descricao = $5  WHERE id_atividade = $6',
+      [nome_atividade, horario_previsto, horario_inicial, horario_final, descricao, id_atividade],
+     (error, results) => {
+       if (error) {
+         throw error
+       }
+       response.status(200).send(true)
+     }
+   )
 }
 
 const deleteAtividade = (request, response) => {
