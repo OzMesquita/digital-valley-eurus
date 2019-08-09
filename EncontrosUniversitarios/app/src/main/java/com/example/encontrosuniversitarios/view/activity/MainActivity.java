@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String FRAGMENT_PROGRAMACAO = "FRAGMENT_PROGRAMACAO";
     private static final String FRAGMENT_FREQUENCIA = "FRAGMENT_FREQUENCIA";
     private FrameLayout flContainerForFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_frequencia:
                     if (!noReplaceFragment) {
-                        //                    getSupportActionBar().hide();
-                    fragment = new RealizarFrequenciaFragment();
+//                   getSupportActionBar().hide();
+                        fragment = new RealizarFrequenciaFragment();
 //                    fragment = new LoginFragment();
 //                        CadastroUsuarioFragment fragment = new CadastroUsuarioFragment();
                         itemId = 2;
@@ -106,13 +107,13 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == 0 || itemId == 1) {
                 updateSearchViewFragment();
             }
-             return false;
+            return false;
         }
     };
 
     private void openFragment(Fragment fragment, int itemId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction= fragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         transaction.replace(R.id.fragment_container, fragment);
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             onBackPressed();
         }
         return true;
@@ -218,60 +219,4 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-
-//@Override
-//public void onBackPressed() {
-//    //super.onBackPressed();
-//
-//    List<Fragment> fragments = getSupportFragmentManager().getFragments();
-//    Log.i("TAG", "" + fragments.size());
-//    for (Fragment fragment : fragments){
-//        if (fragment instanceof ProgramacaoFragment){
-//            Log.i("TAG", "is Fragment C");
-//            FragmentManager fragmentManager = getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.remove(fragment);
-//            fragmentTransaction.commit();
-//            fragmentManager.popBackStack();
-//        }
-//    }
-//    Log.i("TAG", "nada" + getSupportFragmentManager().getFragments().size());
-//}
-    /**
-     * usado para gerenciar o estado o icon de BottomNavigation quando o botão voltar (onBackPressed())
-     * é pressionado
-     *
-     * @param fragmentManager
-     */
-    private void managerIconsOfBottomNavigation(FragmentManager fragmentManager) {
-        //Apenas para mudar a cor do icones da BoottomNavigationVew
-        Fragment mfragmentAaux = fragmentManager.findFragmentByTag(FRAGMENT_PROGRAMACAO);
-        if (mfragmentAaux != null) {
-            if (mfragmentAaux.isVisible()) {
-                noReplaceFragment = true;
-                bottomNavigationView.setSelectedItemId(R.id.navigation_programacao);
-                noReplaceFragment = false;
-            }
-        }
-
-        Fragment mfragmentB = fragmentManager.findFragmentByTag(FRAGMENT_HOJE);
-        if (mfragmentB != null) {
-            if (mfragmentB.isVisible()) {
-                noReplaceFragment = true;
-                bottomNavigationView.setSelectedItemId(R.id.navigation_programacao_do_dia);
-                noReplaceFragment = false;
-            }
-        }
-
-        Fragment mfragmentC = fragmentManager.findFragmentByTag(FRAGMENT_FREQUENCIA);
-        if (mfragmentC != null) {
-            if (mfragmentC.isVisible()) {
-                noReplaceFragment = true;
-                bottomNavigationView.setSelectedItemId(R.id.navigation_frequencia);
-                noReplaceFragment = false;
-            }
-        }
-    }
-
 }
-
