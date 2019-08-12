@@ -28,4 +28,6 @@ public class FormatadorData {
         stringBuilder.append(dia.getMinuteOfHour());
         return stringBuilder.toString();
     }
+
+    public void a(){}
 }

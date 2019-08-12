@@ -9,6 +9,15 @@
         <variable
             name="formatador"
             type="com.example.encontrosuniversitarios.view.helper.FormatadorData" />
+
+        <variable
+            name="horarioInicial"
+            type="org.joda.time.DateTime" />
+
+        <variable
+            name="horarioFinal"
+            type="org.joda.time.DateTime" />
+
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -218,7 +227,7 @@
                             android:id="@+id/horario_iniciado"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{formatador.formatarDataHorario(atividade.horarioInicio)}"
+                            android:text="---"
                             />
                     </LinearLayout>
 
@@ -237,7 +246,7 @@
                             android:id="@+id/horario_finalizado"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{formatador.formatarDataHorario(atividade.horarioFinal)}"
+                            android:text="---"
                             />
                     </LinearLayout>
                 </LinearLayout>

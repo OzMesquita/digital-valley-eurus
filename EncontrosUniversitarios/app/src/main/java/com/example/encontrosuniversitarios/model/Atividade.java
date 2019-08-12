@@ -51,6 +51,11 @@ public class Atividade implements Parcelable {
         this.horarioFinal = horarioFinal;
     }
 
+    public Atividade(String nome, DateTime horarioInicialPrevisto){
+        this(nome);
+        this.horarioInicialPrevisto = horarioInicialPrevisto;
+    }
+
     public Boolean verificarAtividadeOcorridaDentre(DateTime checkIn,DateTime checkOut){
         if(this.horarioInicio==null || this.horarioFinal==null) return null;
         return (this.horarioInicio.getMillis() >= checkIn.getMillis()) && (this.horarioFinal.getMillis() <= checkOut.getMillis());

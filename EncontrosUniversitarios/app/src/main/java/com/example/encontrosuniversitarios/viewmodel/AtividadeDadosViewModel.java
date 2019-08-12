@@ -30,6 +30,8 @@ public class AtividadeDadosViewModel extends ViewModel {
     public void init(Atividade atividade){
         this.atividade = atividade;
         this.atividadeMutableLiveData.setValue(atividade);
+        horarioInicioAtividade.setValue(atividade.getHorarioInicio());
+        horarioFinalAtividade.setValue(atividade.getHorarioFinal());
     }
 
     public void alterarHorarioAtividade(){

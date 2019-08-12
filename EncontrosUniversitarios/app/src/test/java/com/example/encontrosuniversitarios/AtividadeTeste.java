@@ -34,7 +34,7 @@ public class AtividadeTeste{
 
     @Test
     public void atividadeComecouDepoisDoCheckOut(){
-        Atividade atividade = new Atividade("Atividade", agora,null,null);
+        Atividade atividade = new Atividade("Atividade", agora);
         DateTime checkIn = new DateTime(agora.getMillis()-300);
         DateTime checkOut = new DateTime(agora.getMillis()-200);
 
@@ -64,7 +64,7 @@ public class AtividadeTeste{
 
     @Test
     public void iniciarAtividade(){
-        Atividade atividade = new Atividade("Atividade", agora,null,null);
+        Atividade atividade = new Atividade("Atividade",agora);
         Boolean resultado = atividade.iniciar();
         Assert.assertEquals(true,resultado);
         Assert.assertNotNull(atividade.getHorarioInicio());
@@ -94,7 +94,7 @@ public class AtividadeTeste{
 
     @Test
     public void finalizarAtividadeNaoIniciada() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
-        Atividade atividade = new Atividade("Atividade", agora,null,null);
+        Atividade atividade = new Atividade("Atividade", agora);
         Boolean resultado = atividade.finalizar();
         Assert.assertEquals(false,resultado);
     }
@@ -131,7 +131,7 @@ public class AtividadeTeste{
 
     @Test
     public void verificarAtividadeNaoIniciada(){
-        Atividade atividade = new Atividade("Atividade", agora,null,null);
+        Atividade atividade = new Atividade("Atividade", agora);
 
         Assert.assertEquals(false,atividade.atividadeIniciada());
     }
@@ -145,7 +145,7 @@ public class AtividadeTeste{
 
     @Test
     public void verificarAtividadeFinalizadaEmAtividadeNaoIniciada(){
-        Atividade atividade = new Atividade("Atividade", agora,null,null);
+        Atividade atividade = new Atividade("Atividade", agora);
 
         Assert.assertEquals(false,atividade.atividadeFinalizada());
     }

@@ -16,20 +16,20 @@ public class ProgramacaoAtividadesTeste {
     private List<Atividade> gerarAtividades(){
 
         List<Atividade> atividades = new ArrayList<>();
-        atividades.add(new Atividade("Java", new DateTime(2019,6,12,0,0), null, null));
+        atividades.add(new Atividade("Java", new DateTime(2019,6,12,0,0)));
 
-        atividades.add(new Atividade("JUnit", new DateTime(2019,6,11,0,0), null, null));
-        atividades.add(new Atividade("Mockito", new DateTime(2019,6,11,0,0), null, null));
-        atividades.add(new Atividade("PHPUnit", new DateTime(2019,6,11,0,0), null, null));
-        atividades.add(new Atividade("Vue", new DateTime(2019,6,13,0,0), null, null));
+        atividades.add(new Atividade("JUnit", new DateTime(2019,6,11,0,0)));
+        atividades.add(new Atividade("Mockito", new DateTime(2019,6,11,0,0)));
+        atividades.add(new Atividade("PHPUnit", new DateTime(2019,6,11,0,0)));
+        atividades.add(new Atividade("Vue", new DateTime(2019,6,13,0,0)));
 
-        atividades.add(new Atividade("PHP", new DateTime(2019,6,12,0,0), null, null));
+        atividades.add(new Atividade("PHP", new DateTime(2019,6,12,0,0)));
 
-        atividades.add(new Atividade("Jenkins", new DateTime(2019,6,11,0,0), null, null));
-        atividades.add(new Atividade("TDD", new DateTime(2019,6,11,0,0), null, null));
+        atividades.add(new Atividade("Jenkins", new DateTime(2019,6,11,0,0)));
+        atividades.add(new Atividade("TDD", new DateTime(2019,6,11,0,0)));
 
-        atividades.add(new Atividade("React", new DateTime(2019,6,13,0,0), null, null));
-        atividades.add(new Atividade("Angular", new DateTime(2019,6,13,0,0), null, null));
+        atividades.add(new Atividade("React", new DateTime(2019,6,13,0,0)));
+        atividades.add(new Atividade("Angular", new DateTime(2019,6,13,0,0)));
         return atividades;
     }
 
@@ -40,12 +40,12 @@ public class ProgramacaoAtividadesTeste {
         atividades.add(new Atividade("JUnit", DateTime.now(), DateTime.now(), null));
         atividades.add(new Atividade("Mockito", DateTime.now(), DateTime.now(), null));
         atividades.add(new Atividade("PHPUnit", DateTime.now(), DateTime.now(), null));
-        atividades.add(new Atividade("Vue", DateTime.now(), null, null));
+        atividades.add(new Atividade("Vue", DateTime.now()));
 
-        atividades.add(new Atividade("PHP", DateTime.now(), null, null));
+        atividades.add(new Atividade("PHP", DateTime.now()));
 
-        atividades.add(new Atividade("Jenkins", DateTime.now(), null, null));
-        atividades.add(new Atividade("TDD", DateTime.now(), null, null));
+        atividades.add(new Atividade("Jenkins", DateTime.now()));
+        atividades.add(new Atividade("TDD", DateTime.now()));
 
         atividades.add(new Atividade("React", DateTime.now(), DateTime.now(), DateTime.now()));
         atividades.add(new Atividade("Angular", DateTime.now(), DateTime.now(), DateTime.now()));

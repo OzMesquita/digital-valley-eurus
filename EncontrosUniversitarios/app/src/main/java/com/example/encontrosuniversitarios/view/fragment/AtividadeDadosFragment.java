@@ -64,6 +64,8 @@ public class AtividadeDadosFragment extends Fragment {
         FragmentAtividadeDadosBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_atividade_dados,container,false);
         binding.setAtividade(atividadeDadosViewModel.getAtividade().getValue());
         binding.setFormatador(new FormatadorData());
+        binding.setHorarioInicial(atividadeDadosViewModel.getHorarioInicio().getValue());
+        binding.setHorarioFinal(atividadeDadosViewModel.getHorarioFinal().getValue());
         TextView horarioDataAtividade = binding.getRoot().findViewById(R.id.horario_data_atividade);
         horarioDataAtividade.setText(FormatadorData.formatarDataHorario(atividadeDadosViewModel.getAtividade().getValue().getHorarioInicialPrevisto()));
         estadoAtividade = binding.getRoot().findViewById(R.id.estado_atividade);
