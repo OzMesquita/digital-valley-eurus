@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.view.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,15 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.viewmodel.LoginViewModel;
 
 public class LoginFragment extends Fragment  {
 
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//    }
+
+    LoginViewModel loginViewModel;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
