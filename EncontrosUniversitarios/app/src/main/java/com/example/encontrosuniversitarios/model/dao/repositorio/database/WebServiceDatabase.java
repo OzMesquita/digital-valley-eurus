@@ -4,6 +4,7 @@ import com.example.encontrosuniversitarios.model.dao.interfaces.base.IAtividadeB
 import com.example.encontrosuniversitarios.model.dao.interfaces.database.IDaoFactory;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeService;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.DateTimeJsonConverter;
+import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -33,6 +34,7 @@ public class WebServiceDatabase {
 
     private static Retrofit retrofitService;
     private static AtividadeService atividadeService;
+    private static UsuarioService usuarioService;
 
     private WebServiceDatabase() {
     }
@@ -51,7 +53,7 @@ public class WebServiceDatabase {
                 .registerTypeAdapter(DateTime.class, new DateTimeJsonConverter())
                 .create();
         retrofitService = new Retrofit.Builder()
-                .baseUrl("http://192.169.1.101:3000/")
+                .baseUrl("http://192.169.1.120:3000/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -62,6 +64,13 @@ public class WebServiceDatabase {
             atividadeService = retrofitService.create(AtividadeService.class);
         }
         return atividadeService;
+    }
+
+    public UsuarioService getUsuarioService() {
+        if(usuarioService == null){
+            usuarioService = retrofitService.create(UsuarioService.class);
+        }
+        return usuarioService;
     }
 
 

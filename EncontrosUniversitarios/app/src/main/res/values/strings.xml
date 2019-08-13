@@ -32,4 +32,12 @@
     <string name="default_description">Esta atividade busca mostrar as técnicas utilizadas em Engenharia de Software para elicitação de requisitos em projetos ágeis de software. Você aprenderá técnicas atualizadas e muito utilizadas no ramo.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="invalid_email_message">O email fornecido é inválido</string>
+    <string name="invalid_password_message">A senha fornecida é muito curta, crie uma de no mínimo 6 dígitos</string>
+    <string name="invalid_matricula_message">A matrícula fornecida não contém 6 dígitos</string>
+    <string name="already_taken_email_message">O email fornecido já está em uso</string>
+    <string name="already_taken_matricula_message">A matrícula fornecida já está em uso</string>
+    <string name="blank_field_message">Por favor, preencha este campo</string>
+
 </resources>
