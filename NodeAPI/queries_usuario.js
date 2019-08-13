@@ -24,6 +24,31 @@ const getUsuarioById = (request, response) => {
   })
 }
 
+const getUsuarioByEmailMatricula = (request, response) => {
+  const matricula = request.query.matricula
+  const email = request.query.email;
+  const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false}
+  console.log(matricula)
+  console.log(email)
+  db.pool.query('SELECT * FROM usuario WHERE matricula = $1 or email = $2', [matricula, email], (error, results) => {
+    if (error) {
+      console.log(error)
+      throw error
+    }
+    
+    for(var i=0; i<results.rowCount;i++){
+      if(results.rows[i].matricula==true && results.rows[i].email==true) break;
+      if(results.rows[i].matricula == matricula){
+        queryResponse.alreadyTakenMatricula = true
+      }
+      if(results.rows[i].email == email){
+        queryResponse.alreadyTakenEmail = true
+      }
+    }
+    response.status(200).json(queryResponse)
+  })
+}
+
 const createUsuario = (request, response) => {
   // const id = parseInt(request.body)
   const {cpf, matricula, email, senha, nivel_acesso, nome} = request.body
@@ -80,4 +105,5 @@ module.exports = {
   createUsuario,
   updateUsuario,
   deleteUsuario,
+  getUsuarioByEmailMatricula
 }

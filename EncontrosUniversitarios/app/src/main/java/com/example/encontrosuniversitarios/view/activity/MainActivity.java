@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     if (!noReplaceFragment) {
 //                   getSupportActionBar().hide();
 //                        fragment = new RealizarFrequenciaFragment();
-                    //fragment = new LoginFragment();
+                    fragment = new CadastroUsuarioFragment();
                         CadastroUsuarioFragment fragment = new CadastroUsuarioFragment();
                         itemId = 2;
                         //managerFragment(fragment, FRAGMENT_FREQUENCIA);
