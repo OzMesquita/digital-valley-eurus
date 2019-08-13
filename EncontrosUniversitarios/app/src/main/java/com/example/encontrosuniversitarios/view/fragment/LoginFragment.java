@@ -57,32 +57,6 @@ public class LoginFragment extends Fragment {
         final EditText editTextSenh = view.findViewById(R.id.editTextSenha);
 
 
-        loginViewModel.getUser().observe(this, new Observer<LoginUser>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onChanged(@Nullable LoginUser loginUser) {
-                Log.i("texte","boii");
-                if (TextUtils.isEmpty(Objects.requireNonNull(loginUser).getMatricula())) {
-                    editTextMatri.setError("Entre com sua Mátricula");
-                    editTextMatri.requestFocus();
-                } else if (!loginUser.isMatriculaValid()) {
-                    editTextMatri.setError("Entre com uma matrícula válida");
-                    editTextMatri.requestFocus();
-                } else if (TextUtils.isEmpty(Objects.requireNonNull(loginUser).getSenha())) {
-                    editTextSenh.setError("Enter a Password");
-                    editTextSenh.requestFocus();
-                } else if (!loginUser.isSenhaValid()) {
-                    editTextSenh.setError("Enter at least 6 Digit password");
-                    editTextSenh.requestFocus();
-                }
-//                else {
-//                    view.ma.setText(loginUser.getStrMatriculaAddress());
-//                    view.lblPasswordAnswer.setText(loginUser.getStrPassword());
-//                }
-
-            }
-        });
-
         botaoLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,8 +6,6 @@ import android.view.View;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.encontrosuniversitarios.model.LoginUser;
-
 public class LoginViewModel extends ViewModel {
 
 //    public ObservableField<String> matricula = new ObservableField<>("");
@@ -45,9 +43,8 @@ public class LoginViewModel extends ViewModel {
     public MutableLiveData<String> senha = new MutableLiveData<>();
 
 
-    public void logar(String matricula, String senha) {
+    public void logar() {
         Log.i("nada", "loog");
-//        LoginUser loginUser = new LoginUser(matricula.getValue(), senha.getValue());
-//        userMutableLiveData.setValue(loginUser);
+
     }
 }
