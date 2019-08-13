@@ -97,6 +97,7 @@ public class AtividadeDadosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 atividadeDadosViewModel.alterarHorarioAtividade();
+
             }
         });
         return binding.getRoot();
