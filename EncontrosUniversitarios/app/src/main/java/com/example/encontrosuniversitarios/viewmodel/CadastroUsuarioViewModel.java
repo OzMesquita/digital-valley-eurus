@@ -1,5 +1,8 @@
 package com.example.encontrosuniversitarios.viewmodel;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.ViewModel;
 
 import com.example.encontrosuniversitarios.model.Usuario;
@@ -23,19 +26,20 @@ public class CadastroUsuarioViewModel extends ViewModel {
     public void cadastrarUsuario(String nome, String matricula, String email, String senha, final CadastroUsuarioListener listener){
         try {
             this.usuario = new Usuario(nome,email,matricula,senha);
-            this.usuarioRepositorio.verificarEmailMatriculaJaCadastradas(new ResponseListener() {
+            this.usuario.setNivelAcesso(Usuario.NIVEL_ACESSO_PARTICIPANTE);
+            this.usuarioRepositorio.cadastrarUsuario(new ResponseListener() {
                 @Override
                 public void onSuccess(Object response) {
                     ValidacaoCadastro validacaoCadastro = (ValidacaoCadastro) response;
                     if(validacaoCadastro.isAlreadyTakenEmail()) listener.onAlreadyTakenEmail();
                     if(validacaoCadastro.isAlreadyTakenMatricula()) listener.onAlreadyTakenMatricula();
                     if(!validacaoCadastro.isAlreadyTakenMatricula() && !validacaoCadastro.isAlreadyTakenEmail()){
-
+                        listener.onSuccess(validacaoCadastro.getMessage());
                     }
                 }
-
                 @Override
                 public void onFailure(String message) {
+                    Log.i("ErrorResposta",message);
                 }
             }, usuario);
         } catch (CampoVazioException e) {

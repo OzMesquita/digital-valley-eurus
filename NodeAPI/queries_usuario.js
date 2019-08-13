@@ -24,10 +24,9 @@ const getUsuarioById = (request, response) => {
   })
 }
 
-const getUsuarioByEmailMatricula = (request, response) => {
-  const matricula = request.query.matricula
-  const email = request.query.email;
-  const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false}
+const getUsuarioByEmailMatricula = (request, response, next) => {
+  const { matricula, email } = request.body
+  const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false, message: ''}
   console.log(matricula)
   console.log(email)
   db.pool.query('SELECT * FROM usuario WHERE matricula = $1 or email = $2', [matricula, email], (error, results) => {
@@ -37,7 +36,7 @@ const getUsuarioByEmailMatricula = (request, response) => {
     }
     
     for(var i=0; i<results.rowCount;i++){
-      if(results.rows[i].matricula==true && results.rows[i].email==true) break;
+      if(queryResponse.alreadyTakenMatricula && queryResponse.alreadyTakenEmail) break;
       if(results.rows[i].matricula == matricula){
         queryResponse.alreadyTakenMatricula = true
       }
@@ -45,21 +44,31 @@ const getUsuarioByEmailMatricula = (request, response) => {
         queryResponse.alreadyTakenEmail = true
       }
     }
-    response.status(200).json(queryResponse)
   })
+
+  if(!queryResponse.alreadyTakenEmail && !queryResponse.alreadyTakenMatricula){
+    next()
+  }else{
+    queryResponse.message = "Já existe uma conta com o mesmo email ou matrícula fornecida"
+    response.status(201).json(queryResponse)
+  }
+  
 }
 
 const createUsuario = (request, response) => {
   // const id = parseInt(request.body)
-  const {cpf, matricula, email, senha, nivel_acesso, nome} = request.body
+  const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false, message: ''}
+  const {matricula, email, senha, nivel_acesso, nome} = request.body
 
-  db.pool.query('INSERT INTO usuario (cpf, matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5, $6)', [cpf, matricula, email, senha, nivel_acesso, nome], (error, result) => {
+  db.pool.query('INSERT INTO usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senha, nivel_acesso, nome], (error, result) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`Usuario adicionado: ${nome}`)
+    queryResponse.message = "Usuario criado com sucesso"
+    response.status(201).json(queryResponse)
   })
 }
+
 // const createUsuario = (request, response) => {
 //   const id = parseInt(request.body)
 //   const cpf = request.params.cpf

@@ -24,8 +24,8 @@ public class UsuarioRepositorio {
         return usuarioRepositorio;
     }
 
-    public void verificarEmailMatriculaJaCadastradas(final ResponseListener listener, Usuario usuario) {
-        usuarioService.verificarEmailMatriculaJaCadastradas(usuario.getEmail(),usuario.getMatricula())
+    public void cadastrarUsuario(final ResponseListener listener, Usuario usuario) {
+        usuarioService.cadastrarUsuario(usuario)
                 .enqueue(new Callback<ValidacaoCadastro>() {
                     @Override
                     public void onResponse(Call<ValidacaoCadastro> call, Response<ValidacaoCadastro> response) {

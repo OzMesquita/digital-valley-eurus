@@ -21,9 +21,8 @@ app.get('/', (request, response) => {
 })
 
 app.get('/usuarios', db_usu.getUsuarios)
-app.get('/usuarios/cadastro', db_usu.getUsuarioByEmailMatricula)
 app.get('/usuarios/:id', db_usu.getUsuarioById)
-app.post('/usuarios', db_usu.createUsuario)
+app.post('/usuarios', db_usu.getUsuarioByEmailMatricula, db_usu.createUsuario)
 app.put('/usuarios/:id', db_usu.updateUsuario)
 app.delete('/usuarios/:id', db_usu.deleteUsuario)
 

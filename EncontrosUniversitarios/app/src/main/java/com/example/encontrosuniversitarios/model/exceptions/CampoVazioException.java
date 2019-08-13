@@ -8,7 +8,6 @@ public class CampoVazioException extends Exception{
 
     @Override
     public String getMessage() {
-        String message = "O campo"+this.campo+" está vazio.";
-        return message;
+        return campo;
     }
 }

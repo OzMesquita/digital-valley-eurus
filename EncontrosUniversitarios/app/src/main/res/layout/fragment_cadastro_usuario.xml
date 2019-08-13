@@ -24,7 +24,7 @@
                 android:orientation="vertical"></LinearLayout>
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/edtNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -37,7 +37,7 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/editText7"
+                android:id="@+id/edtMatricula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -50,7 +50,7 @@
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -63,7 +63,7 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/edtSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
