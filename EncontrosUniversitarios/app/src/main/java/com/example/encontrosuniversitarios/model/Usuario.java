@@ -1,5 +1,7 @@
 package com.example.encontrosuniversitarios.model;
 
+import android.util.Log;
+
 import com.example.encontrosuniversitarios.model.exceptions.CampoVazioException;
 import com.example.encontrosuniversitarios.model.exceptions.EmailInvalidoException;
 import com.example.encontrosuniversitarios.model.exceptions.MatriculaInvalidaException;
@@ -59,7 +61,6 @@ public class Usuario {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) throws CampoVazioException, EmailInvalidoException {
         if(email==null || email.equals("")) throw new CampoVazioException("Email");
         if(Validador.validarEmail(email)) {
@@ -82,7 +83,10 @@ public class Usuario {
     }
 
     public void setMatricula(String matricula) throws CampoVazioException, MatriculaInvalidaException {
-        if(matricula==null || matricula.equals("")) throw new CampoVazioException("Matricula");
+        if(matricula==null || matricula.equals("")) {
+            Log.i("tt", "matt");
+            throw new CampoVazioException("Matricula");
+        }
         if(Validador.validarMatricula(matricula)) {
             this.matricula = matricula;
         }else{
@@ -95,7 +99,10 @@ public class Usuario {
     }
 
     public void setSenha(String senha) throws CampoVazioException, SenhaInvalidaException {
-        if(senha==null || senha.equals("")) throw new CampoVazioException("Senha");
+        if(senha==null || senha.equals("")) {
+            Log.i("ss", "matt");
+            throw new CampoVazioException("Senha");
+        }
         if(Validador.validarSenha(senha)){
             this.senha = senha;
         }else{

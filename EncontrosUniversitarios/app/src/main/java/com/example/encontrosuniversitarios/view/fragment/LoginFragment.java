@@ -16,13 +16,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.R;
-import com.example.encontrosuniversitarios.databinding.FragmentLoginBinding;
+//import com.example.encontrosuniversitarios.databinding.FragmentLoginBinding;
 import com.example.encontrosuniversitarios.viewmodel.LoginViewModel;
 
 public class LoginFragment extends Fragment {
 
     private LoginViewModel loginViewModel;
-    private FragmentLoginBinding view;
+//    private FragmentLoginBinding view;
     private EditText edtMatricula;
     private EditText edtSenha;
 
