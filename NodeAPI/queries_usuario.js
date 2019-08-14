@@ -34,7 +34,7 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
       console.log(error)
       throw error
     }
-    
+
     for(var i=0; i<results.rowCount;i++){
       if(queryResponse.alreadyTakenMatricula && queryResponse.alreadyTakenEmail) break;
       if(results.rows[i].matricula == matricula){
@@ -52,7 +52,38 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
     queryResponse.message = "Já existe uma conta com o mesmo email ou matrícula fornecida"
     response.status(201).json(queryResponse)
   }
-  
+}
+
+const getUsuarioByMatriculaSenha = (request, response, next) => {
+  const { matricula, senha } = request.body
+  const queryResponse = { alreadyTakenSenha: false, alreadyTakenMatricula: false, message: ''}
+  if (matricula && senha) {
+    db.pool.query('SELECT * FROM usuario WHERE matricula = $1 and senha = $2', [matricula, senha], (error, results) => {
+      if (error) {
+        console.log(error)
+        throw error
+      }
+      console.log("Login True/False ",results.rowCount)
+      if (results.rowCount > 0) {
+         queryResponse.alreadyTakenMatricula = true
+         queryResponse.alreadyTakenSenha = true
+
+        console.log(matricula)
+        console.log(senha)
+        response.send(' Login Efetuado com Sucesso!');
+      } else {
+        response.send(' Matricula e/ou senha incorreto!');
+      }
+      response.end();
+    });
+  }
+  else {
+    response.send('Digite a senha e/ou matrícula!');
+    response.end();
+  }
+  if(queryResponse.alreadyTakenSenha && queryResponse.alreadyTakenMatricula){
+   response.status(200).json(queryResponse)
+  }
 }
 
 const createUsuario = (request, response) => {
@@ -114,5 +145,6 @@ module.exports = {
   createUsuario,
   updateUsuario,
   deleteUsuario,
-  getUsuarioByEmailMatricula
+  getUsuarioByEmailMatricula,
+  getUsuarioByMatriculaSenha
 }
