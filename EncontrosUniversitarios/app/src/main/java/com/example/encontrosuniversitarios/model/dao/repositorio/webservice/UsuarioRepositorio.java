@@ -38,4 +38,8 @@ public class UsuarioRepositorio {
                     }
                 });
     }
+
+    public void validacaoLogin(final ResponseListener listener, Usuario usuario){
+
+    }
 }

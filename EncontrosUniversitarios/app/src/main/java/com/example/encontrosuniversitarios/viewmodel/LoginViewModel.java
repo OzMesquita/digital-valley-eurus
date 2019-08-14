@@ -1,50 +1,34 @@
 package com.example.encontrosuniversitarios.viewmodel;
 
-import android.util.Log;
-import android.view.View;
-
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import com.example.encontrosuniversitarios.model.Usuario;
+import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
+import com.example.encontrosuniversitarios.model.exceptions.CampoVazioException;
+import com.example.encontrosuniversitarios.model.exceptions.MatriculaInvalidaException;
+import com.example.encontrosuniversitarios.model.exceptions.SenhaInvalidaException;
+import com.example.encontrosuniversitarios.view.fragment.LoginListener;
 
 public class LoginViewModel extends ViewModel {
+    private UsuarioRepositorio usuarioRepositorio;
+    private Usuario usuario;
 
-//    public ObservableField<String> matricula = new ObservableField<>("");
-//    public ObservableField<String> senha = new ObservableField<>("");
-//    public ObservableBoolean estadoLogin = new ObservableBoolean();
-//    public ObservableBoolean loginFeito = new ObservableBoolean();
-//
-//
-//    public void onLoginClick(){
-//
-//        String mEmail = matricula.get();
-//        String mPassword = senha.get();
-//
-//        if (mEmail.equals("") || mPassword.equals("")){
-//            return;
-//        }
-//
-//        // inicia o loading
-//        estadoLogin.set(true);
-//
-//        // simula um delay de 1,5 segundo
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                estadoLogin.set(false);
-//                loginFeito.set(true);
-//            }
-//        },1500);
-//
-//
+//    public LoginViewModel(){
+//        this.usuarioRepositorio = UsuarioRepositorio.getInstance();
 //    }
 
-    public MutableLiveData<String> matricula = new MutableLiveData<>();
-    public MutableLiveData<String> senha = new MutableLiveData<>();
+    public void logar(String matricula, String senha, final LoginListener listener) {
 
+        try {
+            this.usuario = new Usuario(matricula, senha);
+           // this.usuarioRepositorio.cadastrarUsuario(new Lis);
 
-    public void logar() {
-        Log.i("nada", "loog");
-
+        } catch (CampoVazioException e) {
+            listener.onEmptyField(e.getMessage());
+        } catch (SenhaInvalidaException e) {
+            listener.onInvalidPassword(e.getMessage());
+        } catch (MatriculaInvalidaException e) {
+            listener.onInvalidMatricula(e.getMessage());
+        }
     }
 }
+

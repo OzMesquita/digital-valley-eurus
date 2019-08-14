@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.fragment.LoginFragment">
-
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.encontrosuniversitarios.viewmodel.LoginViewModel" />
-
-    </data>
-
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".view.fragment.LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -51,10 +43,9 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:autofillHints=""
+
                     android:ems="15"
-                    android:hint="Matricula"
-                    android:text="@{viewModel.matricula}"
+                    android:hint="@string/matricula"
                     android:inputType="number" />
 
                 <EditText
@@ -68,9 +59,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
                     android:ems="15"
-                    android:hint="Senha"
-                    android:importantForAutofill="no"
-                    android:text="@{viewModel.senha}"
+                    android:hint="@string/senha"
                     android:inputType="textPassword" />
 
                 <LinearLayout
@@ -79,6 +68,7 @@
                     android:orientation="vertical"></LinearLayout>
 
                 <Button
+                    android:id="@+id/buttonEntrarPerfil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -89,8 +79,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/round_green_button"
                     android:text="@string/entrar_perfil"
-                    android:textColor="@android:color/white"
-                    android:id="@+id/buttonEntrarPerfil"/>
+                    android:textColor="@android:color/white" />
 
                 <Button
                     android:id="@+id/buttonCadastrar"
@@ -127,5 +116,3 @@
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
-
-</layout>

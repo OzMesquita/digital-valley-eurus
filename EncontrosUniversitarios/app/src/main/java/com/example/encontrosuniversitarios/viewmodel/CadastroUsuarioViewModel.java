@@ -1,8 +1,6 @@
 package com.example.encontrosuniversitarios.viewmodel;
 
 import android.util.Log;
-import android.widget.Toast;
-
 import androidx.lifecycle.ViewModel;
 
 import com.example.encontrosuniversitarios.model.Usuario;

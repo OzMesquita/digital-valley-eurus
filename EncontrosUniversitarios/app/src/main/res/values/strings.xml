@@ -12,7 +12,6 @@
     <string name="finished_activity">Finalizada</string>
     <string name="next_activity">Não iniciada</string>
     <string name="fragment_realizar_frequencia_upper_text">Realizar frequência - Sala 12</string>
-    <string name="matricula_cpf">Matricula ou CPF</string>
     <string name="qrcode">QRCode</string>
     <string name="senha">Senha</string>
     <string name="entrar_perfil">Entrar</string>
@@ -20,7 +19,7 @@
     <string name="esqueci_senha">Esqueci minha senha</string>
     <string name="nome">Nome</string>
     <string name="email">Email</string>
-    <string name="matricula">Matricula</string>
+    <string name="matricula">Matrícula</string>
     <string name="entre_perfil">Já se cadastrou? Entre.</string>
     <string name="cpf">CPF</string>
     <string name="iniciar_atividade">Iniciar atividade</string>
@@ -39,5 +38,7 @@
     <string name="already_taken_email_message">O email fornecido já está em uso</string>
     <string name="already_taken_matricula_message">A matrícula fornecida já está em uso</string>
     <string name="blank_field_message">Por favor, preencha este campo</string>
+    <string name ="invalid_matricula_login_message"> A matrícula fornecida é inválida </string>
+    <string name ="invalid_passord_login_message"> A senha fornecida é inválida </string>
 
 </resources>
