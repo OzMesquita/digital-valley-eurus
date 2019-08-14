@@ -27,8 +27,7 @@ const getUsuarioById = (request, response) => {
 const getUsuarioByEmailMatricula = (request, response, next) => {
   const { matricula, email } = request.body
   const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false, message: ''}
-  console.log(matricula)
-  console.log(email)
+
   db.pool.query('SELECT * FROM usuario WHERE matricula = $1 or email = $2', [matricula, email], (error, results) => {
     if (error) {
       console.log(error)
@@ -54,36 +53,42 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
   }
 }
 
-const getUsuarioByMatriculaSenha = (request, response, next) => {
-  const { matricula, senha } = request.body
-  const queryResponse = { alreadyTakenSenha: false, alreadyTakenMatricula: false, message: ''}
-  if (matricula && senha) {
-    db.pool.query('SELECT * FROM usuario WHERE matricula = $1 and senha = $2', [matricula, senha], (error, results) => {
-      if (error) {
-        console.log(error)
-        throw error
-      }
-      console.log("Login True/False ",results.rowCount)
-      if (results.rowCount > 0) {
-         queryResponse.alreadyTakenMatricula = true
-         queryResponse.alreadyTakenSenha = true
+const getUsuarioByMatriculaSenha = (request, response) => {
+  const { email, senha } = request.body
+  const queryResponse = { 
+    unregisteredEmail: false,
+    wrongPassword: false,
+    loginSuccessful: false,
+    usuarioLogado: null
+  }
 
-        console.log(matricula)
-        console.log(senha)
-        response.send(' Login Efetuado com Sucesso!');
-      } else {
-        response.send(' Matricula e/ou senha incorreto!');
+  db.pool.query('SELECT * FROM usuario WHERE email = $1', [email], (error, results) => {
+    if (error) {
+      console.log(error)
+      throw error
+    }
+
+    if (results.rowCount > 0) {
+      console.log(results.rows)
+      if(results.rows[0].senha == senha) {
+        const usuarioLogado = {
+          id_usuario: results.rows[0].id_usuario,
+          nome: results.rows[0].nome,
+          email: results.rows[0].email,
+          matricula: results.rows[0].matricula,
+          senha: results.rows[0].senha,
+          nivel_acesso: results.rows[0].nivel_acesso
+        }
+        queryResponse.usuarioLogado = usuarioLogado;
+        loginSuccessful = true;
+      }else{
+        queryResponse.wrongPassword = true;
       }
-      response.end();
-    });
-  }
-  else {
-    response.send('Digite a senha e/ou matrícula!');
-    response.end();
-  }
-  if(queryResponse.alreadyTakenSenha && queryResponse.alreadyTakenMatricula){
-   response.status(200).json(queryResponse)
-  }
+    } else {
+      queryResponse.unregisteredEmail = true;
+    }
+    response.status(200).json(queryResponse)
+  });
 }
 
 const createUsuario = (request, response) => {

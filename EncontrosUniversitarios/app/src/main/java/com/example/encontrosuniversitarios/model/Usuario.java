@@ -44,8 +44,8 @@ public class Usuario {
         this.setSenha(senha);
     }
 
-    public Usuario(String senha, String matricula) throws CampoVazioException, SenhaInvalidaException, MatriculaInvalidaException {
-        this.setMatricula(matricula);
+    public Usuario(String email, String senha) throws CampoVazioException, SenhaInvalidaException, EmailInvalidoException {
+        this.setEmail(email);
         this.setSenha(senha);
     }
 

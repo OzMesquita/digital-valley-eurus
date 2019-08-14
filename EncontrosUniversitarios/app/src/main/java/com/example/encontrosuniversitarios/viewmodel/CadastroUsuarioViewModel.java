@@ -50,8 +50,4 @@ public class CadastroUsuarioViewModel extends ViewModel {
             listener.onInvalidMatricula(e.getMessage());
         }
     }
-
-    private void verificarEmailMatriculaJaCadastradas(final CadastroUsuarioListener listener, Usuario usuario){
-
-    }
 }

@@ -1,6 +1,7 @@
 package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoCadastro;
 import com.example.encontrosuniversitarios.model.ValidacaoLogin;
@@ -16,9 +17,6 @@ public interface UsuarioService {
     @POST("usuarios")
     Call<ValidacaoCadastro> cadastrarUsuario(@Body Usuario usuario);
 
-//    @GET("usuarios")
-//    Call<Boolean> autenticarUsuario(@Path("id") int idUsuario, @Body Usuario usuario);
-
     @POST("auth")
-    Call<ValidacaoLogin> autenticarUsuario(String matricula, String senha);
+    Call<ValidacaoLogin> autenticarUsuario(@Body DadosLogin dados);
 }

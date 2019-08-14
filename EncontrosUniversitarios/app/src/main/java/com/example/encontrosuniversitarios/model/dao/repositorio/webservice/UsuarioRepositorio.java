@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
+import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoCadastro;
 import com.example.encontrosuniversitarios.model.ValidacaoLogin;
@@ -40,8 +41,8 @@ public class UsuarioRepositorio {
                 });
     }
 
-    public void validacaoLogin(final ResponseListener listener, Usuario usuario){
-        usuarioService.autenticarUsuario(usuario.getMatricula(), usuario.getSenha()).enqueue(new Callback<ValidacaoLogin>() {
+    public void realizarLogin(final ResponseListener listener, DadosLogin dadosLogin){
+        usuarioService.autenticarUsuario(dadosLogin).enqueue(new Callback<ValidacaoLogin>() {
                     @Override
                     public void onResponse(Call<ValidacaoLogin> call, Response<ValidacaoLogin> response) {
                         listener.onSuccess(response.body());
