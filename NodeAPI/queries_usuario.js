@@ -69,7 +69,7 @@ const getUsuarioByMatriculaSenha = (request, response) => {
     }
 
     if (results.rowCount > 0) {
-      console.log(results.rows)
+     // console.log(results.rows)
       if(results.rows[0].senha == senha) {
         const usuarioLogado = {
           id_usuario: results.rows[0].id_usuario,
@@ -80,13 +80,15 @@ const getUsuarioByMatriculaSenha = (request, response) => {
           nivel_acesso: results.rows[0].nivel_acesso
         }
         queryResponse.usuarioLogado = usuarioLogado;
-        loginSuccessful = true;
+        queryResponse.loginSuccessful = true;
+		 
       }else{
         queryResponse.wrongPassword = true;
       }
     } else {
       queryResponse.unregisteredEmail = true;
     }
+	console.log(queryResponse)
     response.status(200).json(queryResponse)
   });
 }
