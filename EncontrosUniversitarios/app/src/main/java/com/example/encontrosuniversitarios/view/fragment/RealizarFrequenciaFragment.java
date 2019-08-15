@@ -2,6 +2,8 @@ package com.example.encontrosuniversitarios.view.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filterable;
+import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DiaEvento;
 import com.example.encontrosuniversitarios.model.Local;
@@ -56,6 +60,13 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        MySharedPreferences mySharedPreferences = MySharedPreferences.getInstance(getContext());
+        String userName = mySharedPreferences.getUserName();
+        if(userName != null) Toast.makeText(getContext(),userName,Toast.LENGTH_LONG).show();
+    }
 
     @Override
     public Filterable getProgramacaoAdapter() {

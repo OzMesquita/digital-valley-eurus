@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.R;
 //import com.example.encontrosuniversitarios.databinding.FragmentLoginBinding;
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
+import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.viewmodel.LoginViewModel;
 
 public class LoginFragment extends Fragment {
@@ -51,13 +53,16 @@ public class LoginFragment extends Fragment {
                 loginViewModel.realizarLogin(edtEmail.getText().toString(), edtSenha.getText().toString(),
                         new LoginListener() {
                             @Override
-                            public void onSuccess() {
-
+                            public void onSuccess(Usuario usuario) {
+                                MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
+                                preferences.setUserData(usuario);
+                                changeLoginFragmentOnLogin();
+                                Log.i("Vamola",usuario.getNome()+usuario.getEmail());
                             }
 
                             @Override
                             public void onFailure(String message) {
-
+                                Toast.makeText(getContext(), getContext().getResources().getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
                             }
 
                             @Override
@@ -67,22 +72,22 @@ public class LoginFragment extends Fragment {
 
                             @Override
                             public void onInvalidPassword(String message) {
-
+                                edtSenha.setError(getContext().getResources().getString(R.string.invalid_password_message));
                             }
 
                             @Override
                             public void onInvalidEmail(String message) {
-
+                                edtEmail.setError(getContext().getResources().getString(R.string.invalid_email_message));
                             }
 
                             @Override
                             public void onUnregisteredEmail() {
-
+                                edtEmail.setError(getContext().getResources().getString(R.string.unregistered_email_message));
                             }
 
                             @Override
                             public void onWrongPassword() {
-
+                                edtSenha.setError(getContext().getResources().getString(R.string.wrong_passord_login_message));
                             }
                         });
             }
@@ -107,6 +112,14 @@ public class LoginFragment extends Fragment {
                 edtSenha.setError(getContext().getResources().getString(R.string.blank_field_message));
                 break;
         }
+    }
+
+    private void changeLoginFragmentOnLogin(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
 

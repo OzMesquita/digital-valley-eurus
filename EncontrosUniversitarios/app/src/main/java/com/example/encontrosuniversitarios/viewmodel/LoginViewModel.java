@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoLogin;
@@ -25,6 +26,7 @@ public class LoginViewModel extends ViewModel {
 
     public void realizarLogin(String email, String senha, final LoginListener listener) {
         try {
+
             this.usuario = new Usuario(email, senha);
             DadosLogin dadosLogin = new DadosLogin(this.usuario.getEmail(),this.usuario.getSenha());
             this.usuarioRepositorio.realizarLogin(new ResponseListener() {
@@ -36,9 +38,9 @@ public class LoginViewModel extends ViewModel {
                     if(validacao.isWrongPassword()) listener.onWrongPassword();
                     if((!validacao.isWrongPassword() && !validacao.isUnregisteredEmail())
                             && validacao.isLoginSuccessful() && validacao.getUsuarioLogado()!=null){
-
-                        listener.onSuccess();
                         usuario = validacao.getUsuarioLogado();
+                        Log.i("Metodo","chamou");
+                        listener.onSuccess(usuario);
                     }
                 }
 
