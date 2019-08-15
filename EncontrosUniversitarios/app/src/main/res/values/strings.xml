@@ -38,7 +38,10 @@
     <string name="already_taken_email_message">O email fornecido já está em uso</string>
     <string name="already_taken_matricula_message">A matrícula fornecida já está em uso</string>
     <string name="blank_field_message">Por favor, preencha este campo</string>
-    <string name ="invalid_matricula_login_message"> A matrícula fornecida é inválida </string>
-    <string name ="invalid_passord_login_message"> A senha fornecida é inválida </string>
+    <string name ="invalid_matricula_login_message"> A matrícula fornecida é inválida</string>
+    <string name ="invalid_passord_login_message"> A senha fornecida é inválida</string>
+    <string name ="wrong_passord_login_message"> A senha está incorreta, tente novamente</string>
+    <string name="unregistered_email_message">Esse email não possui cadastro, crie uma conta para entrar</string>
+    <string name="something_went_wrong">Não foi possível processar sua requisição</string>
 
 </resources>

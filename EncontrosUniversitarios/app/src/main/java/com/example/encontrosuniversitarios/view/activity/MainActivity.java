@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
 import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
@@ -39,11 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
-    private boolean noReplaceFragment;
     private static final String FRAGMENT_HOJE = "FRAGMENT_HOJE";
     private static final String FRAGMENT_PROGRAMACAO = "FRAGMENT_PROGRAMACAO";
     private static final String FRAGMENT_FREQUENCIA = "FRAGMENT_FREQUENCIA";
-    private FrameLayout flContainerForFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +53,8 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        flContainerForFragment = (FrameLayout) findViewById(R.id.fragment_container);
         fragment = new ProgramacaoDoDiaFragment();
-        //managerFragment(fragment, FRAGMENT_HOJE);
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//        getSupportActionBar().setHomeButtonEnabled(false);
+
         getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
         openFragment(fragment, 1);
     }
@@ -72,39 +67,30 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_programacao:
-                    if (!noReplaceFragment) {//Frag será true apenas caso o usuario aperte o botao volta do device. Serve Apenas para mudar a cor do icon
                         getSupportActionBar().setTitle(R.string.title_programacao);
-                        ProgramacaoFragment fragment = new ProgramacaoFragment();
+                        fragment = new ProgramacaoFragment();
                         itemId = 0;
                         openFragment(fragment, itemId);
-                        //managerFragment(fragment, FRAGMENT_PROGRAMACAO);
-                    }
                     return true;
                 case R.id.navigation_programacao_do_dia:
-                    if (!noReplaceFragment) {
                         getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
-                        ProgramacaoDoDiaFragment fragment = new ProgramacaoDoDiaFragment();
+                        fragment = new ProgramacaoDoDiaFragment();
                         itemId = 1;
-                        //managerFragment(fragment, FRAGMENT_HOJE);
                         openFragment(fragment, itemId);
-                    }
                     return true;
                 case R.id.navigation_frequencia:
-                    if (!noReplaceFragment) {
-//                   getSupportActionBar().hide();
-//                        fragment = new RealizarFrequenciaFragment();
-                    fragment = new CadastroUsuarioFragment();
-//                    fragment = new LoginFragment();
-//                        CadastroUsuarioFragment fragment = new CadastroUsuarioFragment();
+                        MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
+                        if(preferences.getUserId()!= -1){
+                            fragment = new RealizarFrequenciaFragment();
+                        }else{
+                            fragment = new LoginFragment();
+                        }
                         itemId = 2;
-                        //managerFragment(fragment, FRAGMENT_FREQUENCIA);
 
                         openFragment(fragment, itemId);
-                    }
                     return true;
             }
 
-//            openFragment(fragment, itemId);
             if (itemId == 0 || itemId == 1) {
                 updateSearchViewFragment();
             }
@@ -115,14 +101,12 @@ public class MainActivity extends AppCompatActivity {
     private void openFragment(Fragment fragment, int itemId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
         bottomNavigationView.getMenu().getItem(itemId).setChecked(true);
 
-        //getSupportActionBar().setTitle(bottomNavigationView.getMenu().getItem(itemId).getTitle());
     }
 
     @Override
@@ -133,59 +117,12 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-//
-//    @Override
-//    public void onBackPressed() {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        Fragment mfragmentA = fragmentManager.findFragmentById(0);
-//        Fragment mfragmentB = fragmentManager.findFragmentById(1);
-//        Fragment mfragmentC = fragmentManager.findFragmentById(2);
-//        if (mfragmentA != null || mfragmentB != null || mfragmentC != null) {
-//            if (mfragmentA.isVisible()) {
-//                finish();
-//                Log.i("TAG", "tathiane" );
-////                return;
-//            }
-//            if (mfragmentB.isVisible()) {
-//                finish();
-//                return;
-//            }
-//            if (mfragmentC.isVisible()) {
-//                finish();
-//                return;
-//            }
-//        }
-//        super.onBackPressed();
-////        managerIconsOfBottomNavigation(fragmentManager);
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) { //Botão adicional na ToolBar
-//        switch (item.getItemId()) {
-//            case android.R.id.home:  //ID do seu botão (gerado automaticamente pelo android, usando como está, deve funcionar
-//                startActivity(new Intent(this, MainActivity.class));  //O efeito ao ser pressionado do botão (no caso abre a activity)
-//                finishAffinity();  //Método para matar a activity e não deixa-lá indexada na pilhagem
-//                onBackPressed();
-//                break;
-//            default:break;
-//        }
-//        return true;
-//    }
-
-    @Override
-    public void onBackPressed() { //Botão BACK padrão do android
-        startActivity(new Intent(this, MainActivity.class)); //O efeito ao ser pressionado do botão (no caso abre a activity)
-        finishAffinity(); //Método para matar a activity e não deixa-lá indexada na pilhagem
-
-        return;
-    }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
@@ -212,12 +149,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void managerFragment(Fragment fragment, String tag) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment, tag);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
 
 }
