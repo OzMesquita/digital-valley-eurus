@@ -180,6 +180,11 @@ public class Atividade implements Parcelable {
         return id;
     }
 
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -188,7 +193,7 @@ public class Atividade implements Parcelable {
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        return this.toString().equals(obj.toString());
+        return this.hashCode() == obj.hashCode();
     }
 
     @Override

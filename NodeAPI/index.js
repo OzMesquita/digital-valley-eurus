@@ -34,6 +34,7 @@ app.get('/hoje/atividades/', db_ati.getAtividadesHoje)
 app.post('/atividades', db_ati.createAtividade)
 app.put('/atividades/:id', db_ati.updateAtividade)
 app.delete('/atividades/:id', db_ati.deleteAtividade)
+app.get('/atividades/coordenador/:id',db_ati.getAtividadesCoordenadorSala)
 
 app.get('/categorias', db_cat.getCategorias)
 app.get('/categorias/:id', db_cat.getCategoriaById)
@@ -52,6 +53,7 @@ app.get('/salas/:id', db_sal.getSalaById)
 app.post('/salas', db_sal.createSala)
 app.put('/salas/:id', db_sal.updateSala)
 app.delete('/salas/:id', db_sal.deleteSala)
+app.post('/salas/coordenadorsala', db_sal.cadastrarCoordenadorNaSala)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)

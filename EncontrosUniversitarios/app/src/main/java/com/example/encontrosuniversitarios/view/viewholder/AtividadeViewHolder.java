@@ -25,7 +25,7 @@ public class AtividadeViewHolder extends ChildViewHolder {
         localAtividadeTextView = itemView.findViewById(R.id.local_atividade);
     }
 
-    public void bind(final Atividade atividade){
+    public void bind(final Atividade atividade, final boolean coordenador){
         this.nomeAtividadeTextView.setText(atividade.getNome());
         this.nomeApresentador.setText(atividade.getApresentador().getNome());
         this.horarioAtividadeTextView.setText(FormatadorData.formatarDataHorario(atividade.getHorarioInicialPrevisto()));
@@ -33,7 +33,7 @@ public class AtividadeViewHolder extends ChildViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AtividadeDadosFragment fragment = AtividadeDadosFragment.newInstance(atividade);
+                AtividadeDadosFragment fragment = AtividadeDadosFragment.newInstance(atividade,coordenador);
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
@@ -42,6 +42,5 @@ public class AtividadeViewHolder extends ChildViewHolder {
                 transaction.commit();
             }
         });
-
     }
 }

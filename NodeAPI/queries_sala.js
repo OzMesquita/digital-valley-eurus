@@ -35,6 +35,17 @@ const createSala = (request, response) => {
   })
 }
 
+const cadastrarCoordenadorNaSala = (request, response) => {
+  const {id_usuario, id_sala} = request.body
+
+  db.pool.query('INSERT INTO atividades_coordenador (sala_fk, usuario_fk) VALUES ($1, $2)', [id_sala,id_usuario], (error, result) => {
+    if (error) {
+      throw error
+    }
+    response.status(201).send('Coordenador cadastrado na sala com sucesso')
+  })
+}
+
 const updateSala = (request, response) => {
   const id_sala = parseInt(request.params.id)
   const {nome_sala, numero_sala} = request.body
@@ -69,4 +80,5 @@ module.exports = {
   createSala,
   updateSala,
   deleteSala,
+  cadastrarCoordenadorNaSala
 }

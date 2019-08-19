@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.view.adapter.ProgramacaoAdapter;
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.model.Atividade;
@@ -53,7 +54,7 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
             @Override
             public void onChanged(List<DiaEvento> diaEventos) {
                 diasEventos = diaEventos;
-                programacaoAdapter = new ProgramacaoAdapter(diasEventos);
+                programacaoAdapter = new ProgramacaoAdapter(diasEventos, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities());
                 atividadesRecyclerView.setAdapter(programacaoAdapter);
             }
         });

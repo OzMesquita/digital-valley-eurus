@@ -54,6 +54,20 @@ public class AtividadeRepositorio{
         });
     }
 
+    public void buscarAtividadesFrequencia(final ResponseListener listener, int idCoordenador) {
+        atividadeService.getAtividadesFrequencia(idCoordenador).enqueue(new Callback<List<Atividade>>() {
+            @Override
+            public void onResponse(Call<List<Atividade>> call, Response<List<Atividade>> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Atividade>> call, Throwable t) {
+                listener.onFailure(t.getMessage());
+            }
+        });
+    }
+
     public void atualizarAtividade(Atividade atividade, final ResponseListener listener){
         atividadeService.atualizarAtividade(atividade.getId(),atividade).enqueue(new Callback<Boolean>() {
             @Override

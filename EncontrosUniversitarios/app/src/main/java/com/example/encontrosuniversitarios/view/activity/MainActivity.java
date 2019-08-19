@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
+import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
 import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        MySharedPreferences.getInstance(getApplicationContext()).setUserData(new Usuario(-1,null,-1));
         fragment = new ProgramacaoDoDiaFragment();
 
         getSupportActionBar().setTitle(R.string.title_programacao_do_dia);

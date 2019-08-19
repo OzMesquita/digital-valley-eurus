@@ -20,4 +20,7 @@ public interface AtividadeService {
 
     @PUT("atividades/{id}")
     Call<Boolean> atualizarAtividade(@Path("id") int idAtividade, @Body Atividade atividade);
+
+    @GET("atividades/coordenador/{id}")
+    Call<List<Atividade>> getAtividadesFrequencia(@Path("id") int idCoordenador);
 }

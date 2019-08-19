@@ -57,10 +57,11 @@ const getAtividadeById = (request, response) => {
 const createAtividade = (request, response) => {
   const {horario_previsto, horario_inicial, horario_final, trabalho_fk, descricao, nome_atividade, categoria_fk, local_fk, apresentador_fk} = request.body
 
-  db.pool.query('INSERT INTO atividade VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [horario_previsto, horario_inicial, horario_final, trabalho_fk, descricao, nome_atividade, categoria_fk, local_fk, apresentador_fk], (error, result) => {
+  db.pool.query('INSERT INTO atividade(horario_previsto,horario_inicial,horario_final,trabalho_fk,descricao,nome_atividade,categoria_fk,local_fk,apresentador_fk) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [horario_previsto, horario_inicial, horario_final, trabalho_fk, descricao, nome_atividade, categoria_fk, local_fk, apresentador_fk], (error, result) => {
     if (error) {
       throw error
     }
+
     response.status(201).send(`Atividade adicionada: ${nome_atividade}`)
   })
 }
@@ -109,6 +110,24 @@ const getAtividadesHoje =(request, response) => {
   });
 }
 
+const getAtividadesCoordenadorSala = (request, response) => {
+  const id_usuario = parseInt(request.params.id)
+  db.pool.query('SELECT * FROM atividade as a join local as l on a.local_fk=l.id_local join sala as s on l.sala_fk = s.id_sala join atividades_coordenador as ac on ac.sala_fk=s.id_sala WHERE ac.usuario_fk=$1',[id_usuario],
+  (error, result) => {
+    var atividadesCoordenador = []
+    if(error){
+      throw error
+    }
+    result.rows.forEach(function (row) {
+      atividadesCoordenador.push(modelCreator.createAtividadeModel(row));
+    });
+    console.log(atividadesCoordenador)
+    response.status(200).json(atividadesCoordenador);
+  })
+}
+
+
+
 module.exports = {
   getAtividades,
   getAtividadeById,
@@ -116,5 +135,5 @@ module.exports = {
   createAtividade,
   updateAtividade,
   deleteAtividade,
-
+  getAtividadesCoordenadorSala,
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.view.viewholder.AtividadeViewHolder;
 import com.example.encontrosuniversitarios.view.viewholder.DiaDoEventoViewHolder;
 import com.example.encontrosuniversitarios.R;
@@ -15,12 +16,15 @@ import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEventoViewHolder, AtividadeViewHolder> implements Filterable {
     private List<ExpandableGroup> filteredGroups;
     private List<ExpandableGroup> originalList;
-    public ProgramacaoAdapter(List<? extends ExpandableGroup> groups) {
+    private List<String> atividadesCoordenador;
+    public ProgramacaoAdapter(List<? extends ExpandableGroup> groups, Set<String> atividades) {
         super(groups);
         filteredGroups = new ArrayList<>();
         originalList = new ArrayList<>();
@@ -32,6 +36,8 @@ public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEvent
             groupCopy2.getItems().addAll(group.getItems());
             filteredGroups.add(groupCopy2);
         }
+        this.atividadesCoordenador = new ArrayList<>();
+        this.atividadesCoordenador.addAll(atividades);
     }
 
     @Override
@@ -51,7 +57,7 @@ public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEvent
     @Override
     public void onBindChildViewHolder(AtividadeViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
         final Atividade atividade = (Atividade) group.getItems().get(childIndex);
-        holder.bind(atividade);
+        holder.bind(atividade,atividadesCoordenador.contains(String.valueOf(atividade.getLocal().getSala().getId())));
     }
 
     @Override

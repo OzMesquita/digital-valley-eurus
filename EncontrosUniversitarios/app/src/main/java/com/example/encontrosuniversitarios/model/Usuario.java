@@ -37,6 +37,12 @@ public class Usuario {
         this.nome = nome;
     }
 
+    public Usuario(int id,String nome,int nivelAcesso) {
+        this(nome);
+        this.setId(id);
+        this.setNivelAcesso(nivelAcesso);
+    }
+
     public Usuario(String nome, String email, String matricula, String senha) throws CampoVazioException, EmailInvalidoException, SenhaInvalidaException, MatriculaInvalidaException {
         this.setNome(nome);
         this.setEmail(email);

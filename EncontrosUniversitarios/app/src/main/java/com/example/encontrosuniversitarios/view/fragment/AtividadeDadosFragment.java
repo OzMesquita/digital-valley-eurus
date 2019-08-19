@@ -24,6 +24,7 @@ import org.joda.time.DateTime;
 
 public class AtividadeDadosFragment extends Fragment {
     private static final String ATIVIDADE = "atividade";
+    private static final String COORDENADOR = "coordenador";
 
     private AtividadeDadosViewModel atividadeDadosViewModel;
     private Button iniciarFinalizarAtividade;
@@ -32,14 +33,17 @@ public class AtividadeDadosFragment extends Fragment {
     private TextView horarioIniciado;
     private TextView horarioFinalizado;
 
+    private boolean coordenador;
+
     public AtividadeDadosFragment() {
         // Required empty public constructor
     }
 
-    public static AtividadeDadosFragment newInstance(Atividade atividade) {
+    public static AtividadeDadosFragment newInstance(Atividade atividade,boolean coordenador) {
         AtividadeDadosFragment fragment = new AtividadeDadosFragment();
         Bundle args = new Bundle();
         args.putParcelable(ATIVIDADE,atividade);
+        args.putBoolean(COORDENADOR,coordenador);
 
         fragment.setArguments(args);
         return fragment;
@@ -52,7 +56,7 @@ public class AtividadeDadosFragment extends Fragment {
             atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
             Atividade atividade = getArguments().getParcelable(ATIVIDADE);
             atividadeDadosViewModel.init(atividade);
-            Log.i("Estado",atividade.getEstado());
+            this.coordenador = getArguments().getBoolean(COORDENADOR);
         }
     }
 

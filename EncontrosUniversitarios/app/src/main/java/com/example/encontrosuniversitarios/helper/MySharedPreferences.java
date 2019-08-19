@@ -3,12 +3,18 @@ package com.example.encontrosuniversitarios.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.Usuario;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MySharedPreferences {
     private final String USER_ID = "USERID";
     private final String USER_NAME = "USERNAME";
     private final String USER_ACCESS_LEVEL = "USERACCESSLEVEL";
+    private final String COORDINATOR_ACTIVITIES = "COORDINATORACTIVITIES";
 
     private static final String MY_PREFERENCES = "EURUSSAS";
 
@@ -34,6 +40,19 @@ public class MySharedPreferences {
         editor.putString(USER_ID,usuario.getNome());
         editor.putInt(USER_ID,usuario.getNivelAcesso());
         editor.apply();
+    }
+
+    public void setCoordinatorActivities(List<Atividade> atividadesCoordenador) {
+        HashSet<String> values = new HashSet<>();
+        for(Atividade a:atividadesCoordenador){
+            values.add(String.valueOf(a.getId()));
+        }
+        editor.putStringSet(COORDINATOR_ACTIVITIES,values);
+        editor.apply();
+    }
+
+    public Set<String> getCoordinatorActivities(){
+        return preferences.getStringSet(COORDINATOR_ACTIVITIES,null);
     }
 
     public int getUserId(){
