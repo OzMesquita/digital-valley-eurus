@@ -31,7 +31,6 @@ public class RealizarFrequenciaViewModel extends ViewModel {
             atividadeRepositorio.buscarAtividadesFrequencia(new ResponseListener<List<Atividade>>() {
                 @Override
                 public void onSuccess(List<Atividade> response) {
-                    Log.i("TamList",response.size()+"");
                     atividadesFrequencia.setValue(response);
                 }
 

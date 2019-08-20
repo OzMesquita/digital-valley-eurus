@@ -13,6 +13,7 @@ import com.example.encontrosuniversitarios.model.Atividade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,10 +21,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ProgramacaoDoDiaAdapter extends RecyclerView.Adapter<AtividadeViewHolder> implements Filterable {
     private List<Atividade> atividades;
     private List<Atividade> atividadesFiltradas;
+    private List<String> atividadesCoordenador;
 
-    public ProgramacaoDoDiaAdapter(List<Atividade> atividades){
+    public ProgramacaoDoDiaAdapter(List<Atividade> atividades, Set<String> idsAtividadesCoordenador){
         this.atividades = atividades;
         this.atividadesFiltradas = atividades;
+        if(idsAtividadesCoordenador != null) {
+            this.atividadesCoordenador = new ArrayList<>();
+            this.atividadesCoordenador.addAll(idsAtividadesCoordenador);
+        }
     }
 
     @NonNull
@@ -35,7 +41,8 @@ public class ProgramacaoDoDiaAdapter extends RecyclerView.Adapter<AtividadeViewH
 
     @Override
     public void onBindViewHolder(@NonNull AtividadeViewHolder holder, int position) {
-        holder.bind(atividadesFiltradas.get(position));
+        holder.bind(atividadesFiltradas.get(position),atividadesCoordenador == null ? false :
+                atividadesCoordenador.contains(String.valueOf(atividadesFiltradas.get(position).getId())));
     }
 
     @Override

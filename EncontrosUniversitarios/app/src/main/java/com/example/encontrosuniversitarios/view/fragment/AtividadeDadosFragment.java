@@ -2,6 +2,7 @@ package com.example.encontrosuniversitarios.view.fragment;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -9,6 +10,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -52,12 +55,18 @@ public class AtividadeDadosFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
             Atividade atividade = getArguments().getParcelable(ATIVIDADE);
             atividadeDadosViewModel.init(atividade);
             this.coordenador = getArguments().getBoolean(COORDENADOR);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_atividade_dados,menu);
     }
 
     @Override
@@ -79,6 +88,11 @@ public class AtividadeDadosFragment extends Fragment {
         horarioIniciado = binding.getRoot().findViewById(R.id.horario_iniciado);
         horarioFinalizado = binding.getRoot().findViewById(R.id.horario_finalizado);
         iniciarFinalizarAtividade = binding.getRoot().findViewById(R.id.iniciar_finalizar_atividade);
+        if(!coordenador){
+            iniciarFinalizarAtividade.setVisibility(View.GONE);
+        }else{
+            iniciarFinalizarAtividade.setVisibility(View.VISIBLE);
+        }
         configurarIniciarFinalizarAtividade();
         iniciarHorarios();
         atividadeDadosViewModel.getHorarioInicio().observe(this, new Observer<DateTime>() {
@@ -150,16 +164,16 @@ public class AtividadeDadosFragment extends Fragment {
     }
 
     private int selecionarCorEstadoAtividade(String estado){
-        int cor = getResources().getColor(R.color.future_activity);
+        int cor = ContextCompat.getColor(getContext(), R.color.future_activity);
         switch (estado){
             case Atividade.INICIADA:
-                cor = getResources().getColor(R.color.started_activity);
+                cor = ContextCompat.getColor(getContext(), R.color.started_activity);
                 break;
             case Atividade.FINALIZADA:
-                cor = getResources().getColor(R.color.finished_activity);
+                cor = ContextCompat.getColor(getContext(), R.color.finished_activity);
                 break;
             case Atividade.NAO_INICIADA:
-                cor = getResources().getColor(R.color.future_activity);
+                cor = ContextCompat.getColor(getContext(), R.color.future_activity);
                 break;
         }
         return cor;

@@ -1,5 +1,7 @@
 package com.example.encontrosuniversitarios.view.fragment;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
@@ -32,11 +35,17 @@ import java.util.List;
 public class ProgramacaoFragment extends Fragment implements ProgramacaoListInterface {
     private RecyclerView atividadesRecyclerView;
     private ProgramacaoAdapter programacaoAdapter;
-
+    private SearchView searchView;
     private ProgramacaoViewModel programacaoViewModel;
     private List<DiaEvento> diasEventos;
     public ProgramacaoFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
 
@@ -67,7 +76,30 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_main,menu);
+        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        updateSearchViewFragment();
+    }
+
+    @Override
+    public void updateSearchViewFragment() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                getProgramacaoAdapter().getFilter().filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                getProgramacaoAdapter().getFilter().filter(newText);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -79,5 +111,4 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-    
 }

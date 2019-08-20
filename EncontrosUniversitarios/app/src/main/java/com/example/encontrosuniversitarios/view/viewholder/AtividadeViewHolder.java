@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.view.viewholder;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ public class AtividadeViewHolder extends ChildViewHolder {
     private TextView nomeApresentador;
     private TextView horarioAtividadeTextView;
     private TextView localAtividadeTextView;
+    private AtividadeDadosFragment fragment;
     public AtividadeViewHolder(View itemView) {
         super(itemView);
         nomeAtividadeTextView = itemView.findViewById(R.id.nome_atividade_item_list);
@@ -30,10 +32,11 @@ public class AtividadeViewHolder extends ChildViewHolder {
         this.nomeApresentador.setText(atividade.getApresentador().getNome());
         this.horarioAtividadeTextView.setText(FormatadorData.formatarDataHorario(atividade.getHorarioInicialPrevisto()));
         this.localAtividadeTextView.setText(atividade.getLocal().getLocalSala());
+        fragment = AtividadeDadosFragment.newInstance(atividade,coordenador);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AtividadeDadosFragment fragment = AtividadeDadosFragment.newInstance(atividade,coordenador);
+
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);

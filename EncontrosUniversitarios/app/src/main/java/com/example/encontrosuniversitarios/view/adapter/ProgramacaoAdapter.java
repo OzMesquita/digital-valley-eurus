@@ -36,8 +36,10 @@ public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEvent
             groupCopy2.getItems().addAll(group.getItems());
             filteredGroups.add(groupCopy2);
         }
-        this.atividadesCoordenador = new ArrayList<>();
-        this.atividadesCoordenador.addAll(atividades);
+        if(atividades!=null) {
+            this.atividadesCoordenador = new ArrayList<>();
+            this.atividadesCoordenador.addAll(atividades);
+        }
     }
 
     @Override
@@ -57,7 +59,7 @@ public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEvent
     @Override
     public void onBindChildViewHolder(AtividadeViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
         final Atividade atividade = (Atividade) group.getItems().get(childIndex);
-        holder.bind(atividade,atividadesCoordenador.contains(String.valueOf(atividade.getLocal().getSala().getId())));
+        holder.bind(atividade,atividadesCoordenador == null ? false : atividadesCoordenador.contains(String.valueOf(atividade.getId())));
     }
 
     @Override

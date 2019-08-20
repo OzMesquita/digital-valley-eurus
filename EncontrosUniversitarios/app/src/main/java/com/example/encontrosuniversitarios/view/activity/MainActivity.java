@@ -37,8 +37,6 @@ import net.danlew.android.joda.JodaTimeAndroid;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private SearchView searchView;
-    private TextView mTextMessage;
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
     private static final String FRAGMENT_HOJE = "FRAGMENT_HOJE";
@@ -50,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         JodaTimeAndroid.init(this);
         setContentView(R.layout.activity_main);
-        mTextMessage = findViewById(R.id.message);
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         MySharedPreferences.getInstance(getApplicationContext()).setUserData(new Usuario(-1,null,-1));
@@ -72,30 +69,31 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ProgramacaoFragment();
                         itemId = 0;
                         openFragment(fragment, itemId);
-                    return true;
+                    break;
                 case R.id.navigation_programacao_do_dia:
                         getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
                         fragment = new ProgramacaoDoDiaFragment();
                         itemId = 1;
                         openFragment(fragment, itemId);
-                    return true;
+                    break;
                 case R.id.navigation_frequencia:
                         MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
                         if(preferences.getUserId()!= -1){
                             fragment = new RealizarFrequenciaFragment();
+                            itemId = 3;
                         }else{
                             fragment = new LoginFragment();
+                            itemId = 2;
                         }
-                        itemId = 2;
 
                         openFragment(fragment, itemId);
-                    return true;
+                    break;
             }
 
-            if (itemId == 0 || itemId == 1) {
-                updateSearchViewFragment();
+            if (itemId == 0 || itemId == 1 || itemId == 3) {
+                ((ProgramacaoListInterface)fragment).updateSearchViewFragment();
             }
-            return false;
+            return true;
         }
     };
 
@@ -111,43 +109,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            onBackPressed();
-        }
-        return true;
+    public void onBackPressed() {
+        startActivity(new Intent(this,MainActivity.class));
+        finishAffinity();
     }
-
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-
-        updateSearchViewFragment();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+           onBackPressed();
+        }
         return true;
-    }
-
-    public void updateSearchViewFragment() {
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            ProgramacaoListInterface p = (ProgramacaoListInterface) fragment;
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                p.getProgramacaoAdapter().getFilter().filter(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                p.getProgramacaoAdapter().getFilter().filter(newText);
-                return true;
-            }
-        });
     }
 
 

@@ -40,7 +40,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+       ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         Button botaoLogar, cadastrar;
         botaoLogar = view.findViewById(R.id.buttonEntrarPerfil);
         cadastrar = view.findViewById(R.id.buttonCadastrar);
@@ -57,7 +57,6 @@ public class LoginFragment extends Fragment {
                                 MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
                                 preferences.setUserData(usuario);
                                 changeLoginFragmentOnLogin();
-                                Log.i("Vamola",usuario.getNome()+usuario.getEmail());
                             }
 
                             @Override

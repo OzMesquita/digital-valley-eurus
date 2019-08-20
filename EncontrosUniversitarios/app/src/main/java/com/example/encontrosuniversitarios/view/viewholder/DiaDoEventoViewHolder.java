@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.view.viewholder;
 
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -28,6 +29,7 @@ public class DiaDoEventoViewHolder extends GroupViewHolder {
 
     @Override
     public void expand() {
+        Log.i("EXPAND","EXPAND");
         animateExpand();
     }
 
@@ -42,6 +44,7 @@ public class DiaDoEventoViewHolder extends GroupViewHolder {
         rotate.setDuration(300);
         rotate.setFillAfter(true);
         arrow.setAnimation(rotate);
+        arrow.animate();
     }
 
     private void animateCollapse() {
@@ -50,5 +53,6 @@ public class DiaDoEventoViewHolder extends GroupViewHolder {
         rotate.setDuration(300);
         rotate.setFillAfter(true);
         arrow.setAnimation(rotate);
+        arrow.animate();
     }
 }

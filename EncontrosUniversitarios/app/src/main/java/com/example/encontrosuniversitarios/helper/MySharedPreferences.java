@@ -48,7 +48,7 @@ public class MySharedPreferences {
             values.add(String.valueOf(a.getId()));
         }
         editor.putStringSet(COORDINATOR_ACTIVITIES,values);
-        editor.apply();
+        editor.commit();
     }
 
     public Set<String> getCoordinatorActivities(){
