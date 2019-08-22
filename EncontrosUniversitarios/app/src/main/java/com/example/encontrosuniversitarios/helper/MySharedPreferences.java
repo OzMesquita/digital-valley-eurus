@@ -2,6 +2,7 @@ package com.example.encontrosuniversitarios.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.Usuario;
@@ -31,14 +32,16 @@ public class MySharedPreferences {
     public static MySharedPreferences getInstance(Context context) {
         if(mySharedPreferences == null){
             mySharedPreferences = new MySharedPreferences(context);
+            Log.i("USERID", "share " + mySharedPreferences.getUserId() );
         }
+
         return mySharedPreferences;
     }
 
     public void setUserData(Usuario usuario){
         editor.putInt(USER_ID,usuario.getId());
-        //editor.putString(USER_NAME,usuario.getNome());
-        //editor.putInt(USER_ACCESS_LEVEL,usuario.getNivelAcesso());
+        editor.putString(USER_NAME,usuario.getNome());
+        editor.putInt(USER_ACCESS_LEVEL,usuario.getNivelAcesso());
         editor.commit();
     }
 

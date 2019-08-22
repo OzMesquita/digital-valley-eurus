@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.MenuInflater;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -52,10 +53,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        MySharedPreferences.getInstance(getApplicationContext()).setUserData(new Usuario(-1,null,-1));
+        //MySharedPreferences.getInstance(getApplicationContext()).setUserData(new Usuario(-1, null, -1));
         fragment = new ProgramacaoDoDiaFragment();
         getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
         openFragment(fragment, 1);
+//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
+
+        try {
+            Log.i("USERID", " Entrou " + " " + preferences.getUserId());
+            //startActivity(new Intent(getApplicationContext()));
+        } catch (NullPointerException n) {
+            // entrou no catch, mAuth == null
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -66,36 +76,41 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_programacao:
-                        getSupportActionBar().setTitle(R.string.title_programacao);
-                        fragment = new ProgramacaoFragment();
-
-                        itemId = 0;
-                        openFragment(fragment, itemId);
+                    getSupportActionBar().setTitle(R.string.title_programacao);
+                    fragment = new ProgramacaoFragment();
+                    itemId = 0;
+                    openFragment(fragment, itemId);
                     break;
                 case R.id.navigation_programacao_do_dia:
-                        getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
-                        fragment = new ProgramacaoDoDiaFragment();
-                        itemId = 1;
-                        openFragment(fragment, itemId);
+                    getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
+                    fragment = new ProgramacaoDoDiaFragment();
+                    itemId = 1;
+                    openFragment(fragment, itemId);
                     break;
                 case R.id.navigation_frequencia:
-                        MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
-                        Log.i("USERID",""+preferences.getUserId());
-                        if(preferences.getUserId()!= -1){
-                            getSupportActionBar().setTitle(R.string.title_frequencia);
-                            fragment = new RealizarFrequenciaFragment();
-                            itemId = 3;
-                        }else{
-                            fragment = new LoginFragment();
-                            itemId = 2;
-                        }
+                    getSupportActionBar().setTitle(R.string.title_frequencia);
+                    MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
+                    Log.i("USERID", "" + preferences.getUserId());
+                    if (preferences.getUserId() != -1) {
 
+                        fragment = new RealizarFrequenciaFragment();
+                        itemId = 2;
+                        Log.i("USERIDItem", "C" + itemId);
                         openFragment(fragment, itemId);
+                    } else {
+//                        fragment = new LoginFragment();
+//                        itemId = 3;
+//                        Log.i("USERIDItem", "F" + itemId);
+                        Intent intent = new Intent();
+                        startActivity(intent);
+                    }
+
                     break;
             }
 
-            if (itemId == 0 || itemId == 1 || itemId == 3) {
-                itemId = itemId>2?2:itemId;
+            if (itemId == 0 || itemId == 1 || itemId == 2 ) {
+                Log.i("USERIDItem", "" + itemId);
+//            itemId = itemId > 2 ? 2 : itemId;
                 updateSearchViewFragment();
             }
             return true;
@@ -104,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
@@ -116,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
     public void updateSearchViewFragment() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             ProgramacaoListInterface anInterface = (ProgramacaoListInterface) fragment;
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 anInterface.getProgramacaoAdapter().getFilter().filter(query);
@@ -143,15 +159,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finishAffinity();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == android.R.id.home){
-           onBackPressed();
+        if (id == android.R.id.home) {
+            onBackPressed();
         }
         return true;
     }
