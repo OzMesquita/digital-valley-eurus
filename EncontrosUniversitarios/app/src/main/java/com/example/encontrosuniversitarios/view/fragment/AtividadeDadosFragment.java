@@ -2,6 +2,7 @@ package com.example.encontrosuniversitarios.view.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -56,6 +57,8 @@ public class AtividadeDadosFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (getArguments() != null) {
             atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
             Atividade atividade = getArguments().getParcelable(ATIVIDADE);
@@ -64,9 +67,10 @@ public class AtividadeDadosFragment extends Fragment {
         }
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_atividade_dados,menu);
+        menu.clear();
     }
 
     @Override

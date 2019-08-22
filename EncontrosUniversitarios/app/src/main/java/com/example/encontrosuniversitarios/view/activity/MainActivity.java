@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.MenuInflater;
 import android.widget.FrameLayout;
 import android.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -39,6 +40,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
+    private SearchView searchView;
     private static final String FRAGMENT_HOJE = "FRAGMENT_HOJE";
     private static final String FRAGMENT_PROGRAMACAO = "FRAGMENT_PROGRAMACAO";
     private static final String FRAGMENT_FREQUENCIA = "FRAGMENT_FREQUENCIA";
@@ -52,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         MySharedPreferences.getInstance(getApplicationContext()).setUserData(new Usuario(-1,null,-1));
         fragment = new ProgramacaoDoDiaFragment();
-
         getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
         openFragment(fragment, 1);
     }
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_programacao:
                         getSupportActionBar().setTitle(R.string.title_programacao);
                         fragment = new ProgramacaoFragment();
+
                         itemId = 0;
                         openFragment(fragment, itemId);
                     break;
@@ -78,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_frequencia:
                         MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
+                        Log.i("USERID",""+preferences.getUserId());
                         if(preferences.getUserId()!= -1){
+                            getSupportActionBar().setTitle(R.string.title_frequencia);
                             fragment = new RealizarFrequenciaFragment();
                             itemId = 3;
                         }else{
@@ -91,11 +95,40 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (itemId == 0 || itemId == 1 || itemId == 3) {
-                ((ProgramacaoListInterface)fragment).updateSearchViewFragment();
+                itemId = itemId>2?2:itemId;
+                updateSearchViewFragment();
             }
             return true;
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        updateSearchViewFragment();
+        return true;
+    }
+
+    public void updateSearchViewFragment() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            ProgramacaoListInterface anInterface = (ProgramacaoListInterface) fragment;
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                anInterface.getProgramacaoAdapter().getFilter().filter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                anInterface.getProgramacaoAdapter().getFilter().filter(newText);
+                return true;
+            }
+        });
+    }
 
     private void openFragment(Fragment fragment, int itemId) {
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -56,6 +56,7 @@ public class LoginFragment extends Fragment {
                             public void onSuccess(Usuario usuario) {
                                 MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
                                 preferences.setUserData(usuario);
+
                                 changeLoginFragmentOnLogin();
                             }
 

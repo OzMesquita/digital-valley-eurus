@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,35 +49,6 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main,menu);
-        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        updateSearchViewFragment();
-    }
-
-    @Override
-    public void updateSearchViewFragment() {
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                getProgramacaoAdapter().getFilter().filter(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                getProgramacaoAdapter().getFilter().filter(newText);
-                return true;
-            }
-        });
     }
 
     @Override
@@ -99,6 +71,10 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
+        MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
+        Log.i("USERIDREALIZAR",preferences.getUserId()+"");
+        Log.i("USERIDREALIZAR",preferences.getUserName()+"");
+        Log.i("USERIDREALIZAR",preferences.getUserAccessLevel()+"");
         return view;
     }
 

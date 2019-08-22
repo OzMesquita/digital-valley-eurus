@@ -34,7 +34,6 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
     private RecyclerView atividadesRecyclerView;
     private ProgramacaoDoDiaAdapter programacaoDoDiaAdapter;
     private List<Atividade> atividades;
-    private SearchView searchView;
 
     private static final String ATIVIDADES_ARGS = "ATIVIDADES";
 
@@ -65,33 +64,6 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main,menu);
-        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        updateSearchViewFragment();
-    }
-
-    @Override
-    public void updateSearchViewFragment() {
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                getProgramacaoAdapter().getFilter().filter(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                getProgramacaoAdapter().getFilter().filter(newText);
-                return true;
-            }
-        });
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

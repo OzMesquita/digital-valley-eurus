@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,7 +36,6 @@ import java.util.List;
 public class ProgramacaoFragment extends Fragment implements ProgramacaoListInterface {
     private RecyclerView atividadesRecyclerView;
     private ProgramacaoAdapter programacaoAdapter;
-    private SearchView searchView;
     private ProgramacaoViewModel programacaoViewModel;
     private List<DiaEvento> diasEventos;
     public ProgramacaoFragment() {
@@ -45,7 +45,6 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
 
@@ -75,32 +74,10 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main,menu);
-        SearchManager searchManager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setMaxWidth(Integer.MAX_VALUE);
-        updateSearchViewFragment();
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
     }
 
-    @Override
-    public void updateSearchViewFragment() {
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                getProgramacaoAdapter().getFilter().filter(query);
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                getProgramacaoAdapter().getFilter().filter(newText);
-                return true;
-            }
-        });
-    }
 
     @Override
     public ProgramacaoAdapter getProgramacaoAdapter() {

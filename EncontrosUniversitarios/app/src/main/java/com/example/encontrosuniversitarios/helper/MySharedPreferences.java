@@ -37,9 +37,9 @@ public class MySharedPreferences {
 
     public void setUserData(Usuario usuario){
         editor.putInt(USER_ID,usuario.getId());
-        editor.putString(USER_ID,usuario.getNome());
-        editor.putInt(USER_ID,usuario.getNivelAcesso());
-        editor.apply();
+        //editor.putString(USER_NAME,usuario.getNome());
+        //editor.putInt(USER_ACCESS_LEVEL,usuario.getNivelAcesso());
+        editor.commit();
     }
 
     public void setCoordinatorActivities(List<Atividade> atividadesCoordenador) {

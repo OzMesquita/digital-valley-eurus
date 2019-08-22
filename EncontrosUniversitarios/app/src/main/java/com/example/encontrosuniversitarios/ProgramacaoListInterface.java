@@ -4,5 +4,4 @@ import android.widget.Filterable;
 
 public interface ProgramacaoListInterface {
     Filterable getProgramacaoAdapter();
-    void updateSearchViewFragment();
 }
