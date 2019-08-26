@@ -112,7 +112,7 @@ const getAtividadesHoje =(request, response) => {
 
 const getAtividadesCoordenadorSala = (request, response) => {
   const id_usuario = parseInt(request.params.id)
-  db.pool.query('SELECT * FROM atividade as a join local as l on a.local_fk=l.id_local join sala as s on l.sala_fk = s.id_sala join atividades_coordenador as ac on ac.sala_fk=s.id_sala WHERE ac.usuario_fk=$1',[id_usuario],
+  db.pool.query('SELECT * FROM atividade as a join local as l on a.local_fk=l.id_local join sala as s on l.sala_fk = s.id_sala join atividades_coordenador as ac on ac.sala_fk=s.id_sala join usuario as u on a.apresentador_fk=u.id_usuario WHERE ac.usuario_fk=$1',[id_usuario],
   (error, result) => {
     var atividadesCoordenador = []
     if(error){

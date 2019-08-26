@@ -12,6 +12,7 @@
         android:orientation="vertical"
         android:layout_gravity="right">
         <TextView
+            android:id="@+id/sala"
             android:layout_gravity="center"
             android:textSize="20dp"
             android:fontFamily="sans-serif-light"
@@ -28,6 +29,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"/>
         <Button
+            android:id="@+id/btnReadQRCode"
             android:text="@string/qrcode"
             android:layout_width="match_parent"
             android:textColor="@android:color/white"

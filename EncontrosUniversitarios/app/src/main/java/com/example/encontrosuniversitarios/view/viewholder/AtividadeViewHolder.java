@@ -1,6 +1,5 @@
 package com.example.encontrosuniversitarios.view.viewholder;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.view.fragment.AtividadeDadosFragment;
-import com.example.encontrosuniversitarios.view.helper.FormatadorData;
+import com.example.encontrosuniversitarios.helper.FormatadorData;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 public class AtividadeViewHolder extends ChildViewHolder {

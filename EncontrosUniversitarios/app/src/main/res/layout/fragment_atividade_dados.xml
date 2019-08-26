@@ -8,7 +8,7 @@
             type="com.example.encontrosuniversitarios.model.Atividade" />
         <variable
             name="formatador"
-            type="com.example.encontrosuniversitarios.view.helper.FormatadorData" />
+            type="com.example.encontrosuniversitarios.helper.FormatadorData" />
 
         <variable
             name="horarioInicial"

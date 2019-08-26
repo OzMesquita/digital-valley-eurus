@@ -11,7 +11,11 @@
     <string name="started_activity">Em andamento</string>
     <string name="finished_activity">Finalizada</string>
     <string name="next_activity">Não iniciada</string>
-    <string name="fragment_realizar_frequencia_upper_text">Realizar frequência - Sala 12</string>
+    <string name="fragment_realizar_frequencia_upper_text">Carregando dados...</string>
+    <string name="realizar_frequencia">Realizar frequência - Sala</string>
+    <string name="qr_code_title">Minha Matrícula</string>
+    <string name="close">Fechar</string>
+
     <string name="qrcode">QRCode</string>
     <string name="senha">Senha</string>
     <string name="entrar_perfil">Entrar</string>

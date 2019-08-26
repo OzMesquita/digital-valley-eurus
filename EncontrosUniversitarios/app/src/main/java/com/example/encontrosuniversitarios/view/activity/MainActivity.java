@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.view.activity;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,9 @@ import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragmen
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
 import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,6 +37,7 @@ import androidx.transition.FragmentTransitionSupport;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -49,23 +54,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(getBaseContext());
         JodaTimeAndroid.init(this);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        //MySharedPreferences.getInstance(getApplicationContext()).setUserData(new Usuario(-1, null, -1));
         fragment = new ProgramacaoDoDiaFragment();
         getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
         openFragment(fragment, 1);
-//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
-
-        try {
-            Log.i("USERID", " Entrou " + " " + preferences.getUserId());
-            //startActivity(new Intent(getApplicationContext()));
-        } catch (NullPointerException n) {
-            // entrou no catch, mAuth == null
-        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -90,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_frequencia:
                     getSupportActionBar().setTitle(R.string.title_frequencia);
                     MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
-                    Log.i("USERID", "" + preferences.getUserId());
                     if (preferences.getUserId() != -1) {
 
                         fragment = new RealizarFrequenciaFragment();
@@ -98,19 +93,15 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("USERIDItem", "C" + itemId);
                         openFragment(fragment, itemId);
                     } else {
-//                        fragment = new LoginFragment();
-//                        itemId = 3;
-//                        Log.i("USERIDItem", "F" + itemId);
-                        Intent intent = new Intent();
-                        startActivity(intent);
+                        fragment = new LoginFragment();
+                        itemId = 3;
+                        openFragment(fragment,itemId-1);
                     }
 
                     break;
             }
 
             if (itemId == 0 || itemId == 1 || itemId == 2 ) {
-                Log.i("USERIDItem", "" + itemId);
-//            itemId = itemId > 2 ? 2 : itemId;
                 updateSearchViewFragment();
             }
             return true;
@@ -154,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
         bottomNavigationView.getMenu().getItem(itemId).setChecked(true);
-
     }
 
     @Override
@@ -172,5 +162,17 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() != null) {
+                String scannedUserCode = result.getContents();
+                Toast.makeText(this,"QRCode lido: "+scannedUserCode,Toast.LENGTH_LONG).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
 }

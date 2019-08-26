@@ -88,7 +88,6 @@ const getUsuarioByMatriculaSenha = (request, response) => {
     } else {
       queryResponse.unregisteredEmail = true;
     }
-	console.log(queryResponse)
     response.status(200).json(queryResponse)
   });
 }

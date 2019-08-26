@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,7 +20,7 @@ import android.widget.TextView;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.databinding.FragmentAtividadeDadosBinding;
 import com.example.encontrosuniversitarios.model.Atividade;
-import com.example.encontrosuniversitarios.view.helper.FormatadorData;
+import com.example.encontrosuniversitarios.helper.FormatadorData;
 import com.example.encontrosuniversitarios.viewmodel.AtividadeDadosViewModel;
 
 import org.joda.time.DateTime;

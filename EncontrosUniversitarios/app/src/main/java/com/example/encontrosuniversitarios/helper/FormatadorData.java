@@ -1,4 +1,4 @@
-package com.example.encontrosuniversitarios.view.helper;
+package com.example.encontrosuniversitarios.helper;
 
 import org.joda.time.DateTime;
 

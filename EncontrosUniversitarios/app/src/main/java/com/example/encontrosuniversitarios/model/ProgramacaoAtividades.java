@@ -1,11 +1,10 @@
 package com.example.encontrosuniversitarios.model;
 
-import com.example.encontrosuniversitarios.view.helper.FormatadorData;
+import com.example.encontrosuniversitarios.helper.FormatadorData;
 
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ProgramacaoAtividades {

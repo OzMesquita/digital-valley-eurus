@@ -42,8 +42,9 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         }else{
             Toast.makeText(context,"Id invalido",Toast.LENGTH_LONG).show();
         }
-
     }
+
+    
 
     public LiveData<List<Atividade>> getAtividadesFrequencia() {
         return atividadesFrequencia;

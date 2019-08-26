@@ -5,6 +5,7 @@ const db_ati     = require('./queries_atividade')
 const db_cat     = require('./queries_categoria')
 const db_sal     = require('./queries_sala')
 const db_tra     = require('./queries_trabalho')
+const db_fre     = require('./queries_frequencia')
 const bodyParser = require('body-parser')
 const app        = express()
 const port       = 3000
@@ -20,7 +21,7 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-app.post('/auth', db_usu.getUsuarioByMatriculaSenha)
+app.post('n', db_usu.getUsuarioByMatriculaSenha)
 
 app.get('/usuarios', db_usu.getUsuarios)
 app.get('/usuarios/:id', db_usu.getUsuarioById)
@@ -54,6 +55,9 @@ app.post('/salas', db_sal.createSala)
 app.put('/salas/:id', db_sal.updateSala)
 app.delete('/salas/:id', db_sal.deleteSala)
 app.post('/salas/coordenadorsala', db_sal.cadastrarCoordenadorNaSala)
+
+app.post('/frequencia', db_fre.verificarPodeCheckInCheckOut, db_fre.realizarCheckInCheckOut)
+
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
