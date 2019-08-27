@@ -1,11 +1,16 @@
 package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
+import android.util.Log;
+
+import com.example.encontrosuniversitarios.model.DadosCheckIn;
 import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoCadastro;
+import com.example.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
 import com.example.encontrosuniversitarios.model.ValidacaoLogin;
 import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioListener;
+import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,5 +58,19 @@ public class UsuarioRepositorio {
                         listener.onFailure(t.getMessage());
                     }
                 });
+    }
+
+    public void checkInCheckOut(final ResponseListener listener, DadosCheckIn dadosCheckIn) {
+        usuarioService.checkInCheckOut(dadosCheckIn).enqueue(new Callback<ValidacaoCheckInCheckOut>() {
+            @Override
+            public void onResponse(Call<ValidacaoCheckInCheckOut> call, Response<ValidacaoCheckInCheckOut> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ValidacaoCheckInCheckOut> call, Throwable t) {
+                listener.onFailure(t.getMessage());
+            }
+        });
     }
 }

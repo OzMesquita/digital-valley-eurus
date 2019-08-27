@@ -1,9 +1,11 @@
 package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.DadosCheckIn;
 import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoCadastro;
+import com.example.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
 import com.example.encontrosuniversitarios.model.ValidacaoLogin;
 
 import retrofit2.Call;
@@ -19,4 +21,7 @@ public interface UsuarioService {
 
     @POST("auth")
     Call<ValidacaoLogin> autenticarUsuario(@Body DadosLogin dados);
+
+    @POST("/frequencia")
+    Call<ValidacaoCheckInCheckOut> checkInCheckOut(@Body DadosCheckIn dadosCheckIn);
 }

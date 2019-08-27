@@ -39,7 +39,6 @@ public class LoginViewModel extends ViewModel {
                     if((!validacao.isWrongPassword() && !validacao.isUnregisteredEmail())
                             && validacao.isLoginSuccessful() && validacao.getUsuarioLogado()!=null){
                         usuario = validacao.getUsuarioLogado();
-                        Log.i("Metodo","chamou");
                         listener.onSuccess(usuario);
                     }
                 }
