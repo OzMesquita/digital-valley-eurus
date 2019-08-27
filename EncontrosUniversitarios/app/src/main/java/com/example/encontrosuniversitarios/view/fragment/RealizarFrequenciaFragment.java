@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,14 +18,18 @@ import android.widget.Button;
 import android.widget.Filterable;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
+import com.example.encontrosuniversitarios.helper.QRCodeHelper;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
 import com.example.encontrosuniversitarios.helper.ScanHelper;
 import com.example.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.List;
 
@@ -45,6 +50,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_realizar_frequencia, container, false);
         Button btnReadQRCode = view.findViewById(R.id.btnReadQRCode);
+        Button btnMatricula = view.findViewById(R.id.freq_matricula);
         realizarFrequenciaViewModel = ViewModelProviders.of(this).get(RealizarFrequenciaViewModel.class);
         recyclerView = view.findViewById(R.id.atividades_frequencia);
         txtSala = view.findViewById(R.id.sala);
@@ -53,8 +59,16 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         btnReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScanHelper scanHelper = new ScanHelper(0, getActivity(),"Ler matricula");
+                ScanHelper scanHelper = new ScanHelper(0, getActivity(),"Leitor de código de barras - Encontros Universitários 2019");
                 scanHelper.showScan();
+            }
+        });
+
+        btnMatricula.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QRCodeHelper qrCodeHelper = new QRCodeHelper(500,500);
+                qrCodeHelper.generateUserQRCodeAlertDialog(getContext(),"EURUSSAS-1-Tathiane Melo");
             }
         });
 
