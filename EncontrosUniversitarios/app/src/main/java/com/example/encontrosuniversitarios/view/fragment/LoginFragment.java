@@ -31,7 +31,6 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
-
     }
 
 
@@ -118,15 +117,6 @@ public class LoginFragment extends Fragment {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-
-    private void navitageToProgramacaoDoDiaFragment() {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container, new ProgramacaoDoDiaFragment());
         ft.addToBackStack(null);
         ft.commit();
     }
