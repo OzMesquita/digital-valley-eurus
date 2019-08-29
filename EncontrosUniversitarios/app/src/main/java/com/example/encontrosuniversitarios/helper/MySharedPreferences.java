@@ -46,6 +46,11 @@ public class MySharedPreferences {
         editor.commit();
     }
 
+    public boolean clearData(){
+        editor.clear();
+        return editor.commit();
+    }
+
     public void setRoom(int idRoom){
         editor.putInt(ROOM,idRoom);
         editor.commit();

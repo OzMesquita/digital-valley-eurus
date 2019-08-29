@@ -38,7 +38,6 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
     private RealizarFrequenciaViewModel realizarFrequenciaViewModel;
     private RecyclerView recyclerView;
     private TextView txtSala;
-    private SearchView searchView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +49,6 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_realizar_frequencia, container, false);
         Button btnReadQRCode = view.findViewById(R.id.btnReadQRCode);
-        Button btnMatricula = view.findViewById(R.id.freq_matricula);
         realizarFrequenciaViewModel = ViewModelProviders.of(this).get(RealizarFrequenciaViewModel.class);
         recyclerView = view.findViewById(R.id.atividades_frequencia);
         txtSala = view.findViewById(R.id.sala);
@@ -59,7 +57,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         btnReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScanHelper scanHelper = new ScanHelper(0, getActivity(),"Leitor de código de barras - Encontros Universitários 2019");
+                ScanHelper scanHelper = new ScanHelper(0, getActivity(),getResources().getString(R.string.qrcode_title));
                 scanHelper.showScan();
             }
         });

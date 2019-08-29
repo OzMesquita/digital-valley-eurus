@@ -9,4 +9,10 @@
         app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView"
         />
+    <item
+        android:id="@+id/logout"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_more_horiz_black_24dp"
+        android:title="Sair"
+        />
 </menu>
