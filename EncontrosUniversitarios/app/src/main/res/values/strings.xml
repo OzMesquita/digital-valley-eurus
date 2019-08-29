@@ -48,4 +48,6 @@
     <string name="unregistered_email_message">Esse email não possui cadastro, crie uma conta para entrar</string>
     <string name="something_went_wrong">Não foi possível processar sua requisição</string>
 
+    <string name="qrcode_title">Leitor de código de barras - Encontros Universitários 2019</string>
+
 </resources>

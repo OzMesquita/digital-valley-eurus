@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.viewmodel;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
@@ -15,6 +16,7 @@ import com.example.encontrosuniversitarios.model.exceptions.CampoVazioException;
 import com.example.encontrosuniversitarios.model.exceptions.EmailInvalidoException;
 import com.example.encontrosuniversitarios.model.exceptions.SenhaInvalidaException;
 import com.example.encontrosuniversitarios.view.fragment.LoginListener;
+import com.example.encontrosuniversitarios.view.fragment.LogoutListener;
 
 public class LoginViewModel extends ViewModel {
     private UsuarioRepositorio usuarioRepositorio;
@@ -26,7 +28,6 @@ public class LoginViewModel extends ViewModel {
 
     public void realizarLogin(String email, String senha, final LoginListener listener) {
         try {
-
             this.usuario = new Usuario(email, senha);
             DadosLogin dadosLogin = new DadosLogin(this.usuario.getEmail(),this.usuario.getSenha());
             this.usuarioRepositorio.realizarLogin(new ResponseListener() {
@@ -54,6 +55,16 @@ public class LoginViewModel extends ViewModel {
             listener.onInvalidPassword(e.getMessage());
         } catch (EmailInvalidoException e) {
             listener.onInvalidEmail(e.getMessage());
+        }
+    }
+
+    public void realizarLogout(Context context, LogoutListener listener) {
+        MySharedPreferences preferences = MySharedPreferences.getInstance(context);
+        boolean result = preferences.clearData();
+        if(result){
+            listener.onSuccessfulLogout();
+        }else{
+            listener.onFailure();
         }
     }
 

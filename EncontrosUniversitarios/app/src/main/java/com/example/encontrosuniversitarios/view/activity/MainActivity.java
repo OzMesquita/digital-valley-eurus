@@ -15,9 +15,11 @@ import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
 import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
+import com.example.encontrosuniversitarios.view.fragment.LogoutListener;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
 import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
+import com.example.encontrosuniversitarios.viewmodel.LoginViewModel;
 import com.example.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
@@ -90,10 +92,8 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle(R.string.title_frequencia);
                     MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
                     if (preferences.getUserId() != -1) {
-
                         fragment = new RealizarFrequenciaFragment();
                         itemId = 2;
-                        Log.i("USERIDItem", "C" + itemId);
                         openFragment(fragment, itemId);
                     } else {
                         fragment = new LoginFragment();
@@ -103,13 +103,29 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
             }
-
             if (itemId == 0 || itemId == 1 || itemId == 2 ) {
                 updateSearchViewFragment();
             }
             return true;
         }
     };
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
+        MenuItem menuItem = menu.size() >= 1 ? menu.getItem(0) : null;
+        if(menuItem!=null) {
+            if(preferences.getUserId() == -1 ) {
+                Log.i("onPrepareO","chamou");
+                menu.getItem(0).setVisible(false);
+            }else{
+                Log.i("onPrepareO","chamou");
+                menu.getItem(0).setVisible(true);
+            }
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -161,6 +177,18 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
+        } else if(id == R.id.logout) {
+            ViewModelProviders.of(this).get(LoginViewModel.class).realizarLogout(this, new LogoutListener() {
+                @Override
+                public void onSuccessfulLogout() {
+                    bottomNavigationView.setSelectedItemId(R.id.navigation_programacao_do_dia);
+                }
+
+                @Override
+                public void onFailure() {
+                    Toast.makeText(getApplicationContext(),"Não foi possível fazer logout", Toast.LENGTH_LONG).show();
+                }
+            });
         }
         return true;
     }
