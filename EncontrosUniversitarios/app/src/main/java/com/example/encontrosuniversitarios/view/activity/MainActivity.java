@@ -13,10 +13,12 @@ import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
+import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
 import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
+import com.example.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -32,6 +34,7 @@ import android.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.transition.FragmentTransitionSupport;
 
 import android.view.Menu;
@@ -168,7 +171,28 @@ public class MainActivity extends AppCompatActivity {
         if(result != null) {
             if(result.getContents() != null) {
                 String scannedUserCode = result.getContents();
-                Toast.makeText(this,"QRCode lido: "+scannedUserCode,Toast.LENGTH_LONG).show();
+                RealizarFrequenciaViewModel viewModel = ViewModelProviders.of(this).get(RealizarFrequenciaViewModel.class);
+                viewModel.realizarCheckInCheckOut(new CheckInCheckOutListener() {
+                    @Override
+                    public void onSuccess(String message) {
+                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onCheckedInOnDifferentRoom(String message) {
+                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onInvalidQRCode(String message) {
+                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                    }
+                },scannedUserCode,getBaseContext());
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

@@ -41,7 +41,7 @@ public class UsuarioRepositorio {
 
                     @Override
                     public void onFailure(Call<ValidacaoCadastro> call, Throwable t) {
-                        listener.onFailure(t.getMessage());
+                        listener.onFailure("Erro ao executar requisição");
                     }
                 });
     }
@@ -55,7 +55,7 @@ public class UsuarioRepositorio {
 
                     @Override
                     public void onFailure(Call<ValidacaoLogin> call, Throwable t) {
-                        listener.onFailure(t.getMessage());
+                        listener.onFailure("Erro ao executar requisição");
                     }
                 });
     }
@@ -69,7 +69,7 @@ public class UsuarioRepositorio {
 
             @Override
             public void onFailure(Call<ValidacaoCheckInCheckOut> call, Throwable t) {
-                listener.onFailure(t.getMessage());
+                listener.onFailure("Erro ao executar requisição");
             }
         });
     }

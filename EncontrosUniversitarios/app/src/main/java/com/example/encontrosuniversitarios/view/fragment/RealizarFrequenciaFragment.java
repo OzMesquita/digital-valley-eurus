@@ -64,19 +64,13 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
             }
         });
 
-        btnMatricula.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                QRCodeHelper qrCodeHelper = new QRCodeHelper(500,500);
-                qrCodeHelper.generateUserQRCodeAlertDialog(getContext(),"EURUSSAS-1-Tathiane Melo");
-            }
-        });
 
         realizarFrequenciaViewModel.getAtividadesFrequencia().observe(this, new Observer<List<Atividade>>() {
             @Override
             public void onChanged(List<Atividade> atividades) {
-                MySharedPreferences.getInstance(getContext()).setCoordinatorActivities(atividades);
                 if(atividades!=null && atividades.size()>=1){
+                    MySharedPreferences.getInstance(getContext()).setCoordinatorActivities(atividades);
+                    MySharedPreferences.getInstance(getContext()).setRoom(atividades.get(0).getLocal().getSala().getId());
                     txtSala.setText(getContext().getResources().getText(R.string.realizar_frequencia).toString()+" "+atividades.get(0).getLocal().getSala().getNumero());
                 }
                 programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities());

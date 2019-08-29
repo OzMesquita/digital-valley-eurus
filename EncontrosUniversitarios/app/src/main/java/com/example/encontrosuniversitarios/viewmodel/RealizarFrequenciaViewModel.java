@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DadosCheckIn;
+import com.example.encontrosuniversitarios.model.QRCodeValidator;
 import com.example.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
@@ -50,20 +51,35 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         }
     }
 
-    public void realizarCheckInCheckOut(CheckInCheckOutListener listener, int idUsuario, int numeroSala) {
-        usuarioRepositorio.checkInCheckOut(new ResponseListener() {
-            ValidacaoCheckInCheckOut validacaoCheckInCheckOut;
-            @Override
-            public void onSuccess(Object response) {
-                validacaoCheckInCheckOut = (ValidacaoCheckInCheckOut) response;
+    public void realizarCheckInCheckOut(final CheckInCheckOutListener listener, String qrcodeMessage,Context context) {
+        int roomId = MySharedPreferences.getInstance(context).getRoomId();
+        final QRCodeValidator qrCodeValidator = new QRCodeValidator();
+        boolean isQRCodeValid = qrCodeValidator.validateQRCode(qrcodeMessage);
+        if(roomId != -1 && isQRCodeValid){
+            usuarioRepositorio.checkInCheckOut(new ResponseListener() {
+                ValidacaoCheckInCheckOut validacaoCheckInCheckOut;
+                @Override
+                public void onSuccess(Object response) {
+                    validacaoCheckInCheckOut = (ValidacaoCheckInCheckOut) response;
+                    if(validacaoCheckInCheckOut.isCheckedInOnDifferentRoom()) {
+                        listener.onCheckedInOnDifferentRoom(validacaoCheckInCheckOut.getMessage()+qrCodeValidator.getNomeUsuario());
+                    }else if(validacaoCheckInCheckOut.isSuccessful()){
+                        listener.onSuccess(validacaoCheckInCheckOut.getMessage()+qrCodeValidator.getNomeUsuario());
+                    }
+                }
 
+                @Override
+                public void onFailure(String message) {
+
+                }
+            }, new DadosCheckIn(qrCodeValidator.getIdUsuario(),roomId));
+        }else{
+            if(!isQRCodeValid){
+                listener.onInvalidQRCode("O QRCode lido não é valido");
+            }else{
+                listener.onFailure("Ocorreu uma falha ao tentar realizar esta operação");
             }
-
-            @Override
-            public void onFailure(String message) {
-
-            }
-        }, new DadosCheckIn(idUsuario,numeroSala));
+        }
     }
 
     public LiveData<List<Atividade>> getAtividadesFrequencia() {

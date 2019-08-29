@@ -16,6 +16,7 @@ public class MySharedPreferences {
     private final String USER_NAME = "USERNAME";
     private final String USER_ACCESS_LEVEL = "USERACCESSLEVEL";
     private final String COORDINATOR_ACTIVITIES = "COORDINATORACTIVITIES";
+    private final String ROOM = "ROOM";
 
     private static final String MY_PREFERENCES = "EURUSSAS";
 
@@ -45,6 +46,11 @@ public class MySharedPreferences {
         editor.commit();
     }
 
+    public void setRoom(int idRoom){
+        editor.putInt(ROOM,idRoom);
+        editor.commit();
+    }
+
     public void setCoordinatorActivities(List<Atividade> atividadesCoordenador) {
         HashSet<String> values = new HashSet<>();
         for(Atividade a:atividadesCoordenador){
@@ -60,6 +66,10 @@ public class MySharedPreferences {
 
     public int getUserId(){
         return preferences.getInt(USER_ID,-1);
+    }
+
+    public int getRoomId(){
+        return preferences.getInt(ROOM,-1);
     }
 
     public String getUserName(){

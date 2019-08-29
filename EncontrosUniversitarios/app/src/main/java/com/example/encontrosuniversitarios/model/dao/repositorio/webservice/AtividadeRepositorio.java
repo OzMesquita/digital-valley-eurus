@@ -35,7 +35,7 @@ public class AtividadeRepositorio{
 
             @Override
             public void onFailure(Call<List<Atividade>> call, Throwable t) {
-                listener.onFailure(t.getMessage());
+                listener.onFailure("Erro ao executar requisição");
             }
         });
     }
@@ -49,7 +49,7 @@ public class AtividadeRepositorio{
 
             @Override
             public void onFailure(Call<List<Atividade>> call, Throwable t) {
-                listener.onFailure(t.getMessage());
+                listener.onFailure("Erro ao executar requisição");
             }
         });
     }
@@ -63,7 +63,7 @@ public class AtividadeRepositorio{
 
             @Override
             public void onFailure(Call<List<Atividade>> call, Throwable t) {
-                listener.onFailure(t.getMessage());
+                listener.onFailure("Erro ao executar requisição");
             }
         });
     }
@@ -77,7 +77,7 @@ public class AtividadeRepositorio{
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                listener.onFailure(t.getMessage());
+                listener.onFailure("Erro ao executar requisição");
             }
         });
     }
