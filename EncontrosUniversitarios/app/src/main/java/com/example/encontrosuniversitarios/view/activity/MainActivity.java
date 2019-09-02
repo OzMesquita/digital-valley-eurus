@@ -12,6 +12,7 @@ import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Usuario;
+import com.example.encontrosuniversitarios.view.fragment.AtividadesAlunoFragment;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
 import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
@@ -52,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
     private SearchView searchView;
-    private static final String FRAGMENT_HOJE = "FRAGMENT_HOJE";
-    private static final String FRAGMENT_PROGRAMACAO = "FRAGMENT_PROGRAMACAO";
-    private static final String FRAGMENT_FREQUENCIA = "FRAGMENT_FREQUENCIA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +90,15 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle(R.string.title_frequencia);
                     MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
                     if (preferences.getUserId() != -1) {
-                        fragment = new RealizarFrequenciaFragment();
-                        itemId = 2;
-                        openFragment(fragment, itemId);
+                        if(preferences.getUserAccessLevel() == 0) {
+                            fragment = new AtividadesAlunoFragment();
+                            itemId = 5;
+                            openFragment(fragment, itemId-3);
+                        }else{
+                            fragment = new RealizarFrequenciaFragment();
+                            itemId = 2;
+                            openFragment(fragment, itemId);
+                        }
                     } else {
                         fragment = new LoginFragment();
                         itemId = 3;
@@ -116,10 +120,8 @@ public class MainActivity extends AppCompatActivity {
         MenuItem menuItem = menu.size() >= 1 ? menu.getItem(0) : null;
         if(menuItem!=null) {
             if(preferences.getUserId() == -1 ) {
-                Log.i("onPrepareO","chamou");
                 menu.getItem(0).setVisible(false);
             }else{
-                Log.i("onPrepareO","chamou");
                 menu.getItem(0).setVisible(true);
             }
         }
@@ -134,7 +136,11 @@ public class MainActivity extends AppCompatActivity {
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        updateSearchViewFragment();
+        if(fragment instanceof ProgramacaoFragment
+                || fragment instanceof ProgramacaoDoDiaFragment
+                || fragment instanceof RealizarFrequenciaFragment){
+            updateSearchViewFragment();
+        }
         return true;
     }
 

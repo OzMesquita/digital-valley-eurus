@@ -29,19 +29,19 @@ public class AtividadesAlunoViewModel extends ViewModel {
         atividades = new MutableLiveData<>();
     }
 
-    public void carregarAtividades(){
-        atividadeRepositorio.buscar(new ResponseListener<List<Atividade>>() {
+    public void carregarAtividades(Context context){
+        MySharedPreferences preferences = MySharedPreferences.getInstance(context);
+        atividadeRepositorio.buscarAtividadesParticipadas(new ResponseListener<List<Atividade>>() {
             @Override
             public void onSuccess(List<Atividade> atividadesEvento) {
                 atividades.setValue(atividadesEvento);
-               // atividadesDiasEvento.setValue(programacaoAtividades.agruparAtividadesEmDias(atividadesEvento));
             }
 
             @Override
             public void onFailure(String message) {
                 Log.i("AtvFailura:",message);
             }
-        });
+        },preferences.getUserId());
     }
 
     public LiveData<List<Atividade>> getAtividades() {

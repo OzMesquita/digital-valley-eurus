@@ -60,7 +60,7 @@ public class AtividadeDadosViewModel extends ViewModel {
     }
 
     private void atualizarHorariosAtividade(final boolean isHorarioInicio){
-        atividadeRepositorio.atualizarAtividade(this.atividade, new ResponseListener<Boolean>() {
+        atividadeRepositorio.atualizarAtividade(this.atividade, isHorarioInicio, new ResponseListener<Boolean>() {
             @Override
             public void onSuccess(Boolean response) {
                 atividadeMutableLiveData.setValue(atividade);

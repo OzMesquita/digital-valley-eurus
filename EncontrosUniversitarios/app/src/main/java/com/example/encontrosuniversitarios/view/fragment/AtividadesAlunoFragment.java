@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
+import com.example.encontrosuniversitarios.helper.QRCodeHelper;
 import com.example.encontrosuniversitarios.helper.ScanHelper;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DiaEvento;
@@ -32,7 +33,7 @@ import com.example.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel
 
 import java.util.List;
 
-public class AtividadesAlunoFragmento extends Fragment  implements ProgramacaoListInterface {
+public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoListInterface {
 
     private ProgramacaoDoDiaAdapter programacaoDoDiaAdapter;
     private AtividadesAlunoViewModel atividadesAlunoViewModel;
@@ -41,7 +42,6 @@ public class AtividadesAlunoFragmento extends Fragment  implements ProgramacaoLi
     private ProgramacaoViewModel programacaoViewModel;
     private List<DiaEvento> diasEventos;
     private ProgramacaoAdapter programacaoAdapter;
-    private RecyclerView atividadesRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +53,22 @@ public class AtividadesAlunoFragmento extends Fragment  implements ProgramacaoLi
         txtUlmimaSalaCheckin = view.findViewById(R.id.salaUltimoCheckin);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        btnGenerateQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MySharedPreferences p = MySharedPreferences.getInstance(getContext());
+                QRCodeHelper qrCodeHelper = new QRCodeHelper(500,500);
+                qrCodeHelper.generateUserQRCodeAlertDialog(getContext(),"EURUSSAS-"+p.getUserId()+"-"+p.getUserName());
+            }
+        });
+        atividadesAlunoViewModel.getAtividades().observe(this, new Observer<List<Atividade>>() {
+            @Override
+            public void onChanged(List<Atividade> atividades) {
+                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, null);
+                recyclerView.setAdapter(programacaoDoDiaAdapter);
+            }
+        });
+        atividadesAlunoViewModel.carregarAtividades(getContext());
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);

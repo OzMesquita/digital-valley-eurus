@@ -1,5 +1,7 @@
 package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
+import android.util.Log;
+
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 
@@ -68,8 +70,23 @@ public class AtividadeRepositorio{
         });
     }
 
-    public void atualizarAtividade(Atividade atividade, final ResponseListener listener){
-        atividadeService.atualizarAtividade(atividade.getId(),atividade).enqueue(new Callback<Boolean>() {
+    public void buscarAtividadesParticipadas(final ResponseListener listener, int idUsuario) {
+        Log.i("Matheus",""+idUsuario);
+        atividadeService.getAtividadesParticipadas(idUsuario).enqueue(new Callback<List<Atividade>>() {
+            @Override
+            public void onResponse(Call<List<Atividade>> call, Response<List<Atividade>> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Atividade>> call, Throwable t) {
+                listener.onFailure("Erro ao executar requisição");
+            }
+        });
+    }
+
+    public void atualizarAtividade(Atividade atividade, boolean isHorarioInicio, final ResponseListener listener){
+        atividadeService.atualizarAtividade(atividade.getId(),new Inicio(isHorarioInicio)).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 listener.onSuccess(response.body());

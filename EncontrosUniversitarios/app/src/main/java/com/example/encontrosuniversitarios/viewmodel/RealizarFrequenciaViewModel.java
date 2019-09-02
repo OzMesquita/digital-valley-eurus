@@ -18,6 +18,8 @@ import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.Resp
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
 import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 public class RealizarFrequenciaViewModel extends ViewModel {

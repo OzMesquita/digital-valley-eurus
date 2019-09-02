@@ -22,7 +22,6 @@ const getAtividades = (request, response) => {
     ,  (error, result) => {
       var atividades = [], index = {};
 
-      console.log(result);
       result.rows.forEach(function (row) {
         if ( !(row.id_atividade in index) ) {
           index[row.id_atividade] = modelCreator.createAtividadeModel(row);
@@ -51,7 +50,6 @@ const getAtividadeById = (request, response) => {
         //console.log("--------> row --- ",row);
         index = modelCreator.createAtividadeModel(row);
       });
-      console.log("indexxxxxxxxxxxxx ",index);
       response.status(200).json(index);
     });
   } catch(ex){
@@ -79,21 +77,26 @@ const createAtividade = (request, response) => {
 const updateAtividade = (request, response) => {
   try {
     const id_atividade = parseInt(request.params.id)
-    const atividade = request.body
-
-    //const atividade2 = request.body
-    const { nome_atividade, horario_previsto, horario_inicial, horario_final, descricao} = request.body
-    console.log(atividade)
+    const {isHorarioInicio} = request.body
+    console.log(request.body)
+    var query = ""
+    if(isHorarioInicio) {
+      query = 'UPDATE atividade SET horario_inicial = now() WHERE id_atividade = $1'
+    }else{
+      query = 'UPDATE atividade SET horario_final = now() WHERE id_atividade = $1'
+    }
 
     db.pool.query(
-      'UPDATE atividade SET nome_atividade = $1, horario_previsto = $2, horario_inicial = $3, horario_final = $4, descricao = $5  WHERE id_atividade = $6',
-      [nome_atividade, horario_previsto, horario_inicial, horario_final, descricao, id_atividade],
+      query,
+      [id_atividade],
       (error, results) => {
+        console.log(error)
         response.status(200).send(true)
       }
     )
   } catch(ex){
     console.log('Erro 500!');
+    console.log(ex)
     response.status(500).send(`Erro ao atualizar atividade`)
     return null;
   }
@@ -117,7 +120,7 @@ const deleteAtividade = (request, response) => {
 
 const getAtividadesHoje =(request, response) => {
   try {
-    db.pool.query('SELECT * from  atividade as a join categoria as c on a.categoria_fk = c.id_categoria join local as l on a.local_fk=l.id_local join 	 trabalho as t on a.trabalho_fk=t.id_trabalho join usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala WHERE horario_previsto::date = CURRENT_DATE',  (error, result) => {
+    db.pool.query('SELECT * from  atividade as a join categoria as c on a.categoria_fk = c.id_categoria join local as l on a.local_fk=l.id_local join trabalho as t on a.trabalho_fk=t.id_trabalho join usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala WHERE horario_previsto::date = CURRENT_DATE',  (error, result) => {
       var atividades = [];
       if (error) {
         throw error
@@ -125,7 +128,6 @@ const getAtividadesHoje =(request, response) => {
       result.rows.forEach(function (row) {
         atividades.push(modelCreator.createAtividadeModel(row));
       });
-      console.log(atividades);
       response.status(200).json(atividades);
     });
   } catch(ex){
@@ -145,7 +147,6 @@ const getAtividadesCoordenadorSala = (request, response) => {
       result.rows.forEach(function (row) {
         atividadesCoordenador.push(modelCreator.createAtividadeModel(row));
       });
-      console.log(atividadesCoordenador)
       response.status(200).json(atividadesCoordenador);
     })
   } catch(ex){
@@ -153,6 +154,15 @@ const getAtividadesCoordenadorSala = (request, response) => {
     response.status(500).send(`Erro ao listar coordenadores das salas`)
     return null;
   }
+}
+
+const getAtividadesFrequentadas = (request, response) => {
+  const id_usuario = parseInt(request.params.id)
+  db.pool.query('SELECT * FROM frequencia as f join sala as s on f.sala_fk=s.id_sala join local as l on l.sala_fk=s.id_sala join atividade as a on a.local_fk=l.id_local join usuario as u on u.id_usuario = a.apresentador_fk where a.horario_inicial >= f.check_in and a.horario_final <= f.check_out and f.usuario_fk = $1',[id_usuario],
+  (error, result) => {
+    response.status(200).json(result.rows)
+  }
+  )
 }
 
 
@@ -165,4 +175,5 @@ module.exports = {
   updateAtividade,
   deleteAtividade,
   getAtividadesCoordenadorSala,
+  getAtividadesFrequentadas
 }

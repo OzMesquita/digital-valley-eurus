@@ -1,5 +1,4 @@
 package com.example.encontrosuniversitarios.model;
-
 import com.google.gson.annotations.SerializedName;
 
 public class DadosCheckIn {
