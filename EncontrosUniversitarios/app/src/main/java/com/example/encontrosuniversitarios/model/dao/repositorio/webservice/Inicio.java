@@ -1,10 +1,14 @@
 package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
+import org.joda.time.DateTime;
+
 public class Inicio {
     private boolean isHorarioInicio;
+    private DateTime horario;
 
-    public Inicio(boolean isHorarioInicio) {
+    public Inicio(boolean isHorarioInicio, DateTime horario) {
         this.isHorarioInicio = isHorarioInicio;
+        this.horario = horario;
     }
 
     public boolean isHorarioInicio() {
@@ -13,5 +17,13 @@ public class Inicio {
 
     public void setHorarioInicio(boolean horarioInicio) {
         isHorarioInicio = horarioInicio;
+    }
+
+    public void setHorario(DateTime horario) {
+        this.horario = horario;
+    }
+
+    public DateTime getHorario() {
+        return horario;
     }
 }

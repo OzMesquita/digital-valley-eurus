@@ -56,7 +56,7 @@ public class LoginFragment extends Fragment {
                                 MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
                                 preferences.setUserData(usuario);
 
-                                changeLoginFragmentOnLogin();
+                                changeLoginFragmentOnLogin(preferences.getUserAccessLevel());
                             }
 
                             @Override
@@ -113,10 +113,15 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private void changeLoginFragmentOnLogin(){
+    private void changeLoginFragmentOnLogin(int accessLevel){
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
+        if(accessLevel==1){
+            ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
+        }else{
+            ft.replace(R.id.fragment_container, new AtividadesAlunoFragment());
+        }
+
         ft.addToBackStack(null);
         ft.commit();
     }

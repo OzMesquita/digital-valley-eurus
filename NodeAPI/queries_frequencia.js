@@ -64,7 +64,7 @@ const checkIn = (sala, id_usuario) => {
 }
 
 const checkOut = (sala, id_usuario) => {
-    db.pool.query('UPDATE frequencia SET check_out = now() where sala_fk = $1 and usuario_fk = $2',[sala,id_usuario], (error, results) => {
+    db.pool.query('UPDATE frequencia SET check_out = now() where sala_fk = $1 and usuario_fk = $2 and check_out IS NULL' ,[sala,id_usuario], (error, results) => {
         console.log(error)
         return error
     })

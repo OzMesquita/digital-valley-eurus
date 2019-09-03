@@ -5,6 +5,8 @@ import android.util.Log;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -86,7 +88,8 @@ public class AtividadeRepositorio{
     }
 
     public void atualizarAtividade(Atividade atividade, boolean isHorarioInicio, final ResponseListener listener){
-        atividadeService.atualizarAtividade(atividade.getId(),new Inicio(isHorarioInicio)).enqueue(new Callback<Boolean>() {
+        DateTime horario = isHorarioInicio ? atividade.getHorarioInicio() : atividade.getHorarioFinal();
+        atividadeService.atualizarAtividade(atividade.getId(),new Inicio(isHorarioInicio,horario)).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 listener.onSuccess(response.body());
@@ -95,6 +98,20 @@ public class AtividadeRepositorio{
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
                 listener.onFailure("Erro ao executar requisição");
+            }
+        });
+    }
+
+    public void getMomento(final ResponseListener listener){
+        atividadeService.getMomento().enqueue(new Callback<DateTime>() {
+            @Override
+            public void onResponse(Call<DateTime> call, Response<DateTime> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<DateTime> call, Throwable t) {
+                listener.onFailure("Erro momento");
             }
         });
     }

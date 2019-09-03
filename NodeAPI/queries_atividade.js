@@ -1,19 +1,21 @@
 const db = require('./conexao')
 const modelCreator = require('./model_creator')
 
-function dataFormatada(teste){
+function dataFormatada(){
   // teste = row.horario_previsto;  //2019-05-03T13:35:00.000Z
-  t = Date.parse(teste)
-  var data = new Date(teste);
+
+  var data = new Date(Date.now())
+  console.log(data);
   dia = data.getDate();
   mes = data.getMonth() +1; //+1 pois no getMonth Janeiro começa com zero.
   ano = data.getFullYear();
   hora = data.getHours();
   minutos = data.getMinutes();
   segundos = data.getSeconds();
+  milisegundos = data.getMilliseconds();
   // correta =
-  return dia+"/"+mes+"/"+ano+" "+hora+":"+minutos+":"+segundos;
-
+  return ano+"-"+mes+"-"+dia+"T"+hora+":"+minutos+":"+segundos+"."+milisegundos+"Z";
+//2019-09-03T18:04:56.074Z
 }
 
 const getAtividades = (request, response) => {
@@ -77,18 +79,18 @@ const createAtividade = (request, response) => {
 const updateAtividade = (request, response) => {
   try {
     const id_atividade = parseInt(request.params.id)
-    const {isHorarioInicio} = request.body
+    const {isHorarioInicio, horario} = request.body
     console.log(request.body)
     var query = ""
     if(isHorarioInicio) {
-      query = 'UPDATE atividade SET horario_inicial = now() WHERE id_atividade = $1'
+      query = 'UPDATE atividade SET horario_inicial = $2 WHERE id_atividade = $1'
     }else{
-      query = 'UPDATE atividade SET horario_final = now() WHERE id_atividade = $1'
+      query = 'UPDATE atividade SET horario_final = $2 WHERE id_atividade = $1'
     }
 
     db.pool.query(
       query,
-      [id_atividade],
+      [id_atividade,horario],
       (error, results) => {
         console.log(error)
         response.status(200).send(true)
@@ -157,12 +159,27 @@ const getAtividadesCoordenadorSala = (request, response) => {
 }
 
 const getAtividadesFrequentadas = (request, response) => {
+
   const id_usuario = parseInt(request.params.id)
   db.pool.query('SELECT * FROM frequencia as f join sala as s on f.sala_fk=s.id_sala join local as l on l.sala_fk=s.id_sala join atividade as a on a.local_fk=l.id_local join usuario as u on u.id_usuario = a.apresentador_fk where a.horario_inicial >= f.check_in and a.horario_final <= f.check_out and f.usuario_fk = $1',[id_usuario],
   (error, result) => {
-    response.status(200).json(result.rows)
+
+    var atividades = [], index = {};
+
+    result.rows.forEach(function (row) {
+      if ( !(row.id_atividade in index) ) {
+        index[row.id_atividade] = modelCreator.createAtividadeModel(row);
+        atividades.push(index[row.id_atividade]);
+      }
+    });
+    console.log(atividades);
+    response.status(200).json(atividades)
   }
   )
+}
+const getMomento = (request, response) =>{
+  console.log(dataFormatada())
+  response.status(200).json(dataFormatada())
 }
 
 
@@ -175,5 +192,6 @@ module.exports = {
   updateAtividade,
   deleteAtividade,
   getAtividadesCoordenadorSala,
-  getAtividadesFrequentadas
+  getAtividadesFrequentadas,
+  getMomento
 }

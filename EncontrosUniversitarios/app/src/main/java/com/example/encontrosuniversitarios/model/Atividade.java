@@ -61,19 +61,19 @@ public class Atividade implements Parcelable {
         return (this.horarioInicio.getMillis() >= checkIn.getMillis()) && (this.horarioFinal.getMillis() <= checkOut.getMillis());
     }
 
-    public Boolean iniciar(){
+    public Boolean iniciar(DateTime momento){
         if(this.horarioInicio==null){
-            this.horarioInicio = DateTime.now();
+            this.horarioInicio = momento;
             return true;
         }
         return false;
     }
 
-    public Boolean finalizar() throws AtividadeFinalizadaAntesDoHorarioIniciadoException {
+    public Boolean finalizar(DateTime momento) throws AtividadeFinalizadaAntesDoHorarioIniciadoException {
         if(this.horarioFinal==null && this.horarioInicio!=null){
-            DateTime agora = DateTime.now();
-            if(horarioInicio.getMillis() <= agora.getMillis()){
-                this.horarioFinal = DateTime.now();
+
+            if(horarioInicio.getMillis() <= momento.getMillis()){
+                this.horarioFinal = momento;
                 return true;
             }else{
                 throw new AtividadeFinalizadaAntesDoHorarioIniciadoException("");

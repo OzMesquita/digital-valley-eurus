@@ -41,22 +41,54 @@ public class AtividadeDadosViewModel extends ViewModel {
             try {
                 finalizarAtividade();
             } catch (AtividadeFinalizadaAntesDoHorarioIniciadoException e) {
+                Log.i("tattt","nada");
             }
         }
     }
 
     private void iniciarAtividade(){
-        boolean resultado = this.atividade.iniciar();
-        if(resultado){
-            atualizarHorariosAtividade(true);
-        }
+        atividadeRepositorio.getMomento(new ResponseListener() {
+            @Override
+            public void onSuccess(Object response) {
+                DateTime momento = (DateTime) response;
+                boolean resultado = atividade.iniciar(momento);
+                if(resultado){
+                    atualizarHorariosAtividade(true);
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+
     }
 
     private void finalizarAtividade() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
-        boolean resultado = this.atividade.finalizar();
-        if(resultado){
-            atualizarHorariosAtividade(false);
-        }
+
+        atividadeRepositorio.getMomento(new ResponseListener() {
+            @Override
+            public void onSuccess(Object response) {
+                try {
+                    DateTime momento = (DateTime) response;
+                    Log.i("momento", String.valueOf(momento));
+                    Log.i("momento2", String.valueOf(atividade.getHorarioInicio()));
+                    boolean resultado = atividade.finalizar(momento);
+
+                    if(resultado){
+                        atualizarHorariosAtividade(false);
+                    }
+                }catch (AtividadeFinalizadaAntesDoHorarioIniciadoException e){
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+
     }
 
     private void atualizarHorariosAtividade(final boolean isHorarioInicio){
@@ -76,6 +108,8 @@ public class AtividadeDadosViewModel extends ViewModel {
             }
         });
     }
+
+//    private
 
     public LiveData<Atividade> getAtividade() {
         return atividadeMutableLiveData;

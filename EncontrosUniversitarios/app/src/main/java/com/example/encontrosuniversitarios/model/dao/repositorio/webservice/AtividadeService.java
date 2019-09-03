@@ -2,6 +2,8 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
 import com.example.encontrosuniversitarios.model.Atividade;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -26,4 +28,7 @@ public interface AtividadeService {
 
     @GET("frequencia/{id}")
     Call<List<Atividade>> getAtividadesParticipadas(@Path("id") int idUsuario);
-}
+
+    @GET("momento/")
+    Call<DateTime> getMomento();
+ }
