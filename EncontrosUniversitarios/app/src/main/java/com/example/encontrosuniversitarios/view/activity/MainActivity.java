@@ -90,9 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle(R.string.title_frequencia);
                     MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
                     if (preferences.getUserId() != -1) {
-                        Log.i("lll","ggg");
                         if(preferences.getUserAccessLevel() == 0) {
-                            Log.i("lll",preferences.getUserName());
                             fragment = new AtividadesAlunoFragment();
                             itemId = 5;
                             openFragment(fragment, itemId-3);
@@ -111,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             if (itemId == 0 || itemId == 1 || itemId == 2 || itemId ==5) {
-                Log.i("lll","hhh");
                 updateSearchViewFragment();
             }
             return true;

@@ -13,8 +13,7 @@
     <string name="next_activity">Não iniciada</string>
     <string name="fragment_realizar_frequencia_upper_text">Carregando dados...</string>
     <string name="realizar_frequencia">Realizar frequência - Sala</string>
-    <string name="qr_code_title">Minha Código
-    </string>
+    <string name="qr_code_title">Meu Código</string>
     <string name="close">Fechar</string>
 
     <string name="qrcode">QRCode</string>

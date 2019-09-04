@@ -83,14 +83,14 @@ const updateAtividade = (request, response) => {
     console.log(request.body)
     var query = ""
     if(isHorarioInicio) {
-      query = 'UPDATE atividade SET horario_inicial = $2 WHERE id_atividade = $1'
+      query = 'UPDATE atividade SET horario_inicial = now() WHERE id_atividade = $1'
     }else{
-      query = 'UPDATE atividade SET horario_final = $2 WHERE id_atividade = $1'
+      query = 'UPDATE atividade SET horario_final = now() WHERE id_atividade = $1'
     }
 
     db.pool.query(
       query,
-      [id_atividade,horario],
+      [id_atividade],
       (error, results) => {
         console.log(error)
         response.status(200).send(true)
@@ -172,7 +172,7 @@ const getAtividadesFrequentadas = (request, response) => {
         atividades.push(index[row.id_atividade]);
       }
     });
-    console.log(atividades);
+
     response.status(200).json(atividades)
   }
   )

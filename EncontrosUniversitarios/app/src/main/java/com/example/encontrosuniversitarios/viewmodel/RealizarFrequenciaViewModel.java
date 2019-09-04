@@ -64,9 +64,9 @@ public class RealizarFrequenciaViewModel extends ViewModel {
                 public void onSuccess(Object response) {
                     validacaoCheckInCheckOut = (ValidacaoCheckInCheckOut) response;
                     if(validacaoCheckInCheckOut.isCheckedInOnDifferentRoom()) {
-                        listener.onCheckedInOnDifferentRoom(validacaoCheckInCheckOut.getMessage()+qrCodeValidator.getNomeUsuario());
+                        listener.onCheckedInOnDifferentRoom(validacaoCheckInCheckOut.getMessage()+" : Usuário: "+qrCodeValidator.getNomeUsuario());
                     }else if(validacaoCheckInCheckOut.isSuccessful()){
-                        listener.onSuccess(validacaoCheckInCheckOut.getMessage()+qrCodeValidator.getNomeUsuario());
+                        listener.onSuccess(validacaoCheckInCheckOut.getMessage()+", Usuário: "+qrCodeValidator.getNomeUsuario());
                     }
                 }
 

@@ -25,6 +25,7 @@ public class DateTimeJsonConverter implements JsonSerializer<DateTime>, JsonDese
 
     @Override
     public DateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+
         return DateTime.parse(json.getAsString(), dateTimeFormatter).withZone(dtZone);
     }
 
