@@ -5,7 +5,7 @@ function dataFormatada(){
   // teste = row.horario_previsto;  //2019-05-03T13:35:00.000Z
 
   var data = new Date(Date.now())
-  console.log(data);
+  console.log("data ",data);
   dia = data.getDate();
   mes = data.getMonth() +1; //+1 pois no getMonth Janeiro começa com zero.
   ano = data.getFullYear();
@@ -14,7 +14,7 @@ function dataFormatada(){
   segundos = data.getSeconds();
   milisegundos = data.getMilliseconds();
   // correta =
-  return ano+"-"+mes+"-"+dia+"T"+hora+":"+minutos+":"+segundos+"."+milisegundos+"Z";
+  return ano+"-"+mes+"-"+dia+"T"+hora+":"+minutos+":"+segundos+"."+milisegundos+"-0300";
 //2019-09-03T18:04:56.074Z
 }
 
@@ -178,9 +178,10 @@ const getAtividadesFrequentadas = (request, response) => {
   )
 }
 const getMomento = (request, response) =>{
-  console.log(dataFormatada())
+  console.log("datafor ",dataFormatada())
   response.status(200).json(dataFormatada())
 }
+
 
 
 
