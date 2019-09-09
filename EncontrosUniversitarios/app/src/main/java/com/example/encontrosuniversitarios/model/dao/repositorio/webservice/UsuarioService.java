@@ -2,6 +2,7 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DadosCheckIn;
+import com.example.encontrosuniversitarios.model.DadosFrequenciaUsuario;
 import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoCadastro;
@@ -24,4 +25,7 @@ public interface UsuarioService {
 
     @POST("/frequencia")
     Call<ValidacaoCheckInCheckOut> checkInCheckOut(@Body DadosCheckIn dadosCheckIn);
+
+    @GET("usuario/{matricula}")
+    Call<DadosFrequenciaUsuario> getUsuario(@Path("matricula") String matricula);
 }

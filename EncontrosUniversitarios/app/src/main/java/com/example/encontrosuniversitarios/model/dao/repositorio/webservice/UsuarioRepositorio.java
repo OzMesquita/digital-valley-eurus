@@ -3,6 +3,7 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.DadosCheckIn;
+import com.example.encontrosuniversitarios.model.DadosFrequenciaUsuario;
 import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoCadastro;
@@ -71,6 +72,21 @@ public class UsuarioRepositorio {
             @Override
             public void onFailure(Call<ValidacaoCheckInCheckOut> call, Throwable t) {
                 listener.onFailure("Erro ao executar requisição");
+            }
+        });
+    }
+
+    public void buscarUsuario(final ResponseListener listener, String matricula) {
+        usuarioService.getUsuario(matricula).enqueue(new Callback<DadosFrequenciaUsuario>() {
+            @Override
+            public void onResponse(Call<DadosFrequenciaUsuario> call, Response<DadosFrequenciaUsuario> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<DadosFrequenciaUsuario> call, Throwable t) {
+
+                listener.onFailure(t.getMessage());
             }
         });
     }

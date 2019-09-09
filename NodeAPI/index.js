@@ -21,8 +21,8 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-app.post('/auth', db_usu.getUsuarioByMatriculaSenha)
-
+app.post('/auth', db_usu.getUsuarioByEmailSenha)
+app.get('/usuario/:matricula',db_usu.getUsuarioByMatricula)
 app.get('/usuarios', db_usu.getUsuarios)
 app.get('/usuarios/:id', db_usu.getUsuarioById)
 app.post('/usuarios', db_usu.getUsuarioByEmailMatricula, db_usu.createUsuario)
