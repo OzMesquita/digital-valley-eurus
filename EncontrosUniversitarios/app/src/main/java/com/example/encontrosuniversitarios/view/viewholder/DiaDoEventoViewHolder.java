@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.view.viewholder;
 
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -14,23 +15,22 @@ public class DiaDoEventoViewHolder extends GroupViewHolder {
     private TextView diaDoEvento;
     private TextView numeroItems;
     private ImageView arrow;
-    private View divider;
-    private boolean isItemClicked;
+    private TextView numeroAtividades;
     public DiaDoEventoViewHolder(View itemView) {
         super(itemView);
         diaDoEvento = itemView.findViewById(R.id.text_view_dia_evento);
         arrow = itemView.findViewById(R.id.arrow);
-        numeroItems = itemView.findViewById(R.id.item_count_dia_evento);
-        divider = itemView.findViewById(R.id.divider);
+        numeroAtividades = itemView.findViewById(R.id.numero_atividades_dia);
     }
 
-    public void bind(String diaEvento, int itemCount){
+    public void bind(String diaEvento,int numeroAtividades){
         this.diaDoEvento.setText(diaEvento);
-        this.numeroItems.setText(String.valueOf(itemCount));
+        this.numeroAtividades.setText(String.valueOf(numeroAtividades));
     }
 
     @Override
     public void expand() {
+        Log.i("EXPAND","EXPAND");
         animateExpand();
     }
 
@@ -45,6 +45,7 @@ public class DiaDoEventoViewHolder extends GroupViewHolder {
         rotate.setDuration(300);
         rotate.setFillAfter(true);
         arrow.setAnimation(rotate);
+        arrow.animate();
     }
 
     private void animateCollapse() {
@@ -53,5 +54,6 @@ public class DiaDoEventoViewHolder extends GroupViewHolder {
         rotate.setDuration(300);
         rotate.setFillAfter(true);
         arrow.setAnimation(rotate);
+        arrow.animate();
     }
 }

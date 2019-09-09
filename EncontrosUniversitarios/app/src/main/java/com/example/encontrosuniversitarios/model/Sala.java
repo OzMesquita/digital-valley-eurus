@@ -8,10 +8,15 @@ import java.util.List;
 public class Sala {
     @SerializedName("id_sala")
     private Integer id;
+    @SerializedName("numero")
     private int numero;
     @SerializedName("nome_sala")
     private String nome;
     private List<Atividade> atividades;
+
+    public Sala(int numero) {
+        this.numero = numero;
+    }
 
     public Sala(){
         this.atividades = new ArrayList<>();

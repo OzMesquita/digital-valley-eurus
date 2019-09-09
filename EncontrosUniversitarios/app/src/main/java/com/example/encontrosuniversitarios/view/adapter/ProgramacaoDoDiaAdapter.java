@@ -13,6 +13,7 @@ import com.example.encontrosuniversitarios.model.Atividade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,23 +21,28 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ProgramacaoDoDiaAdapter extends RecyclerView.Adapter<AtividadeViewHolder> implements Filterable {
     private List<Atividade> atividades;
     private List<Atividade> atividadesFiltradas;
+    private List<String> atividadesCoordenador;
 
-    public ProgramacaoDoDiaAdapter(List<Atividade> atividades){
+    public ProgramacaoDoDiaAdapter(List<Atividade> atividades, Set<String> idsAtividadesCoordenador){
         this.atividades = atividades;
         this.atividadesFiltradas = atividades;
+        if(idsAtividadesCoordenador != null) {
+            this.atividadesCoordenador = new ArrayList<>();
+            this.atividadesCoordenador.addAll(idsAtividadesCoordenador);
+        }
     }
 
     @NonNull
     @Override
     public AtividadeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.atividade_item_list,parent,false);
-
         return new AtividadeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AtividadeViewHolder holder, int position) {
-        holder.bind(atividadesFiltradas.get(position));
+        holder.bind(atividadesFiltradas.get(position),atividadesCoordenador == null ? false :
+                atividadesCoordenador.contains(String.valueOf(atividadesFiltradas.get(position).getId())));
     }
 
     @Override
@@ -62,7 +68,6 @@ public class ProgramacaoDoDiaAdapter extends RecyclerView.Adapter<AtividadeViewH
                     }
                     atividadesFiltradas = listaFiltrada;
                 }
-
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = atividadesFiltradas;
 

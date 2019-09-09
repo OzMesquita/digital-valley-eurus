@@ -1,5 +1,7 @@
 package com.example.encontrosuniversitarios.model;
 
+import androidx.annotation.Nullable;
+
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
@@ -12,7 +14,12 @@ public class DiaEvento extends ExpandableGroup<Atividade> {
     }
 
     @Override
-    public int getItemCount() {
-        return super.getItemCount();
+    public String toString() {
+        return getTitle();
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return this.toString().equals(obj.toString());
     }
 }

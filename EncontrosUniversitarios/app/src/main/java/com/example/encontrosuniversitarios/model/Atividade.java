@@ -3,6 +3,10 @@ package com.example.encontrosuniversitarios.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.example.encontrosuniversitarios.model.exceptions.AtividadeFinalizadaAntesDoHorarioIniciadoException;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
@@ -12,6 +16,7 @@ public class Atividade implements Parcelable {
     private Integer id;
     @SerializedName("nome_atividade")
     private String nome;
+    @SerializedName("descricao")
     private String descricao;
     private Categoria categoria;
     @SerializedName("horario_previsto")
@@ -24,8 +29,19 @@ public class Atividade implements Parcelable {
     private Usuario apresentador;
     private Local local;
 
+    public static final String INICIADA = "Iniciada";
+    public static final String FINALIZADA = "Finalizada";
+    public static final String NAO_INICIADA = "Não iniciada";
+
     public Atividade(String nome){
         this.nome = nome;
+    }
+
+    public Atividade(String nome,DateTime horarioInicialPrevisto,Local local, Usuario apresentador){
+        this.nome = nome;
+        this.horarioInicialPrevisto = horarioInicialPrevisto;
+        this.local = local;
+        this.apresentador = apresentador;
     }
 
     public Atividade(String nome, DateTime horarioInicialPrevisto, DateTime horarioInicio, DateTime horarioFinal){
@@ -35,29 +51,49 @@ public class Atividade implements Parcelable {
         this.horarioFinal = horarioFinal;
     }
 
+    public Atividade(String nome, DateTime horarioInicialPrevisto){
+        this(nome);
+        this.horarioInicialPrevisto = horarioInicialPrevisto;
+    }
+
     public Boolean verificarAtividadeOcorridaDentre(DateTime checkIn,DateTime checkOut){
         if(this.horarioInicio==null || this.horarioFinal==null) return null;
         return (this.horarioInicio.getMillis() >= checkIn.getMillis()) && (this.horarioFinal.getMillis() <= checkOut.getMillis());
     }
 
-    public Boolean iniciar(){
+    public Boolean iniciar(DateTime momento){
         if(this.horarioInicio==null){
-            this.horarioInicio = DateTime.now();
+            this.horarioInicio = momento;
             return true;
-        }else if(this.horarioInicio!=null){
-            return false;
         }
         return false;
     }
 
-    public Boolean finalizar(){
+    public Boolean finalizar(DateTime momento) throws AtividadeFinalizadaAntesDoHorarioIniciadoException {
         if(this.horarioFinal==null && this.horarioInicio!=null){
-            this.horarioFinal = DateTime.now();
-            return true;
-        }else if(this.horarioFinal!=null){
-            return false;
+
+            if(horarioInicio.getMillis() <= momento.getMillis()){
+                this.horarioFinal = momento;
+                return true;
+            }else{
+                throw new AtividadeFinalizadaAntesDoHorarioIniciadoException("Atividade não pode ser finalizada, o horário final é menor que o inicial");
+            }
         }
         return false;
+    }
+
+    public String getEstado(){
+        if(atividadeIniciada()) return INICIADA;
+        if(atividadeFinalizada()) return FINALIZADA;
+        return NAO_INICIADA;
+    }
+
+    public boolean atividadeIniciada(){
+        return this.horarioInicio!=null && this.horarioFinal==null;
+    }
+
+    public boolean atividadeFinalizada(){
+        return this.horarioInicio!=null && this.horarioFinal!=null;
     }
 
     protected Atividade(Parcel in){
@@ -142,6 +178,22 @@ public class Atividade implements Parcelable {
 
     public Integer getId() {
         return id;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return nome;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return this.hashCode() == obj.hashCode();
     }
 
     @Override

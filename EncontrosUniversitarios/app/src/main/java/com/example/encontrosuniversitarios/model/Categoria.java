@@ -7,6 +7,7 @@ public class Categoria {
     private Integer id;
     @SerializedName("nome_categoria")
     private String nome;
+    @SerializedName("descricao")
     private String descricao;
 
     public String getNome() {

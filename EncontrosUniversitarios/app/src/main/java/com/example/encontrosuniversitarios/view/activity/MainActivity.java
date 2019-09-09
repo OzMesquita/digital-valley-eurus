@@ -1,52 +1,76 @@
 package com.example.encontrosuniversitarios.view.activity;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Usuario;
-import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
-import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeService;
-import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
+import com.example.encontrosuniversitarios.view.fragment.AtividadesAlunoFragment;
+import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
+import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
+import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
+import com.example.encontrosuniversitarios.view.fragment.LogoutListener;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
 import com.example.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
+import com.example.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
+import com.example.encontrosuniversitarios.viewmodel.LoginViewModel;
+import com.example.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.MenuInflater;
+import android.widget.FrameLayout;
 import android.widget.SearchView;
+
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.disposables.Disposable;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.transition.FragmentTransitionSupport;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
-    private SearchView searchView;
-    private TextView mTextMessage;
     private BottomNavigationView bottomNavigationView;
     private Fragment fragment;
+    private SearchView searchView;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(getBaseContext());
+        JodaTimeAndroid.init(this);
+        setContentView(R.layout.activity_main);
+        bottomNavigationView = findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        fragment = new ProgramacaoDoDiaFragment();
+        getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
+        openFragment(fragment, 1);
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         int itemId = 1;
+
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
@@ -54,88 +78,160 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle(R.string.title_programacao);
                     fragment = new ProgramacaoFragment();
                     itemId = 0;
+                    openFragment(fragment, itemId);
                     break;
                 case R.id.navigation_programacao_do_dia:
                     getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
                     fragment = new ProgramacaoDoDiaFragment();
                     itemId = 1;
+                    openFragment(fragment, itemId);
                     break;
                 case R.id.navigation_frequencia:
                     getSupportActionBar().setTitle(R.string.title_frequencia);
-                    fragment = new RealizarFrequenciaFragment();
-                    itemId = 2;
+                    MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
+                    if (preferences.getUserId() != -1) {
+                        if(preferences.getUserAccessLevel() == 0) {
+                            fragment = new AtividadesAlunoFragment();
+                            itemId = 5;
+                            openFragment(fragment, itemId-3);
+                        }else{
+
+                            fragment = new RealizarFrequenciaFragment();
+                            itemId = 2;
+                            openFragment(fragment, itemId);
+                        }
+                    } else {
+                        fragment = new LoginFragment();
+                        itemId = 3;
+                        openFragment(fragment,itemId-1);
+                    }
+
                     break;
             }
-            openFragment(fragment,itemId);
-            updateSearchViewFragment();
-            return false;
+            if (itemId == 0 || itemId == 1 || itemId == 2 || itemId ==5) {
+                updateSearchViewFragment();
+            }
+            return true;
         }
     };
 
-    private void openFragment(Fragment fragment,int itemId){
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-        bottomNavigationView.getMenu().getItem(itemId).setChecked(true);
-        getSupportActionBar().setTitle(bottomNavigationView.getMenu().getItem(itemId).getTitle());
-
-    }
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        JodaTimeAndroid.init(this);
-        setContentView(R.layout.activity_main);
-        mTextMessage = findViewById(R.id.message);
-        bottomNavigationView = findViewById(R.id.navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        fragment = new ProgramacaoFragment();
-        openFragment(fragment,0);
-        AtividadeService atividadeService = new AtividadeService();
-        atividadeService.inserir(null);
-    }
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
+        MenuItem menuItem = menu.size() >= 1 ? menu.getItem(0) : null;
+        if(menuItem!=null) {
+            if(preferences.getUserId() == -1 ) {
+                menu.getItem(0).setVisible(false);
+            }else{
+                menu.getItem(0).setVisible(true);
+            }
+        }
 
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        SearchManager searchManager = (SearchManager) this.getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
-
-        updateSearchViewFragment();
+        if(fragment instanceof ProgramacaoFragment
+                || fragment instanceof ProgramacaoDoDiaFragment
+                || fragment instanceof RealizarFrequenciaFragment){
+            updateSearchViewFragment();
+        }
         return true;
     }
 
-    public void updateSearchViewFragment(){
+    public void updateSearchViewFragment() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            ProgramacaoListInterface p = (ProgramacaoListInterface) fragment;
+            ProgramacaoListInterface anInterface = (ProgramacaoListInterface) fragment;
+
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                p.getProgramacaoAdapter().getFilter().filter(query);
+                anInterface.getProgramacaoAdapter().getFilter().filter(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                p.getProgramacaoAdapter().getFilter().filter(newText);
+                anInterface.getProgramacaoAdapter().getFilter().filter(newText);
                 return true;
             }
         });
     }
 
+    private void openFragment(Fragment fragment, int itemId) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+        bottomNavigationView.getMenu().getItem(itemId).setChecked(true);
+    }
+
     @Override
     public void onBackPressed() {
-        // close search view on back button pressed
-        if (!searchView.isIconified()) {
-            searchView.setIconified(true);
-            return;
+        startActivity(new Intent(this, MainActivity.class));
+        finishAffinity();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        } else if(id == R.id.logout) {
+            ViewModelProviders.of(this).get(LoginViewModel.class).realizarLogout(this, new LogoutListener() {
+                @Override
+                public void onSuccessfulLogout() {
+                    bottomNavigationView.setSelectedItemId(R.id.navigation_programacao_do_dia);
+                }
+
+                @Override
+                public void onFailure() {
+                    Toast.makeText(getApplicationContext(),"Não foi possível fazer logout", Toast.LENGTH_LONG).show();
+                }
+            });
         }
-        super.onBackPressed();
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() != null) {
+                String scannedUserCode = result.getContents();
+                RealizarFrequenciaViewModel viewModel = ViewModelProviders.of(this).get(RealizarFrequenciaViewModel.class);
+                viewModel.realizarCheckInCheckOut(new CheckInCheckOutListener() {
+                    @Override
+                    public void onSuccess(String message) {
+                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onCheckedInOnDifferentRoom(String message) {
+                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onInvalidQRCode(String message) {
+                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                    }
+                },scannedUserCode,getBaseContext());
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 }

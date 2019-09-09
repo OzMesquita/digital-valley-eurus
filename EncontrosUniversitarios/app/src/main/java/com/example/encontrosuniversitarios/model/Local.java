@@ -3,6 +3,7 @@ package com.example.encontrosuniversitarios.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Local {
+    @SerializedName("id_local")
     private Integer id;
     @SerializedName("nome_local")
     private String nome;
@@ -11,6 +12,11 @@ public class Local {
     @SerializedName("andar_local")
     private String andar;
     private Sala sala;
+
+    public Local(String nome,Sala sala){
+        this.nome = nome;
+        this.sala=sala;
+    }
 
     public String getNome() {
         return nome;
@@ -26,6 +32,12 @@ public class Local {
 
     public void setPontoReferencia(String pontoReferencia) {
         this.pontoReferencia = pontoReferencia;
+    }
+
+    public String getLocalSala(){
+        String local;
+       // local = sala.getNome().concat(nome).concat(" " + andar + " Andar");
+       return local =  nome + " " + sala.getNumero() + ", "+ andar + " andar";
     }
 
     public String getAndar() {

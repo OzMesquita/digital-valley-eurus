@@ -3,72 +3,34 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.Atividade;
-import com.example.encontrosuniversitarios.model.dao.interfaces.base.IAtividadeBaseDao;
-import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
-import com.google.gson.annotations.SerializedName;
+
+import org.joda.time.DateTime;
 
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
-import io.reactivex.Single;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
-public class AtividadeService implements IAtividadeBaseDao{
+public interface AtividadeService {
+    @GET("atividades")
+    Call<List<Atividade>> getAtividades();
 
-    @Override
-    public void inserir(Atividade atividade) {
-        AtividadePostgreeService apiService = WebServiceDatabase.getRetrofitService().create(AtividadePostgreeService.class);
-        Single<Atividade> description = apiService.getDescription();
-        description.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<Atividade>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+    @GET("hoje/atividades/")
+    Call<List<Atividade>> getAtividadesDoDia();
 
-            }
+    @PUT("atividades/{id}")
+    Call<Boolean> atualizarAtividade(@Path("id") int idAtividade, @Body Inicio inicio);
 
-            @Override
-            public void onSuccess(Atividade atividade) {
-                Log.i("Atividade",atividade.getNome());
-                Log.i("Atividade",atividade.getDescricao());
-                Log.i("Atividade",atividade.getCategoria().getNome());
-                Log.i("Atividade",atividade.getTrabalho().getTitulo());
-            }
+    @GET("atividades/coordenador/{id}")
+    Call<List<Atividade>> getAtividadesFrequencia(@Path("id") int idCoordenador);
 
-            @Override
-            public void onError(Throwable e) {
-                Log.i("Atividade","Error: "+e.getMessage());
-            }
-        });
-    }
+    @GET("frequencia/{id}")
+    Call<List<Atividade>> getAtividadesParticipadas(@Path("id") int idUsuario);
 
-    @Override
-    public LiveData<List<Atividade>> buscar() {
-        return null;
-    }
-
-    private interface AtividadePostgreeService{
-        @GET("/atividades")
-        Single<Atividade> getDescription();
-    }
-
-    private class Info{
-        @SerializedName("info")
-        private String info;
-
-        public Info(String info) {
-            this.info = info;
-        }
-
-        public String getInfo() {
-            return info;
-        }
-
-        public void setInfo(String info) {
-            this.info = info;
-        }
-    }
-}
+    @GET("momento/")
+    Call<DateTime> getMomento();
+ }

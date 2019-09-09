@@ -1,6 +1,7 @@
 package com.example.encontrosuniversitarios;
 
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.exceptions.AtividadeFinalizadaAntesDoHorarioIniciadoException;
 
 import junit.framework.TestCase;
 
@@ -33,7 +34,7 @@ public class AtividadeTeste{
 
     @Test
     public void atividadeComecouDepoisDoCheckOut(){
-        Atividade atividade = new Atividade("Atividade", agora,null,null);
+        Atividade atividade = new Atividade("Atividade", agora);
         DateTime checkIn = new DateTime(agora.getMillis()-300);
         DateTime checkOut = new DateTime(agora.getMillis()-200);
 
@@ -63,14 +64,14 @@ public class AtividadeTeste{
 
     @Test
     public void iniciarAtividade(){
-        Atividade atividade = new Atividade("Atividade", agora,null,null);
+        Atividade atividade = new Atividade("Atividade",agora);
         Boolean resultado = atividade.iniciar();
         Assert.assertEquals(true,resultado);
         Assert.assertNotNull(atividade.getHorarioInicio());
     }
 
     @Test
-    public void finalizarAtividade(){
+    public void finalizarAtividade() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
         Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),null);
         Boolean resultado = atividade.finalizar();
         Assert.assertEquals(true,resultado);
@@ -85,15 +86,15 @@ public class AtividadeTeste{
     }
 
     @Test
-    public void finalizarAtividadeJaFinalizada(){
+    public void finalizarAtividadeJaFinalizada() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
         Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),DateTime.now());
         Boolean resultado = atividade.finalizar();
         Assert.assertEquals(false,resultado);
     }
 
     @Test
-    public void finalizarAtividadeNaoIniciada(){
-        Atividade atividade = new Atividade("Atividade", agora,null,null);
+    public void finalizarAtividadeNaoIniciada() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
+        Atividade atividade = new Atividade("Atividade", agora);
         Boolean resultado = atividade.finalizar();
         Assert.assertEquals(false,resultado);
     }
@@ -103,6 +104,57 @@ public class AtividadeTeste{
         Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),DateTime.now());
         Boolean resultado = atividade.iniciar();
         Assert.assertEquals(false,resultado);
+    }
+
+    @Test(expected =  AtividadeFinalizadaAntesDoHorarioIniciadoException.class)
+    public void finalizarAtividadeAntesDoTempoDoHorarioIniciado() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
+        long minuto = 6000;
+        DateTime horarioInicio = new DateTime(DateTime.now().getMillis()+minuto);
+        Atividade atividade = new Atividade("Atividade", agora,horarioInicio,null);
+        atividade.finalizar();
+        Assert.assertNull(atividade.getHorarioFinal());
+    }
+
+    @Test
+    public void verificarAtividadeIniciada(){
+        Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),null);
+
+        Assert.assertEquals(true,atividade.atividadeIniciada());
+    }
+
+    @Test
+    public void verificarAtividadeIniciadaEmAtividadeFinalizada(){
+        Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),DateTime.now());
+
+        Assert.assertEquals(false,atividade.atividadeIniciada());
+    }
+
+    @Test
+    public void verificarAtividadeNaoIniciada(){
+        Atividade atividade = new Atividade("Atividade", agora);
+
+        Assert.assertEquals(false,atividade.atividadeIniciada());
+    }
+
+    @Test
+    public void verificarAtividadeFinalizada(){
+        Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),DateTime.now());
+
+        Assert.assertEquals(true,atividade.atividadeFinalizada());
+    }
+
+    @Test
+    public void verificarAtividadeFinalizadaEmAtividadeNaoIniciada(){
+        Atividade atividade = new Atividade("Atividade", agora);
+
+        Assert.assertEquals(false,atividade.atividadeFinalizada());
+    }
+
+    @Test
+    public void verificarAtividadeNaoFinalizada(){
+        Atividade atividade = new Atividade("Atividade", agora,DateTime.now(),null);
+
+        Assert.assertEquals(false,atividade.atividadeFinalizada());
     }
 
 }

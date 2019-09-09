@@ -42,7 +42,7 @@ public class FrequenciaTeste{
         Atividade atividade = new Atividade("Junit",null,agora,new DateTime(agora.getMillis()+900000));
         Atividade atividade2 = new Atividade("Docker",null,new DateTime(agora.getMillis()+9500000),new DateTime(agora.getMillis()+1800000));
         Atividade atividade3 = new Atividade("CC",null,new DateTime(agora.getMillis()+1850000),null);
-        Atividade atividade4 = new Atividade("Software",null,null,null);
+        Atividade atividade4 = new Atividade("Software");
         sala.getAtividades().add(atividade);
         sala.getAtividades().add(atividade2);
         sala.getAtividades().add(atividade3);
@@ -68,7 +68,7 @@ public class FrequenciaTeste{
         Atividade atividade = new Atividade("Junit", null, agora, new DateTime(agora.getMillis() + 900000));
         Atividade atividade2 = new Atividade("Docker", null, new DateTime(agora.getMillis() + 9500000), new DateTime(agora.getMillis() + 1800000));
         Atividade atividade3 = new Atividade("CC", null, new DateTime(agora.getMillis() + 1850000), null);
-        Atividade atividade4 = new Atividade("Software", null, null, null);
+        Atividade atividade4 = new Atividade("Software");
         sala.getAtividades().add(atividade);
         sala.getAtividades().add(atividade2);
         sala.getAtividades().add(atividade3);
@@ -94,7 +94,7 @@ public class FrequenciaTeste{
         Atividade atividade = new Atividade("Junit", null, agora, new DateTime(agora.getMillis() + 900000));
         Atividade atividade2 = new Atividade("Docker", null, new DateTime(agora.getMillis() + 9500000), new DateTime(agora.getMillis() + 1800000));
         Atividade atividade3 = new Atividade("CC", null, new DateTime(agora.getMillis() + 1850000), null);
-        Atividade atividade4 = new Atividade("Software", null, null, null);
+        Atividade atividade4 = new Atividade("Software");
         sala.getAtividades().add(atividade);
         sala.getAtividades().add(atividade2);
         sala.getAtividades().add(atividade3);

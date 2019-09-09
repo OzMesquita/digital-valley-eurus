@@ -7,9 +7,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class ProgramacaoAbasAdapter extends FragmentPagerAdapter {
-
+public class ProgramacaoAbasAdapter extends FragmentStatePagerAdapter{
     private List<Fragment> fragments;
     private List<String> titulos;
     public ProgramacaoAbasAdapter(FragmentManager fm){

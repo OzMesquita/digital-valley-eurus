@@ -8,11 +8,10 @@ public class Trabalho {
     @SerializedName("id_trabalho")
     private Integer id;
     private String titulo;
-
     private Categoria modalidade;
-    private Usuario autorPrincipal;
+    private Usuario autor;
     private String orientador;
-    private List<Usuario> coAutores;
+    //private List<Usuario> coAutores;
 
     public String getTitulo() {
         return titulo;
@@ -31,11 +30,11 @@ public class Trabalho {
     }
 
     public Usuario getAutorPrincipal() {
-        return autorPrincipal;
+        return autor;
     }
 
     public void setAutorPrincipal(Usuario autorPrincipal) {
-        this.autorPrincipal = autorPrincipal;
+        this.autor = autorPrincipal;
     }
 
     public String getOrientador() {
@@ -46,6 +45,7 @@ public class Trabalho {
         this.orientador = orientador;
     }
 
+    /*
     public List<Usuario> getCoAutores() {
         return coAutores;
     }
@@ -53,6 +53,7 @@ public class Trabalho {
     public void setCoAutores(List<Usuario> coAutores) {
         this.coAutores = coAutores;
     }
+    */
 
     public Integer getId() {
         return id;

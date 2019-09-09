@@ -12,26 +12,38 @@
         android:orientation="vertical"
         android:layout_gravity="right">
         <TextView
+            android:id="@+id/sala"
             android:layout_gravity="center"
             android:textSize="20dp"
-            android:text="Realizar frequência - Sala 12"
+            android:fontFamily="sans-serif-light"
+            android:layout_margin="10dp"
+            android:text="@string/fragment_realizar_frequencia_upper_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
-            android:text="Matricula ou CPF"
+            android:id="@+id/freq_matricula"
+            android:text="@string/matricula"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/round_green_button"
+            android:textColor="@android:color/white"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"/>
         <Button
-            android:text="QRCode"
+            android:id="@+id/btnReadQRCode"
+            android:text="@string/qrcode"
             android:layout_width="match_parent"
+            android:textColor="@android:color/white"
+            android:background="@drawable/round_green_button"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/atividades_frequencia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
