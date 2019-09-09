@@ -1,6 +1,8 @@
 package com.example.encontrosuniversitarios.viewmodel;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -34,15 +36,11 @@ public class AtividadeDadosViewModel extends ViewModel {
         horarioFinalAtividade.setValue(atividade.getHorarioFinal());
     }
 
-    public void alterarHorarioAtividade(){
+    public void alterarHorarioAtividade(Context context) {
         if(!atividade.atividadeIniciada() && !atividade.atividadeFinalizada()){
             iniciarAtividade();
         }else if(atividade.atividadeIniciada()){
-            try {
-                finalizarAtividade();
-            } catch (AtividadeFinalizadaAntesDoHorarioIniciadoException e) {
-                Log.i("tattt","nada");
-            }
+            finalizarAtividade(context);
         }
     }
 
@@ -65,21 +63,19 @@ public class AtividadeDadosViewModel extends ViewModel {
 
     }
 
-    private void finalizarAtividade() throws AtividadeFinalizadaAntesDoHorarioIniciadoException{
+    private void finalizarAtividade(final Context context){
 
         atividadeRepositorio.getMomento(new ResponseListener() {
             @Override
             public void onSuccess(Object response) {
                 try {
                     DateTime momento = (DateTime) response;
-                    Log.i("momento", String.valueOf(momento));
-                    Log.i("momento2", String.valueOf(atividade.getHorarioInicio()));
                     boolean resultado = atividade.finalizar(momento);
-
                     if(resultado){
                         atualizarHorariosAtividade(false);
                     }
                 }catch (AtividadeFinalizadaAntesDoHorarioIniciadoException e){
+                    Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();;
                 }
             }
 

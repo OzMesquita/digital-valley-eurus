@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.databinding.FragmentAtividadeDadosBinding;
@@ -117,7 +118,7 @@ public class AtividadeDadosFragment extends Fragment {
         iniciarFinalizarAtividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                atividadeDadosViewModel.alterarHorarioAtividade();
+                atividadeDadosViewModel.alterarHorarioAtividade(getContext());
 
             }
         });

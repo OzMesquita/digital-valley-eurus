@@ -76,7 +76,7 @@ public class Atividade implements Parcelable {
                 this.horarioFinal = momento;
                 return true;
             }else{
-                throw new AtividadeFinalizadaAntesDoHorarioIniciadoException("");
+                throw new AtividadeFinalizadaAntesDoHorarioIniciadoException("Atividade não pode ser finalizada, o horário final é menor que o inicial");
             }
         }
         return false;
