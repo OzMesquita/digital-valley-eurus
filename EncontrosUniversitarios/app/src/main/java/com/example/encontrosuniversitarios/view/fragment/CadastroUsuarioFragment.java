@@ -29,6 +29,7 @@ import com.example.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel
 
 public class CadastroUsuarioFragment extends Fragment {
     private TextView txtName;
+    private TextView txtMatricula;
     private EditText edtEmail;
     private EditText edtMatricula;
     private EditText edtSenha;
@@ -50,6 +51,7 @@ public class CadastroUsuarioFragment extends Fragment {
         Button verificarFrequencia = view.findViewById(R.id.get_user);
         Button entre = view.findViewById(R.id.buttonEntre);
         txtName = view.findViewById(R.id.txtName);
+        txtMatricula = view.findViewById(R.id.txtMatricula);
         edtEmail = view.findViewById(R.id.edtEmail);
         edtMatricula = view.findViewById(R.id.edtMatricula);
         edtSenha = view.findViewById(R.id.edtSenha);
@@ -114,8 +116,10 @@ public class CadastroUsuarioFragment extends Fragment {
             public void onChanged(VerificacaoMatricula usuario) {
                 if(usuario!=null) {
                     txtName.setText(usuario.getNome());
+                    txtMatricula.setText(usuario.getMatricula());
                 }else{
                     txtName.setText("");
+                    txtMatricula.setText("");
                     edtMatricula.setText("");
                 }
             }
@@ -169,7 +173,6 @@ public class CadastroUsuarioFragment extends Fragment {
     }
 
     private void navitageToLoginFragment(){
-        Log.i("tee","naviTeste");
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_container, new LoginFragment());

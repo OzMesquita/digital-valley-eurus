@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment {
 
                             @Override
                             public void onInvalidPassword(String message) {
-                                edtSenha.setError(getContext().getResources().getString(R.string.invalid_password_message));
+                                edtSenha.setError(getContext().getResources().getString(R.string.invalid_passord_login_message));
                             }
 
                             @Override

@@ -121,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
         MenuItem menuItem = menu.size() >= 1 ? menu.getItem(0) : null;
         if(menuItem!=null) {
             if(preferences.getUserId() == -1 ) {
-                menu.getItem(0).setVisible(false);
+                menu.getItem(1).setVisible(false);
             }else{
-                menu.getItem(0).setVisible(true);
+                menu.getItem(1).setVisible(true);
             }
         }
 

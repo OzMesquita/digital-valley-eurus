@@ -28,7 +28,10 @@
             android:background="@drawable/round_green_button"
             android:textColor="@android:color/white"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:textSize="17dp"
+            />
         <Button
             android:id="@+id/btnReadQRCode"
             android:text="@string/qrcode"
@@ -38,7 +41,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:textSize="17dp"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
