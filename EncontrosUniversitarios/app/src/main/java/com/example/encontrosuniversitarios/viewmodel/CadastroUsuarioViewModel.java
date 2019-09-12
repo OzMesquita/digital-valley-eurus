@@ -1,10 +1,14 @@
 package com.example.encontrosuniversitarios.viewmodel;
 
 import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoCadastro;
+import com.example.encontrosuniversitarios.model.VerificacaoMatricula;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
 import com.example.encontrosuniversitarios.model.exceptions.CampoVazioException;
@@ -12,13 +16,16 @@ import com.example.encontrosuniversitarios.model.exceptions.EmailInvalidoExcepti
 import com.example.encontrosuniversitarios.model.exceptions.MatriculaInvalidaException;
 import com.example.encontrosuniversitarios.model.exceptions.SenhaInvalidaException;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioListener;
+import com.example.encontrosuniversitarios.view.fragment.VerificacaoMatriculaListener;
 
 public class CadastroUsuarioViewModel extends ViewModel {
     private UsuarioRepositorio usuarioRepositorio;
     private Usuario usuario;
+    private MutableLiveData<VerificacaoMatricula>  verificacaoMatricula;
 
     public CadastroUsuarioViewModel(){
         this.usuarioRepositorio = UsuarioRepositorio.getInstance();
+        verificacaoMatricula = new MutableLiveData<>();
     }
 
     public void cadastrarUsuario(String nome, String matricula, String email, String senha, final CadastroUsuarioListener listener){
@@ -49,5 +56,34 @@ public class CadastroUsuarioViewModel extends ViewModel {
         } catch (MatriculaInvalidaException e) {
             listener.onInvalidMatricula(e.getMessage());
         }
+    }
+
+    public void realizarValidacao(final VerificacaoMatriculaListener listener, String matricula) {
+        if(matricula!=null && matricula.length()==6){
+            this.usuarioRepositorio.verificarMatricula(new ResponseListener() {
+                @Override
+                public void onSuccess(Object response) {
+                    VerificacaoMatricula verMatricula = (VerificacaoMatricula) response;
+
+                    if(verMatricula.getMatricula()!= null && verMatricula.getNome()!=null){
+                        listener.onValidMatricula();
+                        verificacaoMatricula.setValue(verMatricula);
+                    }else {
+                        listener.onUnregisteredMatricula();
+                    }
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    listener.onFailure();
+                }
+            }, matricula);
+        }else{
+            listener.onInvalidMatricula();
+        }
+    }
+
+    public LiveData<VerificacaoMatricula> getVerificacaoMatricula() {
+        return verificacaoMatricula;
     }
 }

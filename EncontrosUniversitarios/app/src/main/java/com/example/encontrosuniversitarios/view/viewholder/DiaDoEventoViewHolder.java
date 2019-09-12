@@ -13,6 +13,7 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 public class DiaDoEventoViewHolder extends GroupViewHolder {
     private TextView diaDoEvento;
+    private TextView numeroItems;
     private ImageView arrow;
     private TextView numeroAtividades;
     public DiaDoEventoViewHolder(View itemView) {

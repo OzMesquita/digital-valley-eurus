@@ -1,4 +1,6 @@
 const db = require('./conexao')
+const http = require('http')
+
 
 const getUsuarios = (request, response) => {
   try {
@@ -30,17 +32,27 @@ const getUsuarioById = (request, response) => {
   }
 }
 
+const getUsuarioByMatricula = (request, response) => {
+  try {
+    const matricula = request.params.matricula
+    console.log(matricula)
+    db.pool.query('SELECT nome,id_usuario FROM usuario where matricula = $1 LIMIT 1', [matricula], (error, results) => {
+      response.status(200).json(results.rows[0])
+    })
+  }catch(ex){
+    console.log(ex)
+    console.log('Erro 500!');
+    response.status(500).send(`Erro ao listar usuário`)
+    return null;
+  }
+}
+
 const getUsuarioByEmailMatricula = (request, response, next) => {
   try {
     const { matricula, email } = request.body
     const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false, message: ''}
 
     db.pool.query('SELECT * FROM usuario WHERE matricula = $1 or email = $2', [matricula, email], (error, results) => {
-      // if (error) {
-      //   console.log(error)
-      //   throw error
-      // }
-      //
       for(var i=0; i<results.rowCount;i++){
         if(queryResponse.alreadyTakenMatricula && queryResponse.alreadyTakenEmail) break;
         if(results.rows[i].matricula == matricula){
@@ -65,7 +77,7 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
   }
 }
 
-const getUsuarioByMatriculaSenha = (request, response) => {
+const getUsuarioByEmailSenha = (request, response) => {
   try {
     const { email, senha } = request.body
     const queryResponse = {
@@ -158,6 +170,29 @@ const updateUsuario = (request, response) => {
     }
   }
 
+  const getValidacaoMatricula = (req, response) => {
+
+    const matricula = req.params.matricula
+    http.get('http://192.169.1.2:8080/guardiao/api/Service?matricula='+matricula, (res)=> {
+      let data = ''
+      
+      res.on('data',(chunk)=>{
+        data += chunk
+      })
+
+      res.on('end', ()=>{
+        if(data==404){
+          const validacao = {matricula:null, nome:null}
+          response.status(200).send(validacao)
+        }else{
+          console.log(JSON.parse(data).explanation)
+          response.status(200).send(data)
+        }
+      })
+    }).on("error", (err)=>{
+      console.log("Erro")
+    })
+  }
   module.exports = {
     getUsuarios,
     getUsuarioById,
@@ -165,5 +200,7 @@ const updateUsuario = (request, response) => {
     updateUsuario,
     deleteUsuario,
     getUsuarioByEmailMatricula,
-    getUsuarioByMatriculaSenha
+    getUsuarioByEmailSenha,
+    getUsuarioByMatricula,
+    getValidacaoMatricula
   }

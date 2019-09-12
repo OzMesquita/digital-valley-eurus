@@ -1,5 +1,7 @@
 package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
+import android.util.Log;
+
 import com.example.encontrosuniversitarios.model.Atividade;
 
 import org.joda.time.DateTime;

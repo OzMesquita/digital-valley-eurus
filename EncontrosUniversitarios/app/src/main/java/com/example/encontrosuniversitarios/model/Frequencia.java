@@ -7,10 +7,13 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 public class Frequencia {
+    @SerializedName("id_frequencia")
     private Integer id;
     private Usuario participante;
     private Sala sala;
+    @SerializedName("check_in")
     private DateTime checkIn;
+    @SerializedName("check_out")
     private DateTime checkOut;
     private List<Atividade> atividadesFrequentadas;
 

@@ -3,11 +3,13 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.DadosCheckIn;
+import com.example.encontrosuniversitarios.model.DadosFrequenciaUsuario;
 import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoCadastro;
 import com.example.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
 import com.example.encontrosuniversitarios.model.ValidacaoLogin;
+import com.example.encontrosuniversitarios.model.VerificacaoMatricula;
 import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioListener;
 import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
@@ -71,6 +73,35 @@ public class UsuarioRepositorio {
             @Override
             public void onFailure(Call<ValidacaoCheckInCheckOut> call, Throwable t) {
                 listener.onFailure("Erro ao executar requisição");
+            }
+        });
+    }
+
+    public void buscarUsuario(final ResponseListener listener, String matricula) {
+        usuarioService.getUsuario(matricula).enqueue(new Callback<DadosFrequenciaUsuario>() {
+            @Override
+            public void onResponse(Call<DadosFrequenciaUsuario> call, Response<DadosFrequenciaUsuario> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<DadosFrequenciaUsuario> call, Throwable t) {
+
+                listener.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    public void verificarMatricula(final ResponseListener listener, String matricula){
+        usuarioService.getVerificacaoMatricula(matricula).enqueue(new Callback<VerificacaoMatricula>() {
+            @Override
+            public void onResponse(Call<VerificacaoMatricula> call, Response<VerificacaoMatricula> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<VerificacaoMatricula> call, Throwable t) {
+                listener.onFailure(t.getMessage());
             }
         });
     }

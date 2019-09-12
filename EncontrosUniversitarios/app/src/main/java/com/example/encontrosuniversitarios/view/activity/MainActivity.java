@@ -139,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
         searchView.setMaxWidth(Integer.MAX_VALUE);
         if(fragment instanceof ProgramacaoFragment
                 || fragment instanceof ProgramacaoDoDiaFragment
-                || fragment instanceof RealizarFrequenciaFragment){
+                || fragment instanceof RealizarFrequenciaFragment
+                || fragment instanceof AtividadesAlunoFragment){
             updateSearchViewFragment();
         }
         return true;

@@ -17,7 +17,7 @@
             android:textSize="20dp"
             android:fontFamily="sans-serif-light"
             android:layout_margin="10dp"
-            android:text="@string/fragment_realizar_frequencia_upper_text"
+            android:text="@string/my_activities"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
