@@ -57,16 +57,21 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
         if(queryResponse.alreadyTakenMatricula && queryResponse.alreadyTakenEmail) break;
         if(results.rows[i].matricula == matricula){
           queryResponse.alreadyTakenMatricula = true
+          console.log("mat ",queryResponse.alreadyTakenMatricula)
         }
         if(results.rows[i].email == email){
           queryResponse.alreadyTakenEmail = true
+          console.log("email", queryResponse.alreadyTakenEmail)
         }
       }
     })
+    console.log("email2", queryResponse.alreadyTakenEmail)
 
     if(!queryResponse.alreadyTakenEmail && !queryResponse.alreadyTakenMatricula){
-      next()
+        console.log("d ",queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
+       next()
     }else{
+      console.log("i ", queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
       queryResponse.message = "Já existe uma conta com o mesmo email ou matrícula fornecida"
       response.status(201).json(queryResponse)
     }
@@ -126,12 +131,19 @@ const createUsuario = (request, response) => {
     const {matricula, email, senha, nivel_acesso, nome} = request.body
 
     db.pool.query('INSERT INTO usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senha, nivel_acesso, nome], (error, result) => {
-      queryResponse.message = "Usuario criado com sucesso"
-      response.status(201).json(queryResponse)
+    //   if(!error){
+    //   queryResponse.message = "Usuário criado com sucesso"
+    //   console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
+    //   response.status(201).json(queryResponse)
+    // }else{
+    //   queryResponse.message = "Matrícula ou email já cadastrados"
+    //   console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
+    //   response.status(201).json(queryResponse)
+    // }
     })
   }catch(ex){
     console.log('Erro 500!');
-    response.status(500).send(`Erro ao crear usuario`)
+    response.status(500).send(`Erro ao criar usuário`)
     return null;
   }
 }
@@ -175,7 +187,7 @@ const updateUsuario = (request, response) => {
     const matricula = req.params.matricula
     http.get('http://192.169.1.2:8080/guardiao/api/Service?matricula='+matricula, (res)=> {
       let data = ''
-      
+
       res.on('data',(chunk)=>{
         data += chunk
       })
