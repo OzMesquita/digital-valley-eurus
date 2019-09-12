@@ -24,6 +24,7 @@ import com.example.encontrosuniversitarios.viewmodel.LoginViewModel;
 public class LoginFragment extends Fragment {
 
     private LoginViewModel loginViewModel;
+
     private EditText edtEmail;
     private EditText edtSenha;
 
@@ -45,7 +46,6 @@ public class LoginFragment extends Fragment {
         cadastrar = view.findViewById(R.id.buttonCadastrar);
         edtEmail = view.findViewById(R.id.editTextEmail);
         edtSenha = view.findViewById(R.id.editTextSenha);
-
         botaoLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +114,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void changeLoginFragmentOnLogin(int accessLevel){
+
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         if(accessLevel==1){
@@ -124,6 +125,7 @@ public class LoginFragment extends Fragment {
 
         ft.addToBackStack(null);
         ft.commit();
+
     }
 
     private void navitageToCadastrarUsuarioFragment() {

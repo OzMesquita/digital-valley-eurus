@@ -1,4 +1,6 @@
 const db = require('./conexao')
+const http = require('http')
+
 
 const getUsuarios = (request, response) => {
   try {
@@ -168,6 +170,29 @@ const updateUsuario = (request, response) => {
     }
   }
 
+  const getValidacaoMatricula = (req, response) => {
+
+    const matricula = req.params.matricula
+    http.get('http://192.169.1.2:8080/guardiao/api/Service?matricula='+matricula, (res)=> {
+      let data = ''
+      
+      res.on('data',(chunk)=>{
+        data += chunk
+      })
+
+      res.on('end', ()=>{
+        if(data==404){
+          const validacao = {matricula:null, nome:null}
+          response.status(200).send(validacao)
+        }else{
+          console.log(JSON.parse(data).explanation)
+          response.status(200).send(data)
+        }
+      })
+    }).on("error", (err)=>{
+      console.log("Erro")
+    })
+  }
   module.exports = {
     getUsuarios,
     getUsuarioById,
@@ -176,5 +201,6 @@ const updateUsuario = (request, response) => {
     deleteUsuario,
     getUsuarioByEmailMatricula,
     getUsuarioByEmailSenha,
-    getUsuarioByMatricula
+    getUsuarioByMatricula,
+    getValidacaoMatricula
   }

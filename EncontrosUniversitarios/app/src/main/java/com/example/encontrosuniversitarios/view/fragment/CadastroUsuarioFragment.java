@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
@@ -16,13 +17,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.model.DadosFrequenciaUsuario;
+import com.example.encontrosuniversitarios.model.VerificacaoMatricula;
+import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import com.example.encontrosuniversitarios.viewmodel.CadastroUsuarioViewModel;
+import com.example.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
 
 public class CadastroUsuarioFragment extends Fragment {
-    private EditText edtNome;
+    private TextView txtName;
     private EditText edtEmail;
     private EditText edtMatricula;
     private EditText edtSenha;
@@ -32,6 +38,7 @@ public class CadastroUsuarioFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cadastroUsuarioViewModel = ViewModelProviders.of(this).get(CadastroUsuarioViewModel.class);
+
     }
 
     @Override
@@ -40,52 +47,59 @@ public class CadastroUsuarioFragment extends Fragment {
       //  ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         View view = inflater.inflate(R.layout.fragment_cadastro_usuario, container, false);
         Button salvar = view.findViewById(R.id.buttonSalvarCadastro);
+        Button verificarFrequencia = view.findViewById(R.id.get_user);
         Button entre = view.findViewById(R.id.buttonEntre);
-        edtNome = view.findViewById(R.id.edtNome);
+        txtName = view.findViewById(R.id.txtName);
         edtEmail = view.findViewById(R.id.edtEmail);
         edtMatricula = view.findViewById(R.id.edtMatricula);
         edtSenha = view.findViewById(R.id.edtSenha);
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cadastroUsuarioViewModel.cadastrarUsuario(edtNome.getText().toString(), edtMatricula.getText().toString(),
-                        edtEmail.getText().toString(), edtSenha.getText().toString(), new CadastroUsuarioListener() {
-                            @Override
-                            public void onSuccess(String message) {
-                                Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
-                                navitageToLoginFragment();
-                            }
+              if(cadastroUsuarioViewModel.getVerificacaoMatricula().getValue() != null){
 
-                            @Override
-                            public void onEmptyField(String field) {
-                                showEmptyFieldMessage(field);
-                            }
+                  cadastroUsuarioViewModel.cadastrarUsuario(txtName.getText().toString(), edtMatricula.getText().toString(),
+                          edtEmail.getText().toString(), edtSenha.getText().toString(), new CadastroUsuarioListener() {
+                              @Override
+                              public void onSuccess(String message) {
+                                  Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
+                                  navitageToLoginFragment();
+                              }
 
-                            @Override
-                            public void onInvalidEmail(String message) {
-                                edtEmail.setError(getContext().getResources().getString(R.string.invalid_email_message));
-                            }
+                              @Override
+                              public void onEmptyField(String field) {
+                                  showEmptyFieldMessage(field);
+                              }
 
-                            @Override
-                            public void onInvalidPassword(String message) {
-                                edtSenha.setError(getContext().getResources().getString(R.string.invalid_password_message));
-                            }
+                              @Override
+                              public void onInvalidEmail(String message) {
+                                  edtEmail.setError(getContext().getResources().getString(R.string.invalid_email_message));
+                              }
 
-                            @Override
-                            public void onInvalidMatricula(String message) {
-                                edtMatricula.setError(getContext().getResources().getString(R.string.invalid_matricula_message));
-                            }
+                              @Override
+                              public void onInvalidPassword(String message) {
+                                  edtSenha.setError(getContext().getResources().getString(R.string.invalid_password_message));
+                              }
 
-                            @Override
-                            public void onAlreadyTakenEmail() {
-                                Toast.makeText(getContext(),R.string.already_taken_email_message,Toast.LENGTH_LONG).show();
-                            }
+                              @Override
+                              public void onInvalidMatricula(String message) {
+                                  edtMatricula.setError(getContext().getResources().getString(R.string.invalid_matricula_message));
+                              }
 
-                            @Override
-                            public void onAlreadyTakenMatricula() {
-                                Toast.makeText(getContext(),R.string.already_taken_matricula_message,Toast.LENGTH_LONG).show();
-                            }
-                        });
+                              @Override
+                              public void onAlreadyTakenEmail() {
+                                  Toast.makeText(getContext(),R.string.already_taken_email_message,Toast.LENGTH_LONG).show();
+                              }
+
+                              @Override
+                              public void onAlreadyTakenMatricula() {
+                                  Toast.makeText(getContext(),R.string.already_taken_matricula_message,Toast.LENGTH_LONG).show();
+                              }
+                          });
+              }else {
+                  edtMatricula.requestFocus();
+                  Toast.makeText(getContext(),"Verifique a matrícula antes de criar sua conta.",Toast.LENGTH_LONG).show();
+              }
             }
         });
         entre.setOnClickListener(new View.OnClickListener() {
@@ -94,14 +108,54 @@ public class CadastroUsuarioFragment extends Fragment {
                 navitageToLoginFragment();
             }
         });
+
+        cadastroUsuarioViewModel.getVerificacaoMatricula().observe(this, new Observer<VerificacaoMatricula>() {
+            @Override
+            public void onChanged(VerificacaoMatricula usuario) {
+                if(usuario!=null) {
+                    txtName.setText(usuario.getNome());
+                }else{
+                    txtName.setText("");
+                    edtMatricula.setText("");
+                }
+            }
+        });
+        verificarFrequencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cadastroUsuarioViewModel.realizarValidacao(new VerificacaoMatriculaListener() {
+                    @Override
+                    public void onInvalidMatricula() {
+                        edtMatricula.requestFocus();
+                        edtMatricula.setError("A matrícula deve possuir seis dígitos.");
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        Toast.makeText(getContext(),"Não foi possível realizar operação, falha na conexão.",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onValidMatricula() {
+
+                    }
+
+                    @Override
+                    public void onUnregisteredMatricula() {
+
+                        Toast.makeText(getContext(),"Matrícula não encontrada, contacte o Matheus",Toast.LENGTH_LONG).show();
+                    }
+                }, edtMatricula.getText().toString());
+            }
+        });
+
+
         return view;
     }
 
     private void showEmptyFieldMessage(String campo) {
         switch (campo) {
-            case "Nome":
-                edtNome.setError(getContext().getResources().getString(R.string.blank_field_message));
-                break;
             case "Matricula":
                 edtMatricula.setError(getContext().getResources().getString(R.string.blank_field_message));
                 break;
@@ -122,6 +176,8 @@ public class CadastroUsuarioFragment extends Fragment {
         ft.addToBackStack(null);
         ft.commit();
     }
+
+
 
 
 }

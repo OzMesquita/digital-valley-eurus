@@ -1,7 +1,5 @@
 package com.example.encontrosuniversitarios.view.fragment;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -19,23 +17,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filterable;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
-import com.example.encontrosuniversitarios.helper.QRCodeHelper;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DadosFrequenciaUsuario;
-import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import com.example.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
 import com.example.encontrosuniversitarios.helper.ScanHelper;
 import com.example.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.List;
 

@@ -8,6 +8,7 @@ import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoCadastro;
 import com.example.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
 import com.example.encontrosuniversitarios.model.ValidacaoLogin;
+import com.example.encontrosuniversitarios.model.VerificacaoMatricula;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -28,4 +29,7 @@ public interface UsuarioService {
 
     @GET("usuario/{matricula}")
     Call<DadosFrequenciaUsuario> getUsuario(@Path("matricula") String matricula);
+
+    @GET("/usuario/verificacao/{matricula}")
+    Call<VerificacaoMatricula> getVerificacaoMatricula(@Path("matricula") String matricula);
 }

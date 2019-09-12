@@ -17,7 +17,8 @@
         android:layout_height="wrap_content"
         android:hint="Matrícula"
         android:layout_margin="10dp"
-        android:inputType="number" />
+        android:inputType="number"
+        android:maxLength="6"/>
     <Button
         android:id="@+id/get_user"
         android:layout_margin="10dp"
