@@ -54,5 +54,6 @@
 
     <string name="get_user">Verificar matrícula</string>
     <string name="frequencia">Realizar Frequência</string>
+    <string name="generate_pdf">Gerar PDF</string>
 
 </resources>

@@ -126,20 +126,19 @@ const getUsuarioByEmailSenha = (request, response) => {
 
 const createUsuario = (request, response) => {
   try {
-    // const id = parseInt(request.body)
     const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false, message: ''}
     const {matricula, email, senha, nivel_acesso, nome} = request.body
 
     db.pool.query('INSERT INTO usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senha, nivel_acesso, nome], (error, result) => {
-    //   if(!error){
-    //   queryResponse.message = "Usuário criado com sucesso"
-    //   console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
-    //   response.status(201).json(queryResponse)
-    // }else{
-    //   queryResponse.message = "Matrícula ou email já cadastrados"
-    //   console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
-    //   response.status(201).json(queryResponse)
-    // }
+      if(error==null){
+        queryResponse.message = "Usuário criado com sucesso"
+        console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
+        response.status(201).json(queryResponse)
+      }else{
+        queryResponse.message = "Matrícula ou email já cadastrados"
+        console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
+        response.status(201).json(queryResponse)
+      }
     })
   }catch(ex){
     console.log('Erro 500!');
