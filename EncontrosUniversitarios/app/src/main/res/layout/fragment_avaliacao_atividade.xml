@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".view.fragment.AvaliacaoAtividadeFragment">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/nome_atividade_avaliacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome da atividade"
+        android:textSize="20dp"
+        android:gravity="center"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/criterios_avaliacao"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content">
+    </androidx.recyclerview.widget.RecyclerView>
+    <Button
+        android:text="Avaliar atividade"
+        android:id="@+id/avaliar_atividade_buttom"
+        android:padding="10dp"
+        android:textSize="17dp"
+        android:layout_gravity="center"
+        android:background="@drawable/round_green_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    />
+</LinearLayout>
+
+</ScrollView>
