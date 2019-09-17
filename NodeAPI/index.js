@@ -6,6 +6,7 @@ const db_cat     = require('./queries_categoria')
 const db_sal     = require('./queries_sala')
 const db_tra     = require('./queries_trabalho')
 const db_fre     = require('./queries_frequencia')
+const db_cri     = require('./queries_criterio')
 const bodyParser = require('body-parser')
 const app        = express()
 const port       = 3000
@@ -60,6 +61,8 @@ app.delete('/salas/:id', db_sal.deleteSala)
 app.post('/salas/coordenadorsala', db_sal.cadastrarCoordenadorNaSala)
 
 app.post('/frequencia', db_fre.verificarPodeCheckInCheckOut, db_fre.realizarCheckInCheckOut)
+
+app.get('/criterios', db_cri.getCriterios)
 
 
 app.listen(port, () => {

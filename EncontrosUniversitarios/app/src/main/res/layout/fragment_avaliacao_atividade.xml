@@ -1,38 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-tools:context=".view.fragment.AvaliacaoAtividadeFragment">
-
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/nome_atividade_avaliacao"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.fragment.AvaliacaoAtividadeFragment"
+    >
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nome da atividade"
-        android:textSize="20dp"
+        android:orientation="vertical"
         android:gravity="center"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/criterios_avaliacao"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content">
-    </androidx.recyclerview.widget.RecyclerView>
-    <Button
-        android:text="Avaliar atividade"
-        android:id="@+id/avaliar_atividade_buttom"
-        android:padding="10dp"
-        android:textSize="17dp"
-        android:layout_gravity="center"
-        android:background="@drawable/round_green_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-    />
-</LinearLayout>
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:textFontWeight="bold"
+                android:text="Questionário para avaliação das atividades dos Encontros Universitários 2019 da Universidade Federal do Ceará - Campus Russas. Os critérios aqui definidos seguem o edital 01293n"/>
+            <HorizontalScrollView
+                android:id="@+id/button_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:fillViewport="true">
 
-</ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp">
+
+                        <LinearLayout
+                            android:layout_width="330dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/just"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="10dp"
+                                android:justificationMode="inter_word"
+                                android:padding="10dp"
+                                android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
+                                android:textSize="20dp" />
+
+                            <NumberPicker
+                                android:id="@+id/nota1"
+                                android:layout_width="wrap_content"
+
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"></NumberPicker>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp">
+
+                        <LinearLayout
+                            android:layout_width="330dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
+                                android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
+                                android:textSize="20dp" />
+
+                            <NumberPicker
+                                android:id="@+id/nota2"
+                                android:layout_width="wrap_content"
+
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"></NumberPicker>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp">
+
+                        <LinearLayout
+                            android:layout_width="330dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
+                                android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
+                                android:textSize="20dp" />
+
+                            <NumberPicker
+                                android:id="@+id/nota3"
+                                android:layout_width="wrap_content"
+
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"></NumberPicker>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp">
+
+                        <LinearLayout
+                            android:layout_width="330dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="10dp"
+                                android:padding="10dp"
+                                android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
+                                android:textSize="20dp" />
+
+                            <NumberPicker
+                                android:id="@+id/nota4"
+                                android:layout_width="wrap_content"
+
+                                android:layout_height="100dp"
+                                android:layout_gravity="center"></NumberPicker>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_gravity="center"
+                android:text="Media"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/media"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:hint="Comentários, anotações, perguntas"
+                android:textSize="20dp"
+                android:layout_margin="10dp"
+                android:textColorHint="@android:color/holo_red_dark"
+                android:padding="10dp"
+                android:layout_height="wrap_content" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_green_button"
+                android:text="Confirmar avaliação"/>
+        </LinearLayout>
+    </ScrollView>
+</layout>

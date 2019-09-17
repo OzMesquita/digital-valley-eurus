@@ -13,6 +13,7 @@ import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.view.fragment.AtividadesAlunoFragment;
+import com.example.encontrosuniversitarios.view.fragment.AvaliacaoAtividadeFragment;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
 import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
@@ -82,13 +83,15 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_programacao_do_dia:
                     getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
-                    fragment = new ProgramacaoDoDiaFragment();
-                    itemId = 1;
-                    openFragment(fragment, itemId);
+                    //fragment = new ProgramacaoDoDiaFragment();
+                    fragment = new AvaliacaoAtividadeFragment();
+                    itemId = 10;
+                    openFragment(fragment, itemId-9);
                     break;
                 case R.id.navigation_frequencia:
                     getSupportActionBar().setTitle(R.string.title_frequencia);
                     MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
+
                     if (preferences.getUserId() != -1) {
                         if(preferences.getUserAccessLevel() == 0) {
                             fragment = new AtividadesAlunoFragment();
