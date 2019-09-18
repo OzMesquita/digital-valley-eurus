@@ -14,6 +14,24 @@ const getCriterios = (request, response) => {
   }
 }
 
+const createCriterio = (request, response) => {
+  try {
+    const { criterio,categoria } = request.body
+    db.pool.query('INSERT INTO criterio(criterio,categoria) VALUES($1,$2)',[criterio,categoria],(error,results) => {
+      if(error == null){
+        response.status(201).json('Critério criado com sucesso')
+      }else{
+        response.status(500).json('Erro ao criar critério')
+      }
+    })
+  }catch(ex){
+    console.log('Erro 500!');
+    response.status(500).send(`Erro ao criar critério`)
+    return null;
+  }
+}
+
 module.exports = {
-    getCriterios
+    getCriterios,
+    createCriterio
 }
