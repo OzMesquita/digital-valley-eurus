@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AvaliacaoAtividadeFragment extends Fragment {
-    private List<NumberPicker> ns;
     private AvaliacaoAtividadeViewModel avaliacaoAtividadeViewModel;
     public AvaliacaoAtividadeFragment() {
         // Required empty public constructor
@@ -36,7 +36,6 @@ public class AvaliacaoAtividadeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_avaliacao_atividade, container, false);
         avaliacaoAtividadeViewModel = ViewModelProviders.of(this).get(AvaliacaoAtividadeViewModel.class);
         final RecyclerView criteriosRec = view.findViewById(R.id.lista_criterios);
@@ -50,6 +49,7 @@ public class AvaliacaoAtividadeFragment extends Fragment {
             }
         });
         avaliacaoAtividadeViewModel.listarCriterios();
+
         return view;
     }
 }

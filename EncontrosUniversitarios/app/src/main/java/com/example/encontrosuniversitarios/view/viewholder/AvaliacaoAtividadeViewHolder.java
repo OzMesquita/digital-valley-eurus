@@ -15,7 +15,7 @@ public class AvaliacaoAtividadeViewHolder extends RecyclerView.ViewHolder {
     private TextView txtCategoria;
     private NumberPicker numberPicker;
 
-    public AvaliacaoAtividadeViewHolder(@NonNull View itemView) {
+    public AvaliacaoAtividadeViewHolder( View itemView) {
         super(itemView);
         txtCriterio = itemView.findViewById(R.id.criterio);
         txtCategoria = itemView.findViewById(R.id.categoria);
@@ -23,7 +23,7 @@ public class AvaliacaoAtividadeViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(CriterioAtividade criterioAtividade){
-        txtCriterio.setText(criterioAtividade.getNomeCriterio());
+        txtCriterio.setText(criterioAtividade.getCriterio());
         txtCategoria.setText(criterioAtividade.getCategoria());
         numberPicker.setMaxValue(10);
         numberPicker.setMinValue(1);

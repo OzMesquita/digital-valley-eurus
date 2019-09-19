@@ -6,6 +6,7 @@ const getCriterios = (request, response) => {
   try {
     db.pool.query('SELECT * FROM criterio ORDER BY id ASC', (error, results) => {
       response.status(200).json(results.rows)
+      console.log(results.rows);
     })
   }catch(ex){
     console.log('Erro ao listar criterios!');
