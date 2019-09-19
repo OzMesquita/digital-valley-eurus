@@ -3,6 +3,7 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.CriterioAtividade;
 import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 
 import org.joda.time.DateTime;
@@ -112,6 +113,20 @@ public class AtividadeRepositorio{
             @Override
             public void onFailure(Call<DateTime> call, Throwable t) {
                 listener.onFailure("Erro momento");
+            }
+        });
+    }
+
+    public  void getCriterios(final ResponseListener listener){
+        atividadeService.getCriterios().enqueue(new Callback<List<CriterioAtividade>>() {
+            @Override
+            public void onResponse(Call<List<CriterioAtividade>> call, Response<List<CriterioAtividade>> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<CriterioAtividade>> call, Throwable t) {
+                listener.onFailure("Erro ao buscar critérios do banco");
             }
         });
     }

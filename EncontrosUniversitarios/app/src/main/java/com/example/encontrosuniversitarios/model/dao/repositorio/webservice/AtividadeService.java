@@ -3,6 +3,7 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.CriterioAtividade;
 
 import org.joda.time.DateTime;
 
@@ -33,4 +34,8 @@ public interface AtividadeService {
 
     @GET("momento/")
     Call<DateTime> getMomento();
+
+    @GET("criterios/")
+    Call<List<CriterioAtividade>> getCriterios();
+
  }

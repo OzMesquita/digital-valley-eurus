@@ -187,20 +187,21 @@ const getMomento = (request, response) =>{
 }
 
 const cadastrarNotas = async (request, response, next) => {
-  const {atividade,avaliador,comentarios,notas} = request.body
-  var createError = {erro: null}
+  const {atividade,avaliador,notas} = request.body
+  var createError = null
   const pool = db.pool
   for(var i=0;i<notas.length;i++){
-    response = await pool.query('INSERT INTO nota_atividade(atividade_fk,avaliador_fk,criterio_fk,nota) VALUES($1,$2,$3,$4)',
-    [atividade,avaliador,notas[i].criterio,notas[i].nota])
-    if(response.error != null){
+    console.log('papa')
+    const {error,results} = await pool.query('INSERT INTO nota_atividade(atividade_fk,avaliador_fk,criterio_fk,nota) VALUES($1,$2,$3,$4)',[atividade,avaliador,notas[i].criterio,notas[i].nota])
+    if(error != null){
       console.log('DIFERENTE DE NULL')
-      createError.error = response.error
+      createError = error
     }
   }
   console.log("ERRO PEGO")
   console.log(createError)
-  if(createError.erro == null) {
+  if(createError == null) {
+    console.log('PRINT')
     next()
   }else{
     db.pool.query('DELETE * FROM nota_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
@@ -211,9 +212,26 @@ const cadastrarNotas = async (request, response, next) => {
 }
 
 const cadastrarAvaliacao = (request, response) => {
-  const {atividade,avaliador,comentarios} = request.body
-  db.pool.query('INSERT INTO avaliacao_atividade(atividade_fk,avaliador_fk,media,comentario) VALUES($1,$2,$3,$4)',[atividade,avaliador,comentarios],(error, results) => {
+  const {atividade,avaliador,comentarios,notas} = request.body
+  var totalNotas = 0.0;
+  for(var i = 0;i<notas.length;i++) totalNotas += notas[i].nota
+  var media = totalNotas / notas.length
+  console.log(media)
+  db.pool.query('INSERT INTO avaliacao_atividade(atividade_fk,avaliador_fk,media,comentario) VALUES($1,$2,$3,$4)',[atividade,avaliador,media.toFixed(2),comentarios],(error, results) => {
+    console.log(error)
     response.status(201).send('Avaliação cadastrada com sucesso')
+  })
+}
+
+const verificarAtividadeAvaliada = (request, response, next) => {
+  const {atividade,avaliador} = request.body
+
+  db.pool.query('SELECT * FROM avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
+    if(results.rowCount > 0){
+      response.status(400).send('Atividade já avaliada')
+    }else{
+      next()
+    }
   })
 }
 
@@ -228,5 +246,6 @@ module.exports = {
   getAtividadesFrequentadas,
   getMomento,
   cadastrarNotas,
-  cadastrarAvaliacao
+  cadastrarAvaliacao,
+  verificarAtividadeAvaliada
 }

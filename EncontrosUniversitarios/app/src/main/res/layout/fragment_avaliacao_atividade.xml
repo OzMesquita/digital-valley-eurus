@@ -32,117 +32,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp">
-
-                        <LinearLayout
-                            android:layout_width="330dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/just"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="10dp"
-                                android:justificationMode="inter_word"
-                                android:padding="10dp"
-                                android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
-                                android:textSize="20dp" />
-
-                            <NumberPicker
-                                android:id="@+id/nota1"
-                                android:layout_width="wrap_content"
-
-                                android:layout_height="100dp"
-                                android:layout_gravity="center"></NumberPicker>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
+                    android:orientation="horizontal"
+                    >
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/lista_criterios"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp">
-
-                        <LinearLayout
-                            android:layout_width="330dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="10dp"
-                                android:padding="10dp"
-                                android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
-                                android:textSize="20dp" />
-
-                            <NumberPicker
-                                android:id="@+id/nota2"
-                                android:layout_width="wrap_content"
-
-                                android:layout_height="100dp"
-                                android:layout_gravity="center"></NumberPicker>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp">
-
-                        <LinearLayout
-                            android:layout_width="330dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="10dp"
-                                android:padding="10dp"
-                                android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
-                                android:textSize="20dp" />
-
-                            <NumberPicker
-                                android:id="@+id/nota3"
-                                android:layout_width="wrap_content"
-
-                                android:layout_height="100dp"
-                                android:layout_gravity="center"></NumberPicker>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp">
-
-                        <LinearLayout
-                            android:layout_width="330dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_margin="10dp"
-                                android:padding="10dp"
-                                android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
-                                android:textSize="20dp" />
-
-                            <NumberPicker
-                                android:id="@+id/nota4"
-                                android:layout_width="wrap_content"
-
-                                android:layout_height="100dp"
-                                android:layout_gravity="center"></NumberPicker>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
 
             </HorizontalScrollView>
