@@ -8,7 +8,7 @@ const getUsuarios = (request, response) => {
       response.status(200).json(results.rows)
     })
   }catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao listar usuários!');
     response.status(500).send(`Erro ao listar usuários`)
     return null;
   }
@@ -26,7 +26,7 @@ const getUsuarioById = (request, response) => {
       }
     })
   }catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao listar usuário pelo id!');
     response.status(500).send(`Erro ao listar usuário`)
     return null;
   }
@@ -41,7 +41,7 @@ const getUsuarioByMatricula = (request, response) => {
     })
   }catch(ex){
     console.log(ex)
-    console.log('Erro 500!');
+    console.log('Erro ao listar usuário!');
     response.status(500).send(`Erro ao listar usuário`)
     return null;
   }
@@ -76,8 +76,8 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
       response.status(201).json(queryResponse)
     }
   }catch(ex){
-    console.log('Erro 500!');
-    response.status(500).send(`Erro ao listar usuário`)
+    console.log('Erro ao listar usuário, por matricula e email!');
+    response.status(500).send(`Erro ao listar usuário, por matricula e email`)
     return null;
   }
 }
@@ -117,8 +117,8 @@ const getUsuarioByEmailSenha = (request, response) => {
       response.status(200).json(queryResponse)
     });
   }catch(ex){
-    console.log('Erro 500!');
-    response.status(500).send(`Erro ao listar usuário`)
+    console.log('Erro ao listar usuário por email!');
+    response.status(500).send(`Erro ao listar usuário, por email`)
     return null;
   }
 
@@ -157,11 +157,14 @@ const updateUsuario = (request, response) => {
       'UPDATE usuario SET cpf = $1, matricula = $2, email = $3, senha = $4, nivel_acesso = $5, nome = $6 WHERE id_usuario = $7',
       [cpf, matricula, email, senha, nivel_acesso, nome, id_usuario],
       (error, results) => {
-        response.status(200).send(`Usuario modificado ID: ${id_usuario}`)
-        // response.status(200).send(`Usuario modified with`)
+        if(error == null){
+          response.status(200).send(`Usuario modificado ID: ${id_usuario}`)
+        }else{
+          response.status(500).json('Erro ao editar usuário')
+        }
       }
     )} catch(ex){
-      console.log('Erro 500!');
+      console.log('Erro ao editar usuario!');
       response.status(500).send(`Erro ao editar usuario`)
       return null;
     }
@@ -172,10 +175,14 @@ const updateUsuario = (request, response) => {
       const id_usuario = parseInt(request.params.id)
 
       db.pool.query('DELETE FROM usuario WHERE id_usuario = $1', [id_usuario], (error, results) => {
-        response.status(200).send(`Usuario excluido ID: ${id_usuario}`)
+        if(error == null){
+          response.status(200).send(`Usuario excluido ID: ${id_usuario}`)
+        }else{
+          response.status(500).send(`Erro ao excluir usuario`)
+        }
       })
     }catch(ex){
-      console.log('Erro 500!');
+      console.log('Erro ao excluir usuario!');
       response.status(500).send(`Erro ao excluir usuario`)
       return null;
     }
@@ -201,7 +208,7 @@ const updateUsuario = (request, response) => {
         }
       })
     }).on("error", (err)=>{
-      console.log("Erro")
+      console.log("Errooo")
     })
   }
   module.exports = {

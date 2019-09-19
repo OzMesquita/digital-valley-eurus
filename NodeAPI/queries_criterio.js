@@ -8,7 +8,7 @@ const getCriterios = (request, response) => {
       response.status(200).json(results.rows)
     })
   }catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao listar criterios!');
     response.status(500).send(`Erro ao listar criterios`)
     return null;
   }
@@ -25,7 +25,7 @@ const createCriterio = (request, response) => {
       }
     })
   }catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao criar critério!');
     response.status(500).send(`Erro ao criar critério`)
     return null;
   }

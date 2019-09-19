@@ -34,7 +34,7 @@ const getAtividades = (request, response) => {
       response.status(200).json(atividades);
     });
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao listar atividades!');
     response.status(500).send(`Erro ao listar atividades`)
     return null;
   }
@@ -55,7 +55,7 @@ const getAtividadeById = (request, response) => {
       response.status(200).json(index);
     });
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao listar atividade, pelo id!');
     response.status(500).send(`Erro ao listar atividade`)
     return null;
   }
@@ -66,11 +66,14 @@ const createAtividade = (request, response) => {
     const {horario_previsto, horario_inicial, horario_final, trabalho_fk, descricao, nome_atividade, categoria_fk, local_fk, apresentador_fk} = request.body
 
     db.pool.query('INSERT INTO atividade(horario_previsto,horario_inicial,horario_final,trabalho_fk,descricao,nome_atividade,categoria_fk,local_fk,apresentador_fk) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [horario_previsto, horario_inicial, horario_final, trabalho_fk, descricao, nome_atividade, categoria_fk, local_fk, apresentador_fk], (error, result) => {
-
-      response.status(201).send(`Atividade adicionada: ${nome_atividade}`)
+      if(error == null){
+          response.status(201).send(`Atividade adicionada: ${nome_atividade}`)
+      }else{
+        response.status(500).json('Erro ao adicionar atividade')
+      }
     })
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao criar atividade!');
     response.status(500).send(`Erro ao criar atividade`)
     return null;
   }
@@ -97,7 +100,7 @@ const updateAtividade = (request, response) => {
       }
     )
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao atualizar atividade!');
     console.log(ex)
     response.status(500).send(`Erro ao atualizar atividade`)
     return null;
@@ -108,13 +111,14 @@ const deleteAtividade = (request, response) => {
   try {
     const id_atividade = parseInt(request.params.id)
     db.pool.query('DELETE FROM atividade WHERE id_atividade = $1', [id_atividade], (error, results) => {
-      if (error) {
-        throw error
+      if(error == null){
+          response.status(200).send(`Atividade excluida ID: ${id_atividade}`)
+      }else{
+        response.status(500).json('Erro ao excluir atividade')
       }
-      response.status(200).send(`Atividade excluida ID: ${id_atividade}`)
     })
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao excluir atividade!');
     response.status(500).send(`Erro ao excluir atividade`)
     return null;
   }
@@ -133,7 +137,7 @@ const getAtividadesHoje =(request, response) => {
       response.status(200).json(atividades);
     });
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao listar atividades de hoje!');
     response.status(500).send(`Erro ao listar atividades de hoje`)
     return null;
   }
@@ -152,7 +156,7 @@ const getAtividadesCoordenadorSala = (request, response) => {
       response.status(200).json(atividadesCoordenador);
     })
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao listar coordenadores das salas!');
     response.status(500).send(`Erro ao listar coordenadores das salas`)
     return null;
   }
