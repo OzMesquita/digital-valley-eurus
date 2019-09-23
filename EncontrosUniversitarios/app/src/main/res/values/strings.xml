@@ -27,6 +27,7 @@
     <string name="matricula">Matrícula/Siape</string>
     <string name="entre_perfil">Já se cadastrou?</string>
     <string name="cpf">CPF</string>
+    <string name="avaliar_atividade">Avaliar atividade</string>
     <string name="iniciar_atividade">Iniciar atividade</string>
     <string name="finalizar_atividade">Finalizar atividade</string>
     <string name="atividade_finalizada">Atividade Finalizada</string>

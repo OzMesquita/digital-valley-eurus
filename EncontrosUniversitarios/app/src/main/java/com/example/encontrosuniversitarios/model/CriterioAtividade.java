@@ -2,8 +2,9 @@ package com.example.encontrosuniversitarios.model;
 
 public class CriterioAtividade {
 
-    int id;
-    String categoria, criterio;
+    private int id;
+    private String categoria, criterio;
+    private int nota;
 
     public int getId() {
         return id;
@@ -25,6 +26,14 @@ public class CriterioAtividade {
         return criterio;
     }
 
+    public int getNota() {
+        return nota;
+    }
+
+    public void setNota(int nota) {
+        this.nota = nota;
+    }
+
     public void setCriterio(String criterio) {
         this.criterio = criterio;
     }
@@ -33,8 +42,10 @@ public class CriterioAtividade {
         this.id = id;
         this.categoria = categoria;
         this.criterio = criterio;
+        this.nota = 1;
     }
 
     public CriterioAtividade() {
+        this.nota = 1;
     }
 }

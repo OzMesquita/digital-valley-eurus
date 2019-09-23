@@ -15,6 +15,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/activity_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -22,40 +23,24 @@
                 android:textFontWeight="bold"
                 android:textSize="20dp" />
 
-            <HorizontalScrollView
-                android:id="@+id/button_list"
-                android:layout_width="match_parent"
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lista_criterios"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:fillViewport="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/lista_criterios"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </androidx.recyclerview.widget.RecyclerView>
-                </LinearLayout>
-
-            </HorizontalScrollView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/media"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="16dp"
                 android:text="Media" />
 
             <EditText
+                android:id="@+id/comentarios"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -65,6 +50,7 @@
                 android:textSize="20dp" />
 
             <Button
+                android:id="@+id/confirmar_avaliacao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

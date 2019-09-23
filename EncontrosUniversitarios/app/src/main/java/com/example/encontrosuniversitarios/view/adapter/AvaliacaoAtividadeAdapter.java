@@ -1,26 +1,23 @@
 package com.example.encontrosuniversitarios.view.adapter;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.encontrosuniversitarios.R;
-import com.example.encontrosuniversitarios.model.AvaliacaoAtividade;
 import com.example.encontrosuniversitarios.model.CriterioAtividade;
-import com.example.encontrosuniversitarios.view.viewholder.AtividadeViewHolder;
+import com.example.encontrosuniversitarios.view.fragment.CriterioListener;
 import com.example.encontrosuniversitarios.view.viewholder.AvaliacaoAtividadeViewHolder;
-import com.example.encontrosuniversitarios.viewmodel.AvaliacaoAtividadeViewModel;
 
 import java.util.List;
 
 public class AvaliacaoAtividadeAdapter extends RecyclerView.Adapter<AvaliacaoAtividadeViewHolder> {
     private List<CriterioAtividade> criterioAtividades;
+    private CriterioListener criterioListener;
 
-    public AvaliacaoAtividadeAdapter(List<CriterioAtividade> criterioAtividades){
+    public AvaliacaoAtividadeAdapter(List<CriterioAtividade> criterioAtividades, CriterioListener listener){
         this.criterioAtividades = criterioAtividades;
+        this.criterioListener = listener;
     }
 
     @NonNull
@@ -32,7 +29,7 @@ public class AvaliacaoAtividadeAdapter extends RecyclerView.Adapter<AvaliacaoAti
 
     @Override
     public void onBindViewHolder(@NonNull AvaliacaoAtividadeViewHolder holder, int position) {
-        holder.bind(criterioAtividades.get(position));
+        holder.bind(criterioAtividades.get(position),criterioListener);
 
     }
 

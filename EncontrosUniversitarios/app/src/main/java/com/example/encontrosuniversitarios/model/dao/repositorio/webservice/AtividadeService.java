@@ -3,7 +3,9 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.AvaliacaoAtividade;
 import com.example.encontrosuniversitarios.model.CriterioAtividade;
+import com.example.encontrosuniversitarios.model.ResultadoAvaliacao;
 
 import org.joda.time.DateTime;
 
@@ -13,6 +15,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
@@ -37,5 +40,8 @@ public interface AtividadeService {
 
     @GET("criterios/")
     Call<List<CriterioAtividade>> getCriterios();
+
+    @POST("avaliacao")
+    Call<ResultadoAvaliacao> avaliarAtividade(@Body AvaliacaoAtividade avaliacaoAtividade);
 
  }

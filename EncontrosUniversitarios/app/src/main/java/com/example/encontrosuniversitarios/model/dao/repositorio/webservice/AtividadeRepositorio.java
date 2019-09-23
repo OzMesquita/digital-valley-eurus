@@ -3,7 +3,9 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 import android.util.Log;
 
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.AvaliacaoAtividade;
 import com.example.encontrosuniversitarios.model.CriterioAtividade;
+import com.example.encontrosuniversitarios.model.ResultadoAvaliacao;
 import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 
 import org.joda.time.DateTime;
@@ -127,6 +129,20 @@ public class AtividadeRepositorio{
             @Override
             public void onFailure(Call<List<CriterioAtividade>> call, Throwable t) {
                 listener.onFailure("Erro ao buscar critérios do banco");
+            }
+        });
+    }
+
+    public void avaliarAtividade(final ResponseListener listener, AvaliacaoAtividade avaliacaoAtividade){
+        atividadeService.avaliarAtividade(avaliacaoAtividade).enqueue(new Callback<ResultadoAvaliacao>() {
+            @Override
+            public void onResponse(Call<ResultadoAvaliacao> call, Response<ResultadoAvaliacao> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResultadoAvaliacao> call, Throwable t) {
+                listener.onFailure("Erro ao avaliar atividade");
             }
         });
     }

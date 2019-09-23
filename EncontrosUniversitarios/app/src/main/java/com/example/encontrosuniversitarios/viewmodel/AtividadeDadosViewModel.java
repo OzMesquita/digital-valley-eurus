@@ -118,4 +118,5 @@ public class AtividadeDadosViewModel extends ViewModel {
     public LiveData<DateTime> getHorarioFinal(){
         return horarioFinalAtividade;
     }
+
 }

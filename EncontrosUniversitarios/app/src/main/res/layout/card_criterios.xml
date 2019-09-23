@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginRight="10dp">
 
     <LinearLayout
@@ -13,22 +13,26 @@
             android:id="@+id/categoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="13dp" />
+            android:text="Categoria do critério"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/criterio"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:justificationMode="inter_word"
+            android:gravity="center"
             android:padding="10dp"
             android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
-            android:textSize="20dp" />
+            android:textSize="18dp" />
 
         <NumberPicker
             android:id="@+id/nota"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
             android:layout_gravity="center"></NumberPicker>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

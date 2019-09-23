@@ -83,10 +83,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_programacao_do_dia:
                     getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
-                    //fragment = new ProgramacaoDoDiaFragment();
-                    fragment = new AvaliacaoAtividadeFragment();
-                    itemId = 10;
-                    openFragment(fragment, itemId-9);
+                    fragment = new ProgramacaoDoDiaFragment();
+                    itemId = 1;
+                    openFragment(fragment, itemId);
                     break;
                 case R.id.navigation_frequencia:
                     getSupportActionBar().setTitle(R.string.title_frequencia);

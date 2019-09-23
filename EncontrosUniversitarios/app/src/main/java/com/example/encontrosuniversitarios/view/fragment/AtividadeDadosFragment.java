@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.databinding.FragmentAtividadeDadosBinding;
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.helper.FormatadorData;
 import com.example.encontrosuniversitarios.viewmodel.AtividadeDadosViewModel;
@@ -32,12 +34,14 @@ public class AtividadeDadosFragment extends Fragment {
 
     private AtividadeDadosViewModel atividadeDadosViewModel;
     private Button iniciarFinalizarAtividade;
+    private Button avaliarAtividade;
     private TextView estadoAtividade;
     private View corEstado;
     private TextView horarioIniciado;
     private TextView horarioFinalizado;
 
     private boolean coordenador;
+    private boolean avaliador;
 
     public AtividadeDadosFragment() {
         // Required empty public constructor
@@ -48,7 +52,6 @@ public class AtividadeDadosFragment extends Fragment {
         Bundle args = new Bundle();
         args.putParcelable(ATIVIDADE,atividade);
         args.putBoolean(COORDENADOR,coordenador);
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,6 +62,8 @@ public class AtividadeDadosFragment extends Fragment {
         setHasOptionsMenu(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
+        avaliador = preferences.getUserAccessLevel() == 2;
         if (getArguments() != null) {
             atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
             Atividade atividade = getArguments().getParcelable(ATIVIDADE);
@@ -88,7 +93,7 @@ public class AtividadeDadosFragment extends Fragment {
         estadoAtividade = binding.getRoot().findViewById(R.id.estado_atividade);
 
         corEstado = binding.getRoot().findViewById(R.id.atividade_estado_cor);
-
+        avaliarAtividade = binding.getRoot().findViewById(R.id.avaliar_atividade);
         horarioIniciado = binding.getRoot().findViewById(R.id.horario_iniciado);
         horarioFinalizado = binding.getRoot().findViewById(R.id.horario_finalizado);
         iniciarFinalizarAtividade = binding.getRoot().findViewById(R.id.iniciar_finalizar_atividade);
@@ -122,6 +127,21 @@ public class AtividadeDadosFragment extends Fragment {
 
             }
         });
+        if(!avaliador){
+            avaliarAtividade.setVisibility(View.GONE);
+        }
+        avaliarAtividade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppCompatActivity activity = (AppCompatActivity)v.getContext();
+                FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
+                transaction.replace(R.id.fragment_container,AvaliacaoAtividadeFragment.newInstance(atividadeDadosViewModel.getAtividade().getValue()));
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
         return binding.getRoot();
     }
 
