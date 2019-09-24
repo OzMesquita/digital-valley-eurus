@@ -92,10 +92,13 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
     public void showMatriculaDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View customLayout = getLayoutInflater().inflate(R.layout.matricula_dialog, null);
+
         Button getUser = customLayout.findViewById(R.id.get_user);
         Button frequencia = customLayout.findViewById(R.id.frequencia);
         final TextView userName = customLayout.findViewById(R.id.nome_usuario_matricula);
         final EditText matricula = customLayout.findViewById(R.id.matricula_frequencia);
+        builder.setPositiveButton(R.string.close,null);
+
         realizarFrequenciaViewModel.getUsuarioFrequencia().observe(this, new Observer<DadosFrequenciaUsuario>() {
             @Override
             public void onChanged(DadosFrequenciaUsuario usuario) {

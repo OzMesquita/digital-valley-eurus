@@ -44,4 +44,6 @@ public interface AtividadeService {
     @POST("avaliacao")
     Call<ResultadoAvaliacao> avaliarAtividade(@Body AvaliacaoAtividade avaliacaoAtividade);
 
+    @GET("atividades/professor/{id}")
+    Call<List<Atividade>> getAtividadesProfessor(@Path  ("id") int idProfessor);
  }
