@@ -2,6 +2,7 @@ package com.example.encontrosuniversitarios.viewmodel;
 
 import android.content.Context;
 import android.location.Criteria;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -28,10 +29,14 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
     private AtividadeRepositorio atividadeRepositorio;
     private MutableLiveData<List<CriterioAtividade>> criterios;
     private Atividade atividade;
+    private UsuarioRepositorio usuarioRepositorio;
+    private MutableLiveData<List<Atividade>> atividadesAvaliacao;
 
     public AvaliacaoAtividadeViewModel() {
         this.atividadeRepositorio = AtividadeRepositorio.getInstance();
+        this.usuarioRepositorio = UsuarioRepositorio.getInstance();
         criterios = new MutableLiveData<>();
+        atividadesAvaliacao = new MutableLiveData<>();
     }
 
     public void init(Atividade atividade){
@@ -83,7 +88,27 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
         },new AvaliacaoAtividade(atividade.getId(),idAvaliador,comentarios,notas));
     }
 
+    public void carregarAtividades(Context context) {
+        MySharedPreferences preferences = MySharedPreferences.getInstance(context);
+        atividadeRepositorio.getAtividadesProfessor(new ResponseListener<List<Atividade>>() {
+            @Override
+            public void onSuccess(List<Atividade> atividadesEvento) {
+                atividadesAvaliacao.setValue(atividadesEvento);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Log.i("AtvFailura:", message);
+            }
+        }, preferences.getUserId());
+    }
+
     public Atividade getAtividade() {
         return atividade;
     }
+
+    public LiveData<List<Atividade>> getAtividadesAvaliação() {
+        return atividadesAvaliacao;}
+
+
 }

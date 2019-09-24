@@ -139,7 +139,6 @@ public class AtividadeRepositorio{
             public void onResponse(Call<ResultadoAvaliacao> call, Response<ResultadoAvaliacao> response) {
                 listener.onSuccess(response.body());
             }
-
             @Override
             public void onFailure(Call<ResultadoAvaliacao> call, Throwable t) {
                 listener.onFailure("Erro ao avaliar atividade");
@@ -151,7 +150,7 @@ public class AtividadeRepositorio{
         atividadeService.verificarAtividadeJaAvaliada(avaliacaoAtividade).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                listener.onSuccess(response.body());
+
             }
 
             @Override
@@ -160,5 +159,16 @@ public class AtividadeRepositorio{
             }
         });
     }
+    public void getAtividadesProfessor(final ResponseListener listener, int idProfessor) {
+        atividadeService.getAtividadesProfessor(idProfessor).enqueue(new Callback<List<Atividade>>() {
+            @Override
+            public void onResponse(Call<List<Atividade>> call, Response<List<Atividade>> response) {
+                listener.onSuccess(response.body());
+            }
 
+            public void onFailure(Call<List<Atividade>> call, Throwable t) {
+                listener.onFailure("Erro ao executar requisição");
+            }
+        });
+    }
 }

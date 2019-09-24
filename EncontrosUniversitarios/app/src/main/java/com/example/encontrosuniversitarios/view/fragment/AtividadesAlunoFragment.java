@@ -1,8 +1,12 @@
 package com.example.encontrosuniversitarios.view.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Filterable;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,25 +15,16 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Filterable;
-import android.widget.TextView;
-
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.helper.QRCodeHelper;
-import com.example.encontrosuniversitarios.helper.ScanHelper;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.DiaEvento;
 import com.example.encontrosuniversitarios.view.adapter.ProgramacaoAdapter;
 import com.example.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
 import com.example.encontrosuniversitarios.viewmodel.AtividadesAlunoViewModel;
 import com.example.encontrosuniversitarios.viewmodel.ProgramacaoViewModel;
-import com.example.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
 
 import java.util.List;
 
@@ -39,9 +34,6 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
     private AtividadesAlunoViewModel atividadesAlunoViewModel;
     private RecyclerView recyclerView;
     private TextView txtUlmimaSalaCheckin;
-    private ProgramacaoViewModel programacaoViewModel;
-    private List<DiaEvento> diasEventos;
-    private ProgramacaoAdapter programacaoAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

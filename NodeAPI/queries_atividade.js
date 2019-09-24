@@ -162,6 +162,28 @@ const getAtividadesCoordenadorSala = (request, response) => {
   }
 }
 
+const getAtividadesProfessor = (request, response) => {
+  try{
+    const id_usuario = parseInt(request.params.id)
+    db.pool.query('SELECT * FROM atividade as a join local as l on a.local_fk=l.id_local join sala as s on l.sala_fk = s.id_sala join atividades_professor as ap on ap.atividade_fk=a.id_atividade join usuario as u on a.apresentador_fk=u.id_usuario WHERE ap.usuario_fk=$1', [id_usuario],
+      (error, result) => {
+        if (error) {
+          throw error
+        }
+        var avaliacoesProfessor = []
+        result.rows.forEach(function (row) {
+          avaliacoesProfessor.push(modelCreator.createAtividadeModel(row));
+        });
+        response.status(200).json(avaliacoesProfessor);
+    })
+
+  }catch(ex){
+    console.log('Erro ao listar avaliações do professor!');
+    response.status(500).send(`Erro ao listar avaliações do professor!`)
+    return null;
+  }
+}
+
 const getAtividadesFrequentadas = (request, response) => {
 
   const id_usuario = parseInt(request.params.id)
@@ -274,5 +296,6 @@ module.exports = {
   cadastrarNotas,
   cadastrarAvaliacao,
   verificarAtividadeAvaliada,
-  verificarAvaliacaoFeita
+  verificarAvaliacaoFeita,
+  getAtividadesProfessor
 }
