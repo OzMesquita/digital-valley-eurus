@@ -44,4 +44,8 @@ public interface AtividadeService {
     @POST("avaliacao")
     Call<ResultadoAvaliacao> avaliarAtividade(@Body AvaliacaoAtividade avaliacaoAtividade);
 
+    @POST("avaliada/" +
+            "")
+    Call<Boolean> verificarAtividadeJaAvaliada(@Body AvaliacaoAtividade avaliacaoAtividade);
+
  }

@@ -8,7 +8,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.AvaliacaoAtividade;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import com.example.encontrosuniversitarios.model.exceptions.AtividadeFinalizadaAntesDoHorarioIniciadoException;
@@ -19,6 +21,7 @@ public class AtividadeDadosViewModel extends ViewModel {
     private MutableLiveData<Atividade> atividadeMutableLiveData;
     private MutableLiveData<DateTime> horarioInicioAtividade;
     private MutableLiveData<DateTime> horarioFinalAtividade;
+    private MutableLiveData<Boolean> atividadeAvaliada;
     private AtividadeRepositorio atividadeRepositorio;
     private Atividade atividade;
 
@@ -27,6 +30,7 @@ public class AtividadeDadosViewModel extends ViewModel {
         atividadeMutableLiveData = new MutableLiveData<>();
         horarioFinalAtividade = new MutableLiveData<>();
         horarioInicioAtividade = new MutableLiveData<>();
+        atividadeAvaliada = new MutableLiveData<>();
     }
 
     public void init(Atividade atividade){
@@ -105,7 +109,22 @@ public class AtividadeDadosViewModel extends ViewModel {
         });
     }
 
-//    private
+    public void verificarAtividadeJaAvaliada(final Context context){
+        MySharedPreferences preferences = MySharedPreferences.getInstance(context);
+        int idUsuario = preferences.getUserId();
+        atividadeRepositorio.verificarAtividadeJaAvaliada(new ResponseListener() {
+            @Override
+            public void onSuccess(Object response) {
+                Boolean value = (Boolean) response;
+                atividadeAvaliada.setValue(value);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Toast.makeText(context,"Não foi possível realizar essa operação",Toast.LENGTH_LONG).show();
+            }
+        }, new AvaliacaoAtividade(atividade.getId(),idUsuario,null,null));
+    }
 
     public LiveData<Atividade> getAtividade() {
         return atividadeMutableLiveData;
@@ -119,4 +138,7 @@ public class AtividadeDadosViewModel extends ViewModel {
         return horarioFinalAtividade;
     }
 
+    public LiveData<Boolean> getAtividadeAvaliada() {
+        return atividadeAvaliada;
+    }
 }

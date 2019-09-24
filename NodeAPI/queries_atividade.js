@@ -197,10 +197,8 @@ const cadastrarNotas = async (request, response, next) => {
       createError = error
     }
   }
-  console.log("ERRO PEGO")
-  console.log(createError)
+  
   if(createError == null) {
-    console.log('PRINT')
     next()
   }else{
     db.pool.query('DELETE * FROM nota_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
@@ -248,6 +246,21 @@ const verificarAtividadeAvaliada = (request, response, next) => {
   })
 }
 
+const verificarAvaliacaoFeita = (request, response) => {
+  const {atividade,avaliador} = request.body
+  console.log(atividade)
+  console.log(avaliador)
+  db.pool.query('SELECT * FROM avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
+    if(results.rowCount > 0){
+      console.log("row >")
+      response.status(200).send(true)
+    }else{
+      console.log("row <")
+      response.status(200).send(false)
+    }
+  })
+}
+
 module.exports = {
   getAtividades,
   getAtividadeById,
@@ -260,5 +273,6 @@ module.exports = {
   getMomento,
   cadastrarNotas,
   cadastrarAvaliacao,
-  verificarAtividadeAvaliada
+  verificarAtividadeAvaliada,
+  verificarAvaliacaoFeita
 }

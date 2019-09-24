@@ -41,6 +41,7 @@ app.get('/atividades/coordenador/:id',db_ati.getAtividadesCoordenadorSala)
 app.get('/frequencia/:id',db_ati.getAtividadesFrequentadas)
 app.get('/momento/', db_ati.getMomento)
 app.post('/avaliacao',db_ati.verificarAtividadeAvaliada,db_ati.cadastrarNotas,db_ati.cadastrarAvaliacao)
+app.post('/avaliada',db_ati.verificarAvaliacaoFeita)
 
 app.get('/categorias', db_cat.getCategorias)
 app.get('/categorias/:id', db_cat.getCategoriaById)

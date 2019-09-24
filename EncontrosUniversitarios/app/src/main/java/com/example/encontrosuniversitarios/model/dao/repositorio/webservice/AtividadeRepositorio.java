@@ -147,4 +147,18 @@ public class AtividadeRepositorio{
         });
     }
 
+    public void verificarAtividadeJaAvaliada(final ResponseListener listener, AvaliacaoAtividade avaliacaoAtividade){
+        atividadeService.verificarAtividadeJaAvaliada(avaliacaoAtividade).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                listener.onFailure("Erro ao verificar se a atividade já está avaliada");
+            }
+        });
+    }
+
 }

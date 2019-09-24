@@ -104,6 +104,20 @@ public class AtividadeDadosFragment extends Fragment {
         }
         configurarIniciarFinalizarAtividade();
         iniciarHorarios();
+        atividadeDadosViewModel.verificarAtividadeJaAvaliada(getContext());
+
+        atividadeDadosViewModel.getAtividadeAvaliada().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean result) {
+                if(result){
+                    avaliarAtividade.setEnabled(false);
+                    avaliarAtividade.setBackgroundResource(R.drawable.round_gray_buttom);
+                }else{
+                    avaliarAtividade.setEnabled(true);
+                }
+            }
+        });
+
         atividadeDadosViewModel.getHorarioInicio().observe(this, new Observer<DateTime>() {
             @Override
             public void onChanged(DateTime horarioInicio) {
