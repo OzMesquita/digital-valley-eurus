@@ -3,6 +3,8 @@
     <string name="title_programacao">Programação</string>
     <string name="title_programacao_do_dia">Hoje</string>
     <string name="title_frequencia">Frequência</string>
+    <string name="title_avaliacoes">Avaliações</string>
+    <string name="title_atividades">Atividades Participadas</string>
     <string name="search_hint">Digite a atividade</string>
 
     <string name="started_activities">Iniciadas</string>

@@ -35,7 +35,7 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
     public AvaliacaoAtividadeViewModel() {
         this.atividadeRepositorio = AtividadeRepositorio.getInstance();
         this.usuarioRepositorio = UsuarioRepositorio.getInstance();
-        criterios = new MutableLiveData<>();
+//        criterios = new MutableLiveData<>();
         atividadesAvaliacao = new MutableLiveData<>();
     }
 
@@ -92,8 +92,8 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         atividadeRepositorio.getAtividadesProfessor(new ResponseListener<List<Atividade>>() {
             @Override
-            public void onSuccess(List<Atividade> atividadesEvento) {
-                atividadesAvaliacao.setValue(atividadesEvento);
+            public void onSuccess(List<Atividade> atividadesProfessor) {
+                atividadesAvaliacao.setValue(atividadesProfessor);
             }
 
             @Override

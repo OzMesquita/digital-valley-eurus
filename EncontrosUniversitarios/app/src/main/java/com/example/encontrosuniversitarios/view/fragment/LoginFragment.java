@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-       ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         Button botaoLogar, cadastrar;
         botaoLogar = view.findViewById(R.id.buttonEntrarPerfil);
         cadastrar = view.findViewById(R.id.buttonCadastrar);
@@ -113,16 +114,18 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    private void changeLoginFragmentOnLogin(int accessLevel){
+    private void changeLoginFragmentOnLogin(int accessLevel) {
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        if(accessLevel==1){
-            ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
-        }else{
+        if (accessLevel == 0) {
             ft.replace(R.id.fragment_container, new AtividadesAlunoFragment());
-        }
 
+        } else if (accessLevel == 1) {
+            ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
+        } else {
+            ft.replace(R.id.fragment_container, new AtividadesProfessorFragment());
+        }
         ft.addToBackStack(null);
         ft.commit();
 

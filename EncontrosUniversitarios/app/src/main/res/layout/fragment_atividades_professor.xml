@@ -6,9 +6,10 @@
     android:orientation="vertical"
     tools:context=".view.fragment.AtividadesProfessorFragment">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
-        android:id="@+id/avaliacoes_professor"
+        android:id="@+id/atividades_professor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
