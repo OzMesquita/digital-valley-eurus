@@ -1,17 +1,25 @@
 package com.example.encontrosuniversitarios.view.activity;
 
-import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
-import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.view.fragment.AtividadesAlunoFragment;
 import com.example.encontrosuniversitarios.view.fragment.AtividadesProfessorFragment;
 import com.example.encontrosuniversitarios.view.fragment.AvaliacaoAtividadeFragment;
@@ -29,27 +37,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
-import android.view.MenuInflater;
-import android.widget.FrameLayout;
-import android.widget.SearchView;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.transition.FragmentTransitionSupport;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import net.danlew.android.joda.JodaTimeAndroid;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
@@ -89,34 +77,36 @@ public class MainActivity extends AppCompatActivity {
                     openFragment(fragment, itemId);
                     break;
                 case R.id.navigation_frequencia:
-                    getSupportActionBar().setTitle(R.string.title_frequencia);
                     MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
-
+                    getSupportActionBar().setTitle(R.string.title_frequencia);
                     if (preferences.getUserId() != -1) {
-                        int accessLevel = preferences.getUserAccessLevel();
-                        Log.i("ACCESSLEVEL",accessLevel+"");
-                        if(accessLevel == 0) {
+                        if (preferences.getUserAccessLevel() == 0) {
+                            getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());
                             fragment = new AtividadesAlunoFragment();
-                            itemId = 5;
-                            openFragment(fragment, itemId-3);
-                        }else if(accessLevel == 1){
+                            itemId = 6;
+                            openFragment(fragment, itemId - 4);
+
+                        } else if (preferences.getUserAccessLevel() == 1) {
+                            getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());
                             fragment = new RealizarFrequenciaFragment();
                             itemId = 2;
                             openFragment(fragment, itemId);
-                        }else{
+
+                        } else if (preferences.getUserAccessLevel() == 2) {
+                            getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());
                             fragment = new AtividadesProfessorFragment();
-                            itemId = 6;
-                            openFragment(fragment,itemId-4);
+                            itemId = 5;
+                            openFragment(fragment, itemId -3);
                         }
                     } else {
                         fragment = new LoginFragment();
                         itemId = 3;
-                        openFragment(fragment,itemId-1);
+                        openFragment(fragment, itemId - 1);
                     }
 
                     break;
             }
-            if (itemId == 0 || itemId == 1 || itemId == 2 || itemId ==5 || itemId==6) {
+            if (itemId == 0 || itemId == 1 || itemId == 2 || itemId == 5 || itemId == 6) {
                 updateSearchViewFragment();
             }
             return true;
@@ -127,10 +117,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
         MenuItem menuItem = menu.size() >= 1 ? menu.getItem(0) : null;
-        if(menuItem!=null) {
-            if(preferences.getUserId() == -1 ) {
+        if (menuItem != null) {
+            if (preferences.getUserId() == -1) {
                 menu.getItem(1).setVisible(false);
-            }else{
+            } else {
                 menu.getItem(1).setVisible(true);
             }
         }
@@ -145,10 +135,11 @@ public class MainActivity extends AppCompatActivity {
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        if(fragment instanceof ProgramacaoFragment
+        if (fragment instanceof ProgramacaoFragment
                 || fragment instanceof ProgramacaoDoDiaFragment
                 || fragment instanceof RealizarFrequenciaFragment
-                || fragment instanceof AtividadesAlunoFragment){
+                || fragment instanceof AtividadesAlunoFragment
+                || fragment instanceof AtividadesProfessorFragment) {
             updateSearchViewFragment();
         }
         return true;
@@ -193,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-        } else if(id == R.id.logout) {
+        } else if (id == R.id.logout) {
             ViewModelProviders.of(this).get(LoginViewModel.class).realizarLogout(this, new LogoutListener() {
                 @Override
                 public void onSuccessfulLogout() {
@@ -202,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure() {
-                    Toast.makeText(getApplicationContext(),"Não foi possível fazer logout", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Não foi possível fazer logout", Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -212,31 +203,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() != null) {
+        if (result != null) {
+            if (result.getContents() != null) {
                 String scannedUserCode = result.getContents();
                 RealizarFrequenciaViewModel viewModel = ViewModelProviders.of(this).get(RealizarFrequenciaViewModel.class);
                 viewModel.realizarCheckInCheckOut(new CheckInCheckOutListener() {
                     @Override
                     public void onSuccess(String message) {
-                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onCheckedInOnDifferentRoom(String message) {
-                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onInvalidQRCode(String message) {
-                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(String message) {
-                        Toast.makeText(getBaseContext(),message,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
                     }
-                },scannedUserCode,getBaseContext());
+                }, scannedUserCode, getBaseContext());
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

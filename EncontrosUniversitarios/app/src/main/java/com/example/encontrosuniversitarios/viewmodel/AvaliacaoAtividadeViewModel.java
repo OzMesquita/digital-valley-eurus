@@ -35,7 +35,7 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
     public AvaliacaoAtividadeViewModel() {
         this.atividadeRepositorio = AtividadeRepositorio.getInstance();
         this.usuarioRepositorio = UsuarioRepositorio.getInstance();
-        criterios = new MutableLiveData<>();
+//        criterios = new MutableLiveData<>();
         atividadesAvaliacao = new MutableLiveData<>();
     }
 
