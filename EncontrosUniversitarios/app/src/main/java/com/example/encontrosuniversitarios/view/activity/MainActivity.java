@@ -13,6 +13,7 @@ import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.view.fragment.AtividadesAlunoFragment;
+import com.example.encontrosuniversitarios.view.fragment.AtividadesProfessorFragment;
 import com.example.encontrosuniversitarios.view.fragment.AvaliacaoAtividadeFragment;
 import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
 import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
@@ -92,15 +93,20 @@ public class MainActivity extends AppCompatActivity {
                     MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
 
                     if (preferences.getUserId() != -1) {
-                        if(preferences.getUserAccessLevel() == 0) {
+                        int accessLevel = preferences.getUserAccessLevel();
+                        Log.i("ACCESSLEVEL",accessLevel+"");
+                        if(accessLevel == 0) {
                             fragment = new AtividadesAlunoFragment();
                             itemId = 5;
                             openFragment(fragment, itemId-3);
-                        }else{
-
+                        }else if(accessLevel == 1){
                             fragment = new RealizarFrequenciaFragment();
                             itemId = 2;
                             openFragment(fragment, itemId);
+                        }else{
+                            fragment = new AtividadesProfessorFragment();
+                            itemId = 6;
+                            openFragment(fragment,itemId-4);
                         }
                     } else {
                         fragment = new LoginFragment();
@@ -110,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
             }
-            if (itemId == 0 || itemId == 1 || itemId == 2 || itemId ==5) {
+            if (itemId == 0 || itemId == 1 || itemId == 2 || itemId ==5 || itemId==6) {
                 updateSearchViewFragment();
             }
             return true;

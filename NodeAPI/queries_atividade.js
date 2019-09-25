@@ -174,6 +174,7 @@ const getAtividadesProfessor = (request, response) => {
         result.rows.forEach(function (row) {
           avaliacoesProfessor.push(modelCreator.createAtividadeModel(row));
         });
+        console.log(avaliacoesProfessor)
         response.status(200).json(avaliacoesProfessor);
     })
 

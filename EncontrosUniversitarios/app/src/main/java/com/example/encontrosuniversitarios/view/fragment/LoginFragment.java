@@ -119,8 +119,10 @@ public class LoginFragment extends Fragment {
         FragmentTransaction ft = fm.beginTransaction();
         if(accessLevel==1){
             ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
-        }else{
+        }else if(accessLevel==0){
             ft.replace(R.id.fragment_container, new AtividadesAlunoFragment());
+        }else{
+            ft.replace(R.id.fragment_container, new AtividadesProfessorFragment());
         }
 
         ft.addToBackStack(null);

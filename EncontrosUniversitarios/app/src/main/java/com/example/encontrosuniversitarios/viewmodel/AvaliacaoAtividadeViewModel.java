@@ -90,10 +90,10 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
 
     public void carregarAtividades(Context context) {
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
-        atividadeRepositorio.getAtividadesProfessor(new ResponseListener<List<Atividade>>() {
+        atividadeRepositorio.getAtividadesProfessor(new ResponseListener() {
             @Override
-            public void onSuccess(List<Atividade> atividadesEvento) {
-                atividadesAvaliacao.setValue(atividadesEvento);
+            public void onSuccess(Object response) {
+                atividadesAvaliacao.setValue((List<Atividade>)response);
             }
 
             @Override

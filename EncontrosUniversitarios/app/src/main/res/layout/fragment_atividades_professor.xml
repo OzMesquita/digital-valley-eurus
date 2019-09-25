@@ -5,12 +5,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".view.fragment.AtividadesProfessorFragment">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-light"
+        android:layout_margin="10dp"
+        android:text="@string/avaliacao_atividades"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
         android:id="@+id/avaliacoes_professor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>
