@@ -96,4 +96,10 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
         return programacaoFragment.getProgramacaoAdapter();
     }
 
+    public void showSemAtividadesDialog(){
+
+
+    }
+
+
 }

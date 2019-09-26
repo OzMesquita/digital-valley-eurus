@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
+import android.transition.Visibility;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,12 +21,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filterable;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
 import com.example.encontrosuniversitarios.ProgramacaoListInterface;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.google.protobuf.Parser;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -55,6 +59,14 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         if (getArguments() != null) {
             atividades = new ArrayList<>();
             Parcelable []atividadesParcelable = getArguments().getParcelableArray(ATIVIDADES_ARGS);
@@ -62,18 +74,19 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
                 atividades.add((Atividade) p);
             }
         }
-    }
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_atividades, container, false);
+        TextView textView = view.findViewById(R.id.lista);
         atividadesRecyclerView = view.findViewById(R.id.programacao_do_dia_recycler_view);
         atividadesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades,MySharedPreferences.getInstance(getContext()).getCoordinatorActivities());
         atividadesRecyclerView.setAdapter(programacaoDoDiaAdapter);
+
+        if(atividades.size()== 0){
+            textView.clearAnimation();
+            textView.setVisibility(View.VISIBLE);
+        }
+
         return view;
     }
 

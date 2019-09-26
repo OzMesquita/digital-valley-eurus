@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,8 +24,6 @@ import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.view.fragment.AtividadesAlunoFragment;
 import com.example.encontrosuniversitarios.view.fragment.AtividadesProfessorFragment;
-import com.example.encontrosuniversitarios.view.fragment.AvaliacaoAtividadeFragment;
-import com.example.encontrosuniversitarios.view.fragment.CadastroUsuarioFragment;
 import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 import com.example.encontrosuniversitarios.view.fragment.LoginFragment;
 import com.example.encontrosuniversitarios.view.fragment.LogoutListener;
@@ -40,6 +36,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
 import net.danlew.android.joda.JodaTimeAndroid;
 
 public class MainActivity extends AppCompatActivity {
@@ -191,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-        } else if (id == R.id.logout) {
+        } else
+            if (id == R.id.logout) {
             ViewModelProviders.of(this).get(LoginViewModel.class).realizarLogout(this, new LogoutListener() {
                 @Override
                 public void onSuccessfulLogout() {

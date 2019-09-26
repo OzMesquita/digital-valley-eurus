@@ -16,6 +16,7 @@
     <color name="disabled_button_light">#f2ebeb</color>
     <color name="colorBlue">#042A64</color>
     <color name="colorBlue_button">#5B87CC</color>
+    <color name="colorBlack">#0F0F0F</color>
 
 
 </resources>
