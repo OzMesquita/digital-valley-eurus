@@ -1,7 +1,10 @@
 package com.example.encontrosuniversitarios.view.viewholder;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,23 +36,17 @@ public class AtividadeViewHolder extends ChildViewHolder {
         this.nomeApresentador.setText(atividade.getApresentador().getNome());
         this.horarioAtividadeTextView.setText(FormatadorData.formatarDataHorario(atividade.getHorarioInicialPrevisto()));
         this.localAtividadeTextView.setText(atividade.getLocal().getLocalSala());
-        fragment = AtividadeDadosFragment.newInstance(atividade,coordenador);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AtividadeDadosActivity.class);
-                intent.putExtra("atividade",atividade);
-                intent.putExtra("coordenador",coordenador);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("atividade",atividade);
+                bundle.putBoolean("coordenador",coordenador);
+                intent.putExtras(bundle);
                 v.getContext().startActivity(intent);
-                /*
-                AppCompatActivity activity = (AppCompatActivity)v.getContext();
-                FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
-                transaction.replace(R.id.fragment_container,fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-                */
             }
         });
     }
+
 }

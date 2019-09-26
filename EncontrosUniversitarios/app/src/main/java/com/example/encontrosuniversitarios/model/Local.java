@@ -18,6 +18,8 @@ public class Local {
         this.sala=sala;
     }
 
+    public Local(){}
+
     public String getNome() {
         return nome;
     }

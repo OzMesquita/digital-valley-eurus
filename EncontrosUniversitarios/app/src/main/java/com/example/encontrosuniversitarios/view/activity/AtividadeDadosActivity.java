@@ -21,6 +21,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,7 +47,36 @@ public class AtividadeDadosActivity extends AppCompatActivity {
     @Nullable
     @Override
     public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-        View view = super.onCreateView(parent, name, context, attrs);
+            View view = super.onCreateView(parent, name, context, attrs);
+
+        return view;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
+        return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_atividade_dados);
+        Intent intent = getIntent();
+        MySharedPreferences preferences = MySharedPreferences.getInstance(this);
+        avaliador = preferences.getUserAccessLevel() == 2;
+
+        if (intent.getParcelableExtra(ATIVIDADE) != null) {
+            atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
+            Atividade atividade = intent.getParcelableExtra(ATIVIDADE);
+            atividadeDadosViewModel.init(atividade);
+            this.coordenador = intent.getBooleanExtra(COORDENADOR,false);
+        }
         ActivityAtividadeDadosBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_atividade_dados);
         binding.setAtividade(atividadeDadosViewModel.getAtividade().getValue());
         binding.setFormatador(new FormatadorData());
@@ -117,7 +148,8 @@ public class AtividadeDadosActivity extends AppCompatActivity {
         avaliarAtividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity)v.getContext();
+
+                AppCompatActivity activity = AtividadeDadosActivity.this;
                 FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
                 transaction.replace(R.id.fragment_container, AvaliacaoAtividadeFragment.newInstance(atividadeDadosViewModel.getAtividade().getValue()));
@@ -125,23 +157,6 @@ public class AtividadeDadosActivity extends AppCompatActivity {
                 transaction.commit();
             }
         });
-        return view;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_atividade_dados);
-        Intent intent = getIntent();
-        MySharedPreferences preferences = MySharedPreferences.getInstance(this);
-        avaliador = preferences.getUserAccessLevel() == 2;
-
-        if (intent.getParcelableExtra(ATIVIDADE) != null) {
-            atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
-            Atividade atividade = intent.getParcelableExtra(ATIVIDADE);
-            atividadeDadosViewModel.init(atividade);
-            this.coordenador = intent.getBooleanExtra(COORDENADOR,false);
-        }
     }
 
     private void iniciarHorarios(){

@@ -33,6 +33,8 @@ public class Usuario {
     @SerializedName("nivel_acesso")
     private int nivelAcesso;
 
+    public Usuario(){}
+
     public Usuario(String nome) {
         this.nome = nome;
     }

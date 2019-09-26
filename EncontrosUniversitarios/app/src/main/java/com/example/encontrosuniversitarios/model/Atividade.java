@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.model;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.encontrosuniversitarios.model.exceptions.AtividadeFinalizadaAntesDoHorarioIniciadoException;
+import com.example.encontrosuniversitarios.model.exceptions.CampoVazioException;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
@@ -97,7 +99,25 @@ public class Atividade implements Parcelable {
     }
 
     protected Atividade(Parcel in){
-        this.nome = in.readString();
+        Bundle bundle = in.readBundle();
+        this.nome = bundle.getString("nome");
+        this.horarioInicio = new DateTime(bundle.getLong("horario_inicio"));
+        this.horarioFinal = new DateTime(bundle.getLong("horario_final"));
+        this.horarioInicialPrevisto = new DateTime(bundle.getLong("horario_inicio_previsto"));
+        this.descricao = bundle.getString("descricao");
+        this.id = bundle.getInt("id");
+        Local local = new Local();
+        local.setNome(bundle.getString("local"));
+        local.setPontoReferencia(bundle.getString("ponto"));
+        Usuario usuario = new Usuario();
+        try {
+            usuario.setNome(bundle.getString("apresentador"));
+
+        } catch (CampoVazioException e) {
+            e.printStackTrace();
+        }
+        this.local = local;
+        this.apresentador = usuario;
     }
 
     public String getNome() {
@@ -203,7 +223,22 @@ public class Atividade implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.nome);
+        Bundle bundle = new Bundle();
+        if(this.getHorarioInicio()!=null)bundle.putLong("horario_inicio",this.getHorarioInicio().getMillis());
+        if(this.getHorarioFinal()!=null)bundle.putLong("horario_final",this.getHorarioFinal().getMillis());
+        if(this.getHorarioInicialPrevisto()!=null)bundle.putLong("horario_inicio_previsto",this.getHorarioInicialPrevisto().getMillis());
+        bundle.putString("nome",this.nome);
+        bundle.putString("descricao",this.descricao);
+        if(this.getLocal()!=null){
+            bundle.putString("local",this.local.getNome());
+            bundle.putString("ponto",this.local.getPontoReferencia());
+        }
+        if(this.getApresentador()!=null)bundle.putString("apresentador",this.apresentador.getNome());
+
+
+        bundle.putInt("id",this.id);
+        dest.writeBundle(bundle);
+
     }
 
     public final static Creator<Atividade> CREATOR = new Creator<Atividade>() {
