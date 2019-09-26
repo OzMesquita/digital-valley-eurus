@@ -2,10 +2,12 @@ package com.example.encontrosuniversitarios.view.fragment;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -50,6 +52,8 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Nullable
@@ -91,4 +95,5 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
         AtividadesFragment programacaoFragment = (AtividadesFragment) this.programacaoAbasAdapter.getItem(tabLayout.getSelectedTabPosition());
         return programacaoFragment.getProgramacaoAdapter();
     }
+
 }
