@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.view.viewholder;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.view.activity.AtividadeDadosActivity;
 import com.example.encontrosuniversitarios.view.fragment.AtividadeDadosFragment;
 import com.example.encontrosuniversitarios.helper.FormatadorData;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
@@ -35,13 +37,18 @@ public class AtividadeViewHolder extends ChildViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), AtividadeDadosActivity.class);
+                intent.putExtra("atividade",atividade);
+                intent.putExtra("coordenador",coordenador);
+                v.getContext().startActivity(intent);
+                /*
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
                 transaction.replace(R.id.fragment_container,fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+                */
             }
         });
     }

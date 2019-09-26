@@ -28,8 +28,6 @@ import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.CriterioAtividade;
 import com.example.encontrosuniversitarios.view.adapter.AvaliacaoAtividadeAdapter;
 import com.example.encontrosuniversitarios.viewmodel.AvaliacaoAtividadeViewModel;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class AvaliacaoAtividadeFragment extends Fragment {
@@ -40,7 +38,7 @@ public class AvaliacaoAtividadeFragment extends Fragment {
 
 
     public AvaliacaoAtividadeFragment() {
-        // Required empty public constructor
+
     }
 
     public static AvaliacaoAtividadeFragment newInstance(Atividade atividade) {

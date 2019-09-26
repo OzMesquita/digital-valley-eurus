@@ -4,9 +4,11 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {

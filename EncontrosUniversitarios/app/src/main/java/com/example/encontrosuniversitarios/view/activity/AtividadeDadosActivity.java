@@ -1,34 +1,33 @@
-package com.example.encontrosuniversitarios.view.fragment;
+package com.example.encontrosuniversitarios.view.activity;
+import com.example.encontrosuniversitarios.R;
+import com.example.encontrosuniversitarios.databinding.ActivityAtividadeDadosBinding;
+import com.example.encontrosuniversitarios.databinding.FragmentAtividadeDadosBinding;
+import com.example.encontrosuniversitarios.helper.FormatadorData;
+import com.example.encontrosuniversitarios.helper.MySharedPreferences;
+import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.view.fragment.AvaliacaoAtividadeFragment;
+import com.example.encontrosuniversitarios.viewmodel.AtividadeDadosViewModel;
 
-import android.os.Bundle;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.encontrosuniversitarios.R;
-import com.example.encontrosuniversitarios.databinding.FragmentAtividadeDadosBinding;
-import com.example.encontrosuniversitarios.helper.MySharedPreferences;
-import com.example.encontrosuniversitarios.model.Atividade;
-import com.example.encontrosuniversitarios.helper.FormatadorData;
-import com.example.encontrosuniversitarios.viewmodel.AtividadeDadosViewModel;
 
 import org.joda.time.DateTime;
 
-public class AtividadeDadosFragment extends Fragment {
+public class AtividadeDadosActivity extends AppCompatActivity {
     private static final String ATIVIDADE = "atividade";
     private static final String COORDENADOR = "coordenador";
 
@@ -43,49 +42,11 @@ public class AtividadeDadosFragment extends Fragment {
     private boolean coordenador;
     private boolean avaliador;
 
-
-
-    public AtividadeDadosFragment() {
-        // Required empty public constructor
-    }
-
-    public static AtividadeDadosFragment newInstance(Atividade atividade,boolean coordenador) {
-        AtividadeDadosFragment fragment = new AtividadeDadosFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ATIVIDADE,atividade);
-        args.putBoolean(COORDENADOR,coordenador);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
-        avaliador = preferences.getUserAccessLevel() == 2;
-        if (getArguments() != null) {
-            atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
-            Atividade atividade = getArguments().getParcelable(ATIVIDADE);
-            atividadeDadosViewModel.init(atividade);
-            this.coordenador = getArguments().getBoolean(COORDENADOR);
-        }
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        FragmentAtividadeDadosBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_atividade_dados,container,false);
+    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+        View view = super.onCreateView(parent, name, context, attrs);
+        ActivityAtividadeDadosBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_atividade_dados);
         binding.setAtividade(atividadeDadosViewModel.getAtividade().getValue());
         binding.setFormatador(new FormatadorData());
         binding.setHorarioInicial(atividadeDadosViewModel.getHorarioInicio().getValue());
@@ -106,7 +67,14 @@ public class AtividadeDadosFragment extends Fragment {
         }
         configurarIniciarFinalizarAtividade();
         iniciarHorarios();
-        atividadeDadosViewModel.verificarAtividadeJaAvaliada(getContext());
+        atividadeDadosViewModel.verificarAtividadeJaAvaliada(this);
+
+        atividadeDadosViewModel.getAtividadeAvaliada().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+
+            }
+        });
 
         atividadeDadosViewModel.getAtividadeAvaliada().observe(this, new Observer<Boolean>() {
             @Override
@@ -139,7 +107,7 @@ public class AtividadeDadosFragment extends Fragment {
         iniciarFinalizarAtividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                atividadeDadosViewModel.alterarHorarioAtividade(getContext());
+                atividadeDadosViewModel.alterarHorarioAtividade(getApplicationContext());
 
             }
         });
@@ -152,13 +120,28 @@ public class AtividadeDadosFragment extends Fragment {
                 AppCompatActivity activity = (AppCompatActivity)v.getContext();
                 FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
-                transaction.replace(R.id.fragment_container,AvaliacaoAtividadeFragment.newInstance(atividadeDadosViewModel.getAtividade().getValue()));
+                transaction.replace(R.id.fragment_container, AvaliacaoAtividadeFragment.newInstance(atividadeDadosViewModel.getAtividade().getValue()));
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
+        return view;
+    }
 
-        return binding.getRoot();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_atividade_dados);
+        Intent intent = getIntent();
+        MySharedPreferences preferences = MySharedPreferences.getInstance(this);
+        avaliador = preferences.getUserAccessLevel() == 2;
+
+        if (intent.getParcelableExtra(ATIVIDADE) != null) {
+            atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
+            Atividade atividade = intent.getParcelableExtra(ATIVIDADE);
+            atividadeDadosViewModel.init(atividade);
+            this.coordenador = intent.getBooleanExtra(COORDENADOR,false);
+        }
     }
 
     private void iniciarHorarios(){
@@ -204,19 +187,18 @@ public class AtividadeDadosFragment extends Fragment {
     }
 
     private int selecionarCorEstadoAtividade(String estado){
-        int cor = ContextCompat.getColor(getContext(), R.color.future_activity);
+        int cor = ContextCompat.getColor(this, R.color.future_activity);
         switch (estado){
             case Atividade.INICIADA:
-                cor = ContextCompat.getColor(getContext(), R.color.started_activity);
+                cor = ContextCompat.getColor(this, R.color.started_activity);
                 break;
             case Atividade.FINALIZADA:
-                cor = ContextCompat.getColor(getContext(), R.color.finished_activity);
+                cor = ContextCompat.getColor(this, R.color.finished_activity);
                 break;
             case Atividade.NAO_INICIADA:
-                cor = ContextCompat.getColor(getContext(), R.color.future_activity);
+                cor = ContextCompat.getColor(this, R.color.future_activity);
                 break;
         }
         return cor;
     }
-
 }
