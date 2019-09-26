@@ -37,7 +37,7 @@ public class AtividadesProfessorFragment extends Fragment implements Programacao
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_atividades_professor, container, false);
-        recyclerView = view.findViewById(R.id.avaliacoes_professor);
+        recyclerView = view.findViewById(R.id.atividades_professor);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         avaliacaoAtividadeViewModel = ViewModelProviders.of(this).get(AvaliacaoAtividadeViewModel.class);
 

@@ -3,14 +3,17 @@ package com.example.encontrosuniversitarios.view.activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -36,7 +39,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
 import net.danlew.android.joda.JodaTimeAndroid;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         fragment = new ProgramacaoDoDiaFragment();
         getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
         openFragment(fragment, 1);
+
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -171,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
         bottomNavigationView.getMenu().getItem(itemId).setChecked(true);
+        showConexaoInternetDialog(getBaseContext());
     }
 
     @Override
@@ -232,6 +237,32 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public boolean showConexaoInternetDialog(Context cont) {
+        ConnectivityManager conmag = (ConnectivityManager)cont.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if ( conmag != null ) {
+            conmag.getActiveNetworkInfo();
+
+            //Verifica internet pela WIFI
+            if (conmag.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()) {
+                return true;
+            }
+
+            //Verifica se tem internet móvel
+            if (conmag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()) {
+                return true;
+            }
+        }
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            View customLayout = getLayoutInflater().inflate(R.layout.internet_dialog, null);
+            builder.setView(customLayout);
+
+            builder.setPositiveButton(R.string.close,null);
+            builder.show();
+
+        return false;
     }
 
 }
