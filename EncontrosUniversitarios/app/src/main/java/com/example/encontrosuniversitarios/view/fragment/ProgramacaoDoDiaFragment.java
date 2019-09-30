@@ -68,7 +68,7 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
             @Override
             public void onChanged(List<List<Atividade>> lists) {
                 for(int i=0;i<3;i++){
-                    AtividadesFragment atividadesFragment = AtividadesFragment.newInstance(lists.get(i));
+                    AtividadesFragment atividadesFragment = AtividadesFragment.newInstance(lists.get(i),i);
                     programacaoAbasAdapter.addFragment(atividadesFragment,getString(nomesEstadoAtividade.get(i)));
                 }
                 programacaoAbasAdapter.notifyDataSetChanged();

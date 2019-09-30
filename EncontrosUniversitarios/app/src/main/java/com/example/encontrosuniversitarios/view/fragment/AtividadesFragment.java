@@ -40,9 +40,10 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
     private List<Atividade> atividades;
 
     private static final String ATIVIDADES_ARGS = "ATIVIDADES";
+    private static final String ATIVIDADES_EMPTY = "EMPTY";
 
 
-    public static AtividadesFragment newInstance(List<Atividade> atividades) {
+    public static AtividadesFragment newInstance(List<Atividade> atividades,int index) {
         AtividadesFragment fragment = new AtividadesFragment();
         Bundle args = new Bundle();
         Parcelable []atividadesParcelable = new Parcelable[atividades.size()];
@@ -50,7 +51,19 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
             atividadesParcelable[i] = atividades.get(i);
         }
         args.putParcelableArray(ATIVIDADES_ARGS,atividadesParcelable);
-
+        String emptyText = "";
+        switch (index){
+            case 0:
+                emptyText = "Não existem atividades ocorrendo no momento";
+                break;
+            case 1:
+                emptyText = "Todas as atividades de hoje já ocorreram";
+                break;
+            case 2:
+                emptyText = "Não existem atividades finalizadas";
+                break;
+        }
+        args.putString(ATIVIDADES_EMPTY,emptyText);
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,13 +89,15 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
         }
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_atividades, container, false);
-        TextView textView = view.findViewById(R.id.lista);
+        TextView textView = view.findViewById(R.id.empty_list);
         atividadesRecyclerView = view.findViewById(R.id.programacao_do_dia_recycler_view);
         atividadesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades,MySharedPreferences.getInstance(getContext()).getCoordinatorActivities());
         atividadesRecyclerView.setAdapter(programacaoDoDiaAdapter);
 
         if(atividades.size()== 0){
+            String emptyListMessage = getArguments().getString(ATIVIDADES_EMPTY);
+            textView.setText(emptyListMessage);
             textView.clearAnimation();
             textView.setVisibility(View.VISIBLE);
         }

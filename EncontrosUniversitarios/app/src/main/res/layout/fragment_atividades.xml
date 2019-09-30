@@ -7,15 +7,13 @@
     tools:context=".view.fragment.AtividadesFragment">
 
     <TextView
-        android:id="@+id/lista"
+        android:id="@+id/empty_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/lista_atividades_vazia"
+        android:layout_height="match_parent"
         android:visibility="gone"
-        android:padding="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@color/finished_activity"
+        android:textColor="@android:color/black"
         android:textSize="20dp"
         />
 

@@ -36,7 +36,6 @@ public class AvaliacaoAtividadeFragment extends Fragment {
     private List<CriterioAtividade> criterios;
     private TextView txtMedia;
 
-
     public AvaliacaoAtividadeFragment() {
 
     }

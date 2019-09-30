@@ -28,60 +28,78 @@ tools:context=".view.activity.AtividadeDadosActivity">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
+
             android:elevation="6dp"
             android:gravity="center"
-            android:orientation="vertical"
-            android:padding="5dp">
-
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@android:color/black"
+                android:layout_height="match_parent"/>
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginBottom="4dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.6"
+                android:background="@drawable/ufc_campus_russas"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@mipmap/ic_launcher_round" />
 
-            <TextView
-                android:id="@+id/nome_atividade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="@{atividade.nome}"
-                android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/nome_atividade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginRight="8dp"
+                    android:text="@{atividade.nome}"
+                    android:textSize="22dp" />
 
-            <TextView
-                android:id="@+id/apresentador_atividade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginVertical="8dp"
-                android:textSize="18dp"
-                android:text="@{atividade.apresentador.nome}"/>
+                <TextView
+                    android:id="@+id/apresentador_atividade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginVertical="8dp"
+                    android:textSize="18dp"
+                    android:text="@{atividade.apresentador.nome}"/>
 
-            <TextView
-                android:id="@+id/horario_data_atividade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:textSize="18dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/horario_data_atividade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textSize="18dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="" />
+            </LinearLayout>
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,6 +116,7 @@ tools:context=".view.activity.AtividadeDadosActivity">
             <TextView
                 android:id="@+id/estado_atividade"
                 android:layout_width="wrap_content"
+                android:textColor="@android:color/black"
                 android:textSize="16dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -120,6 +139,8 @@ tools:context=".view.activity.AtividadeDadosActivity">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
+
+                android:textColor="@android:color/black"
                 android:text="@string/where"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,6 +155,7 @@ tools:context=".view.activity.AtividadeDadosActivity">
                     android:id="@+id/local_atividade"
                     android:layout_width="wrap_content"
                     android:textSize="16dp"
+                    android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="@{atividade.local.nome}" />
@@ -149,8 +171,10 @@ tools:context=".view.activity.AtividadeDadosActivity">
                     android:src="@drawable/ic_more_horiz_black_24dp"/>
                 <TextView
                     android:id="@+id/local_adicional"
+                    android:textColor="@android:color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:layout_margin="5dp"
                     android:textSize="16dp"
                     android:text="@{atividade.local.pontoReferencia}" />
@@ -173,12 +197,14 @@ tools:context=".view.activity.AtividadeDadosActivity">
                 android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
                 android:text="@string/description"/>
             <TextView
                 android:id="@+id/descricao_atividade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                android:textColor="@android:color/black"
                 android:textSize="16dp"
                 android:text="@{atividade.descricao}"/>
 
@@ -197,28 +223,38 @@ tools:context=".view.activity.AtividadeDadosActivity">
             android:padding="10dp"
             android:gravity="center"
             android:orientation="vertical">
-            <Button
-                android:id="@+id/iniciar_finalizar_atividade"
-                android:text="@string/iniciar_atividade"
-                android:textColor="@android:color/white"
-                android:padding="20dp"
-                android:background="@drawable/round_green_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:layout_margin="10dp"
-                android:textAllCaps="false"/>
-            <Button
-                android:id="@+id/avaliar_atividade"
-                android:text="@string/avaliar_atividade"
-                android:textColor="@android:color/white"
-                android:padding="20dp"
-                android:background="@drawable/round_green_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17dp"
-                android:layout_margin="10dp"
-                android:textAllCaps="false"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/iniciar_finalizar_atividade"
+                    android:text="@string/iniciar_atividade"
+                    android:textColor="@android:color/white"
+                    android:padding="20dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/round_green_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="17dp"
+                    android:layout_margin="10dp"
+                    android:textAllCaps="false"/>
+                <Button
+                    android:id="@+id/avaliar_atividade"
+                    android:text="@string/avaliar_atividade"
+                    android:textColor="@android:color/white"
+                    android:padding="20dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/round_green_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:layout_margin="10dp"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -235,11 +271,13 @@ tools:context=".view.activity.AtividadeDadosActivity">
                         android:layout_width="wrap_content"
                         android:layout_gravity="center"
                         android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
                         android:textSize="18dp"
                         android:text="Horário iniciado"/>
                     <TextView
                         android:id="@+id/horario_iniciado"
                         android:layout_width="wrap_content"
+                        android:textColor="@android:color/black"
                         android:layout_height="wrap_content"
                         android:text="---"
                         />
@@ -254,11 +292,13 @@ tools:context=".view.activity.AtividadeDadosActivity">
                         android:textSize="18dp"
                         android:layout_width="wrap_content"
                         android:layout_gravity="center"
+                        android:textColor="@android:color/black"
                         android:layout_height="match_parent"
                         android:text="Horário finalizado"/>
                     <TextView
                         android:id="@+id/horario_finalizado"
                         android:layout_width="wrap_content"
+                        android:textColor="@android:color/black"
                         android:layout_height="wrap_content"
                         android:text="---"
                         />

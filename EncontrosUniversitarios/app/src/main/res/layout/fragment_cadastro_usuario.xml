@@ -140,7 +140,7 @@
                 android:layout_marginRight="8dp"
                 android:background="@android:color/transparent"
                 android:text="@string/entre_perfil"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/link"
                 android:textAllCaps="false"
                 android:textSize="17dp"
                 />

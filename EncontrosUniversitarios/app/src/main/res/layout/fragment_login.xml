@@ -117,7 +117,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="@android:color/transparent"
                     android:text="@string/esqueci_senha"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/link"
                     android:textAllCaps="false"
                     android:textSize="17dp"/>
             </LinearLayout>

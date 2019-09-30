@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0069c0</color>
-    <color name="colorPrimaryDark">#003f8f</color>
+    <color name="colorPrimary">#ed6939</color>
+    <color name="colorPrimaryDark">#b4390b</color>
     <color name="colorAccent">#66bb6a</color>
 
     <color name="colorSecondaryDark">#66bb6a</color>
@@ -16,7 +16,7 @@
     <color name="disabled_button_light">#f2ebeb</color>
     <color name="colorBlue">#042A64</color>
     <color name="colorBlue_button">#5B87CC</color>
-    <color name="colorBlack">#0F0F0F</color>
+    <color name="link">#0000ff</color>
 
 
 </resources>

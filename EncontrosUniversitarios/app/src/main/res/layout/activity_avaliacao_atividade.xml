@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".view.activity.AvaliacaoAtividadeActivity">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/activity_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Questionário para avaliação das atividades dos Encontros Universitários 2019 da Universidade Federal do Ceará - Campus Russas. Os critérios aqui definidos seguem o edital 01293n"
+            android:textFontWeight="bold"
+            android:textSize="20dp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lista_criterios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/media"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:text="Media" />
+
+        <EditText
+            android:id="@+id/comentarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Comentários, anotações, perguntas"
+            android:padding="10dp"
+            android:textColorHint="@android:color/holo_red_dark"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/confirmar_avaliacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/round_green_button"
+            android:text="Confirmar avaliação" />
+    </LinearLayout>
+</ScrollView>
+</layout>

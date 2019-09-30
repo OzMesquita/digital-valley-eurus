@@ -63,6 +63,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="avaliacao_atividades">Avaliação de Atividades</string>
-    <string name="lista_atividades_vazia">Não localizamos atividades nesta aba!</string>
 
 </resources>

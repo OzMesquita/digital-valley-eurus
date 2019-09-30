@@ -1,27 +1,19 @@
 package com.example.encontrosuniversitarios.view.activity;
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.databinding.ActivityAtividadeDadosBinding;
-import com.example.encontrosuniversitarios.databinding.FragmentAtividadeDadosBinding;
 import com.example.encontrosuniversitarios.helper.FormatadorData;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.view.fragment.AvaliacaoAtividadeFragment;
 import com.example.encontrosuniversitarios.viewmodel.AtividadeDadosViewModel;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -43,15 +35,6 @@ public class AtividadeDadosActivity extends AppCompatActivity {
 
     private boolean coordenador;
     private boolean avaliador;
-
-    @Nullable
-    @Override
-    public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-            View view = super.onCreateView(parent, name, context, attrs);
-
-        return view;
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -144,17 +127,17 @@ public class AtividadeDadosActivity extends AppCompatActivity {
         });
         if(!avaliador){
             avaliarAtividade.setVisibility(View.GONE);
+        }else{
+            iniciarFinalizarAtividade.setVisibility(View.GONE);
         }
         avaliarAtividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                AppCompatActivity activity = AtividadeDadosActivity.this;
-                FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out);
-                transaction.replace(R.id.fragment_container, AvaliacaoAtividadeFragment.newInstance(atividadeDadosViewModel.getAtividade().getValue()));
-                transaction.addToBackStack(null);
-                transaction.commit();
+                Intent intent = new Intent(getBaseContext(),AvaliacaoAtividadeActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("atividade",atividadeDadosViewModel.getAtividade().getValue());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
