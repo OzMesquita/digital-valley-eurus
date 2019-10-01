@@ -22,10 +22,12 @@ public class ProgramacaoDoDiaAdapter extends RecyclerView.Adapter<AtividadeViewH
     private List<Atividade> atividades;
     private List<Atividade> atividadesFiltradas;
     private List<String> atividadesCoordenador;
+    private boolean isAvaliacao;
 
-    public ProgramacaoDoDiaAdapter(List<Atividade> atividades, Set<String> idsAtividadesCoordenador){
+    public ProgramacaoDoDiaAdapter(List<Atividade> atividades, Set<String> idsAtividadesCoordenador,boolean isAvaliacao){
         this.atividades = atividades;
         this.atividadesFiltradas = atividades;
+        this.isAvaliacao = isAvaliacao;
         if(idsAtividadesCoordenador != null) {
             this.atividadesCoordenador = new ArrayList<>();
             this.atividadesCoordenador.addAll(idsAtividadesCoordenador);
@@ -41,8 +43,9 @@ public class ProgramacaoDoDiaAdapter extends RecyclerView.Adapter<AtividadeViewH
 
     @Override
     public void onBindViewHolder(@NonNull AtividadeViewHolder holder, int position) {
-        holder.bind(atividadesFiltradas.get(position),atividadesCoordenador == null ? false :
-                atividadesCoordenador.contains(String.valueOf(atividadesFiltradas.get(position).getId())));
+        holder.bind(atividadesFiltradas.get(position),isAvaliacao ? false : atividadesCoordenador == null ? false :
+                atividadesCoordenador.contains(String.valueOf(atividadesFiltradas.get(position).getId())),
+                isAvaliacao ? atividadesCoordenador.contains(String.valueOf(atividadesFiltradas.get(position).getId())) : false);
     }
 
     @Override

@@ -120,7 +120,6 @@ public class LoginFragment extends Fragment {
         FragmentTransaction ft = fm.beginTransaction();
         if (accessLevel == 0) {
             ft.replace(R.id.fragment_container, new AtividadesAlunoFragment());
-
         } else if (accessLevel == 1) {
             ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
         } else {

@@ -64,17 +64,23 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
           console.log("email", queryResponse.alreadyTakenEmail)
         }
       }
+      console.log("email2", queryResponse.alreadyTakenEmail)
+      console.log("matricula", queryResponse.alreadyTakenMatricula)
+      if(!queryResponse.alreadyTakenEmail && !queryResponse.alreadyTakenMatricula){
+          console.log("d ",queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
+        next()
+      }else{
+        console.log("i ", queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
+        if(queryResponse.alreadyTakenMatricula){
+          queryResponse.message = "Já existe uma conta com a matrícula fornecida"
+        }else{
+          queryResponse.message = "Já existe uma conta com o email fornecido"
+        }
+        console.log('Matricula/email duplicado')
+        response.status(201).json(queryResponse)
+      }
     })
-    console.log("email2", queryResponse.alreadyTakenEmail)
-
-    if(!queryResponse.alreadyTakenEmail && !queryResponse.alreadyTakenMatricula){
-        console.log("d ",queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
-       next()
-    }else{
-      console.log("i ", queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
-      queryResponse.message = "Já existe uma conta com o mesmo email ou matrícula fornecida"
-      response.status(201).json(queryResponse)
-    }
+    
   }catch(ex){
     console.log('Erro ao listar usuário, por matricula e email!');
     response.status(500).send(`Erro ao listar usuário, por matricula e email`)
@@ -137,6 +143,7 @@ const createUsuario = (request, response) => {
         response.status(201).json(queryResponse)
       }else{
         queryResponse.message = "Matrícula ou email já cadastrados"
+        queryResponse.alreadyTakenMatricula = true;
         console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
         response.status(201).json(queryResponse)
       }
@@ -221,5 +228,5 @@ const updateUsuario = (request, response) => {
     getUsuarioByEmailMatricula,
     getUsuarioByEmailSenha,
     getUsuarioByMatricula,
-    getValidacaoMatricula
+    getValidacaoMatricula,
   }

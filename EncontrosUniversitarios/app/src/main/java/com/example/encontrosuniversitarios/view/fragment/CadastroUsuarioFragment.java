@@ -90,12 +90,12 @@ public class CadastroUsuarioFragment extends Fragment {
 
                               @Override
                               public void onAlreadyTakenEmail() {
-                                  Toast.makeText(getContext(),R.string.already_taken_email_message,Toast.LENGTH_LONG).show();
+                                  edtEmail.setError(getContext().getResources().getString(R.string.already_taken_email_message));
                               }
 
                               @Override
                               public void onAlreadyTakenMatricula() {
-                                  Toast.makeText(getContext(),R.string.already_taken_matricula_message,Toast.LENGTH_LONG).show();
+                                  edtMatricula.setError(getContext().getResources().getString(R.string.already_taken_matricula_message));
                               }
                           });
               }else {
@@ -132,7 +132,6 @@ public class CadastroUsuarioFragment extends Fragment {
                     public void onInvalidMatricula() {
                         edtMatricula.requestFocus();
                         edtMatricula.setError("A matrícula deve possuir seis dígitos.");
-
                     }
 
                     @Override
@@ -148,7 +147,7 @@ public class CadastroUsuarioFragment extends Fragment {
                     @Override
                     public void onUnregisteredMatricula() {
 
-                        Toast.makeText(getContext(),"Matrícula não encontrada, contacte o Matheus",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Matrícula não encontrada em nossa base de dados",Toast.LENGTH_LONG).show();
                     }
                 }, edtMatricula.getText().toString());
             }

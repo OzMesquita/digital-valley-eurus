@@ -56,7 +56,7 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
         atividadesAlunoViewModel.getAtividades().observe(this, new Observer<List<Atividade>>() {
             @Override
             public void onChanged(List<Atividade> atividades) {
-                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, null);
+                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, null,false);
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
             }
         });

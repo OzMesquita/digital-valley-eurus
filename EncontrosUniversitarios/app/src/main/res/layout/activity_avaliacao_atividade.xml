@@ -19,6 +19,8 @@ tools:context=".view.activity.AvaliacaoAtividadeActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="Questionário para avaliação das atividades dos Encontros Universitários 2019 da Universidade Federal do Ceará - Campus Russas. Os critérios aqui definidos seguem o edital 01293n"
             android:textFontWeight="bold"
             android:textSize="20dp" />
@@ -46,7 +48,6 @@ tools:context=".view.activity.AvaliacaoAtividadeActivity">
             android:layout_margin="10dp"
             android:hint="Comentários, anotações, perguntas"
             android:padding="10dp"
-            android:textColorHint="@android:color/holo_red_dark"
             android:textSize="20dp" />
 
         <Button
@@ -54,8 +55,12 @@ tools:context=".view.activity.AvaliacaoAtividadeActivity">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:textSize="17dp"
             android:background="@drawable/round_green_button"
-            android:text="Confirmar avaliação" />
+            android:text="Confirmar avaliação"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            />
     </LinearLayout>
 </ScrollView>
 </layout>

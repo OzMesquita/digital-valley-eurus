@@ -77,7 +77,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
                     MySharedPreferences.getInstance(getContext()).setRoom(atividades.get(0).getLocal().getSala().getId());
                     txtSala.setText(getContext().getResources().getText(R.string.realizar_frequencia).toString()+" "+atividades.get(0).getLocal().getSala().getNumero());
                 }
-                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities());
+                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(),false);
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
             }
         });

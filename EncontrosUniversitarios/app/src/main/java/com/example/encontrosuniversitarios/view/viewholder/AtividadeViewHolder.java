@@ -31,7 +31,7 @@ public class AtividadeViewHolder extends ChildViewHolder {
         localAtividadeTextView = itemView.findViewById(R.id.local_atividade);
     }
 
-    public void bind(final Atividade atividade, final boolean coordenador){
+    public void bind(final Atividade atividade, final boolean coordenador, final boolean isAvaliacao){
         this.nomeAtividadeTextView.setText(atividade.getNome());
         this.nomeApresentador.setText(atividade.getApresentador().getNome());
         this.horarioAtividadeTextView.setText(FormatadorData.formatarDataHorario(atividade.getHorarioInicialPrevisto()));
@@ -43,6 +43,7 @@ public class AtividadeViewHolder extends ChildViewHolder {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("atividade",atividade);
                 bundle.putBoolean("coordenador",coordenador);
+                bundle.putBoolean("avaliavao",isAvaliacao);
                 intent.putExtras(bundle);
                 v.getContext().startActivity(intent);
             }

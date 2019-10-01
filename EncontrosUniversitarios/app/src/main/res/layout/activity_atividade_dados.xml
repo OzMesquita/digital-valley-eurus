@@ -225,12 +225,13 @@ tools:context=".view.activity.AtividadeDadosActivity">
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
+                android:orientation="vertical"
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/iniciar_finalizar_atividade"
                     android:text="@string/iniciar_atividade"
                     android:textColor="@android:color/white"
-                    android:padding="20dp"
+                    android:padding="15dp"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:background="@drawable/round_green_button"
@@ -240,20 +241,21 @@ tools:context=".view.activity.AtividadeDadosActivity">
                     android:textSize="17dp"
                     android:layout_margin="10dp"
                     android:textAllCaps="false"/>
+
                 <Button
                     android:id="@+id/avaliar_atividade"
-                    android:text="@string/avaliar_atividade"
-                    android:textColor="@android:color/white"
-                    android:padding="20dp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:background="@drawable/round_green_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17dp"
+                    android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:textAllCaps="false"/>
+                    android:background="@drawable/round_green_button"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="@string/avaliar_atividade"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

@@ -24,10 +24,12 @@ public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEvent
     private List<ExpandableGroup> filteredGroups;
     private List<ExpandableGroup> originalList;
     private List<String> atividadesCoordenador;
-    public ProgramacaoAdapter(List<? extends ExpandableGroup> groups, Set<String> atividades) {
+    private  boolean isAvaliacao;
+    public ProgramacaoAdapter(List<? extends ExpandableGroup> groups, Set<String> atividades,boolean isAvaliacao) {
         super(groups);
         filteredGroups = new ArrayList<>();
         originalList = new ArrayList<>();
+        this.isAvaliacao = isAvaliacao;
         for(ExpandableGroup group:getGroups()){
             ExpandableGroup groupCopy = new ExpandableGroup(group.getTitle(),new ArrayList<>());
             groupCopy.getItems().addAll(group.getItems());
@@ -59,7 +61,8 @@ public class ProgramacaoAdapter extends ExpandableRecyclerViewAdapter<DiaDoEvent
     @Override
     public void onBindChildViewHolder(AtividadeViewHolder holder, int flatPosition, ExpandableGroup group, int childIndex) {
         final Atividade atividade = (Atividade) group.getItems().get(childIndex);
-        holder.bind(atividade,atividadesCoordenador == null ? false : atividadesCoordenador.contains(String.valueOf(atividade.getId())));
+        holder.bind(atividade,atividadesCoordenador == null ? false : atividadesCoordenador.contains(String.valueOf(atividade.getId())),
+                isAvaliacao ? atividadesCoordenador.contains(String.valueOf(atividade.getId())) : false);
     }
 
     @Override

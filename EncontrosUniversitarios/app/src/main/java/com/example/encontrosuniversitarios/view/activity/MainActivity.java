@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_frequencia:
                     MySharedPreferences preferences = MySharedPreferences.getInstance(getApplicationContext());
-                    getSupportActionBar().setTitle(R.string.title_frequencia);
+                    getSupportActionBar().setTitle("");
                     if (preferences.getUserId() != -1) {
                         if (preferences.getUserAccessLevel() == 0) {
                             getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());

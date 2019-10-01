@@ -1,7 +1,7 @@
 const db = require('./conexao')
 const modelCreator = require('./model_creator')
 
-function dataFormatada(){
+function dataForada(){
   // teste = row.horario_previsto;  //2019-05-03T13:35:00.000Z
 
   var data = new Date(Date.now())
@@ -271,8 +271,6 @@ const verificarAtividadeAvaliada = (request, response, next) => {
 
 const verificarAvaliacaoFeita = (request, response) => {
   const {atividade,avaliador} = request.body
-  console.log(atividade)
-  console.log(avaliador)
   db.pool.query('SELECT * FROM avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
     if(results.rowCount > 0){
       console.log("row >")

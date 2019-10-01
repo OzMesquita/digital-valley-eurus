@@ -24,6 +24,7 @@ import org.joda.time.DateTime;
 public class AtividadeDadosActivity extends AppCompatActivity {
     private static final String ATIVIDADE = "atividade";
     private static final String COORDENADOR = "coordenador";
+    private static final String AVALIACAO = "avaliacao";
 
     private AtividadeDadosViewModel atividadeDadosViewModel;
     private Button iniciarFinalizarAtividade;
@@ -34,6 +35,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
     private TextView horarioFinalizado;
 
     private boolean coordenador;
+    private boolean isAvaliacao;
     private boolean avaliador;
 
     @Override
@@ -59,6 +61,8 @@ public class AtividadeDadosActivity extends AppCompatActivity {
             Atividade atividade = intent.getParcelableExtra(ATIVIDADE);
             atividadeDadosViewModel.init(atividade);
             this.coordenador = intent.getBooleanExtra(COORDENADOR,false);
+            this.isAvaliacao = intent.getBooleanExtra(AVALIACAO,false);
+
         }
         ActivityAtividadeDadosBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_atividade_dados);
         binding.setAtividade(atividadeDadosViewModel.getAtividade().getValue());
@@ -82,13 +86,6 @@ public class AtividadeDadosActivity extends AppCompatActivity {
         configurarIniciarFinalizarAtividade();
         iniciarHorarios();
         atividadeDadosViewModel.verificarAtividadeJaAvaliada(this);
-
-        atividadeDadosViewModel.getAtividadeAvaliada().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-
-            }
-        });
 
         atividadeDadosViewModel.getAtividadeAvaliada().observe(this, new Observer<Boolean>() {
             @Override
@@ -127,7 +124,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
         });
         if(!avaliador){
             avaliarAtividade.setVisibility(View.GONE);
-        }else{
+        }else if(avaliador && isAvaliacao){
             iniciarFinalizarAtividade.setVisibility(View.GONE);
         }
         avaliarAtividade.setOnClickListener(new View.OnClickListener() {

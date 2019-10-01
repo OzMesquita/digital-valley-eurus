@@ -150,7 +150,7 @@ public class AtividadeRepositorio{
         atividadeService.verificarAtividadeJaAvaliada(avaliacaoAtividade).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-
+                listener.onSuccess(response.body());
             }
 
             @Override

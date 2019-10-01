@@ -48,7 +48,7 @@ public class AtividadesProfessorFragment extends Fragment implements Programacao
                     MySharedPreferences.getInstance(getContext()).setCoordinatorActivities(atividades);
                     MySharedPreferences.getInstance(getContext()).setRoom(atividades.get(0).getLocal().getSala().getId());
                 }
-                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities());
+                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(),true);
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
             }
         });
@@ -66,3 +66,5 @@ public class AtividadesProfessorFragment extends Fragment implements Programacao
         return programacaoDoDiaAdapter;
     }
 }
+
+
