@@ -2,14 +2,20 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-
-    android:layout_marginRight="10dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="5dp">
 
     <LinearLayout
         android:layout_width="330dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
 
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        >
 
         <TextView
             android:id="@+id/categoria"
@@ -17,14 +23,15 @@
             android:layout_height="wrap_content"
             android:text="Categoria do critério"
             android:gravity="center"
+            android:layout_marginTop="2dp"
             android:padding="10dp"
             android:textSize="20dp" />
 
         <TextView
             android:id="@+id/criterio"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:gravity="center"
             android:padding="10dp"
             android:text="O aluno apresentou boa postura na apresentação e seguiu os tópicos apresentados?"
