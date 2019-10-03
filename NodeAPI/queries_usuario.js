@@ -1,6 +1,6 @@
 const db = require('./conexao')
 const http = require('http')
-
+const nodemailer = require('nodemailer')
 
 const getUsuarios = (request, response) => {
   try {
@@ -196,6 +196,36 @@ const updateUsuario = (request, response) => {
     }
   }
 
+  const forgotPassword = (req, res) => {
+    const {email} = req.body
+    console.log(email)
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'matheusdin98@gmail.com',
+        pass: 'matheus15'
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    })
+
+    var mailOptions = {
+      from: 'matheusdin98@gmail.com',
+      to: email,
+      subject: 'Recuperação de senha - Aplicativo dos Encontros Universitários da UFC Campus Russas',
+      text: 'Foi solicitada a recuperação de senha da sua conta do Aplicativo dos Encontros Universitários, segue abaixo o link de recuperação de acesso. \n http://192.169.1.128:3000/form-recuperarsenha'
+    }
+
+    transporter.sendMail(mailOptions, function(error,info){
+      if(error){
+        console.log(error)
+      }else{
+        console.log('email sent: '+ info.response)
+      }
+    })
+  }
+
   const getValidacaoMatricula = (req, response) => {
 
     const matricula = req.params.matricula
@@ -219,6 +249,8 @@ const updateUsuario = (request, response) => {
       console.log("Errooo")
     })
   }
+
+  
   module.exports = {
     getUsuarios,
     getUsuarioById,
@@ -229,4 +261,5 @@ const updateUsuario = (request, response) => {
     getUsuarioByEmailSenha,
     getUsuarioByMatricula,
     getValidacaoMatricula,
+    forgotPassword
   }

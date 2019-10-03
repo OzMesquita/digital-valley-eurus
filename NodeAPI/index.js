@@ -8,6 +8,7 @@ const db_tra     = require('./queries_trabalho')
 const db_fre     = require('./queries_frequencia')
 const db_cri     = require('./queries_criterio')
 const bodyParser = require('body-parser')
+const path = require('path')
 const app        = express()
 const port       = 3000
 
@@ -30,7 +31,11 @@ app.get('/usuarios/:id', db_usu.getUsuarioById)
 app.post('/usuarios', db_usu.getUsuarioByEmailMatricula, db_usu.createUsuario)
 app.put('/usuarios/:id', db_usu.updateUsuario)
 app.delete('/usuarios/:id', db_usu.deleteUsuario)
-
+app.post('/recuperarsenha', db_usu.forgotPassword)
+app.get('/form-recuperarsenha', (req,res) => {
+  res.type('html')
+  res.sendFile(path.join(__dirname+'/reset_password.html'))
+})
 
 app.get('/atividades', db_ati.getAtividades)
 app.get('/atividades/:id', db_ati.getAtividadeById)
