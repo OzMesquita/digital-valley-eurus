@@ -19,6 +19,8 @@ app.use(
   })
 )
 
+app.use(express.static(__dirname + '/public'));
+
 app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
@@ -34,7 +36,7 @@ app.delete('/usuarios/:id', db_usu.deleteUsuario)
 app.post('/recuperarsenha', db_usu.forgotPassword)
 app.get('/form-recuperarsenha', (req,res) => {
   res.type('html')
-  res.sendFile(path.join(__dirname+'/reset_password.html'))
+  res.sendFile(path.join(__dirname+'/views/reset_password.html'))
 })
 
 app.get('/atividades', db_ati.getAtividades)
