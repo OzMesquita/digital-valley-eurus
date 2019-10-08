@@ -1,5 +1,6 @@
 package com.example.encontrosuniversitarios.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,12 +21,14 @@ import com.example.encontrosuniversitarios.R;
 //import com.example.encontrosuniversitarios.databinding.FragmentLoginBinding;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Usuario;
+import com.example.encontrosuniversitarios.view.activity.AvaliacaoAtividadeActivity;
+import com.example.encontrosuniversitarios.view.activity.RedefinirSenhaActivity;
 import com.example.encontrosuniversitarios.viewmodel.LoginViewModel;
 
 public class LoginFragment extends Fragment {
 
     private LoginViewModel loginViewModel;
-
+    private Button recuperarSenha;
     private EditText edtEmail;
     private EditText edtSenha;
 
@@ -47,6 +50,18 @@ public class LoginFragment extends Fragment {
         cadastrar = view.findViewById(R.id.buttonCadastrar);
         edtEmail = view.findViewById(R.id.editTextEmail);
         edtSenha = view.findViewById(R.id.editTextSenha);
+        recuperarSenha = view.findViewById(R.id.buttonEsqueciSenha);
+
+        recuperarSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), RedefinirSenhaActivity.class);
+                Bundle bundle = new Bundle();
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         botaoLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,6 +6,7 @@ import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.AvaliacaoAtividade;
 import com.example.encontrosuniversitarios.model.CriterioAtividade;
 import com.example.encontrosuniversitarios.model.ResultadoAvaliacao;
+import com.example.encontrosuniversitarios.model.Usuario;
 
 import org.joda.time.DateTime;
 
@@ -49,4 +50,5 @@ public interface AtividadeService {
 
     @GET("atividades/professor/{id}")
     Call<List<Atividade>> getAtividadesProfessor(@Path  ("id") int idProfessor);
+
  }

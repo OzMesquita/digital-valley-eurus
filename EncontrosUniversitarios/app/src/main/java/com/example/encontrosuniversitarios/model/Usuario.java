@@ -92,7 +92,6 @@ public class Usuario {
 
     public void setMatricula(String matricula) throws CampoVazioException, MatriculaInvalidaException {
         if(matricula==null || matricula.equals("")) {
-            Log.i("tt", "matt");
             throw new CampoVazioException("Matricula");
         }
         if(Validador.validarMatricula(matricula)) {
@@ -108,7 +107,6 @@ public class Usuario {
 
     public void setSenha(String senha) throws CampoVazioException, SenhaInvalidaException {
         if(senha==null || senha.equals("")) {
-            Log.i("ss", "matt");
             throw new CampoVazioException("Senha");
         }
         if(Validador.validarSenha(senha)){
@@ -116,7 +114,6 @@ public class Usuario {
         }else{
             throw new SenhaInvalidaException("A senha deve conter no mínimo 6 caracteres");
         }
-
     }
 
     public int getNivelAcesso() {

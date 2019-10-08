@@ -17,6 +17,7 @@ import com.example.encontrosuniversitarios.model.exceptions.EmailInvalidoExcepti
 import com.example.encontrosuniversitarios.model.exceptions.SenhaInvalidaException;
 import com.example.encontrosuniversitarios.view.fragment.LoginListener;
 import com.example.encontrosuniversitarios.view.fragment.LogoutListener;
+import com.example.encontrosuniversitarios.view.fragment.RedefinicaoSenhaListener;
 
 public class LoginViewModel extends ViewModel {
     private UsuarioRepositorio usuarioRepositorio;
@@ -29,16 +30,17 @@ public class LoginViewModel extends ViewModel {
     public void realizarLogin(String email, String senha, final LoginListener listener) {
         try {
             this.usuario = new Usuario(email, senha);
-            DadosLogin dadosLogin = new DadosLogin(this.usuario.getEmail(),this.usuario.getSenha());
+            DadosLogin dadosLogin = new DadosLogin(this.usuario.getEmail(), this.usuario.getSenha());
             this.usuarioRepositorio.realizarLogin(new ResponseListener() {
                 ValidacaoLogin validacao;
+
                 @Override
                 public void onSuccess(Object response) {
                     validacao = (ValidacaoLogin) response;
-                    if(validacao.isUnregisteredEmail()) listener.onUnregisteredEmail();
-                    if(validacao.isWrongPassword()) listener.onWrongPassword();
-                    if((!validacao.isWrongPassword() && !validacao.isUnregisteredEmail())
-                            && validacao.isLoginSuccessful() && validacao.getUsuarioLogado()!=null){
+                    if (validacao.isUnregisteredEmail()) listener.onUnregisteredEmail();
+                    if (validacao.isWrongPassword()) listener.onWrongPassword();
+                    if ((!validacao.isWrongPassword() && !validacao.isUnregisteredEmail())
+                            && validacao.isLoginSuccessful() && validacao.getUsuarioLogado() != null) {
                         usuario = validacao.getUsuarioLogado();
                         listener.onSuccess(usuario);
                     }
@@ -48,7 +50,7 @@ public class LoginViewModel extends ViewModel {
                 public void onFailure(String message) {
                     listener.onFailure(message);
                 }
-            },dadosLogin);
+            }, dadosLogin);
         } catch (CampoVazioException e) {
             listener.onEmptyField(e.getMessage());
         } catch (SenhaInvalidaException e) {
@@ -61,12 +63,27 @@ public class LoginViewModel extends ViewModel {
     public void realizarLogout(Context context, LogoutListener listener) {
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         boolean result = preferences.clearData();
-        if(result){
+        if (result) {
             listener.onSuccessfulLogout();
-        }else{
+        } else {
             listener.onFailure();
         }
     }
 
+    public void recuperacaoSenha(String email, final RedefinicaoSenhaListener listener) throws CampoVazioException {
+
+        this.usuarioRepositorio.recuperarSenha(new ResponseListener() {
+            @Override
+            public void onSuccess(Object response) {
+                listener.onSuccess();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                listener.onFailure(message);
+            }
+        }, email);
+    }
 }
+
 

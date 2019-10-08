@@ -105,4 +105,18 @@ public class UsuarioRepositorio {
             }
         });
     }
+    public void recuperarSenha(final ResponseListener listener, String email){
+        usuarioService.recuperarSenha(email).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                listener.onFailure("Erro ao solicitar redefinição de senha");
+            }
+        });
+    }
+
 }
