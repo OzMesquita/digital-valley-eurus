@@ -14,15 +14,13 @@ import java.util.Set;
 public class MySharedPreferences {
     private final String USER_ID = "USERID";
     private final String USER_NAME = "USERNAME";
+    private final String USER_EMAIL = "USEREMAIL";
     private final String USER_ACCESS_LEVEL = "USERACCESSLEVEL";
     private final String COORDINATOR_ACTIVITIES = "COORDINATORACTIVITIES";
     private final String ROOM = "ROOM";
-
     private static final String MY_PREFERENCES = "EURUSSAS";
-
     private static SharedPreferences preferences;
     private static SharedPreferences.Editor editor;
-
     private static MySharedPreferences mySharedPreferences;
 
     private MySharedPreferences(Context context) {
@@ -33,9 +31,7 @@ public class MySharedPreferences {
     public static MySharedPreferences getInstance(Context context) {
         if(mySharedPreferences == null){
             mySharedPreferences = new MySharedPreferences(context);
-            Log.i("USERID", "share " + mySharedPreferences.getUserId() );
         }
-
         return mySharedPreferences;
     }
 
@@ -43,6 +39,7 @@ public class MySharedPreferences {
         editor.putInt(USER_ID,usuario.getId());
         editor.putString(USER_NAME,usuario.getNome());
         editor.putInt(USER_ACCESS_LEVEL,usuario.getNivelAcesso());
+        editor.putString(USER_EMAIL,usuario.getEmail());
         editor.commit();
     }
 
@@ -85,4 +82,6 @@ public class MySharedPreferences {
         return preferences.getInt(USER_ACCESS_LEVEL,-1);
     }
 
+    public String getUserEmail() { return preferences.getString(USER_EMAIL,null);
+    }
 }
