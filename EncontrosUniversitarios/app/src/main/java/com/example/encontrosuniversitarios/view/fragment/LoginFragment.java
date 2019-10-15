@@ -3,13 +3,13 @@ package com.example.encontrosuniversitarios.view.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +21,6 @@ import com.example.encontrosuniversitarios.R;
 //import com.example.encontrosuniversitarios.databinding.FragmentLoginBinding;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Usuario;
-import com.example.encontrosuniversitarios.view.activity.AvaliacaoAtividadeActivity;
-import com.example.encontrosuniversitarios.view.activity.RedefinirSenhaActivity;
 import com.example.encontrosuniversitarios.viewmodel.LoginViewModel;
 
 public class LoginFragment extends Fragment {
@@ -55,10 +53,7 @@ public class LoginFragment extends Fragment {
         recuperarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RedefinirSenhaActivity.class);
-                Bundle bundle = new Bundle();
-                intent.putExtras(bundle);
-                startActivity(intent);
+                showRedefinirSenhaDialog();
             }
         });
 
@@ -151,6 +146,36 @@ public class LoginFragment extends Fragment {
         ft.replace(R.id.fragment_container, new CadastroUsuarioFragment());
         ft.addToBackStack(null);
         ft.commit();
+    }
+
+    public void showRedefinirSenhaDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View customLayout = getLayoutInflater().inflate(R.layout.redefinir_senha_dialog, null);
+
+        Button redefinir = customLayout.findViewById(R.id.button_redefinir_senha);
+        final EditText email = customLayout.findViewById(R.id.edit_redefinir_senha);
+
+       redefinir.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               loginViewModel.recuperacaoSenha(email.getText().toString(), new RedefinicaoSenhaListener() {
+                   @Override
+                   public void onSuccess() {
+                       Toast.makeText(getContext(),"O email de recuperação de senha foi enviado para: "+email.getText(), Toast.LENGTH_LONG).show();
+                   }
+                   @Override
+                   public void onFailure(String message) {
+
+                   }
+                   @Override
+                   public void onInvalidField() {
+                       email.setError("Email inválido");
+                   }
+               });
+           }
+       });
+        builder.setView(customLayout);
+        builder.show();
     }
 }
 

@@ -9,6 +9,7 @@ import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoLogin;
+import com.example.encontrosuniversitarios.model.Validador;
 import com.example.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
@@ -18,6 +19,8 @@ import com.example.encontrosuniversitarios.model.exceptions.SenhaInvalidaExcepti
 import com.example.encontrosuniversitarios.view.fragment.LoginListener;
 import com.example.encontrosuniversitarios.view.fragment.LogoutListener;
 import com.example.encontrosuniversitarios.view.fragment.RedefinicaoSenhaListener;
+
+import okhttp3.internal.Util;
 
 public class LoginViewModel extends ViewModel {
     private UsuarioRepositorio usuarioRepositorio;
@@ -70,19 +73,22 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    public void recuperacaoSenha(String email, final RedefinicaoSenhaListener listener) throws CampoVazioException {
+    public void recuperacaoSenha(String email, final RedefinicaoSenhaListener listener){
+        if (email.equals("") || !Validador.validarEmail(email)) {
+            listener.onInvalidField();
+        } else {
+            this.usuarioRepositorio.recuperarSenha(new ResponseListener() {
+                @Override
+                public void onSuccess(Object response) {
+                    listener.onSuccess();
+                }
 
-        this.usuarioRepositorio.recuperarSenha(new ResponseListener() {
-            @Override
-            public void onSuccess(Object response) {
-                listener.onSuccess();
-            }
-
-            @Override
-            public void onFailure(String message) {
-                listener.onFailure(message);
-            }
-        }, email);
+                @Override
+                public void onFailure(String message) {
+                    listener.onFailure(message);
+                }
+            }, email);
+        }
     }
 }
 

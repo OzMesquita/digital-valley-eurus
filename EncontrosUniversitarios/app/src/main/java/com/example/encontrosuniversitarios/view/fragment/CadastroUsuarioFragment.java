@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -146,8 +147,11 @@ public class CadastroUsuarioFragment extends Fragment {
 
                     @Override
                     public void onUnregisteredMatricula() {
-
-                        Toast.makeText(getContext(),"Matrícula não encontrada em nossa base de dados",Toast.LENGTH_LONG).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage("A matrícula fornecida não foi encontrada em nossa base de dados, por favor envie um email com sua nome, matrícula, email e curso para: n2s@ufc.br");
+                        builder.setPositiveButton("Ok", null);
+                        builder.show();
+                        //Toast.makeText(getContext(),"Matrícula não encontrada em nossa base de dados",Toast.LENGTH_LONG).show();
                     }
                 }, edtMatricula.getText().toString());
             }

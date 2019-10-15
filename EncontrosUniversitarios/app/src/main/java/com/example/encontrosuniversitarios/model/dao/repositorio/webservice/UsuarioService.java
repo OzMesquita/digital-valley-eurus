@@ -33,6 +33,6 @@ public interface UsuarioService {
     @GET("/usuario/verificacao/{matricula}")
     Call<VerificacaoMatricula> getVerificacaoMatricula(@Path("matricula") String matricula);
 
-    @POST("recuperarsenha/")
-    Call<Boolean> recuperarSenha(@Body String email);
+    @POST("recuperarsenha/{email}")
+    Call<Boolean> recuperarSenha(@Path("email")String email);
 }
