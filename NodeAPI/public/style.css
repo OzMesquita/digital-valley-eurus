@@ -1,0 +1,14 @@
+.my-btn{
+    background: #338a3e;
+    color: #fff;
+
+}
+
+.my-btn:hover{
+    color: #fff;
+    opacity: 0.8;
+}
+
+.form-control:focus{
+    box-shadow:0 0 0 .0rem rgba(0,123,255,.25);
+}

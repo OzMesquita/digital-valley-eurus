@@ -1,6 +1,7 @@
 const db = require('./conexao')
 const http = require('http')
 const nodemailer = require('nodemailer')
+const crypto = require('crypto')
 
 const getUsuarios = (request, response) => {
   try {
@@ -197,33 +198,54 @@ const updateUsuario = (request, response) => {
   }
 
   const forgotPassword = (req, res) => {
-    const {email} = req.body
-    console.log(email)
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'matheusdin98@gmail.com',
-        pass: 'matheus15'
-      },
-      tls: {
-        rejectUnauthorized: false
-      }
-    })
-
-    var mailOptions = {
-      from: 'matheusdin98@gmail.com',
-      to: email,
-      subject: 'Recuperação de senha - Aplicativo dos Encontros Universitários da UFC Campus Russas',
-      text: 'Foi solicitada a recuperação de senha da sua conta do Aplicativo dos Encontros Universitários, segue abaixo o link de recuperação de acesso. \n http://192.169.1.128:3000/form-recuperarsenha'
+    console.log('que porra')
+    try{
+      const email = req.params.email
+      var timeNow = Date.now()
+      var token = crypto.createHash('md5').update(timeNow.toString()+"-1-"+email).digest('hex')
+      db.pool.query('INSERT INTO recuperacao_senha(token,horario,email) VALUES($1,now(),$2)', [token,email], (error, results) => {
+        if(error == null){
+          const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'matheusdin98@gmail.com',
+              pass: 'matheus15'
+            },
+            tls: {
+              rejectUnauthorized: false
+            }
+          })
+      
+          var mailOptions = {
+            from: 'matheusdin98@gmail.com',
+            to: email,
+            subject: 'Recuperação de senha - Aplicativo dos Encontros Universitários da UFC Campus Russas',
+            text: 'Foi solicitada a recuperação de senha da sua conta do Aplicativo dos Encontros Universitários, segue abaixo o link de recuperação de acesso. \n http://192.169.1.128:3000/form-recuperarsenha/'+token
+          }
+      
+          transporter.sendMail(mailOptions, function(error,info){
+            if(error){
+              console.log(error)
+              console.log(error)
+              res.status(404).send(false)
+            }else{
+              console.log('email sent: '+ info.response)
+              res.status(200).send(true)
+            }
+          })
+        }else{
+          console.log(error)
+          res.status(404).send(false)
+        }
+      })
+      
+    }catch(ex){
+      console.log('Erro de recuperação de senha');
+      console.log(ex)
+      res.status(404).send(false)
+      return null;
     }
-
-    transporter.sendMail(mailOptions, function(error,info){
-      if(error){
-        console.log(error)
-      }else{
-        console.log('email sent: '+ info.response)
-      }
-    })
+    
   }
 
   const getValidacaoMatricula = (req, response) => {
