@@ -2,7 +2,7 @@ const db = require('./conexao')
 
 const verificarPodeCheckInCheckOut = (request, response, next) => {
     const { sala, id_usuario } = request.body
-    console.log(request.body)
+    //console.log(request.body)
     const queryResponse = { checkedInOnDifferentRoom: false, previousRoom: null, message: '', successful: false }
 
     db.pool.query('SELECT * FROM frequencia as f where f.usuario_fk = $1 and not f.sala_fk = $2 and f.check_out IS NULL',[id_usuario,sala], (error, results) => {

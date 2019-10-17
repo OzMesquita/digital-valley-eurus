@@ -23,6 +23,11 @@ public class ProgramacaoAbasAdapter extends FragmentStatePagerAdapter{
         this.titulos.add(titulo);
     }
 
+
+    public void add(Fragment fragment, int position){
+        fragments.add(position,fragment);
+    }
+
     @Override
     public Fragment getItem(int position) {
         return fragments.get(position);

@@ -81,12 +81,18 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
             }
         });
-        realizarFrequenciaViewModel.carregarAtividadesFrequencia(getContext());
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        realizarFrequenciaViewModel.carregarAtividadesFrequencia(getContext());
     }
 
     public void showMatriculaDialog() {
@@ -122,6 +128,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
 
                         @Override
                         public void onFailure(String message) {
+                            realizarFrequenciaViewModel.initDadosFrequencia(null);
                             matricula.setError("Não foi possível encontrar essa matrícula.");
                         }
                     },matricula.getText().toString());

@@ -43,7 +43,7 @@ public class AtividadeViewHolder extends ChildViewHolder {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("atividade",atividade);
                 bundle.putBoolean("coordenador",coordenador);
-                bundle.putBoolean("avaliavao",isAvaliacao);
+                bundle.putBoolean("avaliacao",isAvaliacao);
                 intent.putExtras(bundle);
                 v.getContext().startActivity(intent);
             }

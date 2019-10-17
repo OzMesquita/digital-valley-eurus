@@ -67,15 +67,16 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
         programacaoViewModel.getAtividadesDoDia().observe(this, new Observer<List<List<Atividade>>>() {
             @Override
             public void onChanged(List<List<Atividade>> lists) {
-                for(int i=0;i<3;i++){
-                    AtividadesFragment atividadesFragment = AtividadesFragment.newInstance(lists.get(i),i);
-                    programacaoAbasAdapter.addFragment(atividadesFragment,getString(nomesEstadoAtividade.get(i)));
+                for (int i = 0; i < 3; i++) {
+                    AtividadesFragment atividadesFragment = AtividadesFragment.newInstance(lists.get(i), i);
+                    if(programacaoAbasAdapter.getCount() < 3){
+                        programacaoAbasAdapter.addFragment(atividadesFragment, getString(nomesEstadoAtividade.get(i)));
+                    }
+
                 }
                 programacaoAbasAdapter.notifyDataSetChanged();
             }
         });
-
-        programacaoViewModel.carregarAtividadesDoDia();
 
         ViewPager viewPager = view.findViewById(R.id.programacao_do_dia_view_pager);
         viewPager.setAdapter(programacaoAbasAdapter);
@@ -88,18 +89,15 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
         return view;
     }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        programacaoViewModel.carregarAtividadesDoDia();
+    }
 
     @Override
     public Filterable getProgramacaoAdapter() {
         AtividadesFragment programacaoFragment = (AtividadesFragment) this.programacaoAbasAdapter.getItem(tabLayout.getSelectedTabPosition());
         return programacaoFragment.getProgramacaoAdapter();
     }
-
-    public void showSemAtividadesDialog(){
-
-
-    }
-
-
 }

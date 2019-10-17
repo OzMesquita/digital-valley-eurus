@@ -51,6 +51,14 @@ public class AtividadeDadosActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(8,intent);
+
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         Log.i("PROCURA","ATIVIDADEDADOSACTIVITY");
@@ -130,11 +138,12 @@ public class AtividadeDadosActivity extends AppCompatActivity {
 
             }
         });
-        if(!avaliador){
+        if(!isAvaliacao){
             avaliarAtividade.setVisibility(View.GONE);
-        }else if(avaliador && isAvaliacao){
-            iniciarFinalizarAtividade.setVisibility(View.GONE);
+        }else{
+            avaliarAtividade.setVisibility(View.VISIBLE);
         }
+
         avaliarAtividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

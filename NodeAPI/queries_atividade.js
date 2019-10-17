@@ -2,10 +2,8 @@ const db = require('./conexao')
 const modelCreator = require('./model_creator')
 
 function dataFormatada(){
-  // teste = row.horario_previsto;  //2019-05-03T13:35:00.000Z
-
   var data = new Date(Date.now())
-  console.log("data ",data);
+  //console.log("data ",data);
   dia = data.getDate();
   mes = data.getMonth() +1; //+1 pois no getMonth Janeiro começa com zero.
   ano = data.getFullYear();
@@ -13,9 +11,8 @@ function dataFormatada(){
   minutos = data.getMinutes();
   segundos = data.getSeconds();
   milisegundos = data.getMilliseconds();
-  // correta =
+
   return ano+"-"+mes+"-"+dia+"T"+hora+":"+minutos+":"+segundos+"."+milisegundos+"-0300";
-//2019-09-03T18:04:56.074Z
 }
 
 const getAtividades = (request, response) => {
@@ -30,7 +27,6 @@ const getAtividades = (request, response) => {
           atividades.push(index[row.id_atividade]);
         }
       });
-      console.log(atividades);
       response.status(200).json(atividades);
     });
   } catch(ex){
@@ -43,13 +39,10 @@ const getAtividades = (request, response) => {
 const getAtividadeById = (request, response) => {
   try {
     const id_ati = parseInt(request.params.id)
-    //var atividade = {}
 
     db.pool.query('SELECT * from  atividade as a join categoria as c on a.categoria_fk = c.id_categoria join local as l on a.local_fk=l.id_local join 	 trabalho as t on a.trabalho_fk=t.id_trabalho join usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala WHERE id_atividade = $1', [id_ati], (error, result) => {
 
-      //console.log(result);
       result.rows.forEach(function (row) {
-        //console.log("--------> row --- ",row);
         index = modelCreator.createAtividadeModel(row);
       });
       response.status(200).json(index);
@@ -83,7 +76,7 @@ const updateAtividade = (request, response) => {
   try {
     const id_atividade = parseInt(request.params.id)
     const {isHorarioInicio, horario} = request.body
-    console.log(request.body)
+    //console.log(request.body)
     var query = ""
     if(isHorarioInicio) {
       query = 'UPDATE atividade SET horario_inicial = now() WHERE id_atividade = $1'
@@ -101,7 +94,6 @@ const updateAtividade = (request, response) => {
     )
   } catch(ex){
     console.log('Erro ao atualizar atividade!');
-    console.log(ex)
     response.status(500).send(`Erro ao atualizar atividade`)
     return null;
   }
@@ -174,7 +166,7 @@ const getAtividadesProfessor = (request, response) => {
         result.rows.forEach(function (row) {
           avaliacoesProfessor.push(modelCreator.createAtividadeModel(row));
         });
-        console.log(avaliacoesProfessor)
+        //console.log(avaliacoesProfessor)
         response.status(200).json(avaliacoesProfessor);
     })
 
@@ -205,7 +197,6 @@ const getAtividadesFrequentadas = (request, response) => {
   )
 }
 const getMomento = (request, response) =>{
-  console.log("datafor ",dataFormatada())
   response.status(200).json(dataFormatada())
 }
 
@@ -220,7 +211,7 @@ const cadastrarNotas = async (request, response, next) => {
       createError = error
     }
   }
-  
+
   if(createError == null) {
     next()
   }else{
@@ -228,7 +219,7 @@ const cadastrarNotas = async (request, response, next) => {
 
     })
     queryResponse.error = true
-    console.log(queryResponse)
+    //console.log(queryResponse)
     response.status(500).json(queryResponse)
   }
 }
@@ -242,14 +233,14 @@ const cadastrarAvaliacao = (request, response) => {
   }
   var media = totalNotas / notas.length
   db.pool.query('INSERT INTO avaliacao_atividade(atividade_fk,avaliador_fk,media,comentario) VALUES($1,$2,$3,$4)',[atividade,avaliador,media.toFixed(2),comentarios],(error, results) => {
-    console.log(error)
+
     if(error == null){
       queryResponse.message = "A avaliação foi feita com sucesso"
-      console.log(queryResponse)
+      //console.log(queryResponse)
       response.status(201).json(queryResponse)
     }else{
       queryResponse.error = true
-      console.log(queryResponse)
+      //console.log(queryResponse)
       response.status(201).json(queryResponse)
     }
   })
@@ -261,7 +252,7 @@ const verificarAtividadeAvaliada = (request, response, next) => {
   db.pool.query('SELECT * FROM avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
     if(results.rowCount > 0){
       queryResponse.alreadyEvaluatedActivity = true;
-      console.log(queryResponse)
+      //console.log(queryResponse)
       response.status(400).json(queryResponse)
     }else{
       next()
@@ -273,10 +264,8 @@ const verificarAvaliacaoFeita = (request, response) => {
   const {atividade,avaliador} = request.body
   db.pool.query('SELECT * FROM avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
     if(results.rowCount > 0){
-      console.log("row >")
       response.status(200).send(true)
     }else{
-      console.log("row <")
       response.status(200).send(false)
     }
   })

@@ -52,7 +52,7 @@ public class AtividadesProfessorFragment extends Fragment implements Programacao
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
             }
         });
-        avaliacaoAtividadeViewModel.carregarAtividades(getContext());
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
@@ -60,6 +60,11 @@ public class AtividadesProfessorFragment extends Fragment implements Programacao
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        avaliacaoAtividadeViewModel.carregarAtividades(getContext());
+    }
 
     @Override
     public Filterable getProgramacaoAdapter() {

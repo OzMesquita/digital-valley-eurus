@@ -37,9 +37,7 @@ public class Local {
     }
 
     public String getLocalSala(){
-        String local;
-       // local = sala.getNome().concat(nome).concat(" " + andar + " Andar");
-       return local =  nome + " " + sala.getNumero() + ", "+ andar + " andar";
+       return nome + " " + sala.getNumero() + ", "+ andar + "º andar";
     }
 
     public String getAndar() {

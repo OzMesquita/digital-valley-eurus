@@ -63,15 +63,21 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
             public void onChanged(List<DiaEvento> diaEventos) {
                 diasEventos = diaEventos;
                 MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
-                programacaoAdapter = new ProgramacaoAdapter(diasEventos, preferences.getCoordinatorActivities(), preferences.getUserAccessLevel()==2);
+                programacaoAdapter = new ProgramacaoAdapter(diasEventos, null, false);
                 atividadesRecyclerView.setAdapter(programacaoAdapter);
             }
         });
-        programacaoViewModel.carregarAtividades();
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        programacaoViewModel.carregarAtividades();
     }
 
     @Override

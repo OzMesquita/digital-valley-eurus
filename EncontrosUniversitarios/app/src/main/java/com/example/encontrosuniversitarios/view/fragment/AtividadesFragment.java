@@ -92,7 +92,7 @@ public class AtividadesFragment extends Fragment implements ProgramacaoListInter
         TextView textView = view.findViewById(R.id.empty_list);
         atividadesRecyclerView = view.findViewById(R.id.programacao_do_dia_recycler_view);
         atividadesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades,MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(),false);
+        programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades,null,false);
         atividadesRecyclerView.setAdapter(programacaoDoDiaAdapter);
 
         if(atividades.size()== 0){

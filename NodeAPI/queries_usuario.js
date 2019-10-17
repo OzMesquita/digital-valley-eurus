@@ -36,12 +36,11 @@ const getUsuarioById = (request, response) => {
 const getUsuarioByMatricula = (request, response) => {
   try {
     const matricula = request.params.matricula
-    console.log(matricula)
     db.pool.query('SELECT nome,id_usuario FROM usuario where matricula = $1 LIMIT 1', [matricula], (error, results) => {
       response.status(200).json(results.rows[0])
     })
   }catch(ex){
-    console.log(ex)
+    //console.log(ex)
     console.log('Erro ao listar usuário!');
     response.status(500).send(`Erro ao listar usuário`)
     return null;
@@ -58,30 +57,27 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
         if(queryResponse.alreadyTakenMatricula && queryResponse.alreadyTakenEmail) break;
         if(results.rows[i].matricula == matricula){
           queryResponse.alreadyTakenMatricula = true
-          console.log("mat ",queryResponse.alreadyTakenMatricula)
         }
         if(results.rows[i].email == email){
           queryResponse.alreadyTakenEmail = true
-          console.log("email", queryResponse.alreadyTakenEmail)
         }
       }
-      console.log("email2", queryResponse.alreadyTakenEmail)
-      console.log("matricula", queryResponse.alreadyTakenMatricula)
+      // console.log("email2", queryResponse.alreadyTakenEmail)
+      // console.log("matricula", queryResponse.alreadyTakenMatricula)
       if(!queryResponse.alreadyTakenEmail && !queryResponse.alreadyTakenMatricula){
-          console.log("d ",queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
+          //console.log("d ",queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
         next()
       }else{
-        console.log("i ", queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
+        //console.log("i ", queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula)
         if(queryResponse.alreadyTakenMatricula){
           queryResponse.message = "Já existe uma conta com a matrícula fornecida"
         }else{
           queryResponse.message = "Já existe uma conta com o email fornecido"
         }
-        console.log('Matricula/email duplicado')
         response.status(201).json(queryResponse)
       }
     })
-    
+
   }catch(ex){
     console.log('Erro ao listar usuário, por matricula e email!');
     response.status(500).send(`Erro ao listar usuário, por matricula e email`)
@@ -121,7 +117,7 @@ const getUsuarioByEmailSenha = (request, response) => {
       } else {
         queryResponse.unregisteredEmail = true;
       }
-      console.log(queryResponse)
+      //console.log(queryResponse)
       response.status(200).json(queryResponse)
     });
   }catch(ex){
@@ -140,17 +136,17 @@ const createUsuario = (request, response) => {
     db.pool.query('INSERT INTO usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senha, nivel_acesso, nome], (error, result) => {
       if(error==null){
         queryResponse.message = "Usuário criado com sucesso"
-        console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
+        //console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
         response.status(201).json(queryResponse)
       }else{
         queryResponse.message = "Matrícula ou email já cadastrados"
         queryResponse.alreadyTakenMatricula = true;
-        console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
+        //console.log(queryResponse.alreadyTakenEmail, queryResponse.alreadyTakenMatricula);
         response.status(201).json(queryResponse)
       }
     })
   }catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao criar usuário!');
     response.status(500).send(`Erro ao criar usuário`)
     return null;
   }
@@ -198,7 +194,6 @@ const updateUsuario = (request, response) => {
   }
 
   const forgotPassword = (req, res) => {
-    console.log('que porra')
     try{
       const email = req.params.email
       var timeNow = Date.now()
@@ -215,37 +210,35 @@ const updateUsuario = (request, response) => {
               rejectUnauthorized: false
             }
           })
-      
+
           var mailOptions = {
             from: 'matheusdin98@gmail.com',
             to: email,
             subject: 'Recuperação de senha - Aplicativo dos Encontros Universitários da UFC Campus Russas',
             text: 'Foi solicitada a recuperação de senha da sua conta do Aplicativo dos Encontros Universitários, segue abaixo o link de recuperação de acesso. \n http://192.169.1.128:3000/form-recuperarsenha/'+token
           }
-      
+
           transporter.sendMail(mailOptions, function(error,info){
             if(error){
-              console.log(error)
-              console.log(error)
+              //console.log(error)
               res.status(404).send(false)
             }else{
-              console.log('email sent: '+ info.response)
+              //console.log('email sent: '+ info.response)
               res.status(200).send(true)
             }
           })
         }else{
-          console.log(error)
+          //console.log(error)
           res.status(404).send(false)
         }
       })
-      
+
     }catch(ex){
       console.log('Erro de recuperação de senha');
-      console.log(ex)
+      //console.log(ex)
       res.status(404).send(false)
       return null;
     }
-    
   }
 
   const getValidacaoMatricula = (req, response) => {
@@ -263,16 +256,14 @@ const updateUsuario = (request, response) => {
           const validacao = {matricula:null, nome:null}
           response.status(200).send(validacao)
         }else{
-          console.log(JSON.parse(data).explanation)
+          //console.log(JSON.parse(data).explanation)
           response.status(200).send(data)
         }
       })
     }).on("error", (err)=>{
-      console.log("Errooo")
     })
   }
 
-  
   module.exports = {
     getUsuarios,
     getUsuarioById,

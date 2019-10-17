@@ -13,7 +13,6 @@ import com.thoughtbot.expandablerecyclerview.viewholders.GroupViewHolder;
 
 public class DiaDoEventoViewHolder extends GroupViewHolder {
     private TextView diaDoEvento;
-    private TextView numeroItems;
     private ImageView arrow;
     private TextView numeroAtividades;
     public DiaDoEventoViewHolder(View itemView) {
@@ -30,7 +29,6 @@ public class DiaDoEventoViewHolder extends GroupViewHolder {
 
     @Override
     public void expand() {
-        Log.i("EXPAND","EXPAND");
         animateExpand();
     }
 
@@ -44,8 +42,7 @@ public class DiaDoEventoViewHolder extends GroupViewHolder {
                 new RotateAnimation(360, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(300);
         rotate.setFillAfter(true);
-        arrow.setAnimation(rotate);
-        arrow.animate();
+        arrow.startAnimation(rotate);
     }
 
     private void animateCollapse() {
@@ -53,7 +50,7 @@ public class DiaDoEventoViewHolder extends GroupViewHolder {
                 new RotateAnimation(180, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(300);
         rotate.setFillAfter(true);
-        arrow.setAnimation(rotate);
-        arrow.animate();
+        arrow.startAnimation(rotate);
+
     }
 }
