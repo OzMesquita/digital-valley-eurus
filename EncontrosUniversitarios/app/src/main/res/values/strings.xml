@@ -58,6 +58,7 @@
     <string name="avaliacao_atividades">Avaliação de Atividades</string>
     <string name="confirmar_nova_senha">Confirmar</string>
     <string name="recuperacao_senha">Recuperação de senha</string>
+    <string name="media">Média</string>
     <string name="matricula_inexistente">A matrícula fornecida não foi encontrada em nossa base de dados, por favor envie um email com sua nome, matrícula, email e curso para: n2s@ufc.br  </string>
 
 

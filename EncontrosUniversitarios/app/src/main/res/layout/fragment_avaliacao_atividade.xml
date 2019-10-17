@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textSize="20dp"
-                android:text="Media" />
+                android:text="@string/media" />
 
             <EditText
                 android:id="@+id/comentarios"
