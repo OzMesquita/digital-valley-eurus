@@ -20,7 +20,7 @@ app.use(
   })
 )
 
-app.use(express.static(__dirname + '/public'));
+app.use(__dirname,express.static('/public'));
 
 app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })

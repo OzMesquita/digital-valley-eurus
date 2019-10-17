@@ -73,7 +73,6 @@ public class Atividade implements Parcelable {
 
     public Boolean finalizar(DateTime momento) throws AtividadeFinalizadaAntesDoHorarioIniciadoException {
         if(this.horarioFinal==null && this.horarioInicio!=null){
-
             if(horarioInicio.getMillis() <= momento.getMillis()){
                 this.horarioFinal = momento;
                 return true;

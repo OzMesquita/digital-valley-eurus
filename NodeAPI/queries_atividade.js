@@ -1,7 +1,7 @@
 const db = require('./conexao')
 const modelCreator = require('./model_creator')
 
-function dataForada(){
+function dataFormatada(){
   // teste = row.horario_previsto;  //2019-05-03T13:35:00.000Z
 
   var data = new Date(Date.now())
