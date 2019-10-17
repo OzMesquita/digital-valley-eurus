@@ -19,6 +19,7 @@ import com.example.encontrosuniversitarios.viewmodel.AvaliacaoAtividadeViewModel
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MenuItem;
@@ -111,7 +112,8 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
         final TextView notaAtividadeAvaliada = customLayout.findViewById(R.id.nota_atividade_avaliada);
         nomeAtividadeAvaliada.setText(avaliacaoAtividadeViewModel.getAtividade().getNome());
         notaAtividadeAvaliada.setText(txtMedia.getText().toString());
-
+        double media = Double.valueOf(txtMedia.getText().toString().replaceAll("Media: ",""));
+        notaAtividadeAvaliada.setTextColor(media < 7 ? getResources().getColor(R.color.colorPrimaryDark) : getResources().getColor(R.color.colorSecondary));
         builder.setNegativeButton("Não", null);
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
@@ -131,17 +133,15 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess() {
                                 Toast.makeText(getBaseContext(), "Avaliação realizada com sucesso", Toast.LENGTH_LONG).show();
-                                onBackPressed();
+                                Intent intent = new Intent();
+                                setResult(RESULT_OK,intent);
+                                finish();
                             }
                         });
             }
         });
         builder.setView(customLayout);
         builder.show();
-
-
     }
-
-
 }
 

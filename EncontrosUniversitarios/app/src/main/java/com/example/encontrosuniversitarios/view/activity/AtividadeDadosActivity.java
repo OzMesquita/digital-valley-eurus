@@ -6,6 +6,8 @@ import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.view.fragment.AvaliacaoAtividadeFragment;
 import com.example.encontrosuniversitarios.viewmodel.AtividadeDadosViewModel;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -14,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +51,12 @@ public class AtividadeDadosActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("PROCURA","ATIVIDADEDADOSACTIVITY");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -55,7 +64,6 @@ public class AtividadeDadosActivity extends AppCompatActivity {
         Intent intent = getIntent();
         MySharedPreferences preferences = MySharedPreferences.getInstance(this);
         avaliador = preferences.getUserAccessLevel() == 2;
-
         if (intent.getParcelableExtra(ATIVIDADE) != null) {
             atividadeDadosViewModel = ViewModelProviders.of(this).get(AtividadeDadosViewModel.class);
             Atividade atividade = intent.getParcelableExtra(ATIVIDADE);
@@ -134,7 +142,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("atividade",atividadeDadosViewModel.getAtividade().getValue());
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
     }
@@ -164,6 +172,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
         iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_gray_buttom);
         iniciarFinalizarAtividade.setText(R.string.atividade_finalizada);
+
     }
 
     private void configurarIniciarFinalizarAtividade(){
@@ -195,5 +204,17 @@ public class AtividadeDadosActivity extends AppCompatActivity {
                 break;
         }
         return cor;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("PROCURA","RESULT");
+        if( requestCode == 1 ){
+            if( resultCode == RESULT_OK){
+                Log.i("PROCURA","FINISH");
+                finish();
+            }
+        }
     }
 }
