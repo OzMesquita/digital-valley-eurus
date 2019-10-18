@@ -51,17 +51,18 @@ tools:context=".view.activity.AtividadeDadosActivity">
                 android:gravity="center"
                 android:orientation="vertical"
                 android:layout_height="match_parent">
+
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="120dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
                     android:layout_marginBottom="4dp"
-                    android:src="@mipmap/ic_launcher_round" />
+                    android:src="@mipmap/eu_logo_azul" />
 
                 <TextView
                     android:id="@+id/nome_atividade"

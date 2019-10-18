@@ -25,9 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/get_user"
-        android:background="@drawable/round_gray_buttom"
+        android:background="@drawable/round_blue_buttom"
         android:textAllCaps="false"
         android:textSize="17dp"
+        android:textColor="@android:color/white"
         />
     <Button
         android:id="@+id/frequencia"
@@ -37,6 +38,7 @@
         android:background="@drawable/round_green_button"
         android:text="@string/frequencia"
         android:textAllCaps="false"
-        android:textSize="17dp"/>
+        android:textSize="17dp"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>
