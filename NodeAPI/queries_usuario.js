@@ -7,8 +7,13 @@ var salt = bcrypt.genSaltSync(10)
 
 const getUsuarios = (request, response) => {
   try {
-    db.pool.query('SELECT * FROM usuario ORDER BY id_usuario ASC', (error, results) => {
-      response.status(200).json(results.rows)
+    db.pool.query('SELECT * FROM '+db.db_name+'usuario ORDER BY id_usuario ASC', (error, results) => {
+      if(results!=null){
+        response.status(200).json(results.rows)
+      }else{
+        response.status(200).json([])
+      }
+
     })
   }catch(ex){
     console.log('Erro ao listar usuários!');
@@ -21,11 +26,11 @@ const getUsuarioById = (request, response) => {
   try {
     const id_usuario = parseInt(request.params.id)
 
-    db.pool.query('SELECT * FROM usuario WHERE id_usuario = $1', [id_usuario], (error, results) => {
-
+    db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE id_usuario = $1', [id_usuario], (error, results) => {
       if(id_usuario!=null){
         response.status(200).json(results.rows)
       }else{
+        response.status(200).json([])
       }
     })
   }catch(ex){
@@ -38,7 +43,7 @@ const getUsuarioById = (request, response) => {
 const getUsuarioByMatricula = (request, response) => {
   try {
     const matricula = request.params.matricula
-    db.pool.query('SELECT nome,id_usuario FROM usuario where matricula = $1 LIMIT 1', [matricula], (error, results) => {
+    db.pool.query('SELECT nome,id_usuario FROM '+db.db_name+'usuario where matricula = $1 LIMIT 1', [matricula], (error, results) => {
       response.status(200).json(results.rows[0])
     })
   }catch(ex){
@@ -53,14 +58,16 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
     const { matricula, email } = request.body
     const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false, message: ''}
 
-    db.pool.query('SELECT * FROM usuario WHERE matricula = $1 or email = $2', [matricula, email], (error, results) => {
-      for(var i=0; i<results.rowCount;i++){
-        if(queryResponse.alreadyTakenMatricula && queryResponse.alreadyTakenEmail) break;
-        if(results.rows[i].matricula == matricula){
-          queryResponse.alreadyTakenMatricula = true
-        }
-        if(results.rows[i].email == email){
-          queryResponse.alreadyTakenEmail = true
+    db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE matricula = $1 or email = $2', [matricula, email], (error, results) => {
+      if(results != null){
+        for(var i=0; i<results.rowCount;i++){
+          if(queryResponse.alreadyTakenMatricula && queryResponse.alreadyTakenEmail) break;
+          if(results.rows[i].matricula == matricula){
+            queryResponse.alreadyTakenMatricula = true
+          }
+          if(results.rows[i].email == email){
+            queryResponse.alreadyTakenEmail = true
+          }
         }
       }
       if(!queryResponse.alreadyTakenEmail && !queryResponse.alreadyTakenMatricula){
@@ -94,7 +101,7 @@ const getUsuarioByEmailSenha = (request, response) => {
 
     var senhaEncriptada = bcrypt.hashSync(senha, salt)
 
-    db.pool.query('SELECT * FROM usuario WHERE email = $1', [email], (error, results) => {
+    db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE email = $1', [email], (error, results) => {
 
       if (results.rowCount > 0) {
         console.log(results.rows[0])
@@ -130,10 +137,10 @@ const createUsuario = (request, response) => {
   try {
     const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false, message: ''}
     const {matricula, email, senha, nivel_acesso, nome} = request.body
-    
+
     var senhaEncriptada = bcrypt.hashSync(senha, salt)
     console.log(senhaEncriptada)
-    db.pool.query('INSERT INTO usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senhaEncriptada, nivel_acesso, nome], (error, result) => {
+    db.pool.query('INSERT INTO '+db.db_name+'usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senhaEncriptada, nivel_acesso, nome], (error, result) => {
       if(error==null){
         queryResponse.message = "Usuário criado com sucesso"
         response.status(201).json(queryResponse)
@@ -159,7 +166,7 @@ const updateUsuario = (request, response) => {
     var senhaEncriptada = bcrypt.hashSync(senha, salt)
 
     db.pool.query(
-      'UPDATE usuario SET cpf = $1, matricula = $2, email = $3, senha = $4, nivel_acesso = $5, nome = $6 WHERE id_usuario = $7',
+      'UPDATE '+db.db_name+'usuario SET cpf = $1, matricula = $2, email = $3, senha = $4, nivel_acesso = $5, nome = $6 WHERE id_usuario = $7',
       [cpf, matricula, email, senhaEncriptada, nivel_acesso, nome, id_usuario],
       (error, results) => {
         if(error == null){
@@ -179,7 +186,7 @@ const updateUsuario = (request, response) => {
     try {
       const id_usuario = parseInt(request.params.id)
 
-      db.pool.query('DELETE FROM usuario WHERE id_usuario = $1', [id_usuario], (error, results) => {
+      db.pool.query('DELETE FROM '+db.db_name+'usuario WHERE id_usuario = $1', [id_usuario], (error, results) => {
         if(error == null){
           response.status(200).send(`Usuario excluido ID: ${id_usuario}`)
         }else{
@@ -198,7 +205,7 @@ const updateUsuario = (request, response) => {
       const email = req.params.email
       var timeNow = Date.now()
       var token = crypto.createHash('md5').update(timeNow.toString()+"-1-"+email).digest('hex')
-      db.pool.query('INSERT INTO recuperacao_senha(token,horario,email) VALUES($1,now(),$2)', [token,email], (error, results) => {
+      db.pool.query('INSERT INTO '+db.db_name+'recuperacao_senha(token,horario,email) VALUES($1,now(),$2)', [token,email], (error, results) => {
         if(error == null){
           const transporter = nodemailer.createTransport({
             service: 'gmail',

@@ -44,7 +44,7 @@ tools:context=".view.activity.AtividadeDadosActivity">
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.6"
-                android:background="@drawable/ufc_campus_russas"/>
+                android:background="@mipmap/ufc_campus_russas"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
@@ -94,6 +94,7 @@ tools:context=".view.activity.AtividadeDadosActivity">
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:textSize="18dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"

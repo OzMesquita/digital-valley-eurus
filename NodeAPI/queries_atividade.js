@@ -1,6 +1,6 @@
 const db = require('./conexao')
 const modelCreator = require('./model_creator')
-
+db.db_name
 function dataFormatada(){
   var data = new Date(Date.now())
   //console.log("data ",data);
@@ -16,8 +16,9 @@ function dataFormatada(){
 }
 
 const getAtividades = (request, response) => {
+  console.log(db.db_name);
   try {
-    db.pool.query('SELECT * from  atividade as a join categoria as c on a.categoria_fk = c.id_categoria join local as l on a.local_fk=l.id_local join 	 trabalho as t on a.trabalho_fk=t.id_trabalho join usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala order by horario_previsto asc'
+    db.pool.query('SELECT * from  '+db.db_name+'atividade as a join '+db.db_name+'categoria as c on a.categoria_fk = c.id_categoria join '+db.db_name+'local as l on a.local_fk=l.id_local join 	 '+db.db_name+'trabalho as t on a.trabalho_fk=t.id_trabalho join '+db.db_name+'usuario as u on a.apresentador_fk=u.id_usuario join '+db.db_name+'sala on l.sala_fk=sala.id_sala order by horario_previsto asc'
     ,  (error, result) => {
       var atividades = [], index = {};
 
@@ -40,8 +41,7 @@ const getAtividadeById = (request, response) => {
   try {
     const id_ati = parseInt(request.params.id)
 
-    db.pool.query('SELECT * from  atividade as a join categoria as c on a.categoria_fk = c.id_categoria join local as l on a.local_fk=l.id_local join 	 trabalho as t on a.trabalho_fk=t.id_trabalho join usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala WHERE id_atividade = $1', [id_ati], (error, result) => {
-
+    db.pool.query('SELECT * from atividade as a join categoria as c on a.categoria_fk = c.id_categoria join local as l on a.local_fk=l.id_local join 	 trabalho as t on a.trabalho_fk=t.id_trabalho join usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala WHERE id_atividade = $1', [id_ati], (error, result) => {
       result.rows.forEach(function (row) {
         index = modelCreator.createAtividadeModel(row);
       });

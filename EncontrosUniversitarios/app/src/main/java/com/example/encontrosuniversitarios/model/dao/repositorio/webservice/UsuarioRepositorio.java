@@ -86,7 +86,6 @@ public class UsuarioRepositorio {
 
             @Override
             public void onFailure(Call<DadosFrequenciaUsuario> call, Throwable t) {
-
                 listener.onFailure(t.getMessage());
             }
         });
