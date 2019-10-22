@@ -44,7 +44,11 @@ const getUsuarioByMatricula = (request, response) => {
   try {
     const matricula = request.params.matricula
     db.pool.query('SELECT nome,id_usuario FROM '+db.db_name+'usuario where matricula = $1 LIMIT 1', [matricula], (error, results) => {
-      response.status(200).json(results.rows[0])
+      if(results!=null){
+        response.status(200).json(results.rows[0])
+      }else{
+        response.status(200).json(null)
+      }
     })
   }catch(ex){
     console.log('Erro ao listar usuário!');
@@ -103,8 +107,8 @@ const getUsuarioByEmailSenha = (request, response) => {
 
     db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE email = $1', [email], (error, results) => {
 
-      if (results.rowCount > 0) {
-        console.log(results.rows[0])
+      if (results!= null && results.rowCount > 0) {
+        //console.log(results.rows[0])
         if(results.rows[0].senha == senhaEncriptada) {
           const usuarioLogado = {
             id_usuario: results.rows[0].id_usuario,
@@ -139,7 +143,7 @@ const createUsuario = (request, response) => {
     const {matricula, email, senha, nivel_acesso, nome} = request.body
 
     var senhaEncriptada = bcrypt.hashSync(senha, salt)
-    console.log(senhaEncriptada)
+    //console.log(senhaEncriptada)
     db.pool.query('INSERT INTO '+db.db_name+'usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senhaEncriptada, nivel_acesso, nome], (error, result) => {
       if(error==null){
         queryResponse.message = "Usuário criado com sucesso"
@@ -210,8 +214,8 @@ const updateUsuario = (request, response) => {
           const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'matheusdin98@gmail.com',
-              pass: 'matheus15'
+              user: 'n2s.mensageiro@gmail.com',
+              pass: 'n2s@m@1ls3rv1c3'
             },
             tls: {
               rejectUnauthorized: false
@@ -219,10 +223,10 @@ const updateUsuario = (request, response) => {
           })
 
           var mailOptions = {
-            from: 'matheusdin98@gmail.com',
+            from: 'n2s.mensageiro@gmail.com',
             to: email,
             subject: 'Recuperação de senha - Aplicativo dos Encontros Universitários da UFC Campus Russas',
-            text: 'Foi solicitada a recuperação de senha da sua conta do Aplicativo dos Encontros Universitários, segue abaixo o link de recuperação de acesso. \n http://192.169.1.128:3000/form-recuperarsenha/'+token
+            text: 'Foi solicitada a recuperação de senha da sua conta do Aplicativo dos Encontros Universitários, segue abaixo o link de recuperação de acesso. \n http://omniscient-back.surge.sh/?token='+token
           }
 
           transporter.sendMail(mailOptions, function(error,info){

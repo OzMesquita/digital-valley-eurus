@@ -22,9 +22,18 @@ app.use(
 
 app.use(__dirname,express.static('/public'));
 
+var engine = require('consolidate');
+app.set('views', __dirname + '/views');
+app.engine('html', engine.mustache);
+app.set('view engine', 'html');
+
 app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
+
+// app.get('/forgot', (request, response)=> {
+//    response.render('./boi.html', { });
+// })
 
 app.get('/usuario/verificacao/:matricula', db_usu.getValidacaoMatricula)
 app.post('/auth', db_usu.getUsuarioByEmailSenha)
@@ -38,7 +47,7 @@ app.get('/recuperarsenha/:email', db_usu.forgotPassword)
 app.get('/form-recuperarsenha/:token', (req,res) => {
   res.type('html')
   console.log(__dirname)
-  res.sendFile(path.join(__dirname+'/views/reset_password.html'))
+  res.sendFile(path.join(__dirname+'/views/index.html'))
 })
 
 app.get('/atividades', db_ati.getAtividades)

@@ -1,7 +1,7 @@
 const db = require('./conexao')
 
 const getTrabalhos = (request, response) => {
-  db.pool.query('SELECT * FROM trabalho ORDER BY id_trabalho ASC', (error, results) => {
+  db.pool.query('SELECT * FROM '+db.db_name+'trabalho ORDER BY id_trabalho ASC', (error, results) => {
     if (error) {
       throw error
     }
@@ -12,7 +12,7 @@ const getTrabalhos = (request, response) => {
 const getTrabalhoById = (request, response) => {
   const id_trabalho = parseInt(request.params.id)
 
-  db.pool.query('SELECT * FROM trabalho WHERE id_trabalho = $1', [id_trabalho], (error, results) => {
+  db.pool.query('SELECT * FROM '+db.db_name+'trabalho WHERE id_trabalho = $1', [id_trabalho], (error, results) => {
     if (error) {
       throw error
     }
@@ -28,7 +28,7 @@ const createTrabalho = (request, response) => {
   // const id = parseInt(request.body)
   const {titulo, modalidade_fk, autor_fk, orientador} = request.body
 
-  db.pool.query('INSERT INTO trabalho (titulo, modalidade_fk, autor_fk, orientador) VALUES ($1, $2, $3, $4)', [titulo, modalidade_fk, autor_fk, orientador], (error, result) => {
+  db.pool.query('INSERT INTO '+db.db_name+'trabalho (titulo, modalidade_fk, autor_fk, orientador) VALUES ($1, $2, $3, $4)', [titulo, modalidade_fk, autor_fk, orientador], (error, result) => {
     if (error) {
       throw error
     }
@@ -41,7 +41,7 @@ const updateTrabalho = (request, response) => {
   const { titulo, modalidade_fk, autor_fk, orientador} = request.body
 
   db.pool.query(
-    'UPDATE trabalho SET titulo = $1, modalidade_fk = $2, autor_fk = $3, orientador = $4 WHERE id_trabalho = $5',
+    'UPDATE '+db.db_name+'trabalho SET titulo = $1, modalidade_fk = $2, autor_fk = $3, orientador = $4 WHERE id_trabalho = $5',
     [titulo, modalidade_fk, autor_fk, orientador, id_trabalho],
     (error, results) => {
       if (error) {
@@ -56,7 +56,7 @@ const updateTrabalho = (request, response) => {
 const deleteTrabalho = (request, response) => {
   const id_trabalho = parseInt(request.params.id)
 
-  db.pool.query('DELETE FROM trabalho WHERE id_trabalho = $1', [id_trabalho], (error, results) => {
+  db.pool.query('DELETE FROM '+db.db_name+'trabalho WHERE id_trabalho = $1', [id_trabalho], (error, results) => {
     if (error) {
       throw error
     }

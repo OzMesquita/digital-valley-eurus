@@ -21,13 +21,14 @@ const getAtividades = (request, response) => {
     db.pool.query('SELECT * from  '+db.db_name+'atividade as a join '+db.db_name+'categoria as c on a.categoria_fk = c.id_categoria join '+db.db_name+'local as l on a.local_fk=l.id_local join 	 '+db.db_name+'trabalho as t on a.trabalho_fk=t.id_trabalho join '+db.db_name+'usuario as u on a.apresentador_fk=u.id_usuario join '+db.db_name+'sala on l.sala_fk=sala.id_sala order by horario_previsto asc'
     ,  (error, result) => {
       var atividades = [], index = {};
-
-      result.rows.forEach(function (row) {
-        if ( !(row.id_atividade in index) ) {
-          index[row.id_atividade] = modelCreator.createAtividadeModel(row);
-          atividades.push(index[row.id_atividade]);
-        }
-      });
+      if(result!= null){
+        result.rows.forEach(function (row) {
+          if ( !(row.id_atividade in index) ) {
+            index[row.id_atividade] = modelCreator.createAtividadeModel(row);
+            atividades.push(index[row.id_atividade]);
+          }
+        });
+      }
       response.status(200).json(atividades);
     });
   } catch(ex){
@@ -41,10 +42,13 @@ const getAtividadeById = (request, response) => {
   try {
     const id_ati = parseInt(request.params.id)
 
-    db.pool.query('SELECT * from atividade as a join categoria as c on a.categoria_fk = c.id_categoria join local as l on a.local_fk=l.id_local join 	 trabalho as t on a.trabalho_fk=t.id_trabalho join usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala WHERE id_atividade = $1', [id_ati], (error, result) => {
-      result.rows.forEach(function (row) {
-        index = modelCreator.createAtividadeModel(row);
-      });
+    db.pool.query('SELECT * from '+db.db_name+'atividade as a join '+db.db_name+'categoria as c on a.categoria_fk = c.id_categoria join '+db.db_name+'local as l on a.local_fk=l.id_local join 	 '+db.db_name+'trabalho as t on a.trabalho_fk=t.id_trabalho join '+db.db_name+'usuario as u on a.apresentador_fk=u.id_usuario join '+db.db_name+'sala on l.sala_fk=sala.id_sala WHERE id_atividade = $1', [id_ati], (error, result) => {
+      index = null
+      if(result!= null){
+        result.rows.forEach(function (row) {
+          index = modelCreator.createAtividadeModel(row);
+        });
+      }
       response.status(200).json(index);
     });
   } catch(ex){
@@ -58,7 +62,7 @@ const createAtividade = (request, response) => {
   try {
     const {horario_previsto, horario_inicial, horario_final, trabalho_fk, descricao, nome_atividade, categoria_fk, local_fk, apresentador_fk} = request.body
 
-    db.pool.query('INSERT INTO atividade(horario_previsto,horario_inicial,horario_final,trabalho_fk,descricao,nome_atividade,categoria_fk,local_fk,apresentador_fk) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [horario_previsto, horario_inicial, horario_final, trabalho_fk, descricao, nome_atividade, categoria_fk, local_fk, apresentador_fk], (error, result) => {
+    db.pool.query('INSERT INTO '+db.db_name+'atividade(horario_previsto,horario_inicial,horario_final,trabalho_fk,descricao,nome_atividade,categoria_fk,local_fk,apresentador_fk) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [horario_previsto, horario_inicial, horario_final, trabalho_fk, descricao, nome_atividade, categoria_fk, local_fk, apresentador_fk], (error, result) => {
       if(error == null){
           response.status(201).send(`Atividade adicionada: ${nome_atividade}`)
       }else{
@@ -79,9 +83,9 @@ const updateAtividade = (request, response) => {
     //console.log(request.body)
     var query = ""
     if(isHorarioInicio) {
-      query = 'UPDATE atividade SET horario_inicial = now() WHERE id_atividade = $1'
+      query = 'UPDATE '+db.db_name+'atividade SET horario_inicial = now() WHERE id_atividade = $1'
     }else{
-      query = 'UPDATE atividade SET horario_final = now() WHERE id_atividade = $1'
+      query = 'UPDATE '+db.db_name+'atividade SET horario_final = now() WHERE id_atividade = $1'
     }
 
     db.pool.query(
@@ -102,7 +106,7 @@ const updateAtividade = (request, response) => {
 const deleteAtividade = (request, response) => {
   try {
     const id_atividade = parseInt(request.params.id)
-    db.pool.query('DELETE FROM atividade WHERE id_atividade = $1', [id_atividade], (error, results) => {
+    db.pool.query('DELETE FROM '+db.db_name+'atividade WHERE id_atividade = $1', [id_atividade], (error, results) => {
       if(error == null){
           response.status(200).send(`Atividade excluida ID: ${id_atividade}`)
       }else{
@@ -118,14 +122,13 @@ const deleteAtividade = (request, response) => {
 
 const getAtividadesHoje =(request, response) => {
   try {
-    db.pool.query('SELECT * from  atividade as a join categoria as c on a.categoria_fk = c.id_categoria join local as l on a.local_fk=l.id_local join trabalho as t on a.trabalho_fk=t.id_trabalho join usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala WHERE horario_previsto::date = CURRENT_DATE',  (error, result) => {
+    db.pool.query('SELECT * from  '+db.db_name+'atividade as a join '+db.db_name+'categoria as c on a.categoria_fk = c.id_categoria join '+db.db_name+'local as l on a.local_fk=l.id_local join '+db.db_name+'trabalho as t on a.trabalho_fk=t.id_trabalho join '+db.db_name+'usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala WHERE horario_previsto::date = CURRENT_DATE',  (error, result) => {
       var atividades = [];
-      if (error) {
-        throw error
+      if (result != null) {
+        result.rows.forEach(function (row) {
+          atividades.push(modelCreator.createAtividadeModel(row));
+        });
       }
-      result.rows.forEach(function (row) {
-        atividades.push(modelCreator.createAtividadeModel(row));
-      });
       response.status(200).json(atividades);
     });
   } catch(ex){
@@ -138,13 +141,14 @@ const getAtividadesHoje =(request, response) => {
 const getAtividadesCoordenadorSala = (request, response) => {
   try {
     const id_usuario = parseInt(request.params.id)
-    db.pool.query('SELECT * FROM atividade as a join local as l on a.local_fk=l.id_local join sala as s on l.sala_fk = s.id_sala join atividades_coordenador as ac on ac.sala_fk=s.id_sala join usuario as u on a.apresentador_fk=u.id_usuario WHERE ac.usuario_fk=$1',[id_usuario],
+    db.pool.query('SELECT * FROM '+db.db_name+'atividade as a join '+db.db_name+'local as l on a.local_fk=l.id_local join '+db.db_name+'sala as s on l.sala_fk = s.id_sala join '+db.db_name+'atividades_coordenador as ac on ac.sala_fk=s.id_sala join '+db.db_name+'usuario as u on a.apresentador_fk=u.id_usuario WHERE ac.usuario_fk=$1',[id_usuario],
     (error, result) => {
       var atividadesCoordenador = []
-
-      result.rows.forEach(function (row) {
-        atividadesCoordenador.push(modelCreator.createAtividadeModel(row));
-      });
+      if(result != null){
+        result.rows.forEach(function (row) {
+          atividadesCoordenador.push(modelCreator.createAtividadeModel(row));
+        });
+      }
       response.status(200).json(atividadesCoordenador);
     })
   } catch(ex){
@@ -157,15 +161,14 @@ const getAtividadesCoordenadorSala = (request, response) => {
 const getAtividadesProfessor = (request, response) => {
   try{
     const id_usuario = parseInt(request.params.id)
-    db.pool.query('SELECT * FROM atividade as a join local as l on a.local_fk=l.id_local join sala as s on l.sala_fk = s.id_sala join atividades_professor as ap on ap.atividade_fk=a.id_atividade join usuario as u on a.apresentador_fk=u.id_usuario WHERE ap.usuario_fk=$1', [id_usuario],
+    db.pool.query('SELECT * FROM '+db.db_name+'atividade as a join '+db.db_name+'local as l on a.local_fk=l.id_local join '+db.db_name+'sala as s on l.sala_fk = s.id_sala join '+db.db_name+'atividades_professor as ap on ap.atividade_fk=a.id_atividade join '+db.db_name+'usuario as u on a.apresentador_fk=u.id_usuario WHERE ap.usuario_fk=$1', [id_usuario],
       (error, result) => {
-        if (error) {
-          throw error
-        }
         var avaliacoesProfessor = []
-        result.rows.forEach(function (row) {
-          avaliacoesProfessor.push(modelCreator.createAtividadeModel(row));
-        });
+        if (result!=null) {
+          result.rows.forEach(function (row) {
+            avaliacoesProfessor.push(modelCreator.createAtividadeModel(row));
+          });
+        }
         //console.log(avaliacoesProfessor)
         response.status(200).json(avaliacoesProfessor);
     })
@@ -180,21 +183,19 @@ const getAtividadesProfessor = (request, response) => {
 const getAtividadesFrequentadas = (request, response) => {
 
   const id_usuario = parseInt(request.params.id)
-  db.pool.query('SELECT * FROM frequencia as f join sala as s on f.sala_fk=s.id_sala join local as l on l.sala_fk=s.id_sala join atividade as a on a.local_fk=l.id_local join usuario as u on u.id_usuario = a.apresentador_fk where a.horario_inicial >= f.check_in and a.horario_final <= f.check_out and f.usuario_fk = $1',[id_usuario],
+  db.pool.query('SELECT * FROM '+db.db_name+'frequencia as f join '+db.db_name+'sala as s on f.sala_fk=s.id_sala join '+db.db_name+'local as l on l.sala_fk=s.id_sala join '+db.db_name+'atividade as a on a.local_fk=l.id_local join '+db.db_name+'usuario as u on u.id_usuario = a.apresentador_fk where a.horario_inicial >= f.check_in and a.horario_final <= f.check_out and f.usuario_fk = $1',[id_usuario],
   (error, result) => {
-
     var atividades = [], index = {};
-
+    if(result!=null){
     result.rows.forEach(function (row) {
       if ( !(row.id_atividade in index) ) {
         index[row.id_atividade] = modelCreator.createAtividadeModel(row);
         atividades.push(index[row.id_atividade]);
       }
-    });
-
+      });
+    }
     response.status(200).json(atividades)
-  }
-  )
+  })
 }
 const getMomento = (request, response) =>{
   response.status(200).json(dataFormatada())
@@ -206,7 +207,7 @@ const cadastrarNotas = async (request, response, next) => {
   var createError = null
   const pool = db.pool
   for(var i=0;i<notas.length;i++){
-    const {error,results} = await pool.query('INSERT INTO nota_atividade(atividade_fk,avaliador_fk,criterio_fk,nota) VALUES($1,$2,$3,$4)',[atividade,avaliador,notas[i].criterio,notas[i].nota])
+    const {error,results} = await pool.query('INSERT INTO '+db.db_name+'nota_atividade(atividade_fk,avaliador_fk,criterio_fk,nota) VALUES($1,$2,$3,$4)',[atividade,avaliador,notas[i].criterio,notas[i].nota])
     if(error != null){
       createError = error
     }
@@ -215,7 +216,7 @@ const cadastrarNotas = async (request, response, next) => {
   if(createError == null) {
     next()
   }else{
-    db.pool.query('DELETE * FROM nota_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
+    db.pool.query('DELETE * FROM '+db.db_name+'nota_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
 
     })
     queryResponse.error = true
@@ -232,7 +233,7 @@ const cadastrarAvaliacao = (request, response) => {
     totalNotas += notas[i].nota
   }
   var media = totalNotas / notas.length
-  db.pool.query('INSERT INTO avaliacao_atividade(atividade_fk,avaliador_fk,media,comentario) VALUES($1,$2,$3,$4)',[atividade,avaliador,media.toFixed(2),comentarios],(error, results) => {
+  db.pool.query('INSERT INTO '+db.db_name+'avaliacao_atividade(atividade_fk,avaliador_fk,media,comentario) VALUES($1,$2,$3,$4)',[atividade,avaliador,media.toFixed(2),comentarios],(error, results) => {
 
     if(error == null){
       queryResponse.message = "A avaliação foi feita com sucesso"
@@ -249,7 +250,7 @@ const cadastrarAvaliacao = (request, response) => {
 const verificarAtividadeAvaliada = (request, response, next) => {
   const {atividade,avaliador} = request.body
   const queryResponse = {alreadyEvaluatedActivity: false, error: false, message: ''}
-  db.pool.query('SELECT * FROM avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
+  db.pool.query('SELECT * FROM '+db.db_name+'avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
     if(results.rowCount > 0){
       queryResponse.alreadyEvaluatedActivity = true;
       //console.log(queryResponse)
@@ -262,7 +263,7 @@ const verificarAtividadeAvaliada = (request, response, next) => {
 
 const verificarAvaliacaoFeita = (request, response) => {
   const {atividade,avaliador} = request.body
-  db.pool.query('SELECT * FROM avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
+  db.pool.query('SELECT * FROM '+db.db_name+'avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
     if(results.rowCount > 0){
       response.status(200).send(true)
     }else{

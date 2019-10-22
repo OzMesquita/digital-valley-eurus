@@ -4,9 +4,14 @@ const http = require('http')
 
 const getCriterios = (request, response) => {
   try {
-    db.pool.query('SELECT * FROM criterio ORDER BY id ASC', (error, results) => {
-      response.status(200).json(results.rows)
-      console.log(results.rows);
+    db.pool.query('SELECT * FROM '+db.db_name+'criterio ORDER BY id ASC', (error, results) => {
+
+    //  console.log(results.rows);
+    if(results!= null){
+        response.status(200).json(results.rows)
+    }else{
+        response.status(200).json([])
+    }
     })
   }catch(ex){
     console.log('Erro ao listar criterios!');
@@ -18,7 +23,7 @@ const getCriterios = (request, response) => {
 const createCriterio = (request, response) => {
   try {
     const { criterio,categoria } = request.body
-    db.pool.query('INSERT INTO criterio(criterio,categoria) VALUES($1,$2)',[criterio,categoria],(error,results) => {
+    db.pool.query('INSERT INTO '+db.db_name+'criterio(criterio,categoria) VALUES($1,$2)',[criterio,categoria],(error,results) => {
       if(error == null){
         response.status(201).json('Critério criado com sucesso')
       }else{
