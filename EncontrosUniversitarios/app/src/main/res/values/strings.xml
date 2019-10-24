@@ -13,7 +13,7 @@
     <string name="started_activity">Em andamento</string>
     <string name="finished_activity">Finalizada</string>
     <string name="next_activity">Não iniciada</string>
-    <string name="fragment_realizar_frequencia_upper_text">Carregando dados...</string>
+    <string name="fragment_realizar_frequencia_upper_text">Frequência</string>
     <string name="my_activities">Minhas atividades</string>
     <string name="realizar_frequencia">Realizar frequência - Sala</string>
     <string name="qr_code_title">Meu Código</string>

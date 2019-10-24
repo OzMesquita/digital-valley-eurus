@@ -49,7 +49,7 @@ public class LoginFragment extends Fragment {
         edtEmail = view.findViewById(R.id.editTextEmail);
         edtSenha = view.findViewById(R.id.editTextSenha);
         recuperarSenha = view.findViewById(R.id.buttonEsqueciSenha);
-
+        recuperarSenha.setVisibility(View.GONE);
         recuperarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +115,7 @@ public class LoginFragment extends Fragment {
 
     private void showEmptyFieldMessage(String campo) {
         switch (campo) {
-            case "Matricula":
+            case "Email":
                 edtEmail.setError(getContext().getResources().getString(R.string.blank_field_message));
                 break;
             case "Senha":

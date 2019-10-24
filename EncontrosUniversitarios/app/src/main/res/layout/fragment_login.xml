@@ -117,7 +117,6 @@
                     android:text="@string/esqueci_senha"
                     android:textColor="@color/colorPrimary"
                     android:textAllCaps="false"
-
                     android:textSize="17dp"/>
             </LinearLayout>
         </RelativeLayout>

@@ -102,9 +102,9 @@ public class Atividade implements Parcelable {
         this.nome = bundle.getString("nome");
         long hInicio = bundle.getLong("horario_inicio");
         long hFinal = bundle.getLong("horario_final");
-        this.horarioInicio = hInicio != 0 ? new DateTime(hInicio-3600000*3) : null;
-        this.horarioFinal = hFinal != 0 ? new DateTime(hFinal-3600000*3) : null;
-        this.horarioInicialPrevisto = new DateTime(bundle.getLong("horario_inicio_previsto")-3600000*3);
+        this.horarioInicio = hInicio != 0 ? new DateTime(hInicio) : null;
+        this.horarioFinal = hFinal != 0 ? new DateTime(hFinal) : null;
+        this.horarioInicialPrevisto = new DateTime(bundle.getLong("horario_inicio_previsto"));
         this.descricao = bundle.getString("descricao");
         this.id = bundle.getInt("id");
         Local local = new Local();

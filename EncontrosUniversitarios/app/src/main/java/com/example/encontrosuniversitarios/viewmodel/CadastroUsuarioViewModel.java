@@ -66,7 +66,7 @@ public class CadastroUsuarioViewModel extends ViewModel {
                 public void onSuccess(Object response) {
                     VerificacaoMatricula verMatricula = (VerificacaoMatricula) response;
 
-                    if(verMatricula.getMatricula()!= null && verMatricula.getNome()!=null){
+                    if(!verMatricula.getStatus().equals("failure") && verMatricula.getData().getMatricula()!= null && verMatricula.getData().getNome()!=null){
                         listener.onValidMatricula();
                         verificacaoMatricula.setValue(verMatricula);
                     }else {

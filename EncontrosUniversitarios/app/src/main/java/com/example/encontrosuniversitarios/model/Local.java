@@ -37,7 +37,8 @@ public class Local {
     }
 
     public String getLocalSala(){
-       return nome + " " + sala.getNumero() + ", "+ andar + "º andar";
+        String numero = sala.getNumero() == 0 ? "" : ""+sala.getNumero();
+       return nome + " " + numero + ", "+ andar + "º andar, "+pontoReferencia;
     }
 
     public String getAndar() {

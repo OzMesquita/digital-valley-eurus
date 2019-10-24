@@ -79,6 +79,7 @@ public class QRCodeHelper {
         bitmap = Bitmap.createScaledBitmap(bitmap,bitmap.getWidth(),bitmap.getHeight(),true);
         canvas.drawBitmap(bitmap,0,0,null);
         document.finishPage(page);
+//        String path = Environment.DIRECTORY_DOCUMENTS;
         String targetPdf = "sdcard/Documents/"+userName+".pdf";
         File filePath = new File(targetPdf);
         try {

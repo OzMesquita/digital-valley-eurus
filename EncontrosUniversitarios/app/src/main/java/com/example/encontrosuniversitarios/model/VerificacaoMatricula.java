@@ -1,28 +1,42 @@
 package com.example.encontrosuniversitarios.model;
 
 public class VerificacaoMatricula {
+    private String message;
+    private Data data;
+    private String status;
 
-    private String matricula;
-    private String nome;
-
-    public VerificacaoMatricula(String matricula, String nome) {
-        this.matricula = matricula;
-        this.nome = nome;
+    public VerificacaoMatricula() {
     }
 
-    public String getMatricula() {
-        return matricula;
+    public VerificacaoMatricula(String message, Data data, String status) {
+        this.message = message;
+        this.data = data;
+        this.status = status;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public Data getData() {
+        return data;
     }
 
-    public String getNome() {
-        return nome;
+    public String getMessage() {
+        return message;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
     }
 }
+
+

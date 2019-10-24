@@ -11,15 +11,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="right">
+
         <TextView
             android:id="@+id/sala"
-            android:layout_gravity="center"
-            android:textSize="20dp"
-            android:fontFamily="sans-serif-light"
-            android:layout_margin="10dp"
-            android:text="@string/fragment_realizar_frequencia_upper_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/fragment_realizar_frequencia_upper_text"
+            android:textSize="20dp" />
         <Button
             android:id="@+id/freq_matricula"
             android:text="@string/matricula"

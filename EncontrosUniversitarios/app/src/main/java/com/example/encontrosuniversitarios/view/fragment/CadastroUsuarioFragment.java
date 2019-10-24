@@ -56,13 +56,16 @@ public class CadastroUsuarioFragment extends Fragment {
         edtEmail = view.findViewById(R.id.edtEmail);
         edtMatricula = view.findViewById(R.id.edtMatricula);
         edtSenha = view.findViewById(R.id.edtSenha);
+        edtEmail.setVisibility(View.GONE);
+        edtSenha.setVisibility(View.GONE);
+
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               if(cadastroUsuarioViewModel.getVerificacaoMatricula().getValue() != null){
 
                   cadastroUsuarioViewModel.cadastrarUsuario(txtName.getText().toString(), edtMatricula.getText().toString(),
-                          edtEmail.getText().toString(), edtSenha.getText().toString(), new CadastroUsuarioListener() {
+                          edtMatricula.getText().toString()+"@teste.com", "senhateste", new CadastroUsuarioListener() {
                               @Override
                               public void onSuccess(String message) {
                                   Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
@@ -116,8 +119,8 @@ public class CadastroUsuarioFragment extends Fragment {
             @Override
             public void onChanged(VerificacaoMatricula usuario) {
                 if(usuario!=null) {
-                    txtName.setText(usuario.getNome());
-                    txtMatricula.setText(usuario.getMatricula());
+                    txtName.setText(usuario.getData().getNome());
+                    txtMatricula.setText(usuario.getData().getMatricula());
                 }else{
                     txtName.setText("");
                     txtMatricula.setText("");

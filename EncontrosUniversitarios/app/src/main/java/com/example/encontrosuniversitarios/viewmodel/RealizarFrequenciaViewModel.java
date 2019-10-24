@@ -112,7 +112,7 @@ public class RealizarFrequenciaViewModel extends ViewModel {
                 }
             }, new DadosCheckIn(usuarioFrequencia.getValue().getId(),roomId));
         }else{
-            listener.onFailure("Ocorreu uma falha ao tentar realizar esta operação");
+            listener.onFailure("Você não possui permissão para realizar esta operação");
         }
     }
 
