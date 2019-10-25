@@ -26,10 +26,10 @@
             android:text="@string/matricula"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_green_button"
+            android:background="@drawable/custom_button_green"
             android:textColor="@android:color/white"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
             android:textAllCaps="false"
             android:textSize="17dp"
             />
@@ -38,11 +38,11 @@
             android:text="@string/qrcode"
             android:layout_width="match_parent"
             android:textColor="@android:color/white"
-            android:background="@drawable/round_green_button"
+            android:background="@drawable/custom_button_green"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="12dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="12dp"
             android:textAllCaps="false"
             android:textSize="17dp"/>
     </LinearLayout>
