@@ -52,8 +52,6 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Nullable
@@ -72,7 +70,6 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
                     if(programacaoAbasAdapter.getCount() < 3){
                         programacaoAbasAdapter.addFragment(atividadesFragment, getString(nomesEstadoAtividade.get(i)));
                     }
-
                 }
                 programacaoAbasAdapter.notifyDataSetChanged();
             }

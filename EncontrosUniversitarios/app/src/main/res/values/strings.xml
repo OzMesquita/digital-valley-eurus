@@ -54,6 +54,7 @@
     <string name="read_matricula">Digite a matricula do participante</string>
     <string name="get_user">Verificar matrícula</string>
     <string name="frequencia">Realizar Frequência</string>
+    <string name="ckeckin_checkout">Checkin/Checkout</string>
     <string name="generate_pdf">Gerar PDF</string>
     <string name="avaliacao_atividades">Avaliação de Atividades</string>
     <string name="confirmar_nova_senha">Confirmar</string>

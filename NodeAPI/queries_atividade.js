@@ -122,14 +122,18 @@ const deleteAtividade = (request, response) => {
 
 const getAtividadesHoje =(request, response) => {
   try {
-    db.pool.query('SELECT * from  '+db.db_name+'atividade as a join '+db.db_name+'categoria as c on a.categoria_fk = c.id_categoria join '+db.db_name+'local as l on a.local_fk=l.id_local join '+db.db_name+'trabalho as t on a.trabalho_fk=t.id_trabalho join '+db.db_name+'usuario as u on a.apresentador_fk=u.id_usuario join sala on l.sala_fk=sala.id_sala WHERE horario_previsto::date = CURRENT_DATE',  (error, result) => {
+    db.pool.query('SELECT * from  '+db.db_name+'atividade as a join '+db.db_name+'categoria as c on a.categoria_fk = c.id_categoria join '+db.db_name+'local as l on a.local_fk=l.id_local join '+db.db_name+'trabalho as t on a.trabalho_fk=t.id_trabalho join '+db.db_name+'usuario as u on a.apresentador_fk=u.id_usuario join '+db.db_name+'sala on l.sala_fk=sala.id_sala WHERE horario_previsto::date = CURRENT_DATE',  (error, result) => {
       var atividades = [];
+      console.log(result)
       if (result != null) {
         result.rows.forEach(function (row) {
           atividades.push(modelCreator.createAtividadeModel(row));
         });
+        response.status(200).json(atividades);
+      }else{
+        response.status(200).json([]);
       }
-      response.status(200).json(atividades);
+
     });
   } catch(ex){
     console.log('Erro ao listar atividades de hoje!');

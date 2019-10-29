@@ -59,13 +59,13 @@ public class QRCodeHelper {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.qr_code_title);
         builder.setView(imageView);
-        builder.setNeutralButton(R.string.close,null);
-        builder.setPositiveButton(R.string.generate_pdf, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                saveQRCodeAsPdf(userQRCodeBitmap,userName,context);
-            }
-        });
+        builder.setPositiveButton(R.string.close,null);
+//        builder.setPositiveButton(R.string.generate_pdf, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                saveQRCodeAsPdf(userQRCodeBitmap,userName,context);
+//            }
+//        });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }

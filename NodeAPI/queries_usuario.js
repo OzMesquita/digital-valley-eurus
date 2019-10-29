@@ -205,6 +205,7 @@ const updateUsuario = (request, response) => {
   }
 
   const forgotPassword = (req, res) => {
+    console.log("jcfhkvk");
     try{
       const email = req.params.email
       var timeNow = Date.now()
@@ -226,27 +227,27 @@ const updateUsuario = (request, response) => {
             from: 'n2s.mensageiro@gmail.com',
             to: email,
             subject: 'Recuperação de senha - Aplicativo dos Encontros Universitários da UFC Campus Russas',
-            text: 'Foi solicitada a recuperação de senha da sua conta do Aplicativo dos Encontros Universitários, segue abaixo o link de recuperação de acesso. \n http://omniscient-back.surge.sh/?token='+token
+            text: 'Foi solicitada a recuperação de senha da sua conta do Aplicativo dos Encontros Universitários, segue abaixo o link de recuperação de acesso. \n http://omniscient-back.surge.sh/?token'+token
           }
 
           transporter.sendMail(mailOptions, function(error,info){
             if(error){
-              //console.log(error)
+              console.log(error)
               res.status(404).send(false)
             }else{
-              //console.log('email sent: '+ info.response)
+              console.log('email sent: '+ info.response)
               res.status(200).send(true)
             }
           })
         }else{
-          //console.log(error)
+          console.log(error)
           res.status(404).send(false)
         }
       })
 
     }catch(ex){
       console.log('Erro de recuperação de senha');
-      //console.log(ex)
+      console.log(ex)
       res.status(404).send(false)
       return null;
     }
@@ -255,6 +256,7 @@ const updateUsuario = (request, response) => {
   const getValidacaoMatricula = (req, response) => {
     const matricula = req.params.matricula
     http.get('http://192.169.1.2:8080/guardiao/api/Service?matricula='+matricula, (res)=> {
+    // http.get('http://192.169.1.103:3001/ws/api/aluno?matricula='+matricula, (res)=> {
       let data = ''
 
       res.on('data',(chunk)=>{
