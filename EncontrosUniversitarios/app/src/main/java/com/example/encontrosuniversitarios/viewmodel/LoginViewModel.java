@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.lifecycle.ViewModel;
 
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
+import com.example.encontrosuniversitarios.model.AlterarSenhaResponse;
+import com.example.encontrosuniversitarios.model.DadosAlterarSenha;
 import com.example.encontrosuniversitarios.model.DadosLogin;
 import com.example.encontrosuniversitarios.model.Usuario;
 import com.example.encontrosuniversitarios.model.ValidacaoLogin;
@@ -16,6 +18,7 @@ import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.Usua
 import com.example.encontrosuniversitarios.model.exceptions.CampoVazioException;
 import com.example.encontrosuniversitarios.model.exceptions.EmailInvalidoException;
 import com.example.encontrosuniversitarios.model.exceptions.SenhaInvalidaException;
+import com.example.encontrosuniversitarios.view.fragment.AlterarSenhaListener;
 import com.example.encontrosuniversitarios.view.fragment.LoginListener;
 import com.example.encontrosuniversitarios.view.fragment.LogoutListener;
 import com.example.encontrosuniversitarios.view.fragment.RedefinicaoSenhaListener;
@@ -88,6 +91,37 @@ public class LoginViewModel extends ViewModel {
                     listener.onFailure(message);
                 }
             }, email);
+        }
+    }
+
+    public void alterarSenha(String token, String password, String confirmPassword, final AlterarSenhaListener listener){
+        if(token.isEmpty()){
+            listener.onEmptyField("TOKEN");
+        }else if(password.isEmpty()){
+            listener.onEmptyField("PASSWORD");
+        }else if(confirmPassword.isEmpty()){
+            listener.onEmptyField("CPASSWORD");
+        }else if(!password.equals(confirmPassword)) {
+            listener.onPasswordsDoesntMatch();
+        }else if(password.length() < 6 || confirmPassword.length() < 6){
+            listener.onShortPassword();
+        }else{
+            this.usuarioRepositorio.alterarSenha(new ResponseListener() {
+                @Override
+                public void onSuccess(Object response) {
+                    AlterarSenhaResponse alterarSenhaResponse = (AlterarSenhaResponse) response;
+                    if(alterarSenhaResponse.isInvalidToken()){
+                        listener.onInvalidToken();
+                    }else{
+                        listener.onSuccess();
+                    }
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    listener.onFailure(message);
+                }
+            },new DadosAlterarSenha(token,password));
         }
     }
 }

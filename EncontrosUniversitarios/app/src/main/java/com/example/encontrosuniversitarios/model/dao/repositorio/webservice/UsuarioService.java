@@ -1,6 +1,8 @@
 package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
+import com.example.encontrosuniversitarios.model.AlterarSenhaResponse;
 import com.example.encontrosuniversitarios.model.Atividade;
+import com.example.encontrosuniversitarios.model.DadosAlterarSenha;
 import com.example.encontrosuniversitarios.model.DadosCheckIn;
 import com.example.encontrosuniversitarios.model.DadosFrequenciaUsuario;
 import com.example.encontrosuniversitarios.model.DadosLogin;
@@ -35,4 +37,7 @@ public interface UsuarioService {
 
     @POST("recuperarsenha/{email}")
     Call<Boolean> recuperarSenha(@Path("email")String email);
+
+    @POST("alterarsenha")
+    Call<AlterarSenhaResponse> alterarSenha(@Body DadosAlterarSenha dadosAlterarSenha);
 }

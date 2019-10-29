@@ -204,6 +204,44 @@ const updateUsuario = (request, response) => {
     }
   }
 
+  const updatePassword = (request, response) => {
+    try{
+      const {token, password} = request.body
+      const updatePasswordResponse = {
+        invalidToken: false,
+        message: null,
+      }
+      db.pool.query('SELECT * FROM'+db_name+'recuperacao_senha where token=$1 LIMIT 1', [token], (error, results) => {
+        if(error ==  null){
+          if(results.rowCount > 0){
+            var senhaEncriptada = bcrypt.hashSync(password, salt)
+            db.pool.query('UPDATE '+db_name+'usuario set senha = $1 WHERE email = $2', [senhaEncriptada,results[0].email], (error, results) => {
+              if(error != null){
+                updatePasswordResponse.message = 'Sua senha foi alterada com sucesso'
+                response.status(201).json(updatePasswordResponse)
+                db.pool.query('DELETE * FROM '+db_name+'recuperacao_senha where token=$1',[token],(error,results) => {
+                  
+                })
+              }else{
+                response.status(400).send('Ocorreu um erro ao executar esta requisição')
+              }
+            })
+          }else{
+            updatePasswordResponse.invalidToken = true;
+            updatePasswordResponse.message = "O código fornecido não existe"
+            response.status(200).json(updatePasswordResponse)
+          }
+        }else{
+          response.status(400).send('Ocorreu um erro ao executar esta requisição')
+        }
+      })
+    }catch(ex){
+      console.log('Erro ao ealterar senha do usuario!');
+      response.status(500).send('Erro ao ealterar senha do usuario!')
+      return null;
+    }
+  }
+
   const forgotPassword = (req, res) => {
     console.log("jcfhkvk");
     try{
@@ -285,5 +323,6 @@ const updateUsuario = (request, response) => {
     getUsuarioByEmailSenha,
     getUsuarioByMatricula,
     getValidacaoMatricula,
-    forgotPassword
+    forgotPassword,
+    updatePassword
   }
