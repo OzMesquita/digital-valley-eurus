@@ -44,6 +44,7 @@ app.post('/usuarios', db_usu.getUsuarioByEmailMatricula, db_usu.createUsuario)
 app.put('/usuarios/:id', db_usu.updateUsuario)
 app.delete('/usuarios/:id', db_usu.deleteUsuario)
 app.get('/recuperarsenha/:email', db_usu.forgotPassword)
+app.post('/alterarsenha', db_usu.updatePassword)
 app.get('/form-recuperarsenha/:token', (req,res) => {
   res.type('html')
   console.log(__dirname)

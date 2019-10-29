@@ -21,6 +21,7 @@ import com.example.encontrosuniversitarios.R;
 //import com.example.encontrosuniversitarios.databinding.FragmentLoginBinding;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Usuario;
+import com.example.encontrosuniversitarios.view.activity.EsqueciSenhaActivity;
 import com.example.encontrosuniversitarios.viewmodel.LoginViewModel;
 
 public class LoginFragment extends Fragment {
@@ -49,7 +50,6 @@ public class LoginFragment extends Fragment {
         edtEmail = view.findViewById(R.id.editTextEmail);
         edtSenha = view.findViewById(R.id.editTextSenha);
         recuperarSenha = view.findViewById(R.id.buttonEsqueciSenha);
-        recuperarSenha.setVisibility(View.GONE);
         recuperarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,33 +149,8 @@ public class LoginFragment extends Fragment {
     }
 
     public void showRedefinirSenhaDialog() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View customLayout = getLayoutInflater().inflate(R.layout.redefinir_senha_dialog, null);
-
-        Button redefinir = customLayout.findViewById(R.id.button_redefinir_senha);
-        final EditText email = customLayout.findViewById(R.id.edit_redefinir_senha);
-
-       redefinir.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               loginViewModel.recuperacaoSenha(email.getText().toString(), new RedefinicaoSenhaListener() {
-                   @Override
-                   public void onSuccess() {
-                       Toast.makeText(getContext(),"O email de recuperação de senha foi enviado para: "+email.getText(), Toast.LENGTH_LONG).show();
-                   }
-                   @Override
-                   public void onFailure(String message) {
-
-                   }
-                   @Override
-                   public void onInvalidField() {
-                       email.setError("Email inválido");
-                   }
-               });
-           }
-       });
-        builder.setView(customLayout);
-        builder.show();
+        Intent intent = new Intent(getContext(), EsqueciSenhaActivity.class);
+        startActivity(intent);
     }
 }
 

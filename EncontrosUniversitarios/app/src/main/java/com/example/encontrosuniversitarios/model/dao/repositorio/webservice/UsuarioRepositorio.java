@@ -2,6 +2,8 @@ package com.example.encontrosuniversitarios.model.dao.repositorio.webservice;
 
 import android.util.Log;
 
+import com.example.encontrosuniversitarios.model.AlterarSenhaResponse;
+import com.example.encontrosuniversitarios.model.DadosAlterarSenha;
 import com.example.encontrosuniversitarios.model.DadosCheckIn;
 import com.example.encontrosuniversitarios.model.DadosFrequenciaUsuario;
 import com.example.encontrosuniversitarios.model.DadosLogin;
@@ -114,6 +116,20 @@ public class UsuarioRepositorio {
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
                 listener.onFailure("Erro ao solicitar redefinição de senha");
+            }
+        });
+    }
+
+    public void alterarSenha(final ResponseListener listener, DadosAlterarSenha dadosAlterarSenha){
+        usuarioService.alterarSenha(dadosAlterarSenha).enqueue(new Callback<AlterarSenhaResponse>() {
+            @Override
+            public void onResponse(Call<AlterarSenhaResponse> call, Response<AlterarSenhaResponse> response) {
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<AlterarSenhaResponse> call, Throwable t) {
+                listener.onFailure("Erro ao alterar a senha");
             }
         });
     }
