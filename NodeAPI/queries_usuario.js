@@ -211,19 +211,21 @@ const updateUsuario = (request, response) => {
         invalidToken: false,
         message: null,
       }
-      db.pool.query('SELECT * FROM'+db_name+'recuperacao_senha where token=$1 LIMIT 1', [token], (error, results) => {
+      db.pool.query('SELECT * FROM ' + db.db_name+'recuperacao_senha where token=$1 LIMIT 1', [token], (error, results) => {
         if(error ==  null){
           if(results.rowCount > 0){
             var senhaEncriptada = bcrypt.hashSync(password, salt)
-            db.pool.query('UPDATE '+db_name+'usuario set senha = $1 WHERE email = $2', [senhaEncriptada,results[0].email], (error, results) => {
-              if(error != null){
+
+            db.pool.query('UPDATE '+db.db_name+'usuario set senha = $1 WHERE email = $2', [senhaEncriptada,results.rows[0].email], (error2, results) => {
+              if(error2 == null){
                 updatePasswordResponse.message = 'Sua senha foi alterada com sucesso'
                 response.status(201).json(updatePasswordResponse)
-                db.pool.query('DELETE * FROM '+db_name+'recuperacao_senha where token=$1',[token],(error,results) => {
-                  
+                db.pool.query('DELETE * FROM '+db.db_name+'recuperacao_senha where token=$1',[token],(error3,results) => {
+
                 })
               }else{
-                response.status(400).send('Ocorreu um erro ao executar esta requisição')
+                console.log(error2)
+                response.status(400).send('Ocorreu um erro ao executar esta requisição1')
               }
             })
           }else{
@@ -232,11 +234,13 @@ const updateUsuario = (request, response) => {
             response.status(200).json(updatePasswordResponse)
           }
         }else{
+          console.log(error)
           response.status(400).send('Ocorreu um erro ao executar esta requisição')
         }
       })
     }catch(ex){
-      console.log('Erro ao ealterar senha do usuario!');
+      console.log('Erro ao ealterar senha do usuario!  ', ex);
+
       response.status(500).send('Erro ao ealterar senha do usuario!')
       return null;
     }
@@ -265,7 +269,7 @@ const updateUsuario = (request, response) => {
             from: 'n2s.mensageiro@gmail.com',
             to: email,
             subject: 'Recuperação de senha - Aplicativo dos Encontros Universitários da UFC Campus Russas',
-            text: 'Foi solicitada a recuperação de senha da sua conta do Aplicativo dos Encontros Universitários, segue abaixo o link de recuperação de acesso. \n http://omniscient-back.surge.sh/?token'+token
+            text: 'Foi solicitada a recuperação de acesso da sua conta, a seguir está o código de verificação que deve ser utilizado no aplicativo para redefinir sua senha. \nCódigo: '+token
           }
 
           transporter.sendMail(mailOptions, function(error,info){

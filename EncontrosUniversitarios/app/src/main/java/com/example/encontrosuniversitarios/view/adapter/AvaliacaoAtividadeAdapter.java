@@ -1,4 +1,5 @@
 package com.example.encontrosuniversitarios.view.adapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class AvaliacaoAtividadeAdapter extends RecyclerView.Adapter<AvaliacaoAti
 
     @Override
     public void onBindViewHolder(@NonNull AvaliacaoAtividadeViewHolder holder, int position) {
+        Log.i("oiii", ""+position);
         holder.bind(criterioAtividades.get(position),criterioListener);
 
     }

@@ -17,7 +17,7 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
     private EditText email;
     private EditText token;
     private EditText password;
-    private EditText confirmPassword
+    private EditText confirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

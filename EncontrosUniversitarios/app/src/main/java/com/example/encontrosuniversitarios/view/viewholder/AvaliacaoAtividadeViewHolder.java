@@ -30,6 +30,7 @@ public class AvaliacaoAtividadeViewHolder extends RecyclerView.ViewHolder {
         txtCategoria.setText(criterioAtividade.getCategoria());
         numberPicker.setMaxValue(10);
         numberPicker.setMinValue(1);
+        numberPicker.setValue(criterio.getNota());
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
