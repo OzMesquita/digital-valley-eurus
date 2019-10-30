@@ -33,10 +33,12 @@ public class CadastroUsuarioViewModel extends ViewModel {
         try {
             this.usuario = new Usuario(nome,email,matricula,senha);
             this.usuario.setNivelAcesso(Usuario.NIVEL_ACESSO_PARTICIPANTE);
+            listener.onLoading();
             this.usuarioRepositorio.cadastrarUsuario(new ResponseListener() {
                 @Override
                 public void onSuccess(Object response) {
                     ValidacaoCadastro validacaoCadastro = (ValidacaoCadastro) response;
+                    listener.onDone();
                     if(validacaoCadastro.isAlreadyTakenEmail()) listener.onAlreadyTakenEmail();
                     if(validacaoCadastro.isAlreadyTakenMatricula()) listener.onAlreadyTakenMatricula();
                     if(!validacaoCadastro.isAlreadyTakenMatricula() && !validacaoCadastro.isAlreadyTakenEmail()){
@@ -46,6 +48,7 @@ public class CadastroUsuarioViewModel extends ViewModel {
                 @Override
                 public void onFailure(String message) {
                     Log.i("ErrorResposta",message);
+                    listener.onDone();
                 }
             }, usuario);
         } catch (CampoVazioException e) {
@@ -61,11 +64,12 @@ public class CadastroUsuarioViewModel extends ViewModel {
 
     public void realizarValidacao(final VerificacaoMatriculaListener listener, String matricula) {
         if(matricula!=null && matricula.length()==6){
+            listener.onLoading();
             this.usuarioRepositorio.verificarMatricula(new ResponseListener() {
                 @Override
                 public void onSuccess(Object response) {
                     VerificacaoMatricula verMatricula = (VerificacaoMatricula) response;
-
+                    listener.onDone();
                     if(!verMatricula.getStatus().equals("failure") && verMatricula.getData().getMatricula()!= null && verMatricula.getData().getNome()!=null){
                         listener.onValidMatricula();
                         verificacaoMatricula.setValue(verMatricula);
@@ -76,6 +80,7 @@ public class CadastroUsuarioViewModel extends ViewModel {
 
                 @Override
                 public void onFailure(String message) {
+                    listener.onDone();
                     listener.onFailure();
                 }
             }, matricula);

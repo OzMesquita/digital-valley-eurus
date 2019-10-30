@@ -10,4 +10,6 @@ public interface LoginListener {
     void onInvalidEmail(String message);
     void onUnregisteredEmail();
     void onWrongPassword();
+    void onLoading();
+    void onDone();
 }

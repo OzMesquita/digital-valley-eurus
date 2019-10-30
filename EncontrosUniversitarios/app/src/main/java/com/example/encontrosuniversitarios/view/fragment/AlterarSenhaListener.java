@@ -7,4 +7,6 @@ public interface AlterarSenhaListener {
     void onInvalidToken();
     void onEmptyField(String fieldName);
     void onShortPassword();
+    void onLoading();
+    void onDone();
 }

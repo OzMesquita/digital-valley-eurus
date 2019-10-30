@@ -6,5 +6,6 @@ public interface VerificacaoMatriculaListener {
     void onFailure();
     void onValidMatricula();
     void onUnregisteredMatricula();
-
+    void onLoading();
+    void onDone();
 }

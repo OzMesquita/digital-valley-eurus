@@ -4,4 +4,6 @@ public interface AvaliacaoListener {
     void onAlreadyEvaluatedActivity();
     void onError(String message);
     void onSuccess();
+    void onLoading();
+    void onDone();
 }

@@ -8,4 +8,7 @@ public interface CadastroUsuarioListener {
     void onInvalidMatricula(String message);
     void onAlreadyTakenEmail();
     void onAlreadyTakenMatricula();
+    void onFailure();
+    void onLoading();
+    void onDone();
 }

@@ -63,6 +63,12 @@
                     android:inputType="textPassword"
                     />
 
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/login_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
                 <Button
                     android:id="@+id/buttonEntrarPerfil"
                     android:layout_width="match_parent"

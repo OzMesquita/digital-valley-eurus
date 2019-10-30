@@ -38,7 +38,11 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
                     />
-
+                <ProgressBar
+                    android:id="@+id/send_email_progress"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                 <Button
                     android:id="@+id/button_generate_token"
                     android:layout_width="match_parent"
@@ -114,6 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
+                    android:inputType="textPassword"
                     android:layout_marginStart="18dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="18dp"
@@ -130,12 +135,17 @@
                     android:layout_marginStart="18dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="18dp"
+                    android:inputType="textPassword"
                     android:layout_marginEnd="18dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
                     />
 
-
+                <ProgressBar
+                    android:id="@+id/recover_password_progress"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                 <Button
                     android:id="@+id/button_redefinir_senha"
                     android:layout_width="match_parent"

@@ -37,11 +37,13 @@ public class LoginViewModel extends ViewModel {
         try {
             this.usuario = new Usuario(email, senha);
             DadosLogin dadosLogin = new DadosLogin(this.usuario.getEmail(), this.usuario.getSenha());
+            listener.onLoading();
             this.usuarioRepositorio.realizarLogin(new ResponseListener() {
                 ValidacaoLogin validacao;
 
                 @Override
                 public void onSuccess(Object response) {
+                    listener.onDone();
                     validacao = (ValidacaoLogin) response;
                     if (validacao.isUnregisteredEmail()) listener.onUnregisteredEmail();
                     if (validacao.isWrongPassword()) listener.onWrongPassword();
@@ -54,6 +56,7 @@ public class LoginViewModel extends ViewModel {
 
                 @Override
                 public void onFailure(String message) {
+                    listener.onDone();
                     listener.onFailure(message);
                 }
             }, dadosLogin);
@@ -80,15 +83,18 @@ public class LoginViewModel extends ViewModel {
         if (email.equals("") || !Validador.validarEmail(email)) {
             listener.onInvalidField();
         } else {
+            listener.onLoading();
             this.usuarioRepositorio.recuperarSenha(new ResponseListener() {
                 @Override
                 public void onSuccess(Object response) {
                     listener.onSuccess();
+                    listener.onDone();
                 }
 
                 @Override
                 public void onFailure(String message) {
                     listener.onFailure(message);
+                    listener.onDone();
                 }
             }, email);
         }
@@ -106,6 +112,7 @@ public class LoginViewModel extends ViewModel {
         }else if(password.length() < 6 || confirmPassword.length() < 6){
             listener.onShortPassword();
         }else{
+            listener.onLoading();
             this.usuarioRepositorio.alterarSenha(new ResponseListener() {
                 @Override
                 public void onSuccess(Object response) {
@@ -115,11 +122,13 @@ public class LoginViewModel extends ViewModel {
                     }else{
                         listener.onSuccess();
                     }
+                    listener.onDone();
                 }
 
                 @Override
                 public void onFailure(String message) {
                     listener.onFailure(message);
+                    listener.onDone();
                 }
             },new DadosAlterarSenha(token,password));
         }

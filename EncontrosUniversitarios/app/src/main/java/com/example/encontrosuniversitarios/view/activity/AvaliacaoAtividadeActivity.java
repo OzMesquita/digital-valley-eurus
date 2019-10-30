@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
     private TextView txtMedia;
     Button confirmarAvaliacao;
     EditText comentarios;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
         }
 
         this.getSupportActionBar().setTitle("Avaliação");
+        progressBar = findViewById(R.id.avaliacao_progresso);
         TextView txtActivityName = findViewById(R.id.activity_name);
 
         txtMedia = findViewById(R.id.media);
@@ -138,6 +141,16 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
                                 Intent intent = new Intent();
                                 setResult(RESULT_OK,intent);
                                 finish();
+                            }
+
+                            @Override
+                            public void onLoading() {
+                                progressBar.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onDone() {
+                                progressBar.setVisibility(View.GONE);
                             }
                         });
             }

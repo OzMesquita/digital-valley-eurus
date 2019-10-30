@@ -1,13 +1,9 @@
 package com.example.encontrosuniversitarios.viewmodel;
-
 import android.content.Context;
-import android.location.Criteria;
 import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.AvaliacaoAtividade;
@@ -18,11 +14,8 @@ import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.Ativ
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
 import com.example.encontrosuniversitarios.view.fragment.AvaliacaoListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.transform.Result;
 
 public class AvaliacaoAtividadeViewModel extends ViewModel {
 
@@ -68,9 +61,11 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
         }
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         int idAvaliador = preferences.getUserId();
+        listener.onLoading();
         atividadeRepositorio.avaliarAtividade(new ResponseListener() {
             @Override
             public void onSuccess(Object response) {
+                listener.onDone();
                 ResultadoAvaliacao resultadoAvaliacao = (ResultadoAvaliacao) response;
                 if(resultadoAvaliacao.getAlreadyEvaluatedActivity()){
                     listener.onAlreadyEvaluatedActivity();
@@ -83,6 +78,7 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
 
             @Override
             public void onFailure(String message) {
+                listener.onDone();
                 listener.onError("Houve um erro ao tentar realizar esta operação, verifique sua internet");
             }
         },new AvaliacaoAtividade(atividade.getId(),idAvaliador,comentarios,notas));

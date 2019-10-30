@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.encontrosuniversitarios.R;
@@ -56,7 +57,7 @@ public class AvaliacaoAtividadeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_avaliacao_atividade, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Avaliação");
         TextView txtActivityName = view.findViewById(R.id.activity_name);
-
+        final ProgressBar progressBar = view.findViewById(R.id.progress_avaliacao);
         txtMedia = view.findViewById(R.id.media);
         Button confirmarAvaliacao = view.findViewById(R.id.confirmar_avaliacao);
         final EditText comentarios = view.findViewById(R.id.comentarios);
@@ -79,22 +80,7 @@ public class AvaliacaoAtividadeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 avaliacaoAtividadeViewModel.avaliarAtividade(comentarios.getText().toString(),
-                        getContext(), new AvaliacaoListener() {
-                    @Override
-                    public void onAlreadyEvaluatedActivity() {
-                        Toast.makeText(getContext(),"Essa atividade já foi avaliada",Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onError(String message) {
-                        Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(getContext(),"Avaliação realizada com sucesso",Toast.LENGTH_LONG).show();
-                    }
-                });
+                        getContext(), null);
             }
         });
         avaliacaoAtividadeViewModel.listarCriterios();

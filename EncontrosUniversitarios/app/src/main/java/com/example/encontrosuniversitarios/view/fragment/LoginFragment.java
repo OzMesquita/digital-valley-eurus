@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.encontrosuniversitarios.R;
@@ -45,6 +46,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         Button botaoLogar, cadastrar;
+        final ProgressBar progressBar = view.findViewById(R.id.login_progress);
         botaoLogar = view.findViewById(R.id.buttonEntrarPerfil);
         cadastrar = view.findViewById(R.id.buttonCadastrar);
         edtEmail = view.findViewById(R.id.editTextEmail);
@@ -60,46 +62,55 @@ public class LoginFragment extends Fragment {
         botaoLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginViewModel.realizarLogin(edtEmail.getText().toString(), edtSenha.getText().toString(),
-                        new LoginListener() {
-                            @Override
-                            public void onSuccess(Usuario usuario) {
-                                MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
-                                preferences.setUserData(usuario);
+                loginViewModel.realizarLogin(edtEmail.getText().toString(), edtSenha.getText().toString(), new LoginListener() {
+                    @Override
+                    public void onSuccess(Usuario usuario) {
+                        MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
+                        preferences.setUserData(usuario);
 
-                                changeLoginFragmentOnLogin(preferences.getUserAccessLevel());
-                            }
+                        changeLoginFragmentOnLogin(preferences.getUserAccessLevel());
+                    }
 
-                            @Override
-                            public void onFailure(String message) {
-                                Toast.makeText(getContext(), getContext().getResources().getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
-                            }
+                    @Override
+                    public void onFailure(String message) {
+                        Toast.makeText(getContext(), getContext().getResources().getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
+                    }
 
-                            @Override
-                            public void onEmptyField(String field) {
-                                showEmptyFieldMessage(field);
-                            }
+                    @Override
+                    public void onEmptyField(String field) {
+                        showEmptyFieldMessage(field);
+                    }
 
-                            @Override
-                            public void onInvalidPassword(String message) {
-                                edtSenha.setError(getContext().getResources().getString(R.string.invalid_passord_login_message));
-                            }
+                    @Override
+                    public void onInvalidPassword(String message) {
+                        edtSenha.setError(getContext().getResources().getString(R.string.invalid_passord_login_message));
+                    }
 
-                            @Override
-                            public void onInvalidEmail(String message) {
-                                edtEmail.setError(getContext().getResources().getString(R.string.invalid_email_message));
-                            }
+                    @Override
+                    public void onInvalidEmail(String message) {
+                        edtEmail.setError(getContext().getResources().getString(R.string.invalid_email_message));
+                    }
 
-                            @Override
-                            public void onUnregisteredEmail() {
-                                edtEmail.setError(getContext().getResources().getString(R.string.unregistered_email_message));
-                            }
+                    @Override
+                    public void onUnregisteredEmail() {
+                        edtEmail.setError(getContext().getResources().getString(R.string.unregistered_email_message));
+                    }
 
-                            @Override
-                            public void onWrongPassword() {
-                                edtSenha.setError(getContext().getResources().getString(R.string.wrong_passord_login_message));
-                            }
-                        });
+                    @Override
+                    public void onWrongPassword() {
+                        edtSenha.setError(getContext().getResources().getString(R.string.wrong_passord_login_message));
+                    }
+
+                    @Override
+                    public void onLoading() {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onDone() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                });
             }
         });
 

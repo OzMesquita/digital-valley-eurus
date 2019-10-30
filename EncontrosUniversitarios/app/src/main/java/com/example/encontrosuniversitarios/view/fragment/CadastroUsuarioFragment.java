@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,13 +52,13 @@ public class CadastroUsuarioFragment extends Fragment {
         Button salvar = view.findViewById(R.id.buttonSalvarCadastro);
         Button verificarFrequencia = view.findViewById(R.id.get_user);
         Button entre = view.findViewById(R.id.buttonEntre);
+        final ProgressBar verificarProgress = view.findViewById(R.id.verificar_progress);
+        final ProgressBar cadastroProgress = view.findViewById(R.id.cadastrar_progress);
         txtName = view.findViewById(R.id.txtName);
         txtMatricula = view.findViewById(R.id.txtMatricula);
         edtEmail = view.findViewById(R.id.edtEmail);
         edtMatricula = view.findViewById(R.id.edtMatricula);
         edtSenha = view.findViewById(R.id.edtSenha);
-        edtEmail.setVisibility(View.GONE);
-        edtSenha.setVisibility(View.GONE);
 
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +66,7 @@ public class CadastroUsuarioFragment extends Fragment {
               if(cadastroUsuarioViewModel.getVerificacaoMatricula().getValue() != null){
 
                   cadastroUsuarioViewModel.cadastrarUsuario(txtName.getText().toString(), edtMatricula.getText().toString(),
-                          edtMatricula.getText().toString()+"@teste.com", "senhateste", new CadastroUsuarioListener() {
+                          edtEmail.getText().toString(), edtSenha.getText().toString(), new CadastroUsuarioListener() {
                               @Override
                               public void onSuccess(String message) {
                                   Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
@@ -100,6 +101,21 @@ public class CadastroUsuarioFragment extends Fragment {
                               @Override
                               public void onAlreadyTakenMatricula() {
                                   edtMatricula.setError(getContext().getResources().getString(R.string.already_taken_matricula_message));
+                              }
+
+                              @Override
+                              public void onLoading() {
+                                  cadastroProgress.setVisibility(View.VISIBLE);
+                              }
+
+                              @Override
+                              public void onDone() {
+                                  cadastroProgress.setVisibility(View.GONE);
+                              }
+
+                              @Override
+                              public void onFailure() {
+                                Toast.makeText(getContext(),"Não foi possível realizar esta operação, verifique sua conexão!",Toast.LENGTH_LONG).show();
                               }
                           });
               }else {
@@ -155,6 +171,16 @@ public class CadastroUsuarioFragment extends Fragment {
                         builder.setPositiveButton("Ok", null);
                         builder.show();
                         //Toast.makeText(getContext(),"Matrícula não encontrada em nossa base de dados",Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onLoading() {
+                        verificarProgress.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onDone() {
+                        verificarProgress.setVisibility(View.GONE);
                     }
                 }, edtMatricula.getText().toString());
             }

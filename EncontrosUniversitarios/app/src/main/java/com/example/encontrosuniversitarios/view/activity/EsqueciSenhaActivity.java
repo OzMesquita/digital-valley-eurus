@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class EsqueciSenhaActivity extends AppCompatActivity {
@@ -28,6 +29,8 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         Button generateCode = findViewById(R.id.button_generate_token);
         Button updatePassword = findViewById(R.id.button_redefinir_senha);
+        final ProgressBar progressBar = findViewById(R.id.send_email_progress);
+        final ProgressBar recoverProgressBas = findViewById(R.id.recover_password_progress);
         email = findViewById(R.id.edit_redefinir_senha);
         token = findViewById(R.id.token);
         password = findViewById(R.id.password);
@@ -48,6 +51,16 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
                     @Override
                     public void onInvalidField() {
                         email.setError("Email inválido");
+                    }
+
+                    @Override
+                    public void onLoading() {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onDone() {
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
             }
@@ -88,6 +101,16 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
                             @Override
                             public void onShortPassword() {
                                 password.setError("A senha deve conter no mínimo 6 caracteres");
+                            }
+
+                            @Override
+                            public void onLoading() {
+                                recoverProgressBas.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onDone() {
+                                recoverProgressBas.setVisibility(View.GONE);
                             }
                         });
             }

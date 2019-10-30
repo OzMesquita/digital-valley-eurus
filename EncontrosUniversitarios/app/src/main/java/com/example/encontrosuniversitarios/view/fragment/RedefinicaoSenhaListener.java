@@ -4,5 +4,6 @@ public interface RedefinicaoSenhaListener {
     void onSuccess();
     void onFailure(String message);
     void onInvalidField();
-
+    void onLoading();
+    void onDone();
 }
