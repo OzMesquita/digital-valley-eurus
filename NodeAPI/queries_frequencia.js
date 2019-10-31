@@ -64,7 +64,25 @@ const checkOut = (sala, id_usuario) => {
     })
 }
 
+const getFrequencias = (request, response) => {
+  try {
+    db.pool.query('SELECT * FROM '+db.db_name+'frequencia ORDER BY id_frequencia ASC', (error, results) => {
+      if(results!=null){
+        response.status(200).json(results.rows)
+      }else{
+        response.status(200).json([])
+      }
+
+    })
+  }catch(ex){
+    console.log('Erro ao listar frequencias!');
+    response.status(500).send(`Erro ao listar frequencias`)
+    return null;
+  }
+}
+
 module.exports = {
     verificarPodeCheckInCheckOut,
-    realizarCheckInCheckOut
+    realizarCheckInCheckOut,
+    getFrequencias
   }
