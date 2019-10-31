@@ -1,5 +1,9 @@
 package com.example.encontrosuniversitarios.model;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Local {
@@ -12,8 +16,17 @@ public class Local {
     @SerializedName("andar_local")
     private String andar;
     private Sala sala;
+    private String localCompleto;
 
-    public Local(String nome,Sala sala){
+    public String getLocalCompleto() {
+        return localCompleto;
+    }
+
+    public void setLocalCompleto(String localCompleto) {
+        this.localCompleto = localCompleto;
+    }
+
+    public Local(String nome, Sala sala){
         this.nome = nome;
         this.sala=sala;
     }
@@ -38,6 +51,13 @@ public class Local {
 
     public String getLocalSala(){
         String numero = sala.getNumero() == 0 ? "" : ""+sala.getNumero();
+        if(andar==null){
+            andar = "";
+        }else if(pontoReferencia==null){
+            pontoReferencia = "";
+        }else if(nome==null){
+            pontoReferencia = "";
+        }
        return nome + " " + numero + ", "+ andar + "º andar, "+pontoReferencia;
     }
 

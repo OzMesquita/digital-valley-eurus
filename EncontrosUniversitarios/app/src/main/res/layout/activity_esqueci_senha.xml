@@ -24,6 +24,8 @@
                     android:gravity="center_horizontal"
                     android:textSize="18dp"
                     android:text="@string/token_generation"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
                     />
 
                 <EditText
@@ -72,7 +74,7 @@
                     android:layout_weight="1"
                     android:layout_margin="5dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@android:color/black"/>
+                    android:background="@color/colorPrimaryDark"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,7 +87,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    android:background="@android:color/black"/>
+                    android:background="@color/colorPrimaryDark"/>
             </LinearLayout>
 
             <LinearLayout

@@ -13,6 +13,14 @@ public class Sala {
     @SerializedName("nome_sala")
     private String nome;
     private List<Atividade> atividades;
+    private String descricao_sala;
+
+    public String getDescricao_sala() {
+        return descricao_sala;
+    }
+    public void setDescricao_sala(String descricao_sala) {
+        this.descricao_sala = descricao_sala;
+    }
 
     public Sala(int numero) {
         this.numero = numero;
