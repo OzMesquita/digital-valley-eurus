@@ -148,7 +148,6 @@ public class LoginFragment extends Fragment {
         }
         ft.addToBackStack(null);
         ft.commit();
-
     }
 
     private void navitageToCadastrarUsuarioFragment() {

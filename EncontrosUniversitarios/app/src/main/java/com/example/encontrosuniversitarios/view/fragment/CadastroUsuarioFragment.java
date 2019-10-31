@@ -170,7 +170,6 @@ public class CadastroUsuarioFragment extends Fragment {
                         builder.setMessage("A matrícula fornecida não foi encontrada em nossa base de dados, por favor envie um email com sua nome completo, matrícula e curso para: n2s@ufc.br");
                         builder.setPositiveButton("Ok", null);
                         builder.show();
-                        //Toast.makeText(getContext(),"Matrícula não encontrada em nossa base de dados",Toast.LENGTH_LONG).show();
                     }
 
                     @Override

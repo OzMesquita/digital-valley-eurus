@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
@@ -69,6 +70,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_atividade_dados);
         Intent intent = getIntent();
+
         MySharedPreferences preferences = MySharedPreferences.getInstance(this);
         avaliador = preferences.getUserAccessLevel() == 2;
         if (intent.getParcelableExtra(ATIVIDADE) != null) {

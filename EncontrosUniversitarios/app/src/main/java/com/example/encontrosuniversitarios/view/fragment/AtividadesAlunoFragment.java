@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -34,6 +36,7 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
     private AtividadesAlunoViewModel atividadesAlunoViewModel;
     private RecyclerView recyclerView;
     private TextView txtUlmimaSalaCheckin;
+    private ImageView info;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +46,13 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
         atividadesAlunoViewModel = ViewModelProviders.of(this).get(AtividadesAlunoViewModel.class);
         recyclerView = view.findViewById(R.id.atividades_aluno);
         txtUlmimaSalaCheckin = view.findViewById(R.id.salaUltimoCheckin);
+        info = view.findViewById(R.id.activity_info);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showInfoDialog();
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         btnGenerateQRCode.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +79,12 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
         return view;
     }
 
+    private void showInfoDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("As atividades listadas abaixo corresponderão apenas às que você assistiu por completo, porém todo seu tempo de permanência nas salas será contabilizado!");
+        builder.setPositiveButton("Ok", null);
+        builder.show();
+    }
 
 
     @Override

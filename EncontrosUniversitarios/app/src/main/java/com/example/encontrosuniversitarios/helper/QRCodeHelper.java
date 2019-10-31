@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Environment;
@@ -77,18 +78,26 @@ public class QRCodeHelper {
 
         Canvas canvas = page.getCanvas();
         bitmap = Bitmap.createScaledBitmap(bitmap,bitmap.getWidth(),bitmap.getHeight(),true);
-        canvas.drawBitmap(bitmap,0,0,null);
+
+        canvas.drawBitmap(bitmap,0,0,new Paint());
         document.finishPage(page);
-//        String path = Environment.DIRECTORY_DOCUMENTS;
-        String targetPdf = "sdcard/Documents/"+userName+".pdf";
-        File filePath = new File(targetPdf);
+
+
         try {
-            document.writeTo(new FileOutputStream(filePath));
-            Toast.makeText(context,"PDF salvo em sdcard/Documents/"+userName+".pdf",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            File file = new File( targetPdf  );
-            intent.setDataAndType( Uri.EMPTY.fromFile( file ), "application/pdf" );
-            context.startActivity(intent);
+            String targetPdf = userName+".pdf";
+
+
+            if(!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+                Toast.makeText(context, "Não foi possível salvar o pdf", Toast.LENGTH_LONG).show();
+            }else {
+                File filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),targetPdf);
+                document.writeTo(new FileOutputStream(filePath));
+                Toast.makeText(context, "PDF salvo no armazenamento externo do dispositivo: " + userName + ".pdf", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                File file = new File(targetPdf);
+                intent.setDataAndType(Uri.EMPTY.fromFile(file), "application/pdf");
+            }
+            //context.startActivity(intent);
         } catch (IOException e) {
             e.printStackTrace();
         }
