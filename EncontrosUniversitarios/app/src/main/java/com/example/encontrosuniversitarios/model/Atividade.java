@@ -3,6 +3,7 @@ package com.example.encontrosuniversitarios.model;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -110,6 +111,7 @@ public class Atividade implements Parcelable {
         Local local = new Local();
         local.setNome(bundle.getString("local"));
         local.setPontoReferencia(bundle.getString("ponto"));
+        local.setLocalCompleto(bundle.getString("local_completo"));
         Usuario usuario = new Usuario();
         try {
             usuario.setNome(bundle.getString("apresentador"));
@@ -185,8 +187,7 @@ public class Atividade implements Parcelable {
         this.apresentador = apresentador;
     }
 
-    public Local getLocal() {
-        return local;
+    public Local getLocal() {    return local;
     }
 
     public void setLocal(Local local) {
@@ -231,15 +232,16 @@ public class Atividade implements Parcelable {
         bundle.putString("nome",this.nome);
         bundle.putString("descricao",this.descricao);
         if(this.getLocal()!=null){
-            bundle.putString("local",this.local.getNome());
-            bundle.putString("ponto",this.local.getPontoReferencia());
+            if (this.getLocal().getSala()!= null) {
+                bundle.putString("local_completo", this.local.getNome()+ " "+this.local.getSala().getNumero()+ ", "+ this.local.getAndar()+"º andar");
+            }
+            bundle.putString("local", this.local.getNome());
+            bundle.putString("ponto", this.local.getPontoReferencia());
         }
         if(this.getApresentador()!=null)bundle.putString("apresentador",this.apresentador.getNome());
 
-
         bundle.putInt("id",this.id);
         dest.writeBundle(bundle);
-
     }
 
     public final static Creator<Atividade> CREATOR = new Creator<Atividade>() {
