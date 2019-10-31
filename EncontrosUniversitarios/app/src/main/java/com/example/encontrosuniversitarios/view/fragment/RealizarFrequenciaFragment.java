@@ -53,7 +53,6 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         recyclerView = view.findViewById(R.id.atividades_frequencia);
         txtSala = view.findViewById(R.id.sala);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
         btnReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
