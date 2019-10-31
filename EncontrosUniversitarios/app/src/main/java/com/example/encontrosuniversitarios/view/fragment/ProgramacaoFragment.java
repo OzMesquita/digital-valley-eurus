@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import com.example.encontrosuniversitarios.R;
@@ -37,6 +38,7 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
     private RecyclerView atividadesRecyclerView;
     private ProgramacaoAdapter programacaoAdapter;
     private ProgramacaoViewModel programacaoViewModel;
+    private ProgressBar progressBar;
     private List<DiaEvento> diasEventos;
     public ProgramacaoFragment() {
         // Required empty public constructor
@@ -55,6 +57,7 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
         View view = inflater.inflate(R.layout.fragment_programacao, container, false);
         programacaoViewModel = ViewModelProviders.of(this).get(ProgramacaoViewModel.class);
         atividadesRecyclerView = view.findViewById(R.id.programacao_recycler_view);
+        progressBar = view.findViewById(R.id.programacao_progress);
         atividadesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
 
@@ -62,7 +65,6 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
             @Override
             public void onChanged(List<DiaEvento> diaEventos) {
                 diasEventos = diaEventos;
-                MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
                 programacaoAdapter = new ProgramacaoAdapter(diasEventos, null, false);
                 atividadesRecyclerView.setAdapter(programacaoAdapter);
             }
@@ -77,7 +79,19 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
     @Override
     public void onStart() {
         super.onStart();
-        programacaoViewModel.carregarAtividades();
+        programacaoViewModel.carregarAtividades(new AtividadesListener() {
+            @Override
+            public void onLoading() {
+                atividadesRecyclerView.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onDone() {
+                atividadesRecyclerView.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

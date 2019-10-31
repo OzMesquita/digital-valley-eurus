@@ -13,6 +13,7 @@ import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.model.CriterioAtividade;
 import com.example.encontrosuniversitarios.view.adapter.AvaliacaoAtividadeAdapter;
+import com.example.encontrosuniversitarios.view.fragment.AtividadesListener;
 import com.example.encontrosuniversitarios.view.fragment.AvaliacaoListener;
 import com.example.encontrosuniversitarios.view.fragment.CriterioListener;
 import com.example.encontrosuniversitarios.viewmodel.AvaliacaoAtividadeViewModel;
@@ -40,6 +41,7 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
     private AvaliacaoAtividadeViewModel avaliacaoAtividadeViewModel;
     private List<CriterioAtividade> criterios;
     private TextView txtMedia;
+    private RecyclerView criteriosRec;
     Button confirmarAvaliacao;
     EditText comentarios;
     ProgressBar progressBar;
@@ -58,13 +60,12 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
         this.getSupportActionBar().setTitle("Avaliação");
         progressBar = findViewById(R.id.avaliacao_progresso);
         TextView txtActivityName = findViewById(R.id.activity_name);
-
         txtMedia = findViewById(R.id.media);
         confirmarAvaliacao = findViewById(R.id.confirmar_avaliacao);
         comentarios = findViewById(R.id.comentarios);
         avaliacaoAtividadeViewModel = ViewModelProviders.of(this).get(AvaliacaoAtividadeViewModel.class);
         txtActivityName.setText(avaliacaoAtividadeViewModel.getAtividade().getNome());
-        final RecyclerView criteriosRec = findViewById(R.id.lista_criterios);
+        criteriosRec = findViewById(R.id.lista_criterios);
         criteriosRec.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
         avaliacaoAtividadeViewModel.getCriterios().observe(this, new Observer<List<CriterioAtividade>>() {
             @Override
@@ -84,7 +85,19 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
                 showConfirmarAvaliacaoDialog();
             }
         });
-        avaliacaoAtividadeViewModel.listarCriterios();
+        avaliacaoAtividadeViewModel.listarCriterios(new AtividadesListener() {
+            @Override
+            public void onLoading() {
+                progressBar.setVisibility(View.VISIBLE);
+                criteriosRec.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDone() {
+                progressBar.setVisibility(View.GONE);
+                criteriosRec.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private CriterioListener criterioListener = new CriterioListener() {
@@ -118,7 +131,7 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
         nomeAtividadeAvaliada.setText(avaliacaoAtividadeViewModel.getAtividade().getNome());
         notaAtividadeAvaliada.setText(txtMedia.getText().toString());
         double media = Double.valueOf(txtMedia.getText().toString().replaceAll("Media: ",""));
-        notaAtividadeAvaliada.setTextColor(media < 7 ? getResources().getColor(R.color.vermelho) : getResources().getColor(R.color.colorSecondary));
+        notaAtividadeAvaliada.setTextColor(media < 7 ? getResources().getColor(R.color.red) : getResources().getColor(R.color.colorSecondary));
         builder.setNegativeButton("Não", null);
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override

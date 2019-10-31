@@ -32,7 +32,20 @@ tools:context=".view.activity.AvaliacaoAtividadeActivity">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:visibility="gone"
             android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:id="@+id/avaliacao_progress"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/media"

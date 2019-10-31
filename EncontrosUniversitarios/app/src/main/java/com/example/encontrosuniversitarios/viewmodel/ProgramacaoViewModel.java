@@ -7,6 +7,7 @@ import com.example.encontrosuniversitarios.model.DiaEvento;
 import com.example.encontrosuniversitarios.model.ProgramacaoAtividades;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
+import com.example.encontrosuniversitarios.view.fragment.AtividadesListener;
 
 import java.util.List;
 
@@ -42,30 +43,36 @@ public class ProgramacaoViewModel extends ViewModel {
         return atividadesDoDia;
     }
 
-    public void carregarAtividades(){
+    public void carregarAtividades(final AtividadesListener listener){
+        listener.onLoading();
         atividadeRepositorio.buscar(new ResponseListener<List<Atividade>>() {
             @Override
             public void onSuccess(List<Atividade> atividadesEvento) {
+                listener.onDone();
                 atividades.setValue(atividadesEvento);
                 atividadesDiasEvento.setValue(programacaoAtividades.agruparAtividadesEmDias(atividadesEvento));
             }
 
             @Override
             public void onFailure(String message) {
+                listener.onDone();
                 Log.i("AtvFailura:",message);
             }
         });
     }
 
-    public void carregarAtividadesDoDia(){
+    public void carregarAtividadesDoDia(final AtividadesListener listener){
+        listener.onLoading();
         atividadeRepositorio.buscarAtividadesDoDia(new ResponseListener<List<Atividade>>() {
             @Override
             public void onSuccess(List<Atividade> atividades) {
+                listener.onDone();
                 atividadesDoDia.setValue(programacaoAtividades.dividirAtividadesEmEstados(atividades));
             }
 
             @Override
             public void onFailure(String message) {
+                listener.onDone();
                 Log.i("AtvFailura:",message);
             }
         });

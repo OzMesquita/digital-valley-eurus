@@ -136,7 +136,6 @@ public class LoginFragment extends Fragment {
     }
 
     private void changeLoginFragmentOnLogin(int accessLevel) {
-
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         if (accessLevel == 0) {

@@ -2,18 +2,12 @@ package com.example.encontrosuniversitarios.view.viewholder;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.encontrosuniversitarios.R;
 import com.example.encontrosuniversitarios.model.Atividade;
 import com.example.encontrosuniversitarios.view.activity.AtividadeDadosActivity;
-import com.example.encontrosuniversitarios.view.fragment.AtividadeDadosFragment;
 import com.example.encontrosuniversitarios.helper.FormatadorData;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
@@ -22,7 +16,6 @@ public class AtividadeViewHolder extends ChildViewHolder {
     private TextView nomeApresentador;
     private TextView horarioAtividadeTextView;
     private TextView localAtividadeTextView;
-    private AtividadeDadosFragment fragment;
     public AtividadeViewHolder(View itemView) {
         super(itemView);
         nomeAtividadeTextView = itemView.findViewById(R.id.nome_atividade_item_list);

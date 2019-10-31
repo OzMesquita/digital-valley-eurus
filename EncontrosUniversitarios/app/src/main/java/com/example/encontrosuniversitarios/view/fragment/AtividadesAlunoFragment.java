@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -54,6 +55,7 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        final ProgressBar progressBar = view.findViewById(R.id.aluno_progress);
 
         btnGenerateQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +72,19 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
             }
         });
-        atividadesAlunoViewModel.carregarAtividades(getContext());
+        atividadesAlunoViewModel.carregarAtividades(getContext(), new AtividadesListener() {
+            @Override
+            public void onLoading() {
+                progressBar.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDone() {
+                progressBar.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+            }
+        });
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);

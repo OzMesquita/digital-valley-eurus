@@ -1,26 +1,20 @@
 package com.example.encontrosuniversitarios.view.fragment;
 
-import android.app.SearchManager;
-import android.content.Context;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filterable;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 
 import com.example.encontrosuniversitarios.model.Atividade;
@@ -40,6 +34,8 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
     private SearchView searchView;
     private ProgramacaoViewModel programacaoViewModel;
     private List<Integer> nomesEstadoAtividade;
+    private ProgressBar diaProgress;
+    private ViewPager viewPager;
 
     public ProgramacaoDoDiaFragment(){
         nomesEstadoAtividade = new ArrayList<>();
@@ -61,7 +57,7 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
         programacaoAbasAdapter = new ProgramacaoAbasAdapter(getFragmentManager());
         programacaoViewModel = ViewModelProviders.of(this).get(ProgramacaoViewModel.class);
 
-
+        diaProgress = view.findViewById(R.id.dia_progress);
         programacaoViewModel.getAtividadesDoDia().observe(this, new Observer<List<List<Atividade>>>() {
             @Override
             public void onChanged(List<List<Atividade>> lists) {
@@ -75,7 +71,7 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
             }
         });
 
-        ViewPager viewPager = view.findViewById(R.id.programacao_do_dia_view_pager);
+        viewPager = view.findViewById(R.id.programacao_do_dia_view_pager);
         viewPager.setAdapter(programacaoAbasAdapter);
 
         tabLayout = view.findViewById(R.id.programacao_do_dia_tablayout);
@@ -89,7 +85,19 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
     @Override
     public void onStart() {
         super.onStart();
-        programacaoViewModel.carregarAtividadesDoDia();
+        programacaoViewModel.carregarAtividadesDoDia(new AtividadesListener() {
+            @Override
+            public void onLoading() {
+                viewPager.setVisibility(View.GONE);
+                diaProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onDone() {
+                viewPager.setVisibility(View.VISIBLE);
+                diaProgress.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

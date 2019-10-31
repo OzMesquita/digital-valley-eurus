@@ -4,14 +4,12 @@ import com.example.encontrosuniversitarios.databinding.ActivityAtividadeDadosBin
 import com.example.encontrosuniversitarios.helper.FormatadorData;
 import com.example.encontrosuniversitarios.helper.MySharedPreferences;
 import com.example.encontrosuniversitarios.model.Atividade;
-import com.example.encontrosuniversitarios.view.fragment.AvaliacaoAtividadeFragment;
 import com.example.encontrosuniversitarios.viewmodel.AtividadeDadosViewModel;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -20,7 +18,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;

@@ -19,6 +19,18 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/programacao_do_dia_view_pager"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/dia_progress"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

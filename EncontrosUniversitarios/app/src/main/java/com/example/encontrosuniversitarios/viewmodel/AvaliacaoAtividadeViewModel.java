@@ -13,6 +13,7 @@ import com.example.encontrosuniversitarios.model.ResultadoAvaliacao;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
+import com.example.encontrosuniversitarios.view.fragment.AtividadesListener;
 import com.example.encontrosuniversitarios.view.fragment.AvaliacaoListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +41,18 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
         return criterios;
     }
 
-    public void listarCriterios(){
+    public void listarCriterios(final AtividadesListener listener){
+        listener.onLoading();
         atividadeRepositorio.getCriterios(new ResponseListener() {
             @Override
             public void onSuccess(Object response) {
+                listener.onDone();
                 criterios.setValue((List<CriterioAtividade>) response);
             }
 
             @Override
             public void onFailure(String message) {
+                listener.onDone();
                 criterios.setValue(null);
             }
         });
@@ -84,16 +88,19 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
         },new AvaliacaoAtividade(atividade.getId(),idAvaliador,comentarios,notas));
     }
 
-    public void carregarAtividades(Context context) {
+    public void carregarAtividades(Context context, final AtividadesListener listener) {
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
+        listener.onLoading();
         atividadeRepositorio.getAtividadesProfessor(new ResponseListener() {
             @Override
             public void onSuccess(Object response) {
+                listener.onDone();
                 atividadesAvaliacao.setValue((List<Atividade>)response);
             }
 
             @Override
             public void onFailure(String message) {
+                listener.onDone();
                 Log.i("AtvFailura:", message);
             }
         }, preferences.getUserId());
