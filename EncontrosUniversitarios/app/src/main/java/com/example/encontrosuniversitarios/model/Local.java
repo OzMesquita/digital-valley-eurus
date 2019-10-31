@@ -50,7 +50,7 @@ public class Local {
     }
 
     public String getLocalSala(){
-        String numero = sala.getNumero() == 0 ? "" : ""+sala.getNumero();
+        String numero = sala.getNumero() == 0 ? "" : " "+sala.getNumero();
         if(andar==null){
             andar = "";
         }else if(pontoReferencia==null){
@@ -58,7 +58,7 @@ public class Local {
         }else if(nome==null){
             pontoReferencia = "";
         }
-       return nome + " " + numero + ", "+ andar + "º andar, "+pontoReferencia;
+       return nome + numero + ", "+ andar + "º andar, "+pontoReferencia;
     }
 
     public String getAndar() {

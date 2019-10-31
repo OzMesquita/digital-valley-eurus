@@ -131,7 +131,7 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
         nomeAtividadeAvaliada.setText(avaliacaoAtividadeViewModel.getAtividade().getNome());
         notaAtividadeAvaliada.setText(txtMedia.getText().toString());
         double media = Double.valueOf(txtMedia.getText().toString().replaceAll("Media: ",""));
-        notaAtividadeAvaliada.setTextColor(media < 7 ? getResources().getColor(R.color.red) : getResources().getColor(R.color.colorSecondary));
+        notaAtividadeAvaliada.setTextColor(media < 7 ? getResources().getColor(R.color.vermelho) : getResources().getColor(R.color.colorSecondary));
         builder.setNegativeButton("Não", null);
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override

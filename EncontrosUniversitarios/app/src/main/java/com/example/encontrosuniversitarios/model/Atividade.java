@@ -233,7 +233,11 @@ public class Atividade implements Parcelable {
         bundle.putString("descricao",this.descricao);
         if(this.getLocal()!=null){
             if (this.getLocal().getSala()!= null) {
-                bundle.putString("local_completo", this.local.getNome()+ " "+this.local.getSala().getNumero()+ ", "+ this.local.getAndar()+"º andar");
+                if(this.local.getSala().getNumero()==0){
+                    bundle.putString("local_completo", this.local.getNome()+ ", "+this.local.getAndar()+"º andar");
+                }else {
+                    bundle.putString("local_completo", this.local.getNome() + " " + this.local.getSala().getNumero() + ", " + this.local.getAndar() + "º andar");
+                }
             }
             bundle.putString("local", this.local.getNome());
             bundle.putString("ponto", this.local.getPontoReferencia());
