@@ -185,7 +185,6 @@ const getAtividadesProfessor = (request, response) => {
 }
 
 const getAtividadesFrequentadas = (request, response) => {
-
   const id_usuario = parseInt(request.params.id)
   db.pool.query('SELECT * FROM '+db.db_name+'frequencia as f join '+db.db_name+'sala as s on f.sala_fk=s.id_sala join '+db.db_name+'local as l on l.sala_fk=s.id_sala join '+db.db_name+'atividade as a on a.local_fk=l.id_local join '+db.db_name+'usuario as u on u.id_usuario = a.apresentador_fk where a.horario_inicial >= f.check_in and a.horario_final <= f.check_out and f.usuario_fk = $1',[id_usuario],
   (error, result) => {

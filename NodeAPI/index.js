@@ -84,6 +84,7 @@ app.delete('/salas/:id', db_sal.deleteSala)
 app.post('/salas/coordenadorsala', db_sal.cadastrarCoordenadorNaSala)
 
 app.post('/frequencia', db_fre.verificarPodeCheckInCheckOut, db_fre.realizarCheckInCheckOut)
+app.get('/frequencia', db_fre.getFrequencias)
 
 app.get('/criterios', db_cri.getCriterios)
 app.post('/criterios', db_cri.createCriterio)
