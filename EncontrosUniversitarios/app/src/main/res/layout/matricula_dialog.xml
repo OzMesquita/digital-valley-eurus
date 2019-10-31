@@ -19,6 +19,17 @@
         android:layout_margin="10dp"
         android:inputType="number"
         android:maxLength="6"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/matricula_progress"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <Button
         android:id="@+id/get_user"
         android:layout_margin="10dp"

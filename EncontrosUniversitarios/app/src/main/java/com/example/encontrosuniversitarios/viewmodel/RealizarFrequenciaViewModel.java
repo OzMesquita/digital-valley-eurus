@@ -18,6 +18,7 @@ import com.example.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import com.example.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
+import com.example.encontrosuniversitarios.view.fragment.AtividadesListener;
 import com.example.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 
 import org.joda.time.DateTime;
@@ -37,18 +38,21 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         atividadesFrequencia = new MutableLiveData<>();
     }
 
-    public void carregarAtividadesFrequencia(Context context){
+    public void carregarAtividadesFrequencia(Context context, final AtividadesListener listener){
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         int userId = preferences.getUserId();
         if(userId != -1){
+            listener.onLoading();
             atividadeRepositorio.buscarAtividadesFrequencia(new ResponseListener<List<Atividade>>() {
                 @Override
                 public void onSuccess(List<Atividade> response) {
+                    listener.onDone();
                     atividadesFrequencia.setValue(response);
                 }
 
                 @Override
                 public void onFailure(String message) {
+                    listener.onDone();
                     Log.i("Falha",message);
                 }
             },userId);

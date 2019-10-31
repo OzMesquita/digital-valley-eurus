@@ -51,6 +51,19 @@
         android:layout_marginTop="10dp"
         android:id="@+id/atividades_frequencia"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/frequencia_progress"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

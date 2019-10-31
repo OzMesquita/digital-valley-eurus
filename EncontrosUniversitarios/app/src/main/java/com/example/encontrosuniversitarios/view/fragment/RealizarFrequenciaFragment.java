@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filterable;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
     private RealizarFrequenciaViewModel realizarFrequenciaViewModel;
     private RecyclerView recyclerView;
     private TextView txtSala;
+    private ProgressBar frequenciaProgress;
+    private ProgressBar dialogoProgress;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +55,8 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         realizarFrequenciaViewModel = ViewModelProviders.of(this).get(RealizarFrequenciaViewModel.class);
         recyclerView = view.findViewById(R.id.atividades_frequencia);
         txtSala = view.findViewById(R.id.sala);
+        frequenciaProgress = view.findViewById(R.id.frequencia_progress);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         btnReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,13 +97,37 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
     @Override
     public void onStart() {
         super.onStart();
-        realizarFrequenciaViewModel.carregarAtividadesFrequencia(getContext());
+        realizarFrequenciaViewModel.carregarAtividadesFrequencia(getContext(), new AtividadesListener() {
+            @Override
+            public void onLoading() {
+                recyclerView.setVisibility(View.GONE);
+                frequenciaProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onDone() {
+                recyclerView.setVisibility(View.VISIBLE);
+                frequenciaProgress.setVisibility(View.GONE);
+            }
+        });
     }
+
+    AtividadesListener listener = new AtividadesListener() {
+        @Override
+        public void onLoading() {
+            dialogoProgress.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onDone() {
+            dialogoProgress.setVisibility(View.GONE);
+        }
+    };
 
     public void showMatriculaDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View customLayout = getLayoutInflater().inflate(R.layout.matricula_dialog, null);
-
+        dialogoProgress = customLayout.findViewById(R.id.matricula_progress);
         Button getUser = customLayout.findViewById(R.id.get_user);
         Button frequencia = customLayout.findViewById(R.id.frequencia);
         final TextView userName = customLayout.findViewById(R.id.nome_usuario_matricula);
@@ -120,14 +149,17 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
             @Override
             public void onClick(View v) {
                 if(matricula.getText().toString().length() == 6) {
+                    listener.onLoading();
                     realizarFrequenciaViewModel.buscarUsuarioPorMatricula(new ResponseListener() {
                         @Override
                         public void onSuccess(Object response) {
+                            listener.onDone();
                             realizarFrequenciaViewModel.initDadosFrequencia((DadosFrequenciaUsuario) response);
                         }
 
                         @Override
                         public void onFailure(String message) {
+                            listener.onDone();
                             realizarFrequenciaViewModel.initDadosFrequencia(null);
                             matricula.setError("Não foi possível encontrar essa matrícula.");
                         }
@@ -141,24 +173,29 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
             @Override
             public void onClick(View v) {
                 if(realizarFrequenciaViewModel.getUsuarioFrequencia().getValue() != null) {
+                    listener.onLoading();
                     realizarFrequenciaViewModel.realizarCheckInCheckOut(new CheckInCheckOutListener() {
                         @Override
                         public void onSuccess(String message) {
+                            listener.onDone();
                             Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onCheckedInOnDifferentRoom(String message) {
+                            listener.onDone();
                             Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onInvalidQRCode(String message) {
+                            listener.onDone();
                             Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onFailure(String message) {
+                            listener.onDone();
                             Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
                         }
                     },getContext());
