@@ -1,0 +1,28 @@
+Política de privacidade
+1. Coleta de dados
+Ao utilizar nosso aplicativo, não serão solicitados dados pessoais a menos que queira criar uma conta no aplicativo, coletamos as informações pessoais que você nos dá tais como: nome, e-mail, matrícula.
+
+Permissões necessárias
+
+Para o uso pleno do aplicativo, precisamos obter acesso ao seguintes recursos do seu dispositivo:
+
+Acesso à câmera: A câmera é utilizada para ler QR Code.
+Acesso total a rede: O acesso que o aplicativo faz à rede pública é exclusivo para conexão com os servidores do nosso aplicativo.
+ 
+
+2. Utilização das informações
+As informações coletadas servirão somente para a finalidade de contabilização de horas de atividades complementares da Universidade Federal do Ceará.
+ 
+
+3. Consentimento
+O seu consentimento é obtido quando você fornece informações pessoais como nome, email, matrícula. Ao salvar essas informações na sua conta, entendemos que você está de acordo com a coleta e uso desses dados pela universidade.
+
+
+E se caso eu queira retirar meu consentimento, como proceder?
+
+Se após você nos fornecer seus dados, você mudar de ideia, você pode retirar o seu consentimento entrando em contato conosco através do endereço de e-mail da nossa equipe de suporte técnico: pibi.ufc.russas@gmail.com
+
+
+4. Divulgação
+Podemos divulgar suas informações pessoais caso sejamos obrigados jurídicamente.
+

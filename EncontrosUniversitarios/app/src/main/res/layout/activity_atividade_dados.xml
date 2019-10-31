@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
-tools:context=".view.activity.AtividadeDadosActivity">
+tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosActivity">
 <data>
     <variable
         name="atividade"
-        type="com.example.encontrosuniversitarios.model.Atividade" />
+        type="ufc.russas.encontrosuniversitarios.model.Atividade" />
     <variable
         name="formatador"
-        type="com.example.encontrosuniversitarios.helper.FormatadorData" />
+        type="ufc.russas.encontrosuniversitarios.helper.FormatadorData" />
 
     <variable
         name="horarioInicial"

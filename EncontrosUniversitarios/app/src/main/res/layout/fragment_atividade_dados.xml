@@ -5,10 +5,10 @@
     <data>
         <variable
             name="atividade"
-            type="com.example.encontrosuniversitarios.model.Atividade" />
+            type="ufc.russas.encontrosuniversitarios.model.Atividade" />
         <variable
             name="formatador"
-            type="com.example.encontrosuniversitarios.helper.FormatadorData" />
+            type="ufc.russas.encontrosuniversitarios.helper.FormatadorData" />
 
         <variable
             name="horarioInicial"

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:959304951725:android:7b4a5db85afd924e",
         "android_client_info": {
-          "package_name": "com.example.encontrosuniversitarios"
+          "package_name": "ufc.russas.encontrosuniversitarios"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "959304951725-d2tmo6e6v05d4q7h059438a8pr5qejlk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.encontrosuniversitarios",
+            "package_name": "ufc.russas.encontrosuniversitarios",
             "certificate_hash": "8eaff13dff847bd92909a07c3663a020e87facaa"
           }
         },
