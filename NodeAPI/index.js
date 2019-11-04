@@ -31,10 +31,6 @@ app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-// app.get('/forgot', (request, response)=> {
-//    response.render('./boi.html', { });
-// })
-
 app.get('/usuario/verificacao/:matricula', db_usu.getValidacaoMatricula)
 app.post('/auth', db_usu.getUsuarioByEmailSenha)
 app.get('/usuario/:matricula',db_usu.getUsuarioByMatricula)
