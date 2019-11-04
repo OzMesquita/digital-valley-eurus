@@ -2,12 +2,11 @@ const db = require('./conexao')
 
 const verificarPodeCheckInCheckOut = (request, response, next) => {
     const { sala, id_usuario } = request.body
-    //console.log(request.body)
+    console.log(request.body)
     const queryResponse = { checkedInOnDifferentRoom: false, previousRoom: null, message: '', successful: false }
 
     db.pool.query('SELECT * FROM '+db.db_name+'frequencia as f where f.usuario_fk = $1 and not f.sala_fk = $2 and f.check_out IS NULL',[id_usuario,sala], (error, results) => {
-
-        if(results.rowCount > 0) {
+        if(results!=null && results.rowCount > 0) {
             queryResponse.checkedInOnDifferentRoom = true;
             queryResponse.previousRoom = results.rows[0].sala_fk
             queryResponse.message = "O usuário informado não fez check out na sala " + queryResponse.previousRoom
@@ -24,8 +23,9 @@ const realizarCheckInCheckOut = (request, response) => {
     const queryResponse = {successful: false, message: '', checkedInOnDifferentRoom: false, previousRoom: null}
     var isCheckIn = true;
     db.pool.query('SELECT * FROM '+db.db_name+'frequencia as f join '+db.db_name+'usuario as u on f.usuario_fk=u.id_usuario where u.id_usuario = $1 and f.sala_fk = $2',[id_usuario,sala], (error, results) => {
-
-        if(results.rowCount > 0) {
+        console.log("results");
+        console.log(results);
+        if(results!=null && results.rowCount > 0) {
             for( var i=0; i<results.rowCount; i++) {
                 if(results.rows[i].check_in != null && results.rows[i].check_out == null){
                     isCheckIn = false;

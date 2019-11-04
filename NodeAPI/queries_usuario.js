@@ -103,31 +103,35 @@ const getUsuarioByEmailSenha = (request, response) => {
       usuarioLogado: null
     }
 
-    var senhaEncriptada = bcrypt.hashSync(senha, salt)
+    //var senhaEncriptada = bcrypt.hashSync(senha, salt)
 
     db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE email = $1', [email], (error, results) => {
 
       if (results!= null && results.rowCount > 0) {
-        //console.log(results.rows[0])
-        if(results.rows[0].senha == senhaEncriptada) {
-          const usuarioLogado = {
-            id_usuario: results.rows[0].id_usuario,
-            nome: results.rows[0].nome,
-            email: results.rows[0].email,
-            matricula: results.rows[0].matricula,
-            senha: senha,
-            nivel_acesso: results.rows[0].nivel_acesso
+        bcrypt.compare(senha,results.rows[0].senha,(err,res) => {
+          console.log(err)
+          if(res) {
+            const usuarioLogado = {
+              id_usuario: results.rows[0].id_usuario,
+              nome: results.rows[0].nome,
+              email: results.rows[0].email,
+              matricula: results.rows[0].matricula,
+              senha: senha,
+              nivel_acesso: results.rows[0].nivel_acesso
+            }
+            queryResponse.usuarioLogado = usuarioLogado;
+            queryResponse.loginSuccessful = true;
+  
+          }else{
+            queryResponse.wrongPassword = true;
           }
-          queryResponse.usuarioLogado = usuarioLogado;
-          queryResponse.loginSuccessful = true;
-
-        }else{
-          queryResponse.wrongPassword = true;
-        }
+          response.status(200).json(queryResponse)
+        });
+      
       } else {
         queryResponse.unregisteredEmail = true;
+        response.status(200).json(queryResponse)
       }
-      response.status(200).json(queryResponse)
     });
   }catch(ex){
     console.log('Erro ao listar usuário por email!');
@@ -297,7 +301,7 @@ const updateUsuario = (request, response) => {
 
   const getValidacaoMatricula = (req, response) => {
     const matricula = req.params.matricula
-    http.get('http://192.169.1.103:3001/ws/api/aluno/'+matricula, (res)=> {
+    http.get('http://200.129.62.41:3001/ws/api/aluno/'+matricula, (res)=> {
     // http.get('http://192.169.1.103:3001/ws/api/aluno?matricula='+matricula, (res)=> {
       let data = ''
 
