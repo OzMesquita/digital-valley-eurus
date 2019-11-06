@@ -63,7 +63,8 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
     const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false, message: ''}
 
     db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE matricula = $1 or email = $2', [matricula, email], (error, results) => {
-      if(results != null){
+      console.log(results.rowCount)
+      if(results != null && results.rowCount>0){
         for(var i=0; i<results.rowCount;i++){
           if(queryResponse.alreadyTakenMatricula && queryResponse.alreadyTakenEmail) break;
           if(results.rows[i].matricula == matricula){
@@ -74,6 +75,7 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
           }
         }
       }
+      console.log(queryResponse)
       if(!queryResponse.alreadyTakenEmail && !queryResponse.alreadyTakenMatricula){
         next()
       }else{
@@ -82,10 +84,9 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
         }else{
           queryResponse.message = "Já existe uma conta com o email fornecido"
         }
-        response.status(201).json(queryResponse)
+        response.status(200).json(queryResponse)
       }
     })
-
   }catch(ex){
     console.log('Erro ao listar usuário, por matricula e email!');
     response.status(500).send(`Erro ao listar usuário, por matricula e email`)
@@ -149,10 +150,15 @@ const createUsuario = (request, response) => {
     var senhaEncriptada = bcrypt.hashSync(senha, salt)
     //console.log(senhaEncriptada)
     db.pool.query('INSERT INTO '+db.db_name+'usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senhaEncriptada, nivel_acesso, nome], (error, result) => {
+      console.log(error)
       if(error==null){
+        console.log("create1")
+        console.log(queryResponse)
         queryResponse.message = "Usuário criado com sucesso"
         response.status(201).json(queryResponse)
       }else{
+        console.log("create2")
+        console.log(queryResponse)
         queryResponse.message = "Matrícula ou email já cadastrados"
         queryResponse.alreadyTakenMatricula = true;
         response.status(201).json(queryResponse)
