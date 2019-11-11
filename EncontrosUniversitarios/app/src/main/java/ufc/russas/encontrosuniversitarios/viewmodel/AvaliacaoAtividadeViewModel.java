@@ -9,7 +9,7 @@ import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.AvaliacaoAtividade;
 import ufc.russas.encontrosuniversitarios.model.CriterioAtividade;
 import ufc.russas.encontrosuniversitarios.model.Nota;
-import ufc.russas.encontrosuniversitarios.model.ResultadoAvaliacao;
+import ufc.russas.encontrosuniversitarios.model.webservice.ResultadoAvaliacao;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;

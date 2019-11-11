@@ -10,10 +10,10 @@ import androidx.lifecycle.ViewModel;
 
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
-import ufc.russas.encontrosuniversitarios.model.DadosCheckIn;
-import ufc.russas.encontrosuniversitarios.model.DadosFrequenciaUsuario;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosCheckIn;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosFrequenciaUsuario;
 import ufc.russas.encontrosuniversitarios.model.QRCodeValidator;
-import ufc.russas.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
+import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCheckInCheckOut;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;

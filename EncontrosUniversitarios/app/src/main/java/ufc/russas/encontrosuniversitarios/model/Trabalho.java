@@ -9,7 +9,6 @@ public class Trabalho {
     private Categoria modalidade;
     private Usuario autor;
     private String orientador;
-    //private List<Usuario> coAutores;
 
     public String getTitulo() {
         return titulo;
@@ -42,16 +41,6 @@ public class Trabalho {
     public void setOrientador(String orientador) {
         this.orientador = orientador;
     }
-
-    /*
-    public List<Usuario> getCoAutores() {
-        return coAutores;
-    }
-
-    public void setCoAutores(List<Usuario> coAutores) {
-        this.coAutores = coAutores;
-    }
-    */
 
     public Integer getId() {
         return id;

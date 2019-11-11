@@ -22,7 +22,6 @@ public class QRCodeValidator {
         }
     }
 
-
     public Integer getIdUsuario() {
         return idUsuario;
     }

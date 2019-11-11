@@ -3,7 +3,7 @@ package ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.AvaliacaoAtividade;
 import ufc.russas.encontrosuniversitarios.model.CriterioAtividade;
-import ufc.russas.encontrosuniversitarios.model.ResultadoAvaliacao;
+import ufc.russas.encontrosuniversitarios.model.webservice.ResultadoAvaliacao;
 
 import org.joda.time.DateTime;
 

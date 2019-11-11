@@ -5,7 +5,7 @@ import android.util.Log;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.AvaliacaoAtividade;
 import ufc.russas.encontrosuniversitarios.model.CriterioAtividade;
-import ufc.russas.encontrosuniversitarios.model.ResultadoAvaliacao;
+import ufc.russas.encontrosuniversitarios.model.webservice.ResultadoAvaliacao;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 
 import org.joda.time.DateTime;

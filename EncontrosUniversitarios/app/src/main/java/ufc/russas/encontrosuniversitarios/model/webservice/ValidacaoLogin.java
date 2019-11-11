@@ -1,4 +1,6 @@
-package ufc.russas.encontrosuniversitarios.model;
+package ufc.russas.encontrosuniversitarios.model.webservice;
+
+import ufc.russas.encontrosuniversitarios.model.Usuario;
 
 public class ValidacaoLogin {
     private boolean unregisteredEmail;
@@ -17,33 +19,16 @@ public class ValidacaoLogin {
         return usuarioLogado;
     }
 
-    public void setUsuarioLogado(Usuario usuarioLogado) {
-        this.usuarioLogado = usuarioLogado;
-    }
-
     public boolean isLoginSuccessful() {
         return loginSuccessful;
-    }
-
-    public void setLoginSuccessful(boolean loginSuccessful) {
-        this.loginSuccessful = loginSuccessful;
     }
 
     public boolean isUnregisteredEmail() {
         return unregisteredEmail;
     }
 
-    public void setUnregisteredEmail(boolean unregisteredEmail) {
-        this.unregisteredEmail = unregisteredEmail;
-    }
-
     public boolean isWrongPassword() {
         return wrongPassword;
     }
-
-    public void setWrongPassword(boolean wrongPassword) {
-        this.wrongPassword = wrongPassword;
-    }
-
 }
 

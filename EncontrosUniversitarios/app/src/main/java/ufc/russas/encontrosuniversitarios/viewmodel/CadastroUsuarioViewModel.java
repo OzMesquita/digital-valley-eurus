@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import ufc.russas.encontrosuniversitarios.model.Usuario;
-import ufc.russas.encontrosuniversitarios.model.ValidacaoCadastro;
-import ufc.russas.encontrosuniversitarios.model.VerificacaoMatricula;
+import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCadastro;
+import ufc.russas.encontrosuniversitarios.model.webservice.VerificacaoMatricula;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
 import ufc.russas.encontrosuniversitarios.model.exceptions.CampoVazioException;

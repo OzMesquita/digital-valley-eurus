@@ -12,8 +12,6 @@ public class AvaliacaoAtividade {
     private String comentarios;
     private List<Nota> notas;
 
-    public AvaliacaoAtividade(){}
-
     public AvaliacaoAtividade(int idAtividade, int idAvaliador, String comentarios, List<Nota> notas) {
         this.idAtividade = idAtividade;
         this.idAvaliador = idAvaliador;

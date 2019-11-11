@@ -10,7 +10,6 @@ import com.google.gson.annotations.SerializedName;
 public class Usuario {
 
     public final static int NIVEL_ACESSO_PARTICIPANTE = 0;
-    public final static int NIVEL_ACESSO_COORDENADOR = 1;
 
     @Expose
     @SerializedName("id_usuario")

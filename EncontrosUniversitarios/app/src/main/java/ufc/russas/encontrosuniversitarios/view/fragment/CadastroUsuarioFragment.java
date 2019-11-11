@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import ufc.russas.encontrosuniversitarios.R;
 
-import ufc.russas.encontrosuniversitarios.model.VerificacaoMatricula;
+import ufc.russas.encontrosuniversitarios.model.webservice.VerificacaoMatricula;
 import ufc.russas.encontrosuniversitarios.viewmodel.CadastroUsuarioViewModel;
 
 public class CadastroUsuarioFragment extends Fragment {

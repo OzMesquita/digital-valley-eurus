@@ -21,11 +21,6 @@ public class Local {
         this.localCompleto = localCompleto;
     }
 
-    public Local(String nome, Sala sala) {
-        this.nome = nome;
-        this.sala = sala;
-    }
-
     public Local() {
     }
 
@@ -61,16 +56,8 @@ public class Local {
         return andar;
     }
 
-    public void setAndar(String andar) {
-        this.andar = andar;
-    }
-
     public Sala getSala() {
         return sala;
-    }
-
-    public void setSala(Sala sala) {
-        this.sala = sala;
     }
 
     public Integer getId() {

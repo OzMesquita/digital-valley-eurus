@@ -1,4 +1,4 @@
-package ufc.russas.encontrosuniversitarios.model;
+package ufc.russas.encontrosuniversitarios.model.webservice;
 import com.google.gson.annotations.SerializedName;
 
 public class DadosCheckIn {

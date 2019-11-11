@@ -58,11 +58,6 @@ public class Atividade implements Parcelable {
         this.horarioInicialPrevisto = horarioInicialPrevisto;
     }
 
-    public Boolean verificarAtividadeOcorridaDentre(DateTime checkIn,DateTime checkOut){
-        if(this.horarioInicio==null || this.horarioFinal==null) return null;
-        return (this.horarioInicio.getMillis() >= checkIn.getMillis()) && (this.horarioFinal.getMillis() <= checkOut.getMillis());
-    }
-
     public Boolean iniciar(DateTime momento){
         if(this.horarioInicio==null){
             this.horarioInicio = momento;
@@ -134,32 +129,12 @@ public class Atividade implements Parcelable {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
     public DateTime getHorarioInicialPrevisto() {
         return horarioInicialPrevisto;
     }
 
-    public void setHorarioInicialPrevisto(DateTime horarioInicialPrevisto) {
-        this.horarioInicialPrevisto = horarioInicialPrevisto;
-    }
-
     public DateTime getHorarioInicio() {
         return horarioInicio;
-    }
-
-    public void setHorarioInicio(DateTime horarioInicio) {
-        this.horarioInicio = horarioInicio;
     }
 
     public DateTime getHorarioFinal() {
@@ -170,27 +145,11 @@ public class Atividade implements Parcelable {
         this.horarioFinal = horarioFinal;
     }
 
-    public Trabalho getTrabalho() {
-        return trabalho;
-    }
-
-    public void setTrabalho(Trabalho trabalho) {
-        this.trabalho = trabalho;
-    }
-
     public Usuario getApresentador() {
         return apresentador;
     }
 
-    public void setApresentador(Usuario apresentador) {
-        this.apresentador = apresentador;
-    }
-
     public Local getLocal() {    return local;
-    }
-
-    public void setLocal(Local local) {
-        this.local = local;
     }
 
     public void setId(Integer id) {

@@ -5,11 +5,11 @@ import android.content.Context;
 import androidx.lifecycle.ViewModel;
 
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
-import ufc.russas.encontrosuniversitarios.model.AlterarSenhaResponse;
-import ufc.russas.encontrosuniversitarios.model.DadosAlterarSenha;
-import ufc.russas.encontrosuniversitarios.model.DadosLogin;
+import ufc.russas.encontrosuniversitarios.model.webservice.AlterarSenhaResponse;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosAlterarSenha;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosLogin;
 import ufc.russas.encontrosuniversitarios.model.Usuario;
-import ufc.russas.encontrosuniversitarios.model.ValidacaoLogin;
+import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoLogin;
 import ufc.russas.encontrosuniversitarios.model.Validador;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;

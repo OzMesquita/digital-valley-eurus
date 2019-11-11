@@ -25,7 +25,7 @@ import ufc.russas.encontrosuniversitarios.ProgramacaoListInterface;
 import ufc.russas.encontrosuniversitarios.R;
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
-import ufc.russas.encontrosuniversitarios.model.DadosFrequenciaUsuario;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosFrequenciaUsuario;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
 import ufc.russas.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
 import ufc.russas.encontrosuniversitarios.helper.ScanHelper;

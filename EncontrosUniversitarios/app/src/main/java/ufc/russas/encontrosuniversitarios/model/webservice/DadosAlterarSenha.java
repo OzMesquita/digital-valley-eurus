@@ -1,4 +1,4 @@
-package ufc.russas.encontrosuniversitarios.model;
+package ufc.russas.encontrosuniversitarios.model.webservice;
 
 public class DadosAlterarSenha {
     private String token;

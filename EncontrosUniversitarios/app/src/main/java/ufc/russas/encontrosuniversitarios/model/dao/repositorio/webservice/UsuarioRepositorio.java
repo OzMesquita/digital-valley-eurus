@@ -2,16 +2,16 @@ package ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice;
 
 import android.util.Log;
 
-import ufc.russas.encontrosuniversitarios.model.AlterarSenhaResponse;
-import ufc.russas.encontrosuniversitarios.model.DadosAlterarSenha;
-import ufc.russas.encontrosuniversitarios.model.DadosCheckIn;
-import ufc.russas.encontrosuniversitarios.model.DadosFrequenciaUsuario;
-import ufc.russas.encontrosuniversitarios.model.DadosLogin;
+import ufc.russas.encontrosuniversitarios.model.webservice.AlterarSenhaResponse;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosAlterarSenha;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosCheckIn;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosFrequenciaUsuario;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosLogin;
 import ufc.russas.encontrosuniversitarios.model.Usuario;
-import ufc.russas.encontrosuniversitarios.model.ValidacaoCadastro;
-import ufc.russas.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
-import ufc.russas.encontrosuniversitarios.model.ValidacaoLogin;
-import ufc.russas.encontrosuniversitarios.model.VerificacaoMatricula;
+import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCadastro;
+import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCheckInCheckOut;
+import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoLogin;
+import ufc.russas.encontrosuniversitarios.model.webservice.VerificacaoMatricula;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 
 import retrofit2.Call;

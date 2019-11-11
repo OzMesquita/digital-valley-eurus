@@ -1,4 +1,4 @@
-package ufc.russas.encontrosuniversitarios.model;
+package ufc.russas.encontrosuniversitarios.model.webservice;
 
 public class ValidacaoCheckInCheckOut {
     private boolean successful;
@@ -17,16 +17,8 @@ public class ValidacaoCheckInCheckOut {
         return successful;
     }
 
-    public void setSuccessful(boolean successful) {
-        this.successful = successful;
-    }
-
     public boolean isCheckedInOnDifferentRoom() {
         return checkedInOnDifferentRoom;
-    }
-
-    public void setCheckedInOnDifferentRoom(boolean checkedInOnDifferentRoom) {
-        this.checkedInOnDifferentRoom = checkedInOnDifferentRoom;
     }
 
     public String getMessage() {
@@ -37,11 +29,4 @@ public class ValidacaoCheckInCheckOut {
         this.message = message;
     }
 
-    public int getPreviousRoom() {
-        return previousRoom;
-    }
-
-    public void setPreviousRoom(int previousRoom) {
-        this.previousRoom = previousRoom;
-    }
 }
