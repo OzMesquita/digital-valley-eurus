@@ -63,7 +63,8 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
     const queryResponse = { alreadyTakenEmail: false, alreadyTakenMatricula: false, message: ''}
 
     db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE matricula = $1 or email = $2', [matricula, email], (error, results) => {
-      if(results != null){
+      console.log(results.rowCount)
+      if(results != null && results.rowCount>0){
         for(var i=0; i<results.rowCount;i++){
           if(queryResponse.alreadyTakenMatricula && queryResponse.alreadyTakenEmail) break;
           if(results.rows[i].matricula == matricula){
@@ -74,6 +75,7 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
           }
         }
       }
+      console.log(queryResponse)
       if(!queryResponse.alreadyTakenEmail && !queryResponse.alreadyTakenMatricula){
         next()
       }else{
@@ -82,10 +84,9 @@ const getUsuarioByEmailMatricula = (request, response, next) => {
         }else{
           queryResponse.message = "Já existe uma conta com o email fornecido"
         }
-        response.status(201).json(queryResponse)
+        response.status(200).json(queryResponse)
       }
     })
-
   }catch(ex){
     console.log('Erro ao listar usuário, por matricula e email!');
     response.status(500).send(`Erro ao listar usuário, por matricula e email`)
@@ -103,31 +104,35 @@ const getUsuarioByEmailSenha = (request, response) => {
       usuarioLogado: null
     }
 
-    var senhaEncriptada = bcrypt.hashSync(senha, salt)
+    //var senhaEncriptada = bcrypt.hashSync(senha, salt)
 
     db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE email = $1', [email], (error, results) => {
 
       if (results!= null && results.rowCount > 0) {
-        //console.log(results.rows[0])
-        if(results.rows[0].senha == senhaEncriptada) {
-          const usuarioLogado = {
-            id_usuario: results.rows[0].id_usuario,
-            nome: results.rows[0].nome,
-            email: results.rows[0].email,
-            matricula: results.rows[0].matricula,
-            senha: senha,
-            nivel_acesso: results.rows[0].nivel_acesso
+        bcrypt.compare(senha,results.rows[0].senha,(err,res) => {
+          console.log(err)
+          if(res) {
+            const usuarioLogado = {
+              id_usuario: results.rows[0].id_usuario,
+              nome: results.rows[0].nome,
+              email: results.rows[0].email,
+              matricula: results.rows[0].matricula,
+              senha: senha,
+              nivel_acesso: results.rows[0].nivel_acesso
+            }
+            queryResponse.usuarioLogado = usuarioLogado;
+            queryResponse.loginSuccessful = true;
+  
+          }else{
+            queryResponse.wrongPassword = true;
           }
-          queryResponse.usuarioLogado = usuarioLogado;
-          queryResponse.loginSuccessful = true;
-
-        }else{
-          queryResponse.wrongPassword = true;
-        }
+          response.status(200).json(queryResponse)
+        });
+      
       } else {
         queryResponse.unregisteredEmail = true;
+        response.status(200).json(queryResponse)
       }
-      response.status(200).json(queryResponse)
     });
   }catch(ex){
     console.log('Erro ao listar usuário por email!');
@@ -145,10 +150,15 @@ const createUsuario = (request, response) => {
     var senhaEncriptada = bcrypt.hashSync(senha, salt)
     //console.log(senhaEncriptada)
     db.pool.query('INSERT INTO '+db.db_name+'usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senhaEncriptada, nivel_acesso, nome], (error, result) => {
+      console.log(error)
       if(error==null){
+        console.log("create1")
+        console.log(queryResponse)
         queryResponse.message = "Usuário criado com sucesso"
         response.status(201).json(queryResponse)
       }else{
+        console.log("create2")
+        console.log(queryResponse)
         queryResponse.message = "Matrícula ou email já cadastrados"
         queryResponse.alreadyTakenMatricula = true;
         response.status(201).json(queryResponse)
@@ -297,7 +307,7 @@ const updateUsuario = (request, response) => {
 
   const getValidacaoMatricula = (req, response) => {
     const matricula = req.params.matricula
-    http.get('http://192.169.1.103:3001/ws/api/aluno/'+matricula, (res)=> {
+    http.get('http://200.129.62.41:3001/ws/api/aluno/'+matricula, (res)=> {
     // http.get('http://192.169.1.103:3001/ws/api/aluno?matricula='+matricula, (res)=> {
       let data = ''
 
