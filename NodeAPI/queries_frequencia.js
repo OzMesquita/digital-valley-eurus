@@ -15,7 +15,6 @@ const verificarPodeCheckInCheckOut = (request, response, next) => {
             next()
         }
     })
-
 }
 
 const realizarCheckInCheckOut = (request, response) => {
@@ -72,7 +71,6 @@ const getFrequencias = (request, response) => {
       }else{
         response.status(200).json([])
       }
-
     })
   }catch(ex){
     console.log('Erro ao listar frequencias!');

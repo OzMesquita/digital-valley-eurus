@@ -1,27 +1,23 @@
 package ufc.russas.encontrosuniversitarios.view.fragment;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filterable;
 import android.widget.ProgressBar;
-
 import ufc.russas.encontrosuniversitarios.ProgramacaoListInterface;
 import ufc.russas.encontrosuniversitarios.R;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
 import ufc.russas.encontrosuniversitarios.viewmodel.AvaliacaoAtividadeViewModel;
-
 import java.util.List;
 
 
@@ -42,11 +38,11 @@ public class AtividadesProfessorFragment extends Fragment implements Programacao
         avaliacaoAtividadeViewModel.getAtividadesAvaliação().observe(this, new Observer<List<Atividade>>() {
             @Override
             public void onChanged(List<Atividade> atividades) {
-                if(atividades!=null && atividades.size()>=1){
+                if (atividades != null && atividades.size() >= 1) {
                     MySharedPreferences.getInstance(getContext()).setCoordinatorActivities(atividades);
                     MySharedPreferences.getInstance(getContext()).setRoom(atividades.get(0).getLocal().getSala().getId());
                 }
-                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(),true);
+                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(), true);
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
             }
         });
@@ -67,7 +63,6 @@ public class AtividadesProfessorFragment extends Fragment implements Programacao
                 progressBar.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
             }
-
             @Override
             public void onDone() {
                 progressBar.setVisibility(View.GONE);

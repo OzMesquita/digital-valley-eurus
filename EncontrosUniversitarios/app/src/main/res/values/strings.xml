@@ -6,7 +6,6 @@
     <string name="title_avaliacoes">Avaliações</string>
     <string name="title_atividades">Atividades Participadas</string>
     <string name="search_hint">Digite a atividade</string>
-
     <string name="started_activities">Iniciadas</string>
     <string name="finished_activities">Finalizadas</string>
     <string name="next_activities">Próximas</string>
@@ -18,7 +17,6 @@
     <string name="realizar_frequencia">Realizar frequência - Sala</string>
     <string name="qr_code_title">Meu Código</string>
     <string name="close">Fechar</string>
-
     <string name="qrcode">QRCode</string>
     <string name="senha">Senha</string>
     <string name="entrar_perfil">Entrar</string>
@@ -39,7 +37,6 @@
     <string name="where">Local</string>
     <string name="description">Descrição</string>
     <string name="default_description">Esta atividade busca mostrar as técnicas utilizadas em Engenharia de Software para elicitação de requisitos em projetos ágeis de software. Você aprenderá técnicas atualizadas e muito utilizadas no ramo.</string>
-
     <string name="invalid_email_message">O email fornecido é inválido</string>
     <string name="invalid_password_message">A senha fornecida é muito curta, digite uma de no mínimo 6 caracteres</string>
     <string name="invalid_matricula_message">A matrícula fornecida não contém 6 dígitos</string>
@@ -52,7 +49,6 @@
     <string name="unregistered_email_message">Esse email não possui cadastro, crie uma conta para entrar</string>
     <string name="something_went_wrong">Não foi possível processar sua requisição</string>
     <string name="message_verify_matricula"> Verificação de matrícula </string>
-    <!--<string name="ir_para_tela_cadastro"> Efetuar Cadastro </string>-->
     <string name="qrcode_title">Leitor de código de barras - Encontros Universitários 2019</string>
     <string name="read_matricula">Digite a matricula do participante</string>
     <string name="get_user">Verificar matrícula</string>
@@ -67,6 +63,6 @@
     <string name="password_recovery">RECUPERAÇÃO DE SENHA</string>
     <string name="media">Média</string>
     <string name="matricula_inexistente">A matrícula fornecida não foi encontrada em nossa base de dados, por favor envie um email com sua nome, matrícula, email e curso para: n2s@ufc.br  </string>
-
+    <string name="informe_aluno">"As atividades listadas abaixo corresponderão apenas às que você assistiu por completo, porém todo seu tempo de permanência nas salas será contabilizado!"</string>
 
 </resources>

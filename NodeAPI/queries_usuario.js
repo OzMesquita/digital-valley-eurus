@@ -13,7 +13,6 @@ const getUsuarios = (request, response) => {
       }else{
         response.status(200).json([])
       }
-
     })
   }catch(ex){
     console.log('Erro ao listar usuários!');
@@ -25,7 +24,6 @@ const getUsuarios = (request, response) => {
 const getUsuarioById = (request, response) => {
   try {
     const id_usuario = parseInt(request.params.id)
-
     db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE id_usuario = $1', [id_usuario], (error, results) => {
       if(id_usuario!=null){
         response.status(200).json(results.rows)
@@ -104,8 +102,6 @@ const getUsuarioByEmailSenha = (request, response) => {
       usuarioLogado: null
     }
 
-    //var senhaEncriptada = bcrypt.hashSync(senha, salt)
-
     db.pool.query('SELECT * FROM '+db.db_name+'usuario WHERE email = $1', [email], (error, results) => {
 
       if (results!= null && results.rowCount > 0) {
@@ -122,13 +118,13 @@ const getUsuarioByEmailSenha = (request, response) => {
             }
             queryResponse.usuarioLogado = usuarioLogado;
             queryResponse.loginSuccessful = true;
-  
+
           }else{
             queryResponse.wrongPassword = true;
           }
           response.status(200).json(queryResponse)
         });
-      
+
       } else {
         queryResponse.unregisteredEmail = true;
         response.status(200).json(queryResponse)
@@ -148,7 +144,6 @@ const createUsuario = (request, response) => {
     const {matricula, email, senha, nivel_acesso, nome} = request.body
 
     var senhaEncriptada = bcrypt.hashSync(senha, salt)
-    //console.log(senhaEncriptada)
     db.pool.query('INSERT INTO '+db.db_name+'usuario (matricula, email, senha, nivel_acesso, nome) VALUES ($1, $2, $3, $4, $5)', [matricula, email, senhaEncriptada, nivel_acesso, nome], (error, result) => {
       console.log(error)
       if(error==null){
@@ -171,17 +166,15 @@ const createUsuario = (request, response) => {
   }
 }
 
-
 const updateUsuario = (request, response) => {
   try {
     const id_usuario = parseInt(request.params.id)
-    const { cpf, matricula, email, senha, nivel_acesso, nome} = request.body
-
+    const {matricula, email, senha, nivel_acesso, nome} = request.body
     var senhaEncriptada = bcrypt.hashSync(senha, salt)
 
     db.pool.query(
-      'UPDATE '+db.db_name+'usuario SET cpf = $1, matricula = $2, email = $3, senha = $4, nivel_acesso = $5, nome = $6 WHERE id_usuario = $7',
-      [cpf, matricula, email, senhaEncriptada, nivel_acesso, nome, id_usuario],
+      'UPDATE '+db.db_name+'usuario SET matricula = $1, email = $2, senha = $3, nivel_acesso = $4, nome = $5 WHERE id_usuario = $6',
+      [matricula, email, senhaEncriptada, nivel_acesso, nome, id_usuario],
       (error, results) => {
         if(error == null){
           response.status(200).send(`Usuario modificado ID: ${id_usuario}`)
@@ -199,7 +192,6 @@ const updateUsuario = (request, response) => {
   const deleteUsuario = (request, response) => {
     try {
       const id_usuario = parseInt(request.params.id)
-
       db.pool.query('DELETE FROM '+db.db_name+'usuario WHERE id_usuario = $1', [id_usuario], (error, results) => {
         if(error == null){
           response.status(200).send(`Usuario excluido ID: ${id_usuario}`)
@@ -308,9 +300,7 @@ const updateUsuario = (request, response) => {
   const getValidacaoMatricula = (req, response) => {
     const matricula = req.params.matricula
     http.get('http://200.129.62.41:3001/ws/api/aluno/'+matricula, (res)=> {
-    // http.get('http://192.169.1.103:3001/ws/api/aluno?matricula='+matricula, (res)=> {
       let data = ''
-
       res.on('data',(chunk)=>{
         data += chunk
       })

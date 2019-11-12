@@ -1,4 +1,4 @@
-package ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice;
+package ufc.russas.encontrosuniversitarios.model.dao.webservice;
 
 import org.joda.time.DateTime;
 

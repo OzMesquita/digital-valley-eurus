@@ -2,13 +2,11 @@ package ufc.russas.encontrosuniversitarios.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import ufc.russas.encontrosuniversitarios.R;
-//import com.example.encontrosuniversitarios.databinding.FragmentLoginBinding;
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
 import ufc.russas.encontrosuniversitarios.model.Usuario;
 import ufc.russas.encontrosuniversitarios.view.activity.EsqueciSenhaActivity;
@@ -36,7 +32,6 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

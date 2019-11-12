@@ -1,6 +1,7 @@
 package ufc.russas.encontrosuniversitarios.view.fragment;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ import ufc.russas.encontrosuniversitarios.viewmodel.AtividadesAlunoViewModel;
 
 import java.util.List;
 
-public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoListInterface {
+public class AtividadesAlunoFragment extends Fragment implements ProgramacaoListInterface {
 
     private ProgramacaoDoDiaAdapter programacaoDoDiaAdapter;
     private AtividadesAlunoViewModel atividadesAlunoViewModel;
@@ -58,14 +59,14 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
             @Override
             public void onClick(View v) {
                 MySharedPreferences p = MySharedPreferences.getInstance(getContext());
-                QRCodeHelper qrCodeHelper = new QRCodeHelper(500,500);
-                qrCodeHelper.generateUserQRCodeAlertDialog(getContext(),"EURUSSAS-"+p.getUserId()+"-"+p.getUserName());
+                QRCodeHelper qrCodeHelper = new QRCodeHelper(500, 500);
+                qrCodeHelper.generateUserQRCodeAlertDialog(getContext(), "EURUSSAS-" + p.getUserId() + "-" + p.getUserName());
             }
         });
         atividadesAlunoViewModel.getAtividades().observe(this, new Observer<List<Atividade>>() {
             @Override
             public void onChanged(List<Atividade> atividades) {
-                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, null,false);
+                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, null, false);
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
             }
         });
@@ -90,13 +91,12 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
         return view;
     }
 
-    private void showInfoDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("As atividades listadas abaixo corresponderão apenas às que você assistiu por completo, porém todo seu tempo de permanência nas salas será contabilizado!");
+    private void showInfoDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.CustomAlertDialog);
+        builder.setMessage(getResources().getString(R.string.informe_aluno));
         builder.setPositiveButton("Ok", null);
         builder.show();
     }
-
 
     @Override
     public Filterable getProgramacaoAdapter() {

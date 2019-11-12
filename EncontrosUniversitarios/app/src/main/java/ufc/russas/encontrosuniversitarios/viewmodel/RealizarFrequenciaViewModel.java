@@ -14,9 +14,9 @@ import ufc.russas.encontrosuniversitarios.model.webservice.DadosCheckIn;
 import ufc.russas.encontrosuniversitarios.model.webservice.DadosFrequenciaUsuario;
 import ufc.russas.encontrosuniversitarios.model.QRCodeValidator;
 import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCheckInCheckOut;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.AtividadeRepositorio;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.ResponseListener;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.UsuarioRepositorio;
 import ufc.russas.encontrosuniversitarios.view.fragment.AtividadesListener;
 import ufc.russas.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 

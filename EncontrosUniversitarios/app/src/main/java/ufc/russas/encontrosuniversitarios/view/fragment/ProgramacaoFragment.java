@@ -32,6 +32,7 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
     private ProgramacaoViewModel programacaoViewModel;
     private ProgressBar progressBar;
     private List<DiaEvento> diasEventos;
+
     public ProgramacaoFragment() {
         // Required empty public constructor
     }
@@ -51,7 +52,6 @@ public class ProgramacaoFragment extends Fragment implements ProgramacaoListInte
         atividadesRecyclerView = view.findViewById(R.id.programacao_recycler_view);
         progressBar = view.findViewById(R.id.programacao_progress);
         atividadesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
 
         programacaoViewModel.getDiasEvento().observe(this, new Observer<List<DiaEvento>>() {
             @Override

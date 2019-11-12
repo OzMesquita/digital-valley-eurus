@@ -19,13 +19,13 @@ const getTrabalhoById = (request, response) => {
     if(id_trabalho!=null){
       response.status(200).json(results.rows)
     }else{
+      
     }
 
   })
 }
 
 const createTrabalho = (request, response) => {
-  // const id = parseInt(request.body)
   const {titulo, modalidade_fk, autor_fk, orientador} = request.body
 
   db.pool.query('INSERT INTO '+db.db_name+'trabalho (titulo, modalidade_fk, autor_fk, orientador) VALUES ($1, $2, $3, $4)', [titulo, modalidade_fk, autor_fk, orientador], (error, result) => {
@@ -48,7 +48,6 @@ const updateTrabalho = (request, response) => {
         throw error
       }
       response.status(200).send(`Trabalho modificado ID: ${id_trabalho}`)
-      // response.status(200).send(`Trabalho modified with`)
     }
   )
 }

@@ -32,6 +32,7 @@ import ufc.russas.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
 import ufc.russas.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
 import ufc.russas.encontrosuniversitarios.viewmodel.LoginViewModel;
 import ufc.russas.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -83,22 +84,22 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle("");
                     if (preferences.getUserId() != -1) {
                         if (preferences.getUserAccessLevel() == 0) {
-                            getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());
+                            getSupportActionBar().setTitle("Olá, " + preferences.getUserName());
                             fragment = new AtividadesAlunoFragment();
                             itemId = 6;
                             openFragment(fragment, itemId - 4);
 
                         } else if (preferences.getUserAccessLevel() == 1) {
-                            getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());
+                            getSupportActionBar().setTitle("Olá, " + preferences.getUserName());
                             fragment = new RealizarFrequenciaFragment();
                             itemId = 2;
                             openFragment(fragment, itemId);
 
                         } else if (preferences.getUserAccessLevel() == 2) {
-                            getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());
+                            getSupportActionBar().setTitle("Olá, " + preferences.getUserName());
                             fragment = new AtividadesProfessorFragment();
                             itemId = 5;
-                            openFragment(fragment, itemId -3);
+                            openFragment(fragment, itemId - 3);
                         }
                     } else {
                         fragment = new LoginFragment();
@@ -127,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
                 menu.getItem(1).setVisible(true);
             }
         }
-
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -188,8 +188,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             onBackPressed();
-        } else
-            if (id == R.id.logout) {
+        } else if (id == R.id.logout) {
             ViewModelProviders.of(this).get(LoginViewModel.class).realizarLogout(this, new LogoutListener() {
                 @Override
                 public void onSuccessfulLogout() {
@@ -240,29 +239,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean showConexaoInternetDialog(Context cont) {
-        ConnectivityManager conmag = (ConnectivityManager)cont.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if ( conmag != null ) {
+        ConnectivityManager conmag = (ConnectivityManager) cont.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (conmag != null) {
             conmag.getActiveNetworkInfo();
-
             //Verifica internet pela WIFI
             if (conmag.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected()) {
                 return true;
             }
-
             //Verifica se tem internet móvel
             if (conmag.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected()) {
                 return true;
             }
         }
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            View customLayout = getLayoutInflater().inflate(R.layout.internet_dialog, null);
-            builder.setView(customLayout);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        View customLayout = getLayoutInflater().inflate(R.layout.internet_dialog, null);
+        builder.setView(customLayout);
 
-            builder.setPositiveButton(R.string.close,null);
-            builder.show();
-
+        builder.setPositiveButton(R.string.close, null);
+        builder.show();
         return false;
     }
-
 }

@@ -66,6 +66,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_atividade_dados);
+        getSupportActionBar().setTitle("Apresentação");
         Intent intent = getIntent();
 
         MySharedPreferences preferences = MySharedPreferences.getInstance(this);

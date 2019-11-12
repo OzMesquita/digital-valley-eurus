@@ -1,4 +1,4 @@
-package ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice;
+package ufc.russas.encontrosuniversitarios.model.dao.webservice;
 
 public interface ResponseListener<T> {
     void onSuccess(T response);

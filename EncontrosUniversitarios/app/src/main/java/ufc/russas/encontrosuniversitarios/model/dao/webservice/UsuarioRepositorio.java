@@ -1,4 +1,4 @@
-package ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice;
+package ufc.russas.encontrosuniversitarios.model.dao.webservice;
 
 import android.util.Log;
 
@@ -12,7 +12,7 @@ import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCadastro;
 import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCheckInCheckOut;
 import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoLogin;
 import ufc.russas.encontrosuniversitarios.model.webservice.VerificacaoMatricula;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
+import ufc.russas.encontrosuniversitarios.model.dao.database.WebServiceDatabase;
 
 import retrofit2.Call;
 import retrofit2.Callback;

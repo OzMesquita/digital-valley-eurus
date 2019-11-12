@@ -28,7 +28,6 @@ const getCategoriaById = (request, response) => {
 }
 
 const createCategoria = (request, response) => {
-  // const id = parseInt(request.body)
   const {nome_categoria, descricao } = request.body
 
   db.pool.query('INSERT INTO '+db.db_name+'categoria (nome_categoria, descricao) VALUES ($1, $2)', [nome_categoria, descricao], (error, result) => {
@@ -51,7 +50,6 @@ const updateCategoria = (request, response) => {
         throw error
       }
       response.status(200).send(`Categoria modificada ID: ${id_categoria}`)
-      // response.status(200).send(`Categoria modified with`)
     }
   )
 }

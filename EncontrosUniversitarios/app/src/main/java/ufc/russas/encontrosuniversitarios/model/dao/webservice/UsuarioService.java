@@ -1,4 +1,4 @@
-package ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice;
+package ufc.russas.encontrosuniversitarios.model.dao.webservice;
 
 import ufc.russas.encontrosuniversitarios.model.webservice.AlterarSenhaResponse;
 import ufc.russas.encontrosuniversitarios.model.webservice.DadosAlterarSenha;

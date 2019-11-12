@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModel;
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.AvaliacaoAtividade;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.AtividadeRepositorio;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.ResponseListener;
 import ufc.russas.encontrosuniversitarios.model.exceptions.AtividadeFinalizadaAntesDoHorarioIniciadoException;
 
 import org.joda.time.DateTime;

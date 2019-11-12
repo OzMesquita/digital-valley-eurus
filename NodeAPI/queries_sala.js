@@ -11,7 +11,7 @@ const getSalas = (request, response) => {
 
     })
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao listar salas!');
     response.status(500).send(`Erro ao listar salas`)
     return null;
   }
@@ -29,15 +29,14 @@ const getSalaById = (request, response) => {
       }
     })
   } catch(ex){
-    console.log('Erro 500!');
-    response.status(500).send(`Erro ao listar sala`)
+    console.log('Erro ao atualizar sala!');
+    response.status(500).send(`Erro ao atualizar sala`)
     return null;
   }
 }
 
 const createSala = (request, response) => {
   try {
-    // return JSON.parse(req.headers.myHeader);
     const {nome_sala, numeros } = request.body
 
     db.pool.query('INSERT INTO '+db.db_name+'sala (nome_sala, numero) VALUES ($1, $2)', [nome_sala, numero], (error, result) => {
@@ -45,7 +44,7 @@ const createSala = (request, response) => {
     })
 
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao cadastrar sala!');
     response.status(500).send(`Erro ao cadastrar sala`)
     return null;
   }
@@ -59,7 +58,7 @@ const cadastrarCoordenadorNaSala = (request, response) => {
       response.status(201).send('Coordenador cadastrado na sala com sucesso')
     })
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao cadastrar Coordenador na Sala!');
     response.status(500).send(`Erro ao cadastrar Coordenador na Sala`)
     return null;
   }
@@ -70,15 +69,14 @@ const updateSala = (request, response) => {
     const id_sala = parseInt(request.params.id)
     const {nome_sala, numero_sala} = request.body
     db.pool.query(
-      'UPDATE sala SET nome_sala= $1, numero_sala = $2 WHERE id_sala = $3',
+      'UPDATE '+db.db_name+'sala SET nome_sala= $1, numero_sala = $2 WHERE id_sala = $3',
       [nome_sala, numero_sala, id_sala],
       (error, results) => {
         response.status(200).send(`Sala modificada ID: ${id_sala}`)
-        // response.status(200).send(`Sala modified with`)
       }
     )
   } catch(ex){
-    console.log('Erro 500!');
+    console.log('Erro ao atualizar sala!');
     response.status(500).send(`Erro ao atualizar sala`)
     return null;
   }

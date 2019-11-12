@@ -1,8 +1,8 @@
-package ufc.russas.encontrosuniversitarios.model.dao.repositorio.database;
+package ufc.russas.encontrosuniversitarios.model.dao.database;
 
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeService;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.DateTimeJsonConverter;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioService;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.AtividadeService;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.DateTimeJsonConverter;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.UsuarioService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

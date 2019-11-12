@@ -22,6 +22,7 @@ import ufc.russas.encontrosuniversitarios.view.adapter.ProgramacaoAbasAdapter;
 import ufc.russas.encontrosuniversitarios.ProgramacaoListInterface;
 import ufc.russas.encontrosuniversitarios.R;
 import ufc.russas.encontrosuniversitarios.viewmodel.ProgramacaoViewModel;
+
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
     private ProgressBar diaProgress;
     private ViewPager viewPager;
 
-    public ProgramacaoDoDiaFragment(){
+    public ProgramacaoDoDiaFragment() {
         nomesEstadoAtividade = new ArrayList<>();
         nomesEstadoAtividade.add(R.string.started_activities);
         nomesEstadoAtividade.add(R.string.next_activities);
@@ -53,7 +54,7 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_programacao_do_dia,container,false);
+        View view = inflater.inflate(R.layout.fragment_programacao_do_dia, container, false);
         programacaoAbasAdapter = new ProgramacaoAbasAdapter(getFragmentManager());
         programacaoViewModel = ViewModelProviders.of(this).get(ProgramacaoViewModel.class);
 
@@ -63,7 +64,7 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
             public void onChanged(List<List<Atividade>> lists) {
                 for (int i = 0; i < 3; i++) {
                     AtividadesFragment atividadesFragment = AtividadesFragment.newInstance(lists.get(i), i);
-                    if(programacaoAbasAdapter.getCount() < 3){
+                    if (programacaoAbasAdapter.getCount() < 3) {
                         programacaoAbasAdapter.addFragment(atividadesFragment, getString(nomesEstadoAtividade.get(i)));
                     }
                 }

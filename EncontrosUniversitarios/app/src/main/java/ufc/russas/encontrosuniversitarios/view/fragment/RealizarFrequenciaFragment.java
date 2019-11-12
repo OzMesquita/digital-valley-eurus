@@ -26,7 +26,7 @@ import ufc.russas.encontrosuniversitarios.R;
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.webservice.DadosFrequenciaUsuario;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.ResponseListener;
 import ufc.russas.encontrosuniversitarios.view.adapter.ProgramacaoDoDiaAdapter;
 import ufc.russas.encontrosuniversitarios.helper.ScanHelper;
 import ufc.russas.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
@@ -61,7 +61,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         btnReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScanHelper scanHelper = new ScanHelper(0, getActivity(),getResources().getString(R.string.qrcode_title));
+                ScanHelper scanHelper = new ScanHelper(0, getActivity(), getResources().getString(R.string.qrcode_title));
                 scanHelper.showScan();
             }
         });
@@ -76,13 +76,13 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         realizarFrequenciaViewModel.getAtividadesFrequencia().observe(this, new Observer<List<Atividade>>() {
             @Override
             public void onChanged(List<Atividade> atividades) {
-                if(atividades!=null && atividades.size()>=1){
+                if (atividades != null && atividades.size() >= 1) {
                     MySharedPreferences.getInstance(getContext()).setCoordinatorActivities(atividades);
                     MySharedPreferences.getInstance(getContext()).setRoom(atividades.get(0).getLocal().getSala().getId());
-                    String sala = atividades.get(0).getLocal().getSala().getNumero() == 0 ? "":""+atividades.get(0).getLocal().getSala().getNumero();
-                    txtSala.setText(getContext().getResources().getText(R.string.realizar_frequencia).toString()+" "+sala);
+                    String sala = atividades.get(0).getLocal().getSala().getNumero() == 0 ? "" : "" + atividades.get(0).getLocal().getSala().getNumero();
+                    txtSala.setText(getContext().getResources().getText(R.string.realizar_frequencia).toString() + " " + sala);
                 }
-                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(),false);
+                programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(), false);
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
             }
         });
@@ -132,14 +132,14 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         Button frequencia = customLayout.findViewById(R.id.frequencia);
         final TextView userName = customLayout.findViewById(R.id.nome_usuario_matricula);
         final EditText matricula = customLayout.findViewById(R.id.matricula_frequencia);
-        builder.setPositiveButton(R.string.close,null);
+        builder.setPositiveButton(R.string.close, null);
 
         realizarFrequenciaViewModel.getUsuarioFrequencia().observe(this, new Observer<DadosFrequenciaUsuario>() {
             @Override
             public void onChanged(DadosFrequenciaUsuario usuario) {
-                if(usuario!=null) {
+                if (usuario != null) {
                     userName.setText(usuario.getNome());
-                }else{
+                } else {
                     userName.setText("");
                     matricula.setText("");
                 }
@@ -148,7 +148,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         getUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(matricula.getText().toString().length() == 6) {
+                if (matricula.getText().toString().length() == 6) {
                     listener.onLoading();
                     realizarFrequenciaViewModel.buscarUsuarioPorMatricula(new ResponseListener() {
                         @Override
@@ -163,8 +163,8 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
                             realizarFrequenciaViewModel.initDadosFrequencia(null);
                             matricula.setError("Não foi possível encontrar essa matrícula.");
                         }
-                    },matricula.getText().toString());
-                }else{
+                    }, matricula.getText().toString());
+                } else {
                     matricula.setError("Matrícula inválida");
                 }
             }
@@ -172,36 +172,36 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         frequencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(realizarFrequenciaViewModel.getUsuarioFrequencia().getValue() != null) {
+                if (realizarFrequenciaViewModel.getUsuarioFrequencia().getValue() != null) {
                     listener.onLoading();
                     realizarFrequenciaViewModel.realizarCheckInCheckOut(new CheckInCheckOutListener() {
                         @Override
                         public void onSuccess(String message) {
                             listener.onDone();
-                            Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onCheckedInOnDifferentRoom(String message) {
                             listener.onDone();
-                            Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onInvalidQRCode(String message) {
                             listener.onDone();
-                            Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onFailure(String message) {
                             listener.onDone();
-                            Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
                         }
-                    },getContext());
-                }else{
+                    }, getContext());
+                } else {
                     matricula.requestFocus();
-                    Toast.makeText(getContext(),"Verifique a matrícula antes de realizar a frequência",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Verifique a matrícula antes de realizar a frequência", Toast.LENGTH_LONG).show();
                 }
             }
         });

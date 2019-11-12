@@ -1,12 +1,9 @@
 const db = require('./conexao')
-const http = require('http')
-
 
 const getCriterios = (request, response) => {
   try {
     db.pool.query('SELECT * FROM '+db.db_name+'criterio ORDER BY id ASC', (error, results) => {
 
-    //  console.log(results.rows);
     if(results!= null){
         response.status(200).json(results.rows)
     }else{

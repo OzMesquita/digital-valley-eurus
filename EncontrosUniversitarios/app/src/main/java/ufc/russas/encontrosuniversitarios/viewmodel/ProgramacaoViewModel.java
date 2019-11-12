@@ -5,8 +5,8 @@ import android.util.Log;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.DiaEvento;
 import ufc.russas.encontrosuniversitarios.model.ProgramacaoAtividades;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
-import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.ResponseListener;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.AtividadeRepositorio;
 import ufc.russas.encontrosuniversitarios.view.fragment.AtividadesListener;
 
 import java.util.List;

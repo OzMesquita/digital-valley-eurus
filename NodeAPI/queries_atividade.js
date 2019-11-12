@@ -3,7 +3,6 @@ const modelCreator = require('./model_creator')
 db.db_name
 function dataFormatada(){
   var data = new Date(Date.now())
-  //console.log("data ",data);
   dia = data.getDate();
   mes = data.getMonth() +1; //+1 pois no getMonth Janeiro começa com zero.
   ano = data.getFullYear();
@@ -11,7 +10,6 @@ function dataFormatada(){
   minutos = data.getMinutes();
   segundos = data.getSeconds();
   milisegundos = data.getMilliseconds();
-
   return ano+"-"+mes+"-"+dia+"T"+hora+":"+minutos+":"+segundos+"."+milisegundos+"-0300";
 }
 
