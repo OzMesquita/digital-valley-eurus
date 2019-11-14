@@ -139,7 +139,7 @@
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/custom_button_green"
-                android:text="@string/cadastrar_usuario"
+                android:text="@string/register_user"
                 android:textColor="@android:color/white"
                 android:textAllCaps="false"
                 android:textSize="17dp"/>
@@ -155,7 +155,7 @@
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/transparent"
-                android:text="@string/entre_perfil"
+                android:text="@string/already_registered"
                 android:textColor="@color/colorPrimary"
                 android:textAllCaps="false"
                 android:textSize="17dp"

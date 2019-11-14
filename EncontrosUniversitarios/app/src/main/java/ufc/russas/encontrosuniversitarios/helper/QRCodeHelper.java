@@ -85,7 +85,6 @@ public class QRCodeHelper {
         try {
             String targetPdf = userName+".pdf";
 
-
             if(!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
                 Toast.makeText(context, "Não foi possível salvar o pdf", Toast.LENGTH_LONG).show();
             }else {

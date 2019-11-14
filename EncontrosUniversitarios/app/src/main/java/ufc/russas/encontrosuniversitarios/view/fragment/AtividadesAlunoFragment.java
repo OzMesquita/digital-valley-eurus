@@ -1,7 +1,6 @@
 package ufc.russas.encontrosuniversitarios.view.fragment;
 
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +92,7 @@ public class AtividadesAlunoFragment extends Fragment implements ProgramacaoList
 
     private void showInfoDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.CustomAlertDialog);
-        builder.setMessage(getResources().getString(R.string.informe_aluno));
+        builder.setMessage(getResources().getString(R.string.student_message));
         builder.setPositiveButton("Ok", null);
         builder.show();
     }

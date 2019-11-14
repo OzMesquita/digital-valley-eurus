@@ -63,7 +63,6 @@ public class UsuarioRepositorio {
     }
 
     public void checkInCheckOut(final ResponseListener listener, DadosCheckIn dadosCheckIn) {
-        Log.i("CHECKIN",""+dadosCheckIn.getIdUsuario());
         usuarioService.checkInCheckOut(dadosCheckIn).enqueue(new Callback<ValidacaoCheckInCheckOut>() {
             @Override
             public void onResponse(Call<ValidacaoCheckInCheckOut> call, Response<ValidacaoCheckInCheckOut> response) {

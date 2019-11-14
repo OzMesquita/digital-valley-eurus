@@ -46,7 +46,6 @@ public class CadastroUsuarioViewModel extends ViewModel {
                 }
                 @Override
                 public void onFailure(String message) {
-                    Log.i("ErrorResposta",message);
                     listener.onDone();
                 }
             }, usuario);

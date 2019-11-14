@@ -19,7 +19,7 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:fontFamily="sans-serif-light"
-            android:text="@string/fragment_realizar_frequencia_upper_text"
+            android:text="@string/frequency"
             android:textSize="20dp" />
         <Button
             android:id="@+id/freq_matricula"

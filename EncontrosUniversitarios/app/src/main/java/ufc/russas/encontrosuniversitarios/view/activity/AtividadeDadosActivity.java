@@ -167,19 +167,19 @@ public class AtividadeDadosActivity extends AppCompatActivity {
     private void configurarAtividadeNaoIniciada(){
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
         iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_green_button);
-        iniciarFinalizarAtividade.setText(R.string.iniciar_atividade);
+        iniciarFinalizarAtividade.setText(R.string.start_activity);
     }
 
     private void configurarAtividadeIniciada(){
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
         iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_red_button);
-        iniciarFinalizarAtividade.setText(R.string.finalizar_atividade);
+        iniciarFinalizarAtividade.setText(R.string.end_activity);
     }
 
     private void configurarAtividadeFinalizada(){
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
         iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_gray_buttom);
-        iniciarFinalizarAtividade.setText(R.string.atividade_finalizada);
+        iniciarFinalizarAtividade.setText(R.string.activity_completed);
 
     }
 

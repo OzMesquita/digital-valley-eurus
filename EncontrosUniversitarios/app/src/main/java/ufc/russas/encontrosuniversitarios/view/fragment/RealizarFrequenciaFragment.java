@@ -80,7 +80,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
                     MySharedPreferences.getInstance(getContext()).setCoordinatorActivities(atividades);
                     MySharedPreferences.getInstance(getContext()).setRoom(atividades.get(0).getLocal().getSala().getId());
                     String sala = atividades.get(0).getLocal().getSala().getNumero() == 0 ? "" : "" + atividades.get(0).getLocal().getSala().getNumero();
-                    txtSala.setText(getContext().getResources().getText(R.string.realizar_frequencia).toString() + " " + sala);
+                    txtSala.setText(getContext().getResources().getText(R.string.perform_room_frequency).toString() + " " + sala);
                 }
                 programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(), false);
                 recyclerView.setAdapter(programacaoDoDiaAdapter);

@@ -4,16 +4,16 @@
     <item
         android:id="@+id/navigation_programacao"
         android:icon="@drawable/ic_date_range_black_24dp"
-        android:title="@string/title_programacao" />
+        android:title="@string/title_programming" />
 
     <item
         android:id="@+id/navigation_programacao_do_dia"
         android:icon="@drawable/ic_today_black_24dp"
-        android:title="@string/title_programacao_do_dia" />
+        android:title="@string/title_programming_day" />
 
     <item
         android:id="@+id/navigation_frequencia"
         android:icon="@drawable/ic_assignment_black_24dp"
-        android:title="@string/title_frequencia" />
+        android:title="@string/title_frequency" />
 
 </menu>

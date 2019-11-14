@@ -101,7 +101,6 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
             @Override
             public void onFailure(String message) {
                 listener.onDone();
-                Log.i("AtvFailura:", message);
             }
         }, preferences.getUserId());
     }

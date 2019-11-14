@@ -237,7 +237,7 @@ tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosAc
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/iniciar_finalizar_atividade"
-                    android:text="@string/iniciar_atividade"
+                    android:text="@string/start_activity"
                     android:textColor="@android:color/white"
                     android:padding="15dp"
                     android:layout_gravity="center"
@@ -259,7 +259,7 @@ tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosAc
                     android:background="@drawable/custom_button_green"
                     android:gravity="center"
                     android:padding="15dp"
-                    android:text="@string/avaliar_atividade"
+                    android:text="@string/evaluate_activity"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="17dp"

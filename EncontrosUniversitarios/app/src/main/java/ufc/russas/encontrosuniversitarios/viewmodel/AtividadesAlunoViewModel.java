@@ -39,7 +39,6 @@ public class AtividadesAlunoViewModel extends ViewModel {
 
             @Override
             public void onFailure(String message) {
-                Log.i("AtvFailura:", message);
                 listener.onDone();
             }
         }, preferences.getUserId());
