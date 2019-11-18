@@ -10,7 +10,7 @@ public class Local {
     private String pontoReferencia;
     @SerializedName("andar_local")
     private String andar;
-    private Sala sala;
+    private Room room;
     private String localCompleto;
 
     public String getLocalCompleto() {
@@ -46,7 +46,7 @@ public class Local {
     }
 
     public String getLocalSala() {
-        String numero = sala.getNumero() == 0 ? "" : " " + sala.getNumero();
+        String numero = room.getNumero() == 0 ? "" : " " + room.getNumero();
         if (andar == null) {
             andar = "";
         } else if (pontoReferencia == null) {
@@ -61,12 +61,17 @@ public class Local {
         return andar;
     }
 
+<<<<<<< Updated upstream
     public void setAndar(String andar) {
         this.andar = andar;
     }
 
     public Sala getSala() {
         return sala;
+=======
+    public Room getRoom() {
+        return room;
+>>>>>>> Stashed changes
     }
 
     public void setSala(Sala sala) {

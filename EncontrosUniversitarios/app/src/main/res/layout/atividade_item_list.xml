@@ -34,7 +34,7 @@
                     android:id="@+id/nome_atividade_item_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nome da atividade"
+                    android:text="Nome da activity"
                     android:textStyle="bold"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -51,14 +51,14 @@
                     android:id="@+id/horario_atividade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Horário da atividade"
+                    android:text="Horário da activity"
                     android:textSize="@dimen/lista_horario_item_programacao_text_size" />
 
                 <TextView
                     android:id="@+id/local_atividade"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sala da atividade"
+                    android:text="Sala da activity"
                     android:textSize="@dimen/lista_local_item_programacao_text_size" />
             </LinearLayout>
         </LinearLayout>

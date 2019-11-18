@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
-tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosActivity">
+tools:context="ufc.russas.encontrosuniversitarios.view.activity.ActivityDataActivity">
 <data>
     <variable
-        name="atividade"
-        type="ufc.russas.encontrosuniversitarios.model.Atividade" />
+        name="activity"
+        type="ufc.russas.encontrosuniversitarios.model.Activity" />
     <variable
         name="formatador"
-        type="ufc.russas.encontrosuniversitarios.helper.FormatadorData" />
+        type="ufc.russas.encontrosuniversitarios.helper.DataFormatter" />
 
     <variable
         name="horarioInicial"
         type="org.joda.time.DateTime" />
 
     <variable
-        name="horarioFinal"
+        name="finalTime"
         type="org.joda.time.DateTime" />
 
 </data>
@@ -73,7 +73,12 @@ tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosAc
                     android:layout_marginEnd="8dp"
                     android:textColor="@android:color/white"
                     android:layout_marginRight="8dp"
+<<<<<<< Updated upstream
                     android:text="@{atividade.nome}"
+=======
+                    android:gravity="center"
+                    android:text="@{activity.name}"
+>>>>>>> Stashed changes
                     android:textSize="22dp" />
 
                 <TextView
@@ -84,7 +89,12 @@ tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosAc
                     android:textColor="@android:color/white"
                     android:layout_marginVertical="8dp"
                     android:textSize="18dp"
+<<<<<<< Updated upstream
                     android:text="@{atividade.apresentador.nome}"/>
+=======
+                    android:gravity="center"
+                    android:text="@{activity.apresentador.name}"/>
+>>>>>>> Stashed changes
 
                 <TextView
                     android:id="@+id/horario_data_atividade"
@@ -160,7 +170,7 @@ tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosAc
                     android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="@{atividade.local.localCompleto}" />
+                    android:text="@{activity.place.localCompleto}" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -179,7 +189,7 @@ tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosAc
 
                     android:layout_margin="5dp"
                     android:textSize="16dp"
-                    android:text="@{atividade.local.pontoReferencia}" />
+                    android:text="@{activity.place.pontoReferencia}" />
             </LinearLayout>
         </LinearLayout>
 
@@ -209,7 +219,7 @@ tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosAc
                 android:padding="10dp"
                 android:textColor="@android:color/black"
                 android:textSize="16dp"
-                android:text="@{atividade.descricao}"/>
+                android:text="@{activity.descricao}"/>
 
 
         </LinearLayout>

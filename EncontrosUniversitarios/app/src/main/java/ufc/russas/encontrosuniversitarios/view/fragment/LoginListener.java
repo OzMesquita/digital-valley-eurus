@@ -1,9 +1,9 @@
 package ufc.russas.encontrosuniversitarios.view.fragment;
 
-import ufc.russas.encontrosuniversitarios.model.Usuario;
+import ufc.russas.encontrosuniversitarios.model.User;
 
 public interface LoginListener {
-    void onSuccess(Usuario usuario);
+    void onSuccess(User user);
     void onFailure(String message);
     void onEmptyField(String field);
     void onInvalidPassword(String message);

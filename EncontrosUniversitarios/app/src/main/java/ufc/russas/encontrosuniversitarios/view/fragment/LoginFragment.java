@@ -20,8 +20,8 @@ import android.widget.Toast;
 import ufc.russas.encontrosuniversitarios.R;
 //import com.example.encontrosuniversitarios.databinding.FragmentLoginBinding;
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
-import ufc.russas.encontrosuniversitarios.model.Usuario;
-import ufc.russas.encontrosuniversitarios.view.activity.EsqueciSenhaActivity;
+import ufc.russas.encontrosuniversitarios.model.User;
+import ufc.russas.encontrosuniversitarios.view.activity.ForgotPasswordActivity;
 import ufc.russas.encontrosuniversitarios.viewmodel.LoginViewModel;
 
 public class LoginFragment extends Fragment {
@@ -63,9 +63,9 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 loginViewModel.realizarLogin(edtEmail.getText().toString(), edtSenha.getText().toString(), new LoginListener() {
                     @Override
-                    public void onSuccess(Usuario usuario) {
+                    public void onSuccess(User user) {
                         MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
-                        preferences.setUserData(usuario);
+                        preferences.setUserData(user);
 
                         changeLoginFragmentOnLogin(preferences.getUserAccessLevel());
                     }
@@ -138,11 +138,11 @@ public class LoginFragment extends Fragment {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         if (accessLevel == 0) {
-            ft.replace(R.id.fragment_container, new AtividadesAlunoFragment());
+            ft.replace(R.id.fragment_container, new StudentActivitiesFragment());
         } else if (accessLevel == 1) {
-            ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
+            ft.replace(R.id.fragment_container, new RegisterAttendanceFragment());
         } else {
-            ft.replace(R.id.fragment_container, new AtividadesProfessorFragment());
+            ft.replace(R.id.fragment_container, new ProfessorActivitiesFragment());
         }
         ft.addToBackStack(null);
         ft.commit();
@@ -151,13 +151,13 @@ public class LoginFragment extends Fragment {
     private void navitageToCadastrarUsuarioFragment() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container, new CadastroUsuarioFragment());
+        ft.replace(R.id.fragment_container, new UserRegistrationFragment());
         ft.addToBackStack(null);
         ft.commit();
     }
 
     public void showRedefinirSenhaDialog() {
-        Intent intent = new Intent(getContext(), EsqueciSenhaActivity.class);
+        Intent intent = new Intent(getContext(), ForgotPasswordActivity.class);
         startActivity(intent);
     }
 }

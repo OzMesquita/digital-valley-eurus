@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="ufc.russas.encontrosuniversitarios.view.fragment.ProgramacaoFragment">
+    tools:context="ufc.russas.encontrosuniversitarios.view.fragment.ScheduleFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/programacao_recycler_view"

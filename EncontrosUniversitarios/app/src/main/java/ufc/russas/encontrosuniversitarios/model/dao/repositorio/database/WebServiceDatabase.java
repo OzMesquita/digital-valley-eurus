@@ -1,8 +1,14 @@
 package ufc.russas.encontrosuniversitarios.model.dao.repositorio.database;
 
+<<<<<<< Updated upstream:EncontrosUniversitarios/app/src/main/java/ufc/russas/encontrosuniversitarios/model/dao/repositorio/database/WebServiceDatabase.java
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeService;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.DateTimeJsonConverter;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioService;
+=======
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.ActivityService;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.DateTimeJsonConverter;
+import ufc.russas.encontrosuniversitarios.model.dao.webservice.UserService;
+>>>>>>> Stashed changes:EncontrosUniversitarios/app/src/main/java/ufc/russas/encontrosuniversitarios/model/dao/database/WebServiceDatabase.java
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -17,8 +23,8 @@ public class WebServiceDatabase {
     private static WebServiceDatabase instance;
 
     private static Retrofit retrofitService;
-    private static AtividadeService atividadeService;
-    private static UsuarioService usuarioService;
+    private static ActivityService activityService;
+    private static UserService userService;
 
     private WebServiceDatabase() {
     }
@@ -43,18 +49,18 @@ public class WebServiceDatabase {
                 .build();
     }
 
-    public AtividadeService getAtividadeService() {
-        if (atividadeService == null) {
-            atividadeService = retrofitService.create(AtividadeService.class);
+    public ActivityService getAtividadeService() {
+        if (activityService == null) {
+            activityService = retrofitService.create(ActivityService.class);
         }
-        return atividadeService;
+        return activityService;
     }
 
-    public UsuarioService getUsuarioService() {
-        if(usuarioService == null){
-            usuarioService = retrofitService.create(UsuarioService.class);
+    public UserService getUsuarioService() {
+        if(userService == null){
+            userService = retrofitService.create(UserService.class);
         }
-        return usuarioService;
+        return userService;
     }
 
 }

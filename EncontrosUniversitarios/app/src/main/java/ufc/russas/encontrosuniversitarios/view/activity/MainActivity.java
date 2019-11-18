@@ -19,19 +19,24 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
-import ufc.russas.encontrosuniversitarios.ProgramacaoListInterface;
+import ufc.russas.encontrosuniversitarios.ScheduleListInterface;
 import ufc.russas.encontrosuniversitarios.R;
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
-import ufc.russas.encontrosuniversitarios.view.fragment.AtividadesAlunoFragment;
-import ufc.russas.encontrosuniversitarios.view.fragment.AtividadesProfessorFragment;
+import ufc.russas.encontrosuniversitarios.view.fragment.StudentActivitiesFragment;
+import ufc.russas.encontrosuniversitarios.view.fragment.ProfessorActivitiesFragment;
 import ufc.russas.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
 import ufc.russas.encontrosuniversitarios.view.fragment.LoginFragment;
 import ufc.russas.encontrosuniversitarios.view.fragment.LogoutListener;
-import ufc.russas.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment;
-import ufc.russas.encontrosuniversitarios.view.fragment.ProgramacaoFragment;
-import ufc.russas.encontrosuniversitarios.view.fragment.RealizarFrequenciaFragment;
+import ufc.russas.encontrosuniversitarios.view.fragment.TodaysScheduleFragment;
+import ufc.russas.encontrosuniversitarios.view.fragment.ScheduleFragment;
+import ufc.russas.encontrosuniversitarios.view.fragment.RegisterAttendanceFragment;
 import ufc.russas.encontrosuniversitarios.viewmodel.LoginViewModel;
+<<<<<<< Updated upstream
 import ufc.russas.encontrosuniversitarios.viewmodel.RealizarFrequenciaViewModel;
+=======
+import ufc.russas.encontrosuniversitarios.viewmodel.RegisterAttendanceViewModel;
+
+>>>>>>> Stashed changes
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -52,8 +57,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+<<<<<<< Updated upstream
         fragment = new ProgramacaoDoDiaFragment();
         getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
+=======
+        fragment = new TodaysScheduleFragment();
+        getSupportActionBar().setTitle(R.string.title_programming_day);
+>>>>>>> Stashed changes
         openFragment(fragment, 1);
 
 
@@ -67,14 +77,24 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_programacao:
+<<<<<<< Updated upstream
                     getSupportActionBar().setTitle(R.string.title_programacao);
                     fragment = new ProgramacaoFragment();
+=======
+                    getSupportActionBar().setTitle(R.string.title_programming);
+                    fragment = new ScheduleFragment();
+>>>>>>> Stashed changes
                     itemId = 0;
                     openFragment(fragment, itemId);
                     break;
                 case R.id.navigation_programacao_do_dia:
+<<<<<<< Updated upstream
                     getSupportActionBar().setTitle(R.string.title_programacao_do_dia);
                     fragment = new ProgramacaoDoDiaFragment();
+=======
+                    getSupportActionBar().setTitle(R.string.title_programming_day);
+                    fragment = new TodaysScheduleFragment();
+>>>>>>> Stashed changes
                     itemId = 1;
                     openFragment(fragment, itemId);
                     break;
@@ -83,20 +103,35 @@ public class MainActivity extends AppCompatActivity {
                     getSupportActionBar().setTitle("");
                     if (preferences.getUserId() != -1) {
                         if (preferences.getUserAccessLevel() == 0) {
+<<<<<<< Updated upstream
                             getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());
                             fragment = new AtividadesAlunoFragment();
+=======
+                            getSupportActionBar().setTitle("Olá, " + preferences.getUserName());
+                            fragment = new StudentActivitiesFragment();
+>>>>>>> Stashed changes
                             itemId = 6;
                             openFragment(fragment, itemId - 4);
 
                         } else if (preferences.getUserAccessLevel() == 1) {
+<<<<<<< Updated upstream
                             getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());
                             fragment = new RealizarFrequenciaFragment();
+=======
+                            getSupportActionBar().setTitle("Olá, " + preferences.getUserName());
+                            fragment = new RegisterAttendanceFragment();
+>>>>>>> Stashed changes
                             itemId = 2;
                             openFragment(fragment, itemId);
 
                         } else if (preferences.getUserAccessLevel() == 2) {
+<<<<<<< Updated upstream
                             getSupportActionBar().setTitle("Olá, "+ preferences.getUserName());
                             fragment = new AtividadesProfessorFragment();
+=======
+                            getSupportActionBar().setTitle("Olá, " + preferences.getUserName());
+                            fragment = new ProfessorActivitiesFragment();
+>>>>>>> Stashed changes
                             itemId = 5;
                             openFragment(fragment, itemId -3);
                         }
@@ -138,11 +173,11 @@ public class MainActivity extends AppCompatActivity {
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this.getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        if (fragment instanceof ProgramacaoFragment
-                || fragment instanceof ProgramacaoDoDiaFragment
-                || fragment instanceof RealizarFrequenciaFragment
-                || fragment instanceof AtividadesAlunoFragment
-                || fragment instanceof AtividadesProfessorFragment) {
+        if (fragment instanceof ScheduleFragment
+                || fragment instanceof TodaysScheduleFragment
+                || fragment instanceof RegisterAttendanceFragment
+                || fragment instanceof StudentActivitiesFragment
+                || fragment instanceof ProfessorActivitiesFragment) {
             updateSearchViewFragment();
         }
         return true;
@@ -150,17 +185,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateSearchViewFragment() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            ProgramacaoListInterface anInterface = (ProgramacaoListInterface) fragment;
+            ScheduleListInterface anInterface = (ScheduleListInterface) fragment;
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                anInterface.getProgramacaoAdapter().getFilter().filter(query);
+                anInterface.getScheduleAdapter().getFilter().filter(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                anInterface.getProgramacaoAdapter().getFilter().filter(newText);
+                anInterface.getScheduleAdapter().getFilter().filter(newText);
                 return true;
             }
         });
@@ -211,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         if (result != null) {
             if (result.getContents() != null) {
                 String scannedUserCode = result.getContents();
-                RealizarFrequenciaViewModel viewModel = ViewModelProviders.of(this).get(RealizarFrequenciaViewModel.class);
+                RegisterAttendanceViewModel viewModel = ViewModelProviders.of(this).get(RegisterAttendanceViewModel.class);
                 viewModel.realizarCheckInCheckOut(new CheckInCheckOutListener() {
                     @Override
                     public void onSuccess(String message) {
