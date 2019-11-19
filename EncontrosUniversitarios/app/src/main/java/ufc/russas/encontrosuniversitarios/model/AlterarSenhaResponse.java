@@ -27,3 +27,4 @@ public class AlterarSenhaResponse {
         this.message = message;
     }
 }
+
