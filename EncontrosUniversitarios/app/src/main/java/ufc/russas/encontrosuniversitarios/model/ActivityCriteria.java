@@ -38,14 +38,14 @@ public class ActivityCriteria {
         this.criterio = criterio;
     }
 
-    public CriterioAtividade(int id, String categoria, String criterio) {
+    public ActivityCriteria(int id, String categoria, String criterio) {
         this.id = id;
         this.categoria = categoria;
         this.criterio = criterio;
         this.nota = 1;
     }
 
-    public CriterioAtividade() {
+    public ActivityCriteria() {
         this.nota = 1;
     }
 }
