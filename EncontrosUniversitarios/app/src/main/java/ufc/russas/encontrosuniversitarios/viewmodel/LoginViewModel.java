@@ -113,7 +113,7 @@ public class LoginViewModel extends ViewModel {
                 @Override
                 public void onSuccess(Object response) {
                     AlterarSenhaResponse alterarSenhaResponse = (AlterarSenhaResponse) response;
-                    if(alterarSenhaResponse.isInvalidToken()){
+                    if(alterarSenhaResponse.isCodigoInvalido()){
                         listener.onInvalidToken();
                     }else{
                         listener.onSuccess();
