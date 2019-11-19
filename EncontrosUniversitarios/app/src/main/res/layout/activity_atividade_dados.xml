@@ -75,7 +75,7 @@ tools:context="ufc.russas.encontrosuniversitarios.view.activity.AtividadeDadosAc
                     android:layout_marginRight="8dp"
                     android:text="@{atividade.nome}"
                     android:gravity="center"
-                    android:textSize="22dp" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/apresentador_atividade"

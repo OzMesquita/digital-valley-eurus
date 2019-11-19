@@ -31,7 +31,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <Button
-        android:id="@+id/get_user"
+        android:id="@+id/get_usuario"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:textColor="@android:color/white"
         />
     <Button
-        android:id="@+id/frequencia"
+        android:id="@+id/realizar_frequencia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

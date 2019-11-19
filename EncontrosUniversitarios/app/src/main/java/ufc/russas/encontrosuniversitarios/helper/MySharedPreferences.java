@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Set;
 
 public class MySharedPreferences {
-    private final String USER_ID = "USERID";
-    private final String USER_NAME = "USERNAME";
-    private final String USER_EMAIL = "USEREMAIL";
-    private final String USER_ACCESS_LEVEL = "USERACCESSLEVEL";
-    private final String COORDINATOR_ACTIVITIES = "COORDINATORACTIVITIES";
-    private final String ROOM = "ROOM";
-    private static final String MY_PREFERENCES = "EURUSSAS";
+    private final String USUARIO_ID = "USUARIOID";
+    private final String USUARIO_NOME = "USUARIONOME";
+    private final String USUARIO_EMAIL = "USUARIOEMAIL";
+    private final String USUARIO_NIVEL_ACESSO = "USUARIONIVELACESSO";
+    private final String ATIVIDADES_COORDENADOR = "ATIVIDADESCOORDENADOR";
+    private final String SALA = "SALA";
+    private static final String MINHAS_PREFERENCIAS = "EURUSSAS";
     private static SharedPreferences preferences;
     private static SharedPreferences.Editor editor;
     private static MySharedPreferences mySharedPreferences;
 
     private MySharedPreferences(Context context) {
-        preferences = context.getSharedPreferences(MY_PREFERENCES,Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences(MINHAS_PREFERENCIAS,Context.MODE_PRIVATE);
         editor = preferences.edit();
     }
 
@@ -35,10 +35,10 @@ public class MySharedPreferences {
     }
 
     public void setUserData(Usuario usuario){
-        editor.putInt(USER_ID,usuario.getId());
-        editor.putString(USER_NAME,usuario.getNome());
-        editor.putInt(USER_ACCESS_LEVEL,usuario.getNivelAcesso());
-        editor.putString(USER_EMAIL,usuario.getEmail());
+        editor.putInt(USUARIO_ID,usuario.getId());
+        editor.putString(USUARIO_NOME,usuario.getNome());
+        editor.putInt(USUARIO_NIVEL_ACESSO,usuario.getNivelAcesso());
+        editor.putString(USUARIO_EMAIL,usuario.getEmail());
         editor.commit();
     }
 
@@ -48,7 +48,7 @@ public class MySharedPreferences {
     }
 
     public void setRoom(int idRoom){
-        editor.putInt(ROOM,idRoom);
+        editor.putInt(SALA,idRoom);
         editor.commit();
     }
 
@@ -57,30 +57,30 @@ public class MySharedPreferences {
         for(Atividade a:atividadesCoordenador){
             values.add(String.valueOf(a.getId()));
         }
-        editor.putStringSet(COORDINATOR_ACTIVITIES,values);
+        editor.putStringSet(ATIVIDADES_COORDENADOR,values);
         editor.commit();
     }
 
     public Set<String> getCoordinatorActivities(){
-        return preferences.getStringSet(COORDINATOR_ACTIVITIES,null);
+        return preferences.getStringSet(ATIVIDADES_COORDENADOR,null);
     }
 
     public int getUserId(){
-        return preferences.getInt(USER_ID,-1);
+        return preferences.getInt(USUARIO_ID,-1);
     }
 
     public int getRoomId(){
-        return preferences.getInt(ROOM,-1);
+        return preferences.getInt(SALA,-1);
     }
 
     public String getUserName(){
-        return preferences.getString(USER_NAME,null);
+        return preferences.getString(USUARIO_NOME,null);
     }
 
     public int getUserAccessLevel(){
-        return preferences.getInt(USER_ACCESS_LEVEL,-1);
+        return preferences.getInt(USUARIO_NIVEL_ACESSO,-1);
     }
 
-    public String getUserEmail() { return preferences.getString(USER_EMAIL,null);
+    public String getUserEmail() { return preferences.getString(USUARIO_EMAIL,null);
     }
 }

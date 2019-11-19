@@ -44,7 +44,7 @@ public class CadastroUsuarioFragment extends Fragment {
       //  ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         View view = inflater.inflate(R.layout.fragment_cadastro_usuario, container, false);
         Button salvar = view.findViewById(R.id.buttonSalvarCadastro);
-        Button verificarFrequencia = view.findViewById(R.id.get_user);
+        Button verificarFrequencia = view.findViewById(R.id.get_usuario);
         Button entre = view.findViewById(R.id.buttonEntre);
         final ProgressBar verificarProgress = view.findViewById(R.id.verificar_progress);
         final ProgressBar cadastroProgress = view.findViewById(R.id.cadastrar_progress);
@@ -150,7 +150,7 @@ public class CadastroUsuarioFragment extends Fragment {
 
                     @Override
                     public void onFailure() {
-                        Toast.makeText(getContext(),"Não foi possível realizar operação, falha na conexão.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Não foi possível realizar operação, falha na requisição.",Toast.LENGTH_LONG).show();
                     }
 
                     @Override

@@ -12,7 +12,7 @@
     <string name="atividades_andamento">Em andamento</string>
     <string name="finalizada">Finalizada</string>
     <string name="proxima_atividade">Não iniciada</string>
-    <string name="fragment_realizar_frequencia">Frequência</string>
+    <string name="texto_frequencia">Frequência</string>
     <string name="minhas_atividades">Minhas atividades</string>
     <string name="texto_realizar_frequencia">Realizar frequência - Sala</string>
     <string name="meu_codigo">Meu Código</string>
@@ -24,7 +24,7 @@
     <string name="esqueci_senha">Esqueci minha senha</string>
     <string name="nome">Nome</string>
     <string name="email">Email</string>
-    <string name="token">Código</string>
+    <string name="codigo">Código</string>
     <string name="nova_senha">Nova senha</string>
     <string name="confirmar_senha">Confirmação de senha</string>
     <string name="matricula">Matrícula</string>
@@ -62,7 +62,8 @@
     <string name="geracao_codigo_recuperacao_senha">GERAÇÃO DE CÓDIGO DE RECUPERAÇÃO DE SENHA</string>
     <string name="texto_recuperacao_senha">RECUPERAÇÃO DE SENHA</string>
     <string name="media">Média</string>
+    <string name="mensagem_falha_internet">Falha na internet... \n Não foi possível conectar! </string>
     <string name="matricula_inexistente">A matrícula fornecida não foi encontrada em nossa base de dados, por favor envie um email com sua nome, matrícula, email e curso para: n2s@ufc.br  </string>
-
+    <string name="informe_aluno">"As atividades listadas abaixo corresponderão apenas às que você assistiu por completo, porém todo seu tempo de permanência nas salas será contabilizado!"</string>
 
 </resources>

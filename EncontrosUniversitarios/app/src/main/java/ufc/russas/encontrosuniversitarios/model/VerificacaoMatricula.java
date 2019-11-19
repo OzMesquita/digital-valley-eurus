@@ -1,15 +1,15 @@
 package ufc.russas.encontrosuniversitarios.model;
 
 public class VerificacaoMatricula {
-    private String message;
+    private String mensagem;
     private Data data;
     private String status;
 
     public VerificacaoMatricula() {
     }
 
-    public VerificacaoMatricula(String message, Data data, String status) {
-        this.message = message;
+    public VerificacaoMatricula(String mensagem, Data data, String status) {
+        this.mensagem = mensagem;
         this.data = data;
         this.status = status;
     }
@@ -18,12 +18,12 @@ public class VerificacaoMatricula {
         return data;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMensagem() {
+        return mensagem;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
     public String getStatus() {

@@ -1,29 +1,29 @@
 package ufc.russas.encontrosuniversitarios.model;
 
 public class DadosAlterarSenha {
-    private String token;
-    private String password;
+    private String codigo;
+    private String senha;
 
     public DadosAlterarSenha(){}
 
-    public DadosAlterarSenha(String token, String password) {
-        this.token = token;
-        this.password = password;
+    public DadosAlterarSenha(String codigo, String senha) {
+        this.codigo = codigo;
+        this.senha = senha;
     }
 
-    public String getToken() {
-        return token;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }

@@ -23,19 +23,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class QRCodeHelper {
-    private int width;
-    private int height;
+    private int largura;
+    private int altura;
 
-    public QRCodeHelper(int width,int height){
-        this.width = width;
-        this.height = height;
+    public QRCodeHelper(int largura, int altura){
+        this.largura = largura;
+        this.altura = altura;
     }
 
 
     private Bitmap generateQRCodeBitMap(String code){
         QRCodeWriter writer = new QRCodeWriter();
         try {
-            BitMatrix bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE,width,height);
+            BitMatrix bitMatrix = writer.encode(code, BarcodeFormat.QR_CODE, largura, altura);
             int height = bitMatrix.getHeight();
             int width = bitMatrix.getWidth();
             Bitmap bitmap = Bitmap.createBitmap(width,height,Bitmap.Config.RGB_565);

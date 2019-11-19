@@ -90,9 +90,9 @@ public class AtividadesAlunoFragment extends Fragment  implements ProgramacaoLis
         return view;
     }
 
-    private void showInfoDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage("As atividades listadas abaixo corresponderão apenas às que você assistiu por completo, porém todo seu tempo de permanência nas salas será contabilizado!");
+    private void showInfoDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.CustomAlertDialog);
+        builder.setMessage(getResources().getString(R.string.informe_aluno));
         builder.setPositiveButton("Ok", null);
         builder.show();
     }

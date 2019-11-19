@@ -65,6 +65,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Apresentação");
         setContentView(R.layout.activity_atividade_dados);
         Intent intent = getIntent();
 
@@ -216,10 +217,8 @@ public class AtividadeDadosActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("PROCURA","RESULT");
         if( requestCode == 1 ){
             if( resultCode == RESULT_OK){
-                Log.i("PROCURA","FINISH");
                 finish();
             }
         }

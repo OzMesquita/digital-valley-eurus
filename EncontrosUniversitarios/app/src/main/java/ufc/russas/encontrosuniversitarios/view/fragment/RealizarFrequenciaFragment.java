@@ -128,8 +128,8 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View customLayout = getLayoutInflater().inflate(R.layout.matricula_dialog, null);
         dialogoProgress = customLayout.findViewById(R.id.matricula_progress);
-        Button getUser = customLayout.findViewById(R.id.get_user);
-        Button frequencia = customLayout.findViewById(R.id.frequencia);
+        Button getUser = customLayout.findViewById(R.id.get_usuario);
+        Button frequencia = customLayout.findViewById(R.id.realizar_frequencia);
         final TextView userName = customLayout.findViewById(R.id.nome_usuario_matricula);
         final EditText matricula = customLayout.findViewById(R.id.matricula_frequencia);
         builder.setPositiveButton(R.string.fechar,null);
