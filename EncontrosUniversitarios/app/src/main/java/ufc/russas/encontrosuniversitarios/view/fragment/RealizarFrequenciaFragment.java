@@ -61,7 +61,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         btnReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScanHelper scanHelper = new ScanHelper(0, getActivity(),getResources().getString(R.string.qrcode_title));
+                ScanHelper scanHelper = new ScanHelper(0, getActivity(),getResources().getString(R.string.qrcode_titulo));
                 scanHelper.showScan();
             }
         });
@@ -80,7 +80,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
                     MySharedPreferences.getInstance(getContext()).setCoordinatorActivities(atividades);
                     MySharedPreferences.getInstance(getContext()).setRoom(atividades.get(0).getLocal().getSala().getId());
                     String sala = atividades.get(0).getLocal().getSala().getNumero() == 0 ? "":""+atividades.get(0).getLocal().getSala().getNumero();
-                    txtSala.setText(getContext().getResources().getText(R.string.realizar_frequencia).toString()+" "+sala);
+                    txtSala.setText(getContext().getResources().getText(R.string.texto_realizar_frequencia).toString()+" "+sala);
                 }
                 programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(),false);
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
@@ -132,7 +132,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         Button frequencia = customLayout.findViewById(R.id.frequencia);
         final TextView userName = customLayout.findViewById(R.id.nome_usuario_matricula);
         final EditText matricula = customLayout.findViewById(R.id.matricula_frequencia);
-        builder.setPositiveButton(R.string.close,null);
+        builder.setPositiveButton(R.string.fechar,null);
 
         realizarFrequenciaViewModel.getUsuarioFrequencia().observe(this, new Observer<DadosFrequenciaUsuario>() {
             @Override

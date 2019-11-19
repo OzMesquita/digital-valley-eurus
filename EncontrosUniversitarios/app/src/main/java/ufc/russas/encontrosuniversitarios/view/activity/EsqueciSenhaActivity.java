@@ -27,14 +27,14 @@ public class EsqueciSenhaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Recuperação de senha");
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
-        Button generateCode = findViewById(R.id.button_generate_token);
+        Button generateCode = findViewById(R.id.button_gerar_codigo);
         Button updatePassword = findViewById(R.id.button_redefinir_senha);
         final ProgressBar progressBar = findViewById(R.id.send_email_progress);
         final ProgressBar recoverProgressBas = findViewById(R.id.recover_password_progress);
         email = findViewById(R.id.edit_redefinir_senha);
-        token = findViewById(R.id.token);
-        password = findViewById(R.id.password);
-        confirmPassword = findViewById(R.id.confirm_password);
+        token = findViewById(R.id.codigo);
+        password = findViewById(R.id.senha);
+        confirmPassword = findViewById(R.id.confirmar_senha);
 
         generateCode.setOnClickListener(new View.OnClickListener() {
             @Override

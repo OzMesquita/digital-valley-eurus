@@ -72,7 +72,7 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onFailure(String message) {
-                        Toast.makeText(getContext(), getContext().getResources().getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getContext().getResources().getString(R.string.erro_encontrado_requisicao), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -82,22 +82,22 @@ public class LoginFragment extends Fragment {
 
                     @Override
                     public void onInvalidPassword(String message) {
-                        edtSenha.setError(getContext().getResources().getString(R.string.invalid_passord_login_message));
+                        edtSenha.setError(getContext().getResources().getString(R.string.mensagem_senha_invalida_login));
                     }
 
                     @Override
                     public void onInvalidEmail(String message) {
-                        edtEmail.setError(getContext().getResources().getString(R.string.invalid_email_message));
+                        edtEmail.setError(getContext().getResources().getString(R.string.mensagem_email_invalido));
                     }
 
                     @Override
                     public void onUnregisteredEmail() {
-                        edtEmail.setError(getContext().getResources().getString(R.string.unregistered_email_message));
+                        edtEmail.setError(getContext().getResources().getString(R.string.mensagem_email_sem_cadastro));
                     }
 
                     @Override
                     public void onWrongPassword() {
-                        edtSenha.setError(getContext().getResources().getString(R.string.wrong_passord_login_message));
+                        edtSenha.setError(getContext().getResources().getString(R.string.mensagem_senha_incorreta));
                     }
 
                     @Override
@@ -126,10 +126,10 @@ public class LoginFragment extends Fragment {
     private void showEmptyFieldMessage(String campo) {
         switch (campo) {
             case "Email":
-                edtEmail.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtEmail.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
             case "Senha":
-                edtSenha.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtSenha.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
         }
     }

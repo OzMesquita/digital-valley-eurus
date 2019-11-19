@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filterable;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
 
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.view.adapter.ProgramacaoAbasAdapter;
@@ -31,7 +30,6 @@ import java.util.List;
 public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoListInterface {
     private ProgramacaoAbasAdapter programacaoAbasAdapter;
     private TabLayout tabLayout;
-    private SearchView searchView;
     private ProgramacaoViewModel programacaoViewModel;
     private List<Integer> nomesEstadoAtividade;
     private ProgressBar diaProgress;
@@ -39,9 +37,9 @@ public class ProgramacaoDoDiaFragment extends Fragment implements ProgramacaoLis
 
     public ProgramacaoDoDiaFragment(){
         nomesEstadoAtividade = new ArrayList<>();
-        nomesEstadoAtividade.add(R.string.started_activities);
-        nomesEstadoAtividade.add(R.string.next_activities);
-        nomesEstadoAtividade.add(R.string.finished_activities);
+        nomesEstadoAtividade.add(R.string.atividades_iniciadas);
+        nomesEstadoAtividade.add(R.string.proximas_atividades);
+        nomesEstadoAtividade.add(R.string.atividades_finalizadas);
     }
 
 

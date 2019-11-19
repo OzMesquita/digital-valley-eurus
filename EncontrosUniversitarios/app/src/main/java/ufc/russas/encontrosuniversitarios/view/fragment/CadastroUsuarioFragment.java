@@ -74,27 +74,27 @@ public class CadastroUsuarioFragment extends Fragment {
 
                               @Override
                               public void onInvalidEmail(String message) {
-                                  edtEmail.setError(getContext().getResources().getString(R.string.invalid_email_message));
+                                  edtEmail.setError(getContext().getResources().getString(R.string.mensagem_email_invalido));
                               }
 
                               @Override
                               public void onInvalidPassword(String message) {
-                                  edtSenha.setError(getContext().getResources().getString(R.string.invalid_password_message));
+                                  edtSenha.setError(getContext().getResources().getString(R.string.mensagem_senha_invalida));
                               }
 
                               @Override
                               public void onInvalidMatricula(String message) {
-                                  edtMatricula.setError(getContext().getResources().getString(R.string.invalid_matricula_message));
+                                  edtMatricula.setError(getContext().getResources().getString(R.string.mensagem_matricula_invalida_tamanho));
                               }
 
                               @Override
                               public void onAlreadyTakenEmail() {
-                                  edtEmail.setError(getContext().getResources().getString(R.string.already_taken_email_message));
+                                  edtEmail.setError(getContext().getResources().getString(R.string.mensagem_email_existente));
                               }
 
                               @Override
                               public void onAlreadyTakenMatricula() {
-                                  edtMatricula.setError(getContext().getResources().getString(R.string.already_taken_matricula_message));
+                                  edtMatricula.setError(getContext().getResources().getString(R.string.mensagem_matricula_existente));
                               }
 
                               @Override
@@ -184,13 +184,13 @@ public class CadastroUsuarioFragment extends Fragment {
     private void showEmptyFieldMessage(String campo) {
         switch (campo) {
             case "Matricula":
-                edtMatricula.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtMatricula.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
             case "Senha":
-                edtSenha.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtSenha.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
             case "Email":
-                edtEmail.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtEmail.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
         }
     }

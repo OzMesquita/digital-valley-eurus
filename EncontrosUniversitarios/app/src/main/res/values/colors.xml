@@ -4,10 +4,6 @@
     <color name="colorPrimaryDark">#001064</color>
     <color name="colorAccent">#41A546</color>
 
-    <color name="colorPrimary2">#ed6939</color>
-    <color name="colorPrimaryDark2">#b4390b</color>
-    <color name="colorAccent2">#66bb6a</color>
-
     <color name="colorSecondary">#41A546</color>
     <color name="colorSecondaryDark">#338a3e</color>
     <color name="colorSecondaryAccent">#98ee99</color>
@@ -15,7 +11,7 @@
     <color name="future_activity">#bdbdbd</color>
     <color name="finished_activity">#ef5350</color>
     <color name="started_activity">#66bb6a</color>
-    <color name="vermelho">#EBBB0F0F</color>
+    <color name="note_presentation">#EBBB0F0F</color>
 
     <color name="disabled_button">#9e9e9e</color>
     <color name="disabled_button_light">#f2ebeb</color>

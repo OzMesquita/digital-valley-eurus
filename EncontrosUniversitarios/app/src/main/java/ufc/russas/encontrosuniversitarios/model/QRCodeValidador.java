@@ -1,6 +1,6 @@
 package ufc.russas.encontrosuniversitarios.model;
 
-public class QRCodeValidator {
+public class QRCodeValidador {
     public static final String QRCODE_DESCRIPTOR = "EURUSSAS";
     private Integer idUsuario;
     private String nomeUsuario;

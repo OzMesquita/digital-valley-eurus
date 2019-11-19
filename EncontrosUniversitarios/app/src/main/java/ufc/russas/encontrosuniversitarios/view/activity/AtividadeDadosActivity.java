@@ -106,7 +106,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
             public void onChanged(Boolean result) {
                 if(result){
                     avaliarAtividade.setEnabled(false);
-                    avaliarAtividade.setBackgroundResource(R.drawable.round_gray_buttom);
+                    avaliarAtividade.setBackgroundResource(R.drawable.botao_cinza);
                 }else{
                     avaliarAtividade.setEnabled(true);
                 }
@@ -165,19 +165,19 @@ public class AtividadeDadosActivity extends AppCompatActivity {
 
     private void configurarAtividadeNaoIniciada(){
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
-        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_green_button);
+        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.botao_verde);
         iniciarFinalizarAtividade.setText(R.string.iniciar_atividade);
     }
 
     private void configurarAtividadeIniciada(){
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
-        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_red_button);
+        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.botao_vermelho);
         iniciarFinalizarAtividade.setText(R.string.finalizar_atividade);
     }
 
     private void configurarAtividadeFinalizada(){
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
-        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_gray_buttom);
+        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.botao_cinza);
         iniciarFinalizarAtividade.setText(R.string.atividade_finalizada);
 
     }
