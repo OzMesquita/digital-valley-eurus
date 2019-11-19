@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:layout_marginTop="20dp"
-                android:text="Questionário para avaliação das activities dos Encontros Universitários 2019 da Universidade Federal do Ceará - Campus Russas. Os critérios aqui definidos seguem o edital 01293n"
+                android:text="Questionário para avaliação das atividades dos Encontros Universitários 2019 da Universidade Federal do Ceará - Campus Russas. Os critérios aqui definidos seguem o edital 01293n"
                 android:textFontWeight="bold"
                 android:textSize="20dp" />
 

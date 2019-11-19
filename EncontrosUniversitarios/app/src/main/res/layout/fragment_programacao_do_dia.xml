@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="ufc.russas.encontrosuniversitarios.view.fragment.TodaysScheduleFragment">
+    tools:context="ufc.russas.encontrosuniversitarios.view.fragment.ProgramacaoDoDiaFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/programacao_do_dia_tablayout"

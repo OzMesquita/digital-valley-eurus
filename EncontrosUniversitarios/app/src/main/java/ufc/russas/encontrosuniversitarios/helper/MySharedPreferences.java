@@ -3,8 +3,8 @@ package ufc.russas.encontrosuniversitarios.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import ufc.russas.encontrosuniversitarios.model.Activity;
-import ufc.russas.encontrosuniversitarios.model.User;
+import ufc.russas.encontrosuniversitarios.model.Atividade;
+import ufc.russas.encontrosuniversitarios.model.Usuario;
 
 import java.util.HashSet;
 import java.util.List;
@@ -34,11 +34,11 @@ public class MySharedPreferences {
         return mySharedPreferences;
     }
 
-    public void setUserData(User user){
-        editor.putInt(USER_ID, user.getId());
-        editor.putString(USER_NAME, user.getNome());
-        editor.putInt(USER_ACCESS_LEVEL, user.getNivelAcesso());
-        editor.putString(USER_EMAIL, user.getEmail());
+    public void setUserData(Usuario usuario){
+        editor.putInt(USER_ID,usuario.getId());
+        editor.putString(USER_NAME,usuario.getNome());
+        editor.putInt(USER_ACCESS_LEVEL,usuario.getNivelAcesso());
+        editor.putString(USER_EMAIL,usuario.getEmail());
         editor.commit();
     }
 
@@ -52,9 +52,9 @@ public class MySharedPreferences {
         editor.commit();
     }
 
-    public void setCoordinatorActivities(List<Activity> coordinatorActivities) {
+    public void setCoordinatorActivities(List<Atividade> atividadesCoordenador) {
         HashSet<String> values = new HashSet<>();
-        for(Activity a:coordinatorActivities){
+        for(Atividade a:atividadesCoordenador){
             values.add(String.valueOf(a.getId()));
         }
         editor.putStringSet(COORDINATOR_ACTIVITIES,values);

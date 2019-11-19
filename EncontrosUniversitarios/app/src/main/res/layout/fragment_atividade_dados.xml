@@ -4,18 +4,18 @@
     tools:context=".view.fragment.AtividadeDadosFragment">
     <data>
         <variable
-            name="activity"
-            type="ufc.russas.encontrosuniversitarios.model.Activity" />
+            name="atividade"
+            type="ufc.russas.encontrosuniversitarios.model.Atividade" />
         <variable
             name="formatador"
-            type="ufc.russas.encontrosuniversitarios.helper.DataFormatter" />
+            type="ufc.russas.encontrosuniversitarios.helper.FormatadorData" />
 
         <variable
             name="horarioInicial"
             type="org.joda.time.DateTime" />
 
         <variable
-            name="finalTime"
+            name="horarioFinal"
             type="org.joda.time.DateTime" />
 
     </data>
@@ -58,7 +58,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="@{activity.name}"
+                    android:text="@{atividade.nome}"
                     android:textSize="20dp" />
 
                 <TextView
@@ -68,7 +68,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginVertical="8dp"
                     android:textSize="18dp"
-                    android:text="@{activity.apresentador.name}"/>
+                    android:text="@{atividade.apresentador.nome}"/>
 
                 <TextView
                     android:id="@+id/horario_data_atividade"
@@ -136,7 +136,7 @@
                         android:textSize="16dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="@{activity.place.name}" />
+                        android:text="@{atividade.local.nome}" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -153,7 +153,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:textSize="16dp"
-                        android:text="@{activity.place.pontoReferencia}" />
+                        android:text="@{atividade.local.pontoReferencia}" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -180,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textSize="16dp"
-                    android:text="@{activity.descricao}"/>
+                    android:text="@{atividade.descricao}"/>
 
 
             </LinearLayout>

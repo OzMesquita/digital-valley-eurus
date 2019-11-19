@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ufc.russas.encontrosuniversitarios.view.fragment.ProfessorActivitiesFragment">
+    tools:context="ufc.russas.encontrosuniversitarios.view.fragment.AtividadesProfessorFragment">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
