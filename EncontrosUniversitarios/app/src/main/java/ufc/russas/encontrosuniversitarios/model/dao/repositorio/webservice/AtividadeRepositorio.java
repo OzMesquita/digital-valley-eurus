@@ -33,6 +33,10 @@ public class AtividadeRepositorio{
         return atividadeRepositorio;
     }
 
+    /**
+     * Este método retorna todas as atividades
+     * @param listener, serve para encapsular o comportamento da view
+     */
     public void buscar(final ResponseListener listener) {
         atividadeService.getAtividades().enqueue(new Callback<List<Atividade>>() {
             @Override
@@ -47,6 +51,10 @@ public class AtividadeRepositorio{
         });
     }
 
+    /**
+     * Este método retorna todas as atividades do dia atual
+     * @param listener, serve para encapsular o comportamento da view
+     */
     public void buscarAtividadesDoDia(final ResponseListener listener){
         atividadeService.getAtividadesDoDia().enqueue(new Callback<List<Atividade>>() {
             @Override
@@ -61,6 +69,10 @@ public class AtividadeRepositorio{
         });
     }
 
+    /**
+     * Este método retorna todas as atividades que o coordenador é responsável
+     * @param listener, serve para encapsular o comportamento da view
+     */
     public void buscarAtividadesFrequencia(final ResponseListener listener, int idCoordenador) {
         atividadeService.getAtividadesFrequencia(idCoordenador).enqueue(new Callback<List<Atividade>>() {
             @Override
@@ -105,6 +117,10 @@ public class AtividadeRepositorio{
         });
     }
 
+    /**
+     * Este método retorna a hora atual do servidor, de forma a padronizar todos os horários do aplicativo
+     * @param listener, serve para encapsular o comportamento da view
+     */
     public void getMomento(final ResponseListener listener){
         atividadeService.getMomento().enqueue(new Callback<DateTime>() {
             @Override
@@ -159,6 +175,11 @@ public class AtividadeRepositorio{
             }
         });
     }
+
+    /**
+     * Este método retorna todas as atividades que o professor irá avaliar
+     * @param listener, serve para encapsular o comportamento da view
+     */
     public void getAtividadesProfessor(final ResponseListener listener, int idProfessor) {
         atividadeService.getAtividadesProfessor(idProfessor).enqueue(new Callback<List<Atividade>>() {
             @Override

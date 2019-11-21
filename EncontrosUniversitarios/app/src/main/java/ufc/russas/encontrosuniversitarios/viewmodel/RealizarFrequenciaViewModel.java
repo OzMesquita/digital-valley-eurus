@@ -50,7 +50,6 @@ public class RealizarFrequenciaViewModel extends ViewModel {
                 @Override
                 public void onFailure(String message) {
                     listener.onDone();
-                    Log.i("Falha",message);
                 }
             },userId);
         }else{
@@ -62,6 +61,12 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         usuarioRepositorio.buscarUsuario(listener, matricula);
     }
 
+    /**
+     * Este método realiza o checkInCheckOut através do QRcode.
+     * @param listener, serve para encapsular o comportamento da view
+     * @param qrcodeMessage
+     * @param context
+     */
     public void realizarCheckInCheckOut(final CheckInCheckOutListener listener, String qrcodeMessage,Context context) {
         int roomId = MySharedPreferences.getInstance(context).getRoomId();
         final QRCodeValidador qrCodeValidador = new QRCodeValidador();

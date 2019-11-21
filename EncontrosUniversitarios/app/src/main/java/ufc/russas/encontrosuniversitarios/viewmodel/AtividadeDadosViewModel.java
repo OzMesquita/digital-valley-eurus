@@ -39,6 +39,11 @@ public class AtividadeDadosViewModel extends ViewModel {
         horarioFinalAtividade.setValue(atividade.getHorarioFinal());
     }
 
+    /**
+     * Este método verifica se a atividade foi iniciada, finalidada, para então chamar os métodos
+     * responsávéis por iniciar e finalizar a atividade.
+     * @param context
+     */
     public void alterarHorarioAtividade(Context context) {
         if(!atividade.atividadeIniciada() && !atividade.atividadeFinalizada()){
             iniciarAtividade();
@@ -60,14 +65,11 @@ public class AtividadeDadosViewModel extends ViewModel {
 
             @Override
             public void onFailure(String message) {
-
             }
         });
-
     }
 
     private void finalizarAtividade(final Context context){
-
         atividadeRepositorio.getMomento(new ResponseListener() {
             @Override
             public void onSuccess(Object response) {
@@ -81,15 +83,16 @@ public class AtividadeDadosViewModel extends ViewModel {
                     Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();;
                 }
             }
-
             @Override
             public void onFailure(String message) {
-
             }
         });
-
     }
 
+    /**
+     *
+     * @param isHorarioInicio
+     */
     private void atualizarHorariosAtividade(final boolean isHorarioInicio){
         atividadeRepositorio.atualizarAtividade(this.atividade, isHorarioInicio, new ResponseListener<Boolean>() {
             @Override
@@ -101,7 +104,6 @@ public class AtividadeDadosViewModel extends ViewModel {
                     horarioFinalAtividade.setValue(atividade.getHorarioFinal());
                 }
             }
-
             @Override
             public void onFailure(String message) {
             }
@@ -120,7 +122,7 @@ public class AtividadeDadosViewModel extends ViewModel {
 
             @Override
             public void onFailure(String message) {
-                Toast.makeText(context,"Não foi possível realizar essa operação",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Não foi possível realizar esta operação",Toast.LENGTH_LONG).show();
             }
         }, new AvaliacaoAtividade(atividade.getId(),idUsuario,null,null));
     }

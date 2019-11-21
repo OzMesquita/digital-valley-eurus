@@ -1,7 +1,5 @@
 package ufc.russas.encontrosuniversitarios.viewmodel;
 
-import android.util.Log;
-
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.DiaEvento;
 import ufc.russas.encontrosuniversitarios.model.ProgramacaoAtividades;
@@ -56,7 +54,6 @@ public class ProgramacaoViewModel extends ViewModel {
             @Override
             public void onFailure(String message) {
                 listener.onDone();
-                Log.i("AtvFailura:",message);
             }
         });
     }
@@ -73,7 +70,6 @@ public class ProgramacaoViewModel extends ViewModel {
             @Override
             public void onFailure(String message) {
                 listener.onDone();
-                Log.i("AtvFailura:",message);
             }
         });
     }

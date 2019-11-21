@@ -1,10 +1,10 @@
 package ufc.russas.encontrosuniversitarios.model;
 
-public class Data{
+public class DadosValidacaoMatricula {
     private String matricula;
     private String nome;
 
-    public Data(String matricula, String nome) {
+    public DadosValidacaoMatricula(String matricula, String nome) {
         this.matricula = matricula;
         this.nome = nome;
     }

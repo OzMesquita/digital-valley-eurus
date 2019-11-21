@@ -91,6 +91,11 @@ public class UsuarioRepositorio {
         });
     }
 
+    /**
+     * Este método validará se a matricula passada possui pré cadastro no sistema do guardião.
+     * @param listener, serve para encapsular o comportamento da view
+     * @param matricula
+     */
     public void verificarMatricula(final ResponseListener listener, String matricula){
         usuarioService.getVerificacaoMatricula(matricula).enqueue(new Callback<VerificacaoMatricula>() {
             @Override

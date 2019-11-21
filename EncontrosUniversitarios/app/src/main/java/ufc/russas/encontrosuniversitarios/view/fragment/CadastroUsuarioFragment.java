@@ -129,8 +129,8 @@ public class CadastroUsuarioFragment extends Fragment {
             @Override
             public void onChanged(VerificacaoMatricula usuario) {
                 if(usuario!=null) {
-                    txtName.setText(usuario.getData().getNome());
-                    txtMatricula.setText(usuario.getData().getMatricula());
+                    txtName.setText(usuario.getDadosValidacaoMatricula().getNome());
+                    txtMatricula.setText(usuario.getDadosValidacaoMatricula().getMatricula());
                 }else{
                     txtName.setText("");
                     txtMatricula.setText("");

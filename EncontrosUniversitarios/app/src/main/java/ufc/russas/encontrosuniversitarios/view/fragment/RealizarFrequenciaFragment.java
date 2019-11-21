@@ -69,7 +69,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         btnMatricula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showMatriculaDialog();
+                matriculaDialog();
             }
         });
 
@@ -124,7 +124,12 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         }
     };
 
-    public void showMatriculaDialog() {
+    /**
+     * Este método exibe o dialog onde é consultado se a matricula informada possui cadastro prévio
+     * realizado no aplicativo, além da opção de checkIn/checkOut
+     *
+     */
+    public void matriculaDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View customLayout = getLayoutInflater().inflate(R.layout.matricula_dialog, null);
         dialogoProgress = customLayout.findViewById(R.id.matricula_progress);

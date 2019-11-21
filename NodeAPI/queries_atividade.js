@@ -3,7 +3,6 @@ const modelCreator = require('./model_creator')
 db.db_name
 function dataFormatada(){
   var data = new Date(Date.now())
-  //console.log("data ",data);
   dia = data.getDate();
   mes = data.getMonth() +1; //+1 pois no getMonth Janeiro começa com zero.
   ano = data.getFullYear();
@@ -80,7 +79,6 @@ const updateAtividade = (request, response) => {
   try {
     const id_atividade = parseInt(request.params.id)
     const {isHorarioInicio, horario} = request.body
-    //console.log(request.body)
     var query = ""
     if(isHorarioInicio) {
       query = 'UPDATE '+db.db_name+'atividade SET horario_inicial = now() WHERE id_atividade = $1'
@@ -244,7 +242,6 @@ const cadastrarAvaliacao = (request, response) => {
       response.status(201).json(queryResponse)
     }else{
       queryResponse.error = true
-      //console.log(queryResponse)
       response.status(201).json(queryResponse)
     }
   })
@@ -256,7 +253,6 @@ const verificarAtividadeAvaliada = (request, response, next) => {
   db.pool.query('SELECT * FROM '+db.db_name+'avaliacao_atividade WHERE atividade_fk=$1 AND avaliador_fk=$2',[atividade,avaliador],(error,results) => {
     if(results.rowCount > 0){
       queryResponse.alreadyEvaluatedActivity = true;
-      //console.log(queryResponse)
       response.status(400).json(queryResponse)
     }else{
       next()
