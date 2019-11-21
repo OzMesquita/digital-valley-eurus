@@ -1,10 +1,8 @@
 package ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice;
 
-import android.util.Log;
-
 import ufc.russas.encontrosuniversitarios.model.AlterarSenhaResponse;
 import ufc.russas.encontrosuniversitarios.model.DadosAlterarSenha;
-import ufc.russas.encontrosuniversitarios.model.DadosCheckIn;
+import ufc.russas.encontrosuniversitarios.model.DadosCheckInCheckOut;
 import ufc.russas.encontrosuniversitarios.model.DadosFrequenciaUsuario;
 import ufc.russas.encontrosuniversitarios.model.DadosLogin;
 import ufc.russas.encontrosuniversitarios.model.Usuario;
@@ -62,9 +60,8 @@ public class UsuarioRepositorio {
                 });
     }
 
-    public void checkInCheckOut(final ResponseListener listener, DadosCheckIn dadosCheckIn) {
-        Log.i("CHECKIN",""+dadosCheckIn.getIdUsuario());
-        usuarioService.checkInCheckOut(dadosCheckIn).enqueue(new Callback<ValidacaoCheckInCheckOut>() {
+    public void checkInCheckOut(final ResponseListener listener, DadosCheckInCheckOut dadosCheckInCheckOut) {
+        usuarioService.checkInCheckOut(dadosCheckInCheckOut).enqueue(new Callback<ValidacaoCheckInCheckOut>() {
             @Override
             public void onResponse(Call<ValidacaoCheckInCheckOut> call, Response<ValidacaoCheckInCheckOut> response) {
                 listener.onSuccess(response.body());

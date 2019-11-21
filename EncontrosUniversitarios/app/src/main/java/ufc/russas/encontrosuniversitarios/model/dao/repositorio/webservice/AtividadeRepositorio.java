@@ -6,6 +6,7 @@ import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.AvaliacaoAtividade;
 import ufc.russas.encontrosuniversitarios.model.CriterioAtividade;
 import ufc.russas.encontrosuniversitarios.model.ResultadoAvaliacao;
+import ufc.russas.encontrosuniversitarios.model.HorarioAtividade;
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.database.WebServiceDatabase;
 
 import org.joda.time.DateTime;
@@ -92,7 +93,7 @@ public class AtividadeRepositorio{
 
     public void atualizarAtividade(Atividade atividade, boolean isHorarioInicio, final ResponseListener listener){
         DateTime horario = isHorarioInicio ? atividade.getHorarioInicio() : atividade.getHorarioFinal();
-        atividadeService.atualizarAtividade(atividade.getId(),new Inicio(isHorarioInicio,horario)).enqueue(new Callback<Boolean>() {
+        atividadeService.atualizarAtividade(atividade.getId(),new HorarioAtividade(isHorarioInicio,horario)).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 listener.onSuccess(response.body());
