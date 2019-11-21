@@ -1,12 +1,12 @@
-package ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice;
+package ufc.russas.encontrosuniversitarios.model;
 
 import org.joda.time.DateTime;
 
-public class Inicio {
+public class HorarioAtividade {
     private boolean isHorarioInicio;
     private DateTime horario;
 
-    public Inicio(boolean isHorarioInicio, DateTime horario) {
+    public HorarioAtividade(boolean isHorarioInicio, DateTime horario) {
         this.isHorarioInicio = isHorarioInicio;
         this.horario = horario;
     }

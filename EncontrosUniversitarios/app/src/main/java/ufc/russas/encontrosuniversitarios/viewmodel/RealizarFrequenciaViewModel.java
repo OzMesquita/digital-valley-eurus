@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
-import ufc.russas.encontrosuniversitarios.model.DadosCheckIn;
+import ufc.russas.encontrosuniversitarios.model.DadosCheckInCheckOut;
 import ufc.russas.encontrosuniversitarios.model.DadosFrequenciaUsuario;
 import ufc.russas.encontrosuniversitarios.model.QRCodeValidador;
 import ufc.russas.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
@@ -88,7 +88,7 @@ public class RealizarFrequenciaViewModel extends ViewModel {
                 public void onFailure(String message) {
                     listener.onFailure("Ocorreu uma falha ao tentar realizar esta operação");
                 }
-            }, new DadosCheckIn(qrCodeValidador.getIdUsuario(),roomId));
+            }, new DadosCheckInCheckOut(qrCodeValidador.getIdUsuario(),roomId));
         }else{
             if(!isQRCodeValid){
                 listener.onInvalidQRCode("O QRCode lido é inválido");
@@ -116,7 +116,7 @@ public class RealizarFrequenciaViewModel extends ViewModel {
                 public void onFailure(String message) {
                     listener.onFailure("Ocorreu uma falha ao tentar realizar esta operação");
                 }
-            }, new DadosCheckIn(usuarioFrequencia.getValue().getId(),roomId));
+            }, new DadosCheckInCheckOut(usuarioFrequencia.getValue().getId(),roomId));
         }else{
             listener.onFailure("Você não possui permissão para realizar esta operação");
         }
