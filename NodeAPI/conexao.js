@@ -6,5 +6,5 @@ const pool = new Pool({
   password: '123',
   port: 5432,
 })
-
-  module.exports = {pool};
+	const db_name = "encontrosuniversitarios."
+	module.exports = {pool,db_name};
