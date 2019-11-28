@@ -19,8 +19,8 @@
     <string name="fechar">Fechar</string>
     <string name="qrcode">QRCode</string>
     <string name="senha">Senha</string>
-    <string name="enter_profile">Entrar</string>
-    <string name="register_user">Cadastre-se</string>
+    <string name="entrar_perfil">Entrar</string>
+    <string name="cadastrar_usuario">Cadastre-se</string>
     <string name="forgot_password">Esqueci minha senha</string>
     <string name="nome">Nome</string>
     <string name="email">Email</string>

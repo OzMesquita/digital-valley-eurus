@@ -1,10 +1,10 @@
 package ufc.russas.encontrosuniversitarios.model.dao.webservice;
 
-import ufc.russas.encontrosuniversitarios.model.AlterarSenhaResponse;
-import ufc.russas.encontrosuniversitarios.model.DadosAlterarSenha;
-import ufc.russas.encontrosuniversitarios.model.DadosCheckInCheckOut;
-import ufc.russas.encontrosuniversitarios.model.DadosFrequenciaUsuario;
-import ufc.russas.encontrosuniversitarios.model.DadosLogin;
+import ufc.russas.encontrosuniversitarios.model.webservice.AlterarSenhaResponse;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosAlterarSenha;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosCheckInCheckOut;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosFrequenciaUsuario;
+import ufc.russas.encontrosuniversitarios.model.webservice.DadosLogin;
 import ufc.russas.encontrosuniversitarios.model.Usuario;
 import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCadastro;
 import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCheckInCheckOut;

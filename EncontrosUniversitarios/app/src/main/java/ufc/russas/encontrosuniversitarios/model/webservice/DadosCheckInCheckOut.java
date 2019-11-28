@@ -1,12 +1,12 @@
 package ufc.russas.encontrosuniversitarios.model.webservice;
 import com.google.gson.annotations.SerializedName;
 
-public class DadosCheckIn {
+public class DadosCheckInCheckOut {
     @SerializedName("id_usuario")
     private int idUsuario;
     private int sala;
 
-    public DadosCheckIn(int idUsuario, int sala) {
+    public DadosCheckInCheckOut(int idUsuario, int sala) {
         this.idUsuario = idUsuario;
         this.sala = sala;
     }
