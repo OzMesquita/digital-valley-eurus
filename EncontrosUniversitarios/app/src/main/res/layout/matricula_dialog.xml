@@ -31,22 +31,22 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <Button
-        android:id="@+id/get_user"
+        android:id="@+id/get_usuario"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/get_user"
-        android:background="@drawable/custom_button_blue"
+        android:text="@string/verificar_matricula"
+        android:background="@drawable/customizacao_botao_azul"
         android:textAllCaps="false"
         android:textSize="17dp"
         android:textColor="@android:color/white"
         />
     <Button
-        android:id="@+id/frequencia"
+        android:id="@+id/realizar_frequencia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/custom_button_green"
+        android:background="@drawable/customizacao_botao_verde"
         android:text="@string/ckeckin_checkout"
         android:textAllCaps="false"
         android:textSize="17dp"

@@ -61,7 +61,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         btnReadQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ScanHelper scanHelper = new ScanHelper(0, getActivity(), getResources().getString(R.string.qrcode_title));
+                ScanHelper scanHelper = new ScanHelper(0, getActivity(),getResources().getString(R.string.qrcode_titulo));
                 scanHelper.showScan();
             }
         });
@@ -69,7 +69,7 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         btnMatricula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showMatriculaDialog();
+                matriculaDialog();
             }
         });
 
@@ -79,8 +79,8 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
                 if (atividades != null && atividades.size() >= 1) {
                     MySharedPreferences.getInstance(getContext()).setCoordinatorActivities(atividades);
                     MySharedPreferences.getInstance(getContext()).setRoom(atividades.get(0).getLocal().getSala().getId());
-                    String sala = atividades.get(0).getLocal().getSala().getNumero() == 0 ? "" : "" + atividades.get(0).getLocal().getSala().getNumero();
-                    txtSala.setText(getContext().getResources().getText(R.string.perform_room_frequency).toString() + " " + sala);
+                    String sala = atividades.get(0).getLocal().getSala().getNumero() == 0 ? "":""+atividades.get(0).getLocal().getSala().getNumero();
+                    txtSala.setText(getContext().getResources().getText(R.string.texto_realizar_frequencia).toString()+" "+sala);
                 }
                 programacaoDoDiaAdapter = new ProgramacaoDoDiaAdapter(atividades, MySharedPreferences.getInstance(getContext()).getCoordinatorActivities(), false);
                 recyclerView.setAdapter(programacaoDoDiaAdapter);
@@ -124,15 +124,20 @@ public class RealizarFrequenciaFragment extends Fragment implements ProgramacaoL
         }
     };
 
-    public void showMatriculaDialog() {
+    /**
+     * Este método exibe o dialog onde é consultado se a matricula informada possui cadastro prévio
+     * realizado no aplicativo, além da opção de checkIn/checkOut
+     *
+     */
+    public void matriculaDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         View customLayout = getLayoutInflater().inflate(R.layout.matricula_dialog, null);
         dialogoProgress = customLayout.findViewById(R.id.matricula_progress);
-        Button getUser = customLayout.findViewById(R.id.get_user);
-        Button frequencia = customLayout.findViewById(R.id.frequencia);
+        Button getUser = customLayout.findViewById(R.id.get_usuario);
+        Button frequencia = customLayout.findViewById(R.id.realizar_frequencia);
         final TextView userName = customLayout.findViewById(R.id.nome_usuario_matricula);
         final EditText matricula = customLayout.findViewById(R.id.matricula_frequencia);
-        builder.setPositiveButton(R.string.close, null);
+        builder.setPositiveButton(R.string.fechar,null);
 
         realizarFrequenciaViewModel.getUsuarioFrequencia().observe(this, new Observer<DadosFrequenciaUsuario>() {
             @Override

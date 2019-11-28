@@ -1,7 +1,5 @@
 package ufc.russas.encontrosuniversitarios.viewmodel;
 
-import android.util.Log;
-
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.DiaEvento;
 import ufc.russas.encontrosuniversitarios.model.ProgramacaoAtividades;
@@ -43,6 +41,11 @@ public class ProgramacaoViewModel extends ViewModel {
         return atividadesDoDia;
     }
 
+    /**
+     * Este método busca todas as atividades cadastradas no banco de dados através de uma requisição
+     * ao webservice
+     * @param listener
+     */
     public void carregarAtividades(final AtividadesListener listener){
         listener.onLoading();
         atividadeRepositorio.buscar(new ResponseListener<List<Atividade>>() {
@@ -56,11 +59,15 @@ public class ProgramacaoViewModel extends ViewModel {
             @Override
             public void onFailure(String message) {
                 listener.onDone();
-                Log.i("AtvFailura:",message);
             }
         });
     }
 
+    /**
+     * Este método busca todas as atividades do dia atual cadastradas no banco de dados através de
+     * uma requisição ao webservice
+     * @param listener
+     */
     public void carregarAtividadesDoDia(final AtividadesListener listener){
         listener.onLoading();
         atividadeRepositorio.buscarAtividadesDoDia(new ResponseListener<List<Atividade>>() {
@@ -73,7 +80,6 @@ public class ProgramacaoViewModel extends ViewModel {
             @Override
             public void onFailure(String message) {
                 listener.onDone();
-                Log.i("AtvFailura:",message);
             }
         });
     }

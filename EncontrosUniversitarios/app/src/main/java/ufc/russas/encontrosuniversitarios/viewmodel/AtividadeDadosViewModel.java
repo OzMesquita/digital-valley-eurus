@@ -39,6 +39,11 @@ public class AtividadeDadosViewModel extends ViewModel {
         horarioFinalAtividade.setValue(atividade.getHorarioFinal());
     }
 
+    /**
+     * Este método verifica se a atividade foi iniciada, finalidada, para então chamar os métodos
+     * responsávéis por iniciar e finalizar a atividade.
+     * @param context
+     */
     public void alterarHorarioAtividade(Context context) {
         if(!atividade.atividadeIniciada() && !atividade.atividadeFinalizada()){
             iniciarAtividade();
@@ -47,6 +52,9 @@ public class AtividadeDadosViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método inicia a atividade com a hora obtida do servidor
+     */
     private void iniciarAtividade(){
         atividadeRepositorio.getMomento(new ResponseListener() {
             @Override
@@ -60,14 +68,14 @@ public class AtividadeDadosViewModel extends ViewModel {
 
             @Override
             public void onFailure(String message) {
-
             }
         });
-
     }
 
+    /**
+     * Este método finaliza a atividade com a hora obtida do servidor
+     */
     private void finalizarAtividade(final Context context){
-
         atividadeRepositorio.getMomento(new ResponseListener() {
             @Override
             public void onSuccess(Object response) {
@@ -81,15 +89,17 @@ public class AtividadeDadosViewModel extends ViewModel {
                     Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();;
                 }
             }
-
             @Override
             public void onFailure(String message) {
-
             }
         });
-
     }
 
+    /**
+     * Este método inicia ou finaliza uma atividade dependendo do valor da variável isHorarioInicio
+     * @param isHorarioInicio Caso true, a atividade deve ser inicializada, finalizada caso
+     *                        contrário
+     */
     private void atualizarHorariosAtividade(final boolean isHorarioInicio){
         atividadeRepositorio.atualizarAtividade(this.atividade, isHorarioInicio, new ResponseListener<Boolean>() {
             @Override
@@ -101,13 +111,16 @@ public class AtividadeDadosViewModel extends ViewModel {
                     horarioFinalAtividade.setValue(atividade.getHorarioFinal());
                 }
             }
-
             @Override
             public void onFailure(String message) {
             }
         });
     }
 
+    /**
+     * Este método faz uma requisição ao webservice para verificar se a atividade já foi avaliada
+     * @param context
+     */
     public void verificarAtividadeJaAvaliada(final Context context){
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         int idUsuario = preferences.getUserId();
@@ -120,7 +133,7 @@ public class AtividadeDadosViewModel extends ViewModel {
 
             @Override
             public void onFailure(String message) {
-                Toast.makeText(context,"Não foi possível realizar essa operação",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Não foi possível realizar esta operação",Toast.LENGTH_LONG).show();
             }
         }, new AvaliacaoAtividade(atividade.getId(),idUsuario,null,null));
     }

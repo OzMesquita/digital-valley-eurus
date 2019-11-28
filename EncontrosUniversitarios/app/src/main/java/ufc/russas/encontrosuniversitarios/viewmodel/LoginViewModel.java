@@ -29,6 +29,13 @@ public class LoginViewModel extends ViewModel {
         this.usuarioRepositorio = UsuarioRepositorio.getInstance();
     }
 
+    /**
+     * Este método envia uma requisição ao webservice para validar os dados de login fornecidos,
+     * caso sejam válidos ele loga o usuário no aplicativo
+     * @param email
+     * @param senha
+     * @param listener
+     */
     public void realizarLogin(String email, String senha, final LoginListener listener) {
         try {
             this.usuario = new Usuario(email, senha);
@@ -65,6 +72,11 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método realiza o logout do usuário
+     * @param context
+     * @param listener
+     */
     public void realizarLogout(Context context, LogoutListener listener) {
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         boolean result = preferences.clearData();
@@ -75,6 +87,11 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método envia um email de redefinição de senha para o email fornecido como parâmetro
+     * @param email
+     * @param listener
+     */
     public void recuperacaoSenha(String email, final RedefinicaoSenhaListener listener){
         if (email.equals("") || !Validador.validarEmail(email)) {
             listener.onInvalidField();
@@ -96,6 +113,14 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método altera a senha do usuário enviando o código de validação e a nova senha para
+     * redefinição
+     * @param token
+     * @param password
+     * @param confirmPassword
+     * @param listener
+     */
     public void alterarSenha(String token, String password, String confirmPassword, final AlterarSenhaListener listener){
         if(token.isEmpty()){
             listener.onEmptyField("TOKEN");
@@ -113,7 +138,7 @@ public class LoginViewModel extends ViewModel {
                 @Override
                 public void onSuccess(Object response) {
                     AlterarSenhaResponse alterarSenhaResponse = (AlterarSenhaResponse) response;
-                    if(alterarSenhaResponse.isInvalidToken()){
+                    if(alterarSenhaResponse.isCodigoInvalido()){
                         listener.onInvalidToken();
                     }else{
                         listener.onSuccess();

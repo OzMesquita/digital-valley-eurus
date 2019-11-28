@@ -1,29 +1,30 @@
 package ufc.russas.encontrosuniversitarios.model.webservice;
 
 public class AlterarSenhaResponse {
-    private boolean invalidToken;
-    private String message;
+    private boolean codigoInvalido;
+    private String mensagem;
 
     public AlterarSenhaResponse(){}
 
-    public AlterarSenhaResponse(boolean invalidToken, String message) {
-        this.invalidToken = invalidToken;
-        this.message = message;
+    public AlterarSenhaResponse(boolean codigoInvalido, String mensagem) {
+        this.codigoInvalido = codigoInvalido;
+        this.mensagem = mensagem;
     }
 
-    public boolean isInvalidToken() {
-        return invalidToken;
+    public boolean isCodigoInvalido() {
+        return codigoInvalido;
     }
 
-    public void setInvalidToken(boolean invalidToken) {
-        this.invalidToken = invalidToken;
+    public void setCodigoInvalido(boolean codigoInvalido) {
+        this.codigoInvalido = codigoInvalido;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMensagem() {
+        return mensagem;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 }
+

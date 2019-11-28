@@ -1,25 +1,21 @@
 package ufc.russas.encontrosuniversitarios.viewmodel;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
-import ufc.russas.encontrosuniversitarios.model.webservice.DadosCheckIn;
-import ufc.russas.encontrosuniversitarios.model.webservice.DadosFrequenciaUsuario;
-import ufc.russas.encontrosuniversitarios.model.QRCodeValidator;
-import ufc.russas.encontrosuniversitarios.model.webservice.ValidacaoCheckInCheckOut;
-import ufc.russas.encontrosuniversitarios.model.dao.webservice.AtividadeRepositorio;
-import ufc.russas.encontrosuniversitarios.model.dao.webservice.ResponseListener;
-import ufc.russas.encontrosuniversitarios.model.dao.webservice.UsuarioRepositorio;
+import ufc.russas.encontrosuniversitarios.model.DadosCheckInCheckOut;
+import ufc.russas.encontrosuniversitarios.model.DadosFrequenciaUsuario;
+import ufc.russas.encontrosuniversitarios.model.QRCodeValidador;
+import ufc.russas.encontrosuniversitarios.model.ValidacaoCheckInCheckOut;
+import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.AtividadeRepositorio;
+import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.ResponseListener;
+import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
 import ufc.russas.encontrosuniversitarios.view.fragment.AtividadesListener;
 import ufc.russas.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
-
 import java.util.List;
 
 public class RealizarFrequenciaViewModel extends ViewModel {
@@ -35,6 +31,12 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         atividadesFrequencia = new MutableLiveData<>();
     }
 
+    /**
+     * Este método busca todas as atividades que o usuário, com o perfil coordenador, pode iniciar
+     * e finalizar posteriormente
+     * @param context
+     * @param listener
+     */
     public void carregarAtividadesFrequencia(Context context, final AtividadesListener listener){
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         int userId = preferences.getUserId();
@@ -50,7 +52,6 @@ public class RealizarFrequenciaViewModel extends ViewModel {
                 @Override
                 public void onFailure(String message) {
                     listener.onDone();
-                    Log.i("Falha",message);
                 }
             },userId);
         }else{
@@ -58,14 +59,25 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método busca um usuário através de uma matrícula fornecida
+     * @param listener
+     * @param matricula
+     */
     public void buscarUsuarioPorMatricula(final ResponseListener listener, String matricula) {
         usuarioRepositorio.buscarUsuario(listener, matricula);
     }
 
+    /**
+     * Este método realiza o checkInCheckOut através do QRcode.
+     * @param listener
+     * @param qrcodeMessage Código obtido a partir da leitura do QRCode
+     * @param context
+     */
     public void realizarCheckInCheckOut(final CheckInCheckOutListener listener, String qrcodeMessage,Context context) {
         int roomId = MySharedPreferences.getInstance(context).getRoomId();
-        final QRCodeValidator qrCodeValidator = new QRCodeValidator();
-        boolean isQRCodeValid = qrCodeValidator.validateQRCode(qrcodeMessage);
+        final QRCodeValidador qrCodeValidador = new QRCodeValidador();
+        boolean isQRCodeValid = qrCodeValidador.validateQRCode(qrcodeMessage);
         if(roomId != -1 && isQRCodeValid){
             usuarioRepositorio.checkInCheckOut(new ResponseListener() {
 
@@ -73,9 +85,9 @@ public class RealizarFrequenciaViewModel extends ViewModel {
                 public void onSuccess(Object response) {
                     ValidacaoCheckInCheckOut validacaoCheckInCheckOut = (ValidacaoCheckInCheckOut) response;
                     if(validacaoCheckInCheckOut.isCheckedInOnDifferentRoom()) {
-                        listener.onCheckedInOnDifferentRoom(validacaoCheckInCheckOut.getMessage()+" : Usuário: "+qrCodeValidator.getNomeUsuario());
+                        listener.onCheckedInOnDifferentRoom(validacaoCheckInCheckOut.getMessage()+" : Usuário: "+ qrCodeValidador.getNomeUsuario());
                     }else if(validacaoCheckInCheckOut.isSuccessful()){
-                        listener.onSuccess(validacaoCheckInCheckOut.getMessage()+", Usuário: "+qrCodeValidator.getNomeUsuario());
+                        listener.onSuccess(validacaoCheckInCheckOut.getMessage()+", Usuário: "+ qrCodeValidador.getNomeUsuario());
                     }
                 }
 
@@ -83,7 +95,7 @@ public class RealizarFrequenciaViewModel extends ViewModel {
                 public void onFailure(String message) {
                     listener.onFailure("Ocorreu uma falha ao tentar realizar esta operação");
                 }
-            }, new DadosCheckIn(qrCodeValidator.getIdUsuario(),roomId));
+            }, new DadosCheckInCheckOut(qrCodeValidador.getIdUsuario(),roomId));
         }else{
             if(!isQRCodeValid){
                 listener.onInvalidQRCode("O QRCode lido é inválido");
@@ -93,6 +105,11 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método realiza o check in e check out através da matrícula.
+     * @param listener
+     * @param context
+     */
     public void realizarCheckInCheckOut(final CheckInCheckOutListener listener, Context context) {
         int roomId = MySharedPreferences.getInstance(context).getRoomId();
         if(roomId != -1) {
@@ -111,7 +128,7 @@ public class RealizarFrequenciaViewModel extends ViewModel {
                 public void onFailure(String message) {
                     listener.onFailure("Ocorreu uma falha ao tentar realizar esta operação");
                 }
-            }, new DadosCheckIn(usuarioFrequencia.getValue().getId(),roomId));
+            }, new DadosCheckInCheckOut(usuarioFrequencia.getValue().getId(),roomId));
         }else{
             listener.onFailure("Você não possui permissão para realizar esta operação");
         }

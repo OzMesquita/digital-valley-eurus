@@ -23,7 +23,7 @@
                 android:textSize="20dp"
                 android:fontFamily="sans-serif-light"
                 android:layout_margin="10dp"
-                android:text="@string/my_activities"
+                android:text="@string/minhas_atividades"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -41,7 +41,7 @@
             android:text="@string/qrcode"
             android:layout_width="match_parent"
             android:textColor="@android:color/white"
-            android:background="@drawable/custom_button_green"
+            android:background="@drawable/customizacao_botao_verde"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginTop="12dp"

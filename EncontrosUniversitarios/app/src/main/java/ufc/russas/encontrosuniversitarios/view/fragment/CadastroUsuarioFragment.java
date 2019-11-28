@@ -42,7 +42,7 @@ public class CadastroUsuarioFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastro_usuario, container, false);
         Button salvar = view.findViewById(R.id.buttonSalvarCadastro);
-        Button verificarFrequencia = view.findViewById(R.id.get_user);
+        Button verificarFrequencia = view.findViewById(R.id.get_usuario);
         Button entre = view.findViewById(R.id.buttonEntre);
         final ProgressBar verificarProgress = view.findViewById(R.id.verificar_progress);
         final ProgressBar cadastroProgress = view.findViewById(R.id.cadastrar_progress);
@@ -55,65 +55,65 @@ public class CadastroUsuarioFragment extends Fragment {
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (cadastroUsuarioViewModel.getVerificacaoMatricula().getValue() != null) {
+              if(cadastroUsuarioViewModel.getVerificacaoMatricula().getValue() != null){
 
-                    cadastroUsuarioViewModel.cadastrarUsuario(txtName.getText().toString(), edtMatricula.getText().toString(),
-                            edtEmail.getText().toString(), edtSenha.getText().toString(), new CadastroUsuarioListener() {
-                                @Override
-                                public void onSuccess(String message) {
-                                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                                    navitageToLoginFragment();
-                                }
+                  cadastroUsuarioViewModel.cadastrarUsuario(txtName.getText().toString(), edtMatricula.getText().toString(),
+                          edtEmail.getText().toString(), edtSenha.getText().toString(), new CadastroUsuarioListener() {
+                              @Override
+                              public void onSuccess(String message) {
+                                  Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
+                                  navitageToLoginFragment();
+                              }
 
-                                @Override
-                                public void onEmptyField(String field) {
-                                    showEmptyFieldMessage(field);
-                                }
+                              @Override
+                              public void onEmptyField(String field) {
+                                  showEmptyFieldMessage(field);
+                              }
 
-                                @Override
-                                public void onInvalidEmail(String message) {
-                                    edtEmail.setError(getContext().getResources().getString(R.string.invalid_email_message));
-                                }
+                              @Override
+                              public void onInvalidEmail(String message) {
+                                  edtEmail.setError(getContext().getResources().getString(R.string.mensagem_email_invalido));
+                              }
 
-                                @Override
-                                public void onInvalidPassword(String message) {
-                                    edtSenha.setError(getContext().getResources().getString(R.string.invalid_password_message));
-                                }
+                              @Override
+                              public void onInvalidPassword(String message) {
+                                  edtSenha.setError(getContext().getResources().getString(R.string.mensagem_senha_invalida));
+                              }
 
-                                @Override
-                                public void onInvalidMatricula(String message) {
-                                    edtMatricula.setError(getContext().getResources().getString(R.string.invalid_matricula_message));
-                                }
+                              @Override
+                              public void onInvalidMatricula(String message) {
+                                  edtMatricula.setError(getContext().getResources().getString(R.string.mensagem_matricula_invalida_tamanho));
+                              }
 
-                                @Override
-                                public void onAlreadyTakenEmail() {
-                                    edtEmail.setError(getContext().getResources().getString(R.string.already_taken_email_message));
-                                }
+                              @Override
+                              public void onAlreadyTakenEmail() {
+                                  edtEmail.setError(getContext().getResources().getString(R.string.mensagem_email_existente));
+                              }
 
-                                @Override
-                                public void onAlreadyTakenMatricula() {
-                                    edtMatricula.setError(getContext().getResources().getString(R.string.already_taken_matricula_message));
-                                }
+                              @Override
+                              public void onAlreadyTakenMatricula() {
+                                  edtMatricula.setError(getContext().getResources().getString(R.string.mensagem_matricula_existente));
+                              }
 
-                                @Override
-                                public void onLoading() {
-                                    cadastroProgress.setVisibility(View.VISIBLE);
-                                }
+                              @Override
+                              public void onLoading() {
+                                  cadastroProgress.setVisibility(View.VISIBLE);
+                              }
 
-                                @Override
-                                public void onDone() {
-                                    cadastroProgress.setVisibility(View.GONE);
-                                }
+                              @Override
+                              public void onDone() {
+                                  cadastroProgress.setVisibility(View.GONE);
+                              }
 
-                                @Override
-                                public void onFailure() {
-                                    Toast.makeText(getContext(), "Não foi possível realizar esta operação, verifique sua conexão!", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                } else {
-                    edtMatricula.requestFocus();
-                    Toast.makeText(getContext(), "Verifique a matrícula antes de criar sua conta.", Toast.LENGTH_LONG).show();
-                }
+                              @Override
+                              public void onFailure() {
+                                Toast.makeText(getContext(),"Não foi possível realizar esta operação, verifique sua conexão!",Toast.LENGTH_LONG).show();
+                              }
+                          });
+              }else {
+                  edtMatricula.requestFocus();
+                  Toast.makeText(getContext(),"Verifique a matrícula antes de criar sua conta.",Toast.LENGTH_LONG).show();
+              }
             }
         });
         entre.setOnClickListener(new View.OnClickListener() {
@@ -126,10 +126,10 @@ public class CadastroUsuarioFragment extends Fragment {
         cadastroUsuarioViewModel.getVerificacaoMatricula().observe(this, new Observer<VerificacaoMatricula>() {
             @Override
             public void onChanged(VerificacaoMatricula usuario) {
-                if (usuario != null) {
-                    txtName.setText(usuario.getData().getNome());
-                    txtMatricula.setText(usuario.getData().getMatricula());
-                } else {
+                if(usuario!=null) {
+                    txtName.setText(usuario.getDadosValidacaoMatricula().getNome());
+                    txtMatricula.setText(usuario.getDadosValidacaoMatricula().getMatricula());
+                }else{
                     txtName.setText("");
                     txtMatricula.setText("");
                     edtMatricula.setText("");
@@ -148,7 +148,7 @@ public class CadastroUsuarioFragment extends Fragment {
 
                     @Override
                     public void onFailure() {
-                        Toast.makeText(getContext(), "Não foi possível realizar operação, falha na conexão.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Não foi possível realizar operação, falha na requisição.",Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -182,13 +182,13 @@ public class CadastroUsuarioFragment extends Fragment {
     private void showEmptyFieldMessage(String campo) {
         switch (campo) {
             case "Matricula":
-                edtMatricula.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtMatricula.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
             case "Senha":
-                edtSenha.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtSenha.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
             case "Email":
-                edtEmail.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtEmail.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
         }
     }

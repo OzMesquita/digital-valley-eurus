@@ -5,22 +5,14 @@
     >
 
     <TextView
-    android:id="@+id/text_internet2"
+    android:id="@+id/text_internet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:padding="10dp"
-    android:text="Falha... "
+    android:text="@string/mensagem_falha_internet"
     android:textColor="@android:color/black"
     android:textSize="20dp" />
-    <TextView
-        android:id="@+id/text_internet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="Não foi possível conectar "
-        android:textColor="@android:color/black"
-        android:textSize="20dp" />
+
 
 </LinearLayout>

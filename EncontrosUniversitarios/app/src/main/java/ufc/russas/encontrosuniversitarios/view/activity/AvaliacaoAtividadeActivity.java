@@ -19,7 +19,6 @@ import ufc.russas.encontrosuniversitarios.viewmodel.AvaliacaoAtividadeViewModel;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -99,7 +98,6 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
         public void onNotaChanged() {
             double total = 0;
             for (CriterioAtividade criterioAtividade : criterios) {
-                Log.i("teste ", ""+criterioAtividade.getNota());
                 total += criterioAtividade.getNota();
             }
             txtMedia.setText("Media: " + total / criterios.size());
@@ -125,7 +123,7 @@ public class AvaliacaoAtividadeActivity extends AppCompatActivity {
         nomeAtividadeAvaliada.setText(avaliacaoAtividadeViewModel.getAtividade().getNome());
         notaAtividadeAvaliada.setText(txtMedia.getText().toString());
         double media = Double.valueOf(txtMedia.getText().toString().replaceAll("Media: ",""));
-        notaAtividadeAvaliada.setTextColor(media < 7 ? getResources().getColor(R.color.vermelho) : getResources().getColor(R.color.colorSecondary));
+        notaAtividadeAvaliada.setTextColor(media < 7 ? getResources().getColor(R.color.note_presentation) : getResources().getColor(R.color.colorSecondary));
         builder.setNegativeButton("Não", null);
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override

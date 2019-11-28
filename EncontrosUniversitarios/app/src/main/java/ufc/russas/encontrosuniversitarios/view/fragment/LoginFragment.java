@@ -49,7 +49,7 @@ public class LoginFragment extends Fragment {
         recuperarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showRedefinirSenhaDialog();
+                redefinirSenhaDialog();
             }
         });
 
@@ -62,37 +62,37 @@ public class LoginFragment extends Fragment {
                         MySharedPreferences preferences = MySharedPreferences.getInstance(getContext());
                         preferences.setUserData(usuario);
 
-                        changeLoginFragmentOnLogin(preferences.getUserAccessLevel());
+                        alterarFragmentoAoEfetuarLogin(preferences.getUserAccessLevel());
                     }
 
                     @Override
                     public void onFailure(String message) {
-                        Toast.makeText(getContext(), getContext().getResources().getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), getContext().getResources().getString(R.string.erro_encontrado_requisicao), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onEmptyField(String field) {
-                        showEmptyFieldMessage(field);
+                        exibirMensagemCampoVazio(field);
                     }
 
                     @Override
                     public void onInvalidPassword(String message) {
-                        edtSenha.setError(getContext().getResources().getString(R.string.invalid_passord_login_message));
+                        edtSenha.setError(getContext().getResources().getString(R.string.mensagem_senha_invalida_login));
                     }
 
                     @Override
                     public void onInvalidEmail(String message) {
-                        edtEmail.setError(getContext().getResources().getString(R.string.invalid_email_message));
+                        edtEmail.setError(getContext().getResources().getString(R.string.mensagem_email_invalido));
                     }
 
                     @Override
                     public void onUnregisteredEmail() {
-                        edtEmail.setError(getContext().getResources().getString(R.string.unregistered_email_message));
+                        edtEmail.setError(getContext().getResources().getString(R.string.mensagem_email_sem_cadastro));
                     }
 
                     @Override
                     public void onWrongPassword() {
-                        edtSenha.setError(getContext().getResources().getString(R.string.wrong_passord_login_message));
+                        edtSenha.setError(getContext().getResources().getString(R.string.mensagem_senha_incorreta));
                     }
 
                     @Override
@@ -118,23 +118,27 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private void showEmptyFieldMessage(String campo) {
+    private void exibirMensagemCampoVazio(String campo) {
         switch (campo) {
             case "Email":
-                edtEmail.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtEmail.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
             case "Senha":
-                edtSenha.setError(getContext().getResources().getString(R.string.blank_field_message));
+                edtSenha.setError(getContext().getResources().getString(R.string.mensagem_campo_obrigatorio));
                 break;
         }
     }
 
-    private void changeLoginFragmentOnLogin(int accessLevel) {
+    /**
+     * Este método alterará o fragmento da tela de frequência de acordo com o nível de acesso do usuário
+     * @param nivelAcesso
+     */
+    private void alterarFragmentoAoEfetuarLogin(int nivelAcesso) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        if (accessLevel == 0) {
+        if (nivelAcesso == 0) {
             ft.replace(R.id.fragment_container, new AtividadesAlunoFragment());
-        } else if (accessLevel == 1) {
+        } else if (nivelAcesso == 1) {
             ft.replace(R.id.fragment_container, new RealizarFrequenciaFragment());
         } else {
             ft.replace(R.id.fragment_container, new AtividadesProfessorFragment());
@@ -143,6 +147,9 @@ public class LoginFragment extends Fragment {
         ft.commit();
     }
 
+    /**
+     * Este método invocará o fragmento de cadastro de novos usuários
+     */
     private void navitageToCadastrarUsuarioFragment() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -151,7 +158,7 @@ public class LoginFragment extends Fragment {
         ft.commit();
     }
 
-    public void showRedefinirSenhaDialog() {
+    public void redefinirSenhaDialog() {
         Intent intent = new Intent(getContext(), EsqueciSenhaActivity.class);
         startActivity(intent);
     }

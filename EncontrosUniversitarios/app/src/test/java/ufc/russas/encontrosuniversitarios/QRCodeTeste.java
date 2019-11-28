@@ -1,74 +1,74 @@
 package ufc.russas.encontrosuniversitarios;
 
-import ufc.russas.encontrosuniversitarios.model.QRCodeValidator;
+import ufc.russas.encontrosuniversitarios.model.QRCodeValidador;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 public class QRCodeTeste {
 
-    private String descriptor = QRCodeValidator.QRCODE_DESCRIPTOR;
+    private String descriptor = QRCodeValidador.QRCODE_DESCRIPTOR;
 
     @Test
     public void validateNullQRCodeTest() {
-        QRCodeValidator qrCodeValidator = new QRCodeValidator();
-        boolean result = qrCodeValidator.validateQRCode(null);
+        QRCodeValidador qrCodeValidador = new QRCodeValidador();
+        boolean result = qrCodeValidador.validateQRCode(null);
         Assert.assertFalse(result);
-        Assert.assertNull(qrCodeValidator.getIdUsuario());
-        Assert.assertNull(qrCodeValidator.getNomeUsuario());
+        Assert.assertNull(qrCodeValidador.getIdUsuario());
+        Assert.assertNull(qrCodeValidador.getNomeUsuario());
     }
 
     @Test
     public void validateEmptyQRCodeTest() {
-        QRCodeValidator qrCodeValidator = new QRCodeValidator();
-        boolean result = qrCodeValidator.validateQRCode("");
+        QRCodeValidador qrCodeValidador = new QRCodeValidador();
+        boolean result = qrCodeValidador.validateQRCode("");
         Assert.assertFalse(result);
-        Assert.assertNull(qrCodeValidator.getIdUsuario());
-        Assert.assertNull(qrCodeValidator.getNomeUsuario());
+        Assert.assertNull(qrCodeValidador.getIdUsuario());
+        Assert.assertNull(qrCodeValidador.getNomeUsuario());
     }
 
     @Test
     public void validateOneFieldQRCodeTest() {
-        QRCodeValidator qrCodeValidator = new QRCodeValidator();
-        boolean result = qrCodeValidator.validateQRCode("descriptor");
+        QRCodeValidador qrCodeValidador = new QRCodeValidador();
+        boolean result = qrCodeValidador.validateQRCode("descriptor");
         Assert.assertFalse(result);
-        Assert.assertNull(qrCodeValidator.getIdUsuario());
-        Assert.assertNull(qrCodeValidator.getNomeUsuario());
+        Assert.assertNull(qrCodeValidador.getIdUsuario());
+        Assert.assertNull(qrCodeValidador.getNomeUsuario());
     }
 
     @Test
     public void validateDescriptorRoomIdQRCodeTest() {
-        QRCodeValidator qrCodeValidator = new QRCodeValidator();
-        boolean result = qrCodeValidator.validateQRCode("descriptor-userId");
+        QRCodeValidador qrCodeValidador = new QRCodeValidador();
+        boolean result = qrCodeValidador.validateQRCode("descriptor-userId");
         Assert.assertFalse(result);
-        Assert.assertNull(qrCodeValidator.getIdUsuario());
-        Assert.assertNull(qrCodeValidator.getNomeUsuario());
+        Assert.assertNull(qrCodeValidador.getIdUsuario());
+        Assert.assertNull(qrCodeValidador.getNomeUsuario());
     }
 
     @Test
     public void validateDescriptorRoomIdUsernameQRCodeWithWrongDescriptorTest() {
-        QRCodeValidator qrCodeValidator = new QRCodeValidator();
-        boolean result = qrCodeValidator.validateQRCode("descriptor-userId-username");
+        QRCodeValidador qrCodeValidador = new QRCodeValidador();
+        boolean result = qrCodeValidador.validateQRCode("descriptor-userId-username");
         Assert.assertFalse(result);
-        Assert.assertNull(qrCodeValidator.getIdUsuario());
-        Assert.assertNull(qrCodeValidator.getNomeUsuario());
+        Assert.assertNull(qrCodeValidador.getIdUsuario());
+        Assert.assertNull(qrCodeValidador.getNomeUsuario());
     }
 
     @Test
     public void validateDescriptorRoomIdUsernameQRCodeWithRoomIdNotANumberTest() {
-        QRCodeValidator qrCodeValidator = new QRCodeValidator();
-        boolean result = qrCodeValidator.validateQRCode(descriptor+"-userId-username");
+        QRCodeValidador qrCodeValidador = new QRCodeValidador();
+        boolean result = qrCodeValidador.validateQRCode(descriptor+"-userId-username");
         Assert.assertFalse(result);
-        Assert.assertNull(qrCodeValidator.getIdUsuario());
-        Assert.assertNull(qrCodeValidator.getNomeUsuario());
+        Assert.assertNull(qrCodeValidador.getIdUsuario());
+        Assert.assertNull(qrCodeValidador.getNomeUsuario());
     }
 
     @Test
     public void validateRightQRCode() {
-        QRCodeValidator qrCodeValidator = new QRCodeValidator();
-        boolean result = qrCodeValidator.validateQRCode(descriptor+"-2-Matheus Gomes");
+        QRCodeValidador qrCodeValidador = new QRCodeValidador();
+        boolean result = qrCodeValidador.validateQRCode(descriptor+"-2-Matheus Gomes");
         Assert.assertTrue(result);
-        Assert.assertNotNull(qrCodeValidator.getIdUsuario());
-        Assert.assertNotNull(qrCodeValidator.getNomeUsuario());
+        Assert.assertNotNull(qrCodeValidador.getIdUsuario());
+        Assert.assertNotNull(qrCodeValidador.getNomeUsuario());
     }
 }

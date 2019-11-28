@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fragment = new ProgramacaoDoDiaFragment();
-        getSupportActionBar().setTitle(R.string.title_programming_day);
+        getSupportActionBar().setTitle(R.string.titulo_programacao_do_dia);
         openFragment(fragment, 1);
 
 
@@ -68,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_programacao:
-                    getSupportActionBar().setTitle(R.string.title_programming);
+                    getSupportActionBar().setTitle(R.string.titulo_programacao);
                     fragment = new ProgramacaoFragment();
                     itemId = 0;
                     openFragment(fragment, itemId);
                     break;
                 case R.id.navigation_programacao_do_dia:
-                    getSupportActionBar().setTitle(R.string.title_programming_day);
+                    getSupportActionBar().setTitle(R.string.titulo_programacao_do_dia);
                     fragment = new ProgramacaoDoDiaFragment();
                     itemId = 1;
                     openFragment(fragment, itemId);
@@ -254,8 +254,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         View customLayout = getLayoutInflater().inflate(R.layout.internet_dialog, null);
         builder.setView(customLayout);
-
-        builder.setPositiveButton(R.string.close, null);
+        builder.setPositiveButton(R.string.fechar,null);
         builder.show();
         return false;
     }

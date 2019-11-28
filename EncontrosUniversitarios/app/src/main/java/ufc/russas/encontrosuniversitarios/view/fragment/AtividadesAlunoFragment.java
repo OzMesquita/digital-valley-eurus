@@ -92,7 +92,7 @@ public class AtividadesAlunoFragment extends Fragment implements ProgramacaoList
 
     private void showInfoDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.CustomAlertDialog);
-        builder.setMessage(getResources().getString(R.string.student_message));
+        builder.setMessage(getResources().getString(R.string.informe_aluno));
         builder.setPositiveButton("Ok", null);
         builder.show();
     }

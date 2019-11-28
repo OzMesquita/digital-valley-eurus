@@ -1,29 +1,35 @@
 package ufc.russas.encontrosuniversitarios.model.webservice;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class VerificacaoMatricula {
-    private String message;
-    private Data data;
+
+    @Expose
+    @SerializedName("data")
+    private DadosValidacaoMatricula dadosValidacaoMatricula;
     private String status;
+    private String mensagem;
 
     public VerificacaoMatricula() {
     }
 
-    public VerificacaoMatricula(String message, Data data, String status) {
-        this.message = message;
-        this.data = data;
+    public VerificacaoMatricula(String mensagem, DadosValidacaoMatricula dadosValidacaoMatricula, String status) {
+        this.mensagem = mensagem;
+        this.dadosValidacaoMatricula = dadosValidacaoMatricula;
         this.status = status;
     }
 
-    public Data getData() {
-        return data;
+    public DadosValidacaoMatricula getDadosValidacaoMatricula() {
+        return dadosValidacaoMatricula;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMensagem() {
+        return mensagem;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
     }
 
     public String getStatus() {
@@ -34,8 +40,8 @@ public class VerificacaoMatricula {
         this.status = status;
     }
 
-    public void setData(Data data) {
-        this.data = data;
+    public void setDadosValidacaoMatricula(DadosValidacaoMatricula dadosValidacaoMatricula) {
+        this.dadosValidacaoMatricula = dadosValidacaoMatricula;
     }
 }
 

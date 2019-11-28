@@ -65,6 +65,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Apresentação");
         setContentView(R.layout.activity_atividade_dados);
         getSupportActionBar().setTitle("Apresentação");
         Intent intent = getIntent();
@@ -107,7 +108,7 @@ public class AtividadeDadosActivity extends AppCompatActivity {
             public void onChanged(Boolean result) {
                 if(result){
                     avaliarAtividade.setEnabled(false);
-                    avaliarAtividade.setBackgroundResource(R.drawable.round_gray_buttom);
+                    avaliarAtividade.setBackgroundResource(R.drawable.botao_cinza);
                 }else{
                     avaliarAtividade.setEnabled(true);
                 }
@@ -166,20 +167,20 @@ public class AtividadeDadosActivity extends AppCompatActivity {
 
     private void configurarAtividadeNaoIniciada(){
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
-        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_green_button);
-        iniciarFinalizarAtividade.setText(R.string.start_activity);
+        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.botao_verde);
+        iniciarFinalizarAtividade.setText(R.string.iniciar_atividade);
     }
 
     private void configurarAtividadeIniciada(){
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
-        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_red_button);
-        iniciarFinalizarAtividade.setText(R.string.end_activity);
+        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.botao_vermelho);
+        iniciarFinalizarAtividade.setText(R.string.finalizar_atividade);
     }
 
     private void configurarAtividadeFinalizada(){
         estadoAtividade.setText(atividadeDadosViewModel.getAtividade().getValue().getEstado());
-        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.round_gray_buttom);
-        iniciarFinalizarAtividade.setText(R.string.activity_completed);
+        iniciarFinalizarAtividade.setBackgroundResource(R.drawable.botao_cinza);
+        iniciarFinalizarAtividade.setText(R.string.atividade_finalizada);
 
     }
 
@@ -217,10 +218,8 @@ public class AtividadeDadosActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("PROCURA","RESULT");
         if( requestCode == 1 ){
             if( resultCode == RESULT_OK){
-                Log.i("PROCURA","FINISH");
                 finish();
             }
         }

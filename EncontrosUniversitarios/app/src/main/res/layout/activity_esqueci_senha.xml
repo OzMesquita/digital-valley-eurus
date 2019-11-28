@@ -23,7 +23,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:textSize="18dp"
-                    android:text="@string/token_generation"
+                    android:text="@string/geracao_codigo_recuperacao_senha"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     />
@@ -46,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <Button
-                    android:id="@+id/button_generate_token"
+                    android:id="@+id/button_gerar_codigo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="18dp"
@@ -55,8 +55,8 @@
                     android:layout_marginEnd="18dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@drawable/custom_button_green"
-                    android:text="@string/generate_token"
+                    android:background="@drawable/customizacao_botao_verde"
+                    android:text="@string/gerar_codigo"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="17dp" />
@@ -100,14 +100,14 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:textSize="18dp"
-                    android:text="@string/password_recovery"
+                    android:text="@string/texto_recuperacao_senha"
                     />
 
                 <EditText
-                    android:id="@+id/token"
+                    android:id="@+id/codigo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/code"
+                    android:hint="@string/codigo"
                     android:layout_marginStart="18dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="18dp"
@@ -116,10 +116,10 @@
                     android:layout_marginBottom="8dp"
                     />
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/senha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/new_password"
+                    android:hint="@string/nova_senha"
                     android:inputType="textPassword"
                     android:layout_marginStart="18dp"
                     android:layout_marginLeft="8dp"
@@ -130,10 +130,10 @@
                     />
 
                 <EditText
-                    android:id="@+id/confirm_password"
+                    android:id="@+id/confirmar_senha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password_confirmation"
+                    android:hint="@string/confirmar_senha"
                     android:layout_marginStart="18dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="18dp"
@@ -158,8 +158,8 @@
                     android:layout_marginEnd="18dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@drawable/custom_button_green"
-                    android:text="@string/reset_password"
+                    android:background="@drawable/customizacao_botao_verde"
+                    android:text="@string/alterar_senha"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="17dp" />

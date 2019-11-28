@@ -28,6 +28,14 @@ public class CadastroUsuarioViewModel extends ViewModel {
         verificacaoMatricula = new MutableLiveData<>();
     }
 
+    /**
+     * Este método cadastra um usuário no banco de dados
+     * @param nome
+     * @param matricula
+     * @param email
+     * @param senha
+     * @param listener
+     */
     public void cadastrarUsuario(String nome, String matricula, String email, String senha, final CadastroUsuarioListener listener){
         try {
             this.usuario = new Usuario(nome,email,matricula,senha);
@@ -60,6 +68,12 @@ public class CadastroUsuarioViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método verificará se a senha possui 6 ou mais caracteres, caso possua chamará o metodo
+     * de verificar matrícula, caso contrário invocará o método onFailure
+     * @param listener, serve para encapsular o comportamento da view
+     * @param matricula
+     */
     public void realizarValidacao(final VerificacaoMatriculaListener listener, String matricula) {
         if(matricula!=null && matricula.length()==6){
             listener.onLoading();
@@ -68,7 +82,7 @@ public class CadastroUsuarioViewModel extends ViewModel {
                 public void onSuccess(Object response) {
                     VerificacaoMatricula verMatricula = (VerificacaoMatricula) response;
                     listener.onDone();
-                    if(!verMatricula.getStatus().equals("failure") && verMatricula.getData().getMatricula()!= null && verMatricula.getData().getNome()!=null){
+                    if(!verMatricula.getStatus().equals("failure") && verMatricula.getDadosValidacaoMatricula().getMatricula()!= null && verMatricula.getDadosValidacaoMatricula().getNome()!=null){
                         listener.onValidMatricula();
                         verificacaoMatricula.setValue(verMatricula);
                     }else {

@@ -299,7 +299,8 @@ const updateUsuario = (request, response) => {
 
   const getValidacaoMatricula = (req, response) => {
     const matricula = req.params.matricula
-    http.get('http://200.129.62.41:3001/ws/api/aluno/'+matricula, (res)=> {
+    http.get('http://192.169.1.103:3001/ws/api/aluno/'+matricula, (res)=> {
+    // http.get('http://192.169.1.103:3001/ws/api/aluno?matricula='+matricula, (res)=> {
       let data = ''
       res.on('data',(chunk)=>{
         data += chunk
