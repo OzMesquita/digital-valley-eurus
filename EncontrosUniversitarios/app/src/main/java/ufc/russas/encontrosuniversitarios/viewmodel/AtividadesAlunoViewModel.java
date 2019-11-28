@@ -27,6 +27,11 @@ public class AtividadesAlunoViewModel extends ViewModel {
         atividades = new MutableLiveData<>();
     }
 
+    /**
+     * Este método busca todas as atividades que o usuário logado participou
+     * @param context
+     * @param listener
+     */
     public void carregarAtividades(Context context, final AtividadesListener listener) {
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         listener.onLoading();

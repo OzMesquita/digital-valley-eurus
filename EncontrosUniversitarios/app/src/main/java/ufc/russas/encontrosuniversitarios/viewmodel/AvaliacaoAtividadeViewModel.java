@@ -41,6 +41,10 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
         return criterios;
     }
 
+    /**
+     * Este método busca os critérios de avaliação de atividades cadastrados no banco de dados
+     * @param listener
+     */
     public void listarCriterios(final AtividadesListener listener){
         listener.onLoading();
         atividadeRepositorio.getCriterios(new ResponseListener() {
@@ -58,6 +62,12 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Este método envia a avaliação de uma atividade feita por um avaliador ao banco de dados
+     * @param comentarios
+     * @param context
+     * @param listener
+     */
     public void avaliarAtividade(String comentarios, Context context, final AvaliacaoListener listener){
         List<Nota> notas = new ArrayList<>();
         for(CriterioAtividade c: criterios.getValue()){
@@ -88,6 +98,11 @@ public class AvaliacaoAtividadeViewModel extends ViewModel {
         },new AvaliacaoAtividade(atividade.getId(),idAvaliador,comentarios,notas));
     }
 
+    /**
+     * Este método busca todas as atividades que o avaliador pode avaliar
+     * @param context
+     * @param listener
+     */
     public void carregarAtividades(Context context, final AtividadesListener listener) {
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         listener.onLoading();

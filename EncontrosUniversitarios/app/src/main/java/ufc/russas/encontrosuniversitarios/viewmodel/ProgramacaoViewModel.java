@@ -41,6 +41,11 @@ public class ProgramacaoViewModel extends ViewModel {
         return atividadesDoDia;
     }
 
+    /**
+     * Este método busca todas as atividades cadastradas no banco de dados através de uma requisição
+     * ao webservice
+     * @param listener
+     */
     public void carregarAtividades(final AtividadesListener listener){
         listener.onLoading();
         atividadeRepositorio.buscar(new ResponseListener<List<Atividade>>() {
@@ -58,6 +63,11 @@ public class ProgramacaoViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Este método busca todas as atividades do dia atual cadastradas no banco de dados através de
+     * uma requisição ao webservice
+     * @param listener
+     */
     public void carregarAtividadesDoDia(final AtividadesListener listener){
         listener.onLoading();
         atividadeRepositorio.buscarAtividadesDoDia(new ResponseListener<List<Atividade>>() {

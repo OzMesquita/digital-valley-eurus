@@ -52,6 +52,9 @@ public class AtividadeDadosViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método inicia a atividade com a hora obtida do servidor
+     */
     private void iniciarAtividade(){
         atividadeRepositorio.getMomento(new ResponseListener() {
             @Override
@@ -69,6 +72,9 @@ public class AtividadeDadosViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Este método finaliza a atividade com a hora obtida do servidor
+     */
     private void finalizarAtividade(final Context context){
         atividadeRepositorio.getMomento(new ResponseListener() {
             @Override
@@ -90,8 +96,9 @@ public class AtividadeDadosViewModel extends ViewModel {
     }
 
     /**
-     *
-     * @param isHorarioInicio
+     * Este método inicia ou finaliza uma atividade dependendo do valor da variável isHorarioInicio
+     * @param isHorarioInicio Caso true, a atividade deve ser inicializada, finalizada caso
+     *                        contrário
      */
     private void atualizarHorariosAtividade(final boolean isHorarioInicio){
         atividadeRepositorio.atualizarAtividade(this.atividade, isHorarioInicio, new ResponseListener<Boolean>() {
@@ -110,6 +117,10 @@ public class AtividadeDadosViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Este método faz uma requisição ao webservice para verificar se a atividade já foi avaliada
+     * @param context
+     */
     public void verificarAtividadeJaAvaliada(final Context context){
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         int idUsuario = preferences.getUserId();

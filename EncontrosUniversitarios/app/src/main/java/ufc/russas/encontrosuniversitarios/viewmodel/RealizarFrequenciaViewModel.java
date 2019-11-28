@@ -1,13 +1,10 @@
 package ufc.russas.encontrosuniversitarios.viewmodel;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import ufc.russas.encontrosuniversitarios.helper.MySharedPreferences;
 import ufc.russas.encontrosuniversitarios.model.Atividade;
 import ufc.russas.encontrosuniversitarios.model.DadosCheckInCheckOut;
@@ -19,7 +16,6 @@ import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.Respo
 import ufc.russas.encontrosuniversitarios.model.dao.repositorio.webservice.UsuarioRepositorio;
 import ufc.russas.encontrosuniversitarios.view.fragment.AtividadesListener;
 import ufc.russas.encontrosuniversitarios.view.fragment.CheckInCheckOutListener;
-
 import java.util.List;
 
 public class RealizarFrequenciaViewModel extends ViewModel {
@@ -35,6 +31,12 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         atividadesFrequencia = new MutableLiveData<>();
     }
 
+    /**
+     * Este método busca todas as atividades que o usuário, com o perfil coordenador, pode iniciar
+     * e finalizar posteriormente
+     * @param context
+     * @param listener
+     */
     public void carregarAtividadesFrequencia(Context context, final AtividadesListener listener){
         MySharedPreferences preferences = MySharedPreferences.getInstance(context);
         int userId = preferences.getUserId();
@@ -57,14 +59,19 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método busca um usuário através de uma matrícula fornecida
+     * @param listener
+     * @param matricula
+     */
     public void buscarUsuarioPorMatricula(final ResponseListener listener, String matricula) {
         usuarioRepositorio.buscarUsuario(listener, matricula);
     }
 
     /**
      * Este método realiza o checkInCheckOut através do QRcode.
-     * @param listener, serve para encapsular o comportamento da view
-     * @param qrcodeMessage
+     * @param listener
+     * @param qrcodeMessage Código obtido a partir da leitura do QRCode
      * @param context
      */
     public void realizarCheckInCheckOut(final CheckInCheckOutListener listener, String qrcodeMessage,Context context) {
@@ -98,6 +105,11 @@ public class RealizarFrequenciaViewModel extends ViewModel {
         }
     }
 
+    /**
+     * Este método realiza o check in e check out através da matrícula.
+     * @param listener
+     * @param context
+     */
     public void realizarCheckInCheckOut(final CheckInCheckOutListener listener, Context context) {
         int roomId = MySharedPreferences.getInstance(context).getRoomId();
         if(roomId != -1) {

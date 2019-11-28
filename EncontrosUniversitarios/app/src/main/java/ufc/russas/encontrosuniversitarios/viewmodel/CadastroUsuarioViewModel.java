@@ -28,6 +28,14 @@ public class CadastroUsuarioViewModel extends ViewModel {
         verificacaoMatricula = new MutableLiveData<>();
     }
 
+    /**
+     * Este método cadastra um usuário no banco de dados
+     * @param nome
+     * @param matricula
+     * @param email
+     * @param senha
+     * @param listener
+     */
     public void cadastrarUsuario(String nome, String matricula, String email, String senha, final CadastroUsuarioListener listener){
         try {
             this.usuario = new Usuario(nome,email,matricula,senha);

@@ -31,6 +31,11 @@ public class UsuarioRepositorio {
         return usuarioRepositorio;
     }
 
+    /**
+     * Este método cadastra um usuário no banco de dados
+     * @param listener Encapsula o comportamento da view
+     * @param usuario Dados de cadastro do usuário
+     */
     public void cadastrarUsuario(final ResponseListener listener, Usuario usuario) {
         usuarioService.cadastrarUsuario(usuario)
                 .enqueue(new Callback<ValidacaoCadastro>() {
@@ -46,6 +51,11 @@ public class UsuarioRepositorio {
                 });
     }
 
+    /**
+     * Este método é utilizado para validar os dados de login de um usuário
+     * @param listener Encapsula o comportamento da view
+     * @param dadosLogin Dados de login do usuário: Email e Senha
+     */
     public void realizarLogin(final ResponseListener listener, DadosLogin dadosLogin){
         usuarioService.autenticarUsuario(dadosLogin).enqueue(new Callback<ValidacaoLogin>() {
                     @Override
@@ -60,6 +70,13 @@ public class UsuarioRepositorio {
                 });
     }
 
+    /**
+     * Este método é utilizado para fazer o check in ou check out de um usuário em uma sala do
+     * evento, a decisão se é check in ou check out é realizada no webservice
+     * @param listener Encapsula o comportamento da view
+     * @param dadosCheckInCheckOut Dados do usuário e a sala em que está realizando check in ou
+     *                             check out
+     */
     public void checkInCheckOut(final ResponseListener listener, DadosCheckInCheckOut dadosCheckInCheckOut) {
         usuarioService.checkInCheckOut(dadosCheckInCheckOut).enqueue(new Callback<ValidacaoCheckInCheckOut>() {
             @Override
@@ -74,6 +91,12 @@ public class UsuarioRepositorio {
         });
     }
 
+    /**
+     * Este método é utilizado para buscar um usuário cadastrado no banco de dados de acordo com sua
+     * matrícula
+     * @param listener Encapsula o comportamento da view
+     * @param matricula Matrícula para buscar o usuário
+     */
     public void buscarUsuario(final ResponseListener listener, String matricula) {
         usuarioService.getUsuario(matricula).enqueue(new Callback<DadosFrequenciaUsuario>() {
             @Override
@@ -89,9 +112,9 @@ public class UsuarioRepositorio {
     }
 
     /**
-     * Este método validará se a matricula passada possui pré cadastro no sistema do guardião.
-     * @param listener, serve para encapsular o comportamento da view
-     * @param matricula
+     * Este método validará se a matricula passada possui pré cadastro no sistema Guardião.
+     * @param listener Encapsula o comportamento da view
+     * @param matricula Matrícula a ser verificada no sistema Guardião
      */
     public void verificarMatricula(final ResponseListener listener, String matricula){
         usuarioService.getVerificacaoMatricula(matricula).enqueue(new Callback<VerificacaoMatricula>() {
@@ -106,6 +129,13 @@ public class UsuarioRepositorio {
             }
         });
     }
+
+    /**
+     * Este método é utilizado para enviar um email de recuperação de senha para o email fornecido.
+     * O email enviado conterá um código de verificação.
+     * @param listener Encapsula o comportamento da view
+     * @param email Email destinatário para enviar o email de verificação
+     */
     public void recuperarSenha(final ResponseListener listener, String email){
         usuarioService.recuperarSenha(email).enqueue(new Callback<Boolean>() {
             @Override
@@ -120,6 +150,12 @@ public class UsuarioRepositorio {
         });
     }
 
+    /**
+     * Este método é utilizado para alterar a senha de um usuário utilizando um código de validação
+     * e a nova senha fornecida pelo usuário
+     * @param listener Encapsula o comportamento da view
+     * @param dadosAlterarSenha Objeto com o código de validação e nova senha do usuário
+     */
     public void alterarSenha(final ResponseListener listener, DadosAlterarSenha dadosAlterarSenha){
         usuarioService.alterarSenha(dadosAlterarSenha).enqueue(new Callback<AlterarSenhaResponse>() {
             @Override
