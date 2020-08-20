@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bootstrap": "^4.3.1",
     "consolidate": "^0.15.1",
     "express": "^4.16.4",
